@@ -1,0 +1,68 @@
+{
+ "name": "@certitrade/ct3-model",
+ "version": "3.0.0",
+ "description": "Javascript library containing the model for the Certitrade Card 3 REST API.",
+ "author": "Certitrade AB",
+ "license": "MIT",
+ "repository": {
+  "type": "git",
+  "url": "git+https://github.com/certitrade/ct3-model"
+ },
+ "bugs": {
+  "url": "https://github.com/certitrade/ct3-model/issues"
+ },
+ "homepage": "https://github.com/certitrade/ct3-model#readme",
+ "private": false,
+ "main": "build/index.js",
+ "typings": "build/index.d.ts",
+ "git": {
+  "tagName": "v${version}"
+ },
+ "github": {
+  "release": true
+ },
+ "jest": {
+  "globals": {
+   "ts-jest": {
+    "tsConfig": "source/tsconfig.test.json"
+   }
+  },
+  "testEnvironment": "node",
+  "testRegex": "((\\.|/)(test|spec))(\\.|\\/.+)(jsx?|tsx?)$",
+  "testPathIgnorePatterns": [
+   "node_modules/",
+   "build/"
+  ],
+  "collectCoverageFrom": [
+   "**/*.{ts,tsx,js,jsx}",
+   "!**/node_modules/**",
+   "!**/build/**"
+  ],
+  "preset": "ts-jest",
+  "testMatch": null
+ },
+ "scripts": {
+  "dev": "watch 'npm run build' .",
+  "lint": "tslint --config tslint.json --project source",
+  "build": "tsc -p source",
+  "test": "jest",
+  "test:watch": "watch jest",
+  "prepare": "npm run build",
+  "release": "release-it patch -n",
+  "clean": "rm -rf build node_modules coverage"
+ },
+ "dependencies": {
+  "@certitrade/ct2-model": "^2.0.1"
+ },
+ "devDependencies": {
+  "@types/jest": "^24.0.11",
+  "@types/node": "^11.11.4",
+  "babel-core": "^6.26.3",
+  "babel-jest": "^24.5.0",
+  "jest": "^24",
+  "ts-jest": "^24.0.0",
+  "typescript": "^3.3.4000",
+  "typescript-tslint-plugin": "^0.2.1",
+  "watch": "^1.0.2"
+ }
+}
