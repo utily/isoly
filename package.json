@@ -1,6 +1,6 @@
 {
  "name": "@certitrade/ct3-model",
- "version": "3.0.0",
+ "version": "3.0.1",
  "description": "Javascript library containing the model for the Certitrade Card 3 REST API.",
  "author": "Certitrade AB",
  "license": "MIT",
