@@ -12,4 +12,7 @@ export namespace DateTime {
 	export function create(value: Date): DateTime {
 		return value.toISOString()
 	}
+	export function now(): DateTime {
+		return create(new Date())
+	}
 }
