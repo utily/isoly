@@ -1,4 +1,4 @@
-import { CountryCode } from "./CountryCode"
+import * as CountryCode from "./CountryCode"
 import { Currency } from "./Currency"
 import { CurrencyCode } from "./CurrencyCode"
 import { DateTime } from "./DateTime"
