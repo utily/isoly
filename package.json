@@ -1,20 +1,20 @@
 {
- "name": "@certitrade/ct3-model",
- "version": "3.0.4",
- "description": "Javascript library containing the model for the Certitrade Card 3 REST API.",
- "author": "Certitrade AB",
+ "name": "isoly",
+ "version": "0.0.1",
+ "description": "Datatypes and functions specified by ISO-standards.",
+ "author": "Certitrade",
  "license": "MIT",
  "repository": {
   "type": "git",
-  "url": "git+https://github.com/certitrade/ct3-model"
+  "url": "git+https://github.com/certitrade/isoly"
  },
  "bugs": {
-  "url": "https://github.com/certitrade/ct3-model/issues"
+  "url": "https://github.com/certitrade/isoly/issues"
  },
- "homepage": "https://github.com/certitrade/ct3-model#readme",
+ "homepage": "https://github.com/certitrade/isoly#readme",
  "private": false,
- "main": "build/index.js",
- "typings": "build/index.d.ts",
+ "main": "dist/index.js",
+ "typings": "dist/index.d.ts",
  "git": {
   "tagName": "v${version}"
  },
@@ -24,32 +24,31 @@
  "jest": {
   "globals": {
    "ts-jest": {
-    "tsConfig": "source/tsconfig.test.json"
+    "tsConfig": "tsconfig.test.json"
    }
   },
   "testEnvironment": "node",
   "testRegex": "((\\.|/)(test|spec))(\\.|\\/.+)(jsx?|tsx?)$",
   "testPathIgnorePatterns": [
    "node_modules/",
-   "build/"
+   "dist/"
   ],
   "collectCoverageFrom": [
    "**/*.{ts,tsx,js,jsx}",
    "!**/node_modules/**",
-   "!**/build/**"
+   "!**/dist/**"
   ],
   "preset": "ts-jest",
   "testMatch": null
  },
  "scripts": {
   "dev": "watch 'npm run build' .",
-  "lint": "tslint --config tslint.json --project source",
-  "build": "tsc -p source",
+  "lint": "tslint --config tslint.json --project .",
+  "build": "tsc -p .",
   "test": "jest",
   "test:watch": "watch jest",
   "prepare": "npm run build",
-  "release": "release-it patch -n",
-  "clean": "rm -rf build node_modules coverage"
+  "clean": "rm -rf dist node_modules coverage"
  },
  "dependencies": {},
  "devDependencies": {
