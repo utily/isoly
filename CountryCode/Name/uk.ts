@@ -4,6 +4,10 @@ import { Numeric } from "../Numeric"
 export function from(country: Alpha2 | Alpha3 | Numeric): string {
 	return names[country] || from(Alpha2.from(country as Alpha3 | Numeric))
 }
+export function parse(country: string): Alpha2 | undefined {
+	const result = Object.entries(names).find(entry => (entry[1] && entry[1].toLowerCase()) == country.toLowerCase())
+	return result && result[0] as Alpha2
+}
 
 const names: { [country: string]: string | undefined } = {
 		AU: "Австралія",

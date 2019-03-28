@@ -1,3 +1,4 @@
+import { Alpha2 } from ".."
 import * as ar from "./ar"
 import * as az from "./az"
 import * as be from "./be"
@@ -44,6 +45,17 @@ import * as tr from "./tr"
 import * as uk from "./uk"
 import * as uz from "./uz"
 import * as zh from "./zh"
+
+function parse(country: string): Alpha2 | undefined {
+	return ar.parse(country) || az.parse(country) || be.parse(country) || bg.parse(country) || bs.parse(country) || ca.parse(country) ||
+		cs.parse(country) || da.parse(country) || de.parse(country) || el.parse(country) || en.parse(country) || es.parse(country) ||
+		et.parse(country) || fa.parse(country) || fi.parse(country) || fr.parse(country) || he.parse(country) || hr.parse(country) ||
+		hu.parse(country) || hy.parse(country) || id.parse(country) || it.parse(country) || ja.parse(country) || ka.parse(country) ||
+		kk.parse(country) || ko.parse(country) || ky.parse(country) || lt.parse(country) || lv.parse(country) || mk.parse(country) ||
+		mn.parse(country) || nb.parse(country) || nl.parse(country) || nn.parse(country) || pl.parse(country) || pt.parse(country) ||
+		ro.parse(country) || ru.parse(country) || sk.parse(country) || sl.parse(country) || sr.parse(country) || sv.parse(country) ||
+		tr.parse(country) || uk.parse(country) || uz.parse(country) || zh.parse(country)
+}
 
 export {
 	ar,
@@ -92,4 +104,5 @@ export {
 	uk,
 	uz,
 	zh,
+	parse,
 }
