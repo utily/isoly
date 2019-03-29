@@ -1,4 +1,8 @@
-import { Alpha2 } from ".."
+import { Language } from "../../Language"
+import { Alpha2 } from "../Alpha2"
+import { Alpha3 } from "../Alpha3"
+import { Numeric } from "../Numeric"
+
 import * as ar from "./ar"
 import * as az from "./az"
 import * as be from "./be"
@@ -56,7 +60,59 @@ function parse(country: string): Alpha2 | undefined {
 		ro.parse(country) || ru.parse(country) || sk.parse(country) || sl.parse(country) || sr.parse(country) || sv.parse(country) ||
 		tr.parse(country) || uk.parse(country) || uz.parse(country) || zh.parse(country)
 }
-
+function from(language: Language, country: Alpha2 | Alpha3 | Numeric): string {
+	let result: string
+	switch (language) {
+		case "ar": result = ar.from(country); break
+		case "az": result = az.from(country); break
+		case "be": result = be.from(country); break
+		case "bg": result = bg.from(country); break
+		case "bs": result = bs.from(country); break
+		case "ca": result = ca.from(country); break
+		case "cs": result = cs.from(country); break
+		case "da": result = da.from(country); break
+		case "de": result = de.from(country); break
+		case "el": result = el.from(country); break
+		default:
+		case "en": result = en.from(country); break
+		case "es": result = es.from(country); break
+		case "et": result = et.from(country); break
+		case "fa": result = fa.from(country); break
+		case "fi": result = fi.from(country); break
+		case "fr": result = fr.from(country); break
+		case "he": result = he.from(country); break
+		case "hr": result = hr.from(country); break
+		case "hu": result = hu.from(country); break
+		case "hy": result = hy.from(country); break
+		case "id": result = id.from(country); break
+		case "it": result = it.from(country); break
+		case "ja": result = ja.from(country); break
+		case "ka": result = ka.from(country); break
+		case "kk": result = kk.from(country); break
+		case "ko": result = ko.from(country); break
+		case "ky": result = ky.from(country); break
+		case "lt": result = lt.from(country); break
+		case "lv": result = lv.from(country); break
+		case "mk": result = mk.from(country); break
+		case "mn": result = mn.from(country); break
+		case "nb": result = nb.from(country); break
+		case "nl": result = nl.from(country); break
+		case "nn": result = nn.from(country); break
+		case "pl": result = pl.from(country); break
+		case "pt": result = pt.from(country); break
+		case "ro": result = ro.from(country); break
+		case "ru": result = ru.from(country); break
+		case "sk": result = sk.from(country); break
+		case "sl": result = sl.from(country); break
+		case "sr": result = sr.from(country); break
+		case "sv": result = sv.from(country); break
+		case "tr": result = tr.from(country); break
+		case "uk": result = uk.from(country); break
+		case "uz": result = uz.from(country); break
+		case "zh": result = zh.from(country); break
+	}
+	return result
+}
 export {
 	ar,
 	az,
@@ -104,5 +160,6 @@ export {
 	uk,
 	uz,
 	zh,
+	from,
 	parse,
 }
