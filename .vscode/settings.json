@@ -2,10 +2,10 @@
 	"files.exclude": {
 		".*": true,
 		"*.json": true,
-		"build": true,
+		"dist": true,
 		"README.md": true,
 		"LICENSE": true,
-		"source/tsconfig.*": true
+		"tsconfig.*": true
 	},
 	"editor.tabSize": 2,
 	"editor.detectIndentation": false,
