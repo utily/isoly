@@ -15,4 +15,7 @@ export namespace DateTime {
 	export function now(): DateTime {
 		return create(new Date())
 	}
+	export function toLocale(value: Date): DateTime {
+		return value.toLocaleDateString()
+	}
 }
