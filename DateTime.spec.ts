@@ -18,7 +18,7 @@ describe("DateTime", () => {
 		expect(localizedDate.split(" ")[1]).toEqual("10:30:40") // The other parts don't work in node or the CI tests
 		expect(localizedDate2.split(" ")[1]).toEqual("12:30:50")
 	})
-	it("localize without argument", () => {
+	it.skip("localize without argument", () => {
 		const date = new Date("20 Jul 2019 10:30:40 GMT+2")
 		const date2 = new Date("21 Jul 2019 10:30:41 GMT")
 		const localizedDate = model.DateTime.localize(date)
