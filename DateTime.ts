@@ -15,9 +15,9 @@ export namespace DateTime {
 	export function now(): DateTime {
 		return create(new Date())
 	}
-	export function localize(value: Date, locale?: string, options?: object): DateTime {
+	export function localize(value: Date, locale?: string): DateTime {
 		const localeString = locale ? locale : Intl.DateTimeFormat().resolvedOptions().locale
-		const localeOptions = options ? options : {
+		const localeOptions = {
 			year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", second: "numeric",
 			timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 		}
