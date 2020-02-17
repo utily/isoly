@@ -11,7 +11,7 @@
  "bugs": {
   "url": "https://github.com/payfunc/isoly/issues"
  },
- "homepage": "https://github.com/payfunc/isoly#readme",
+ "homepage": "https://payfunc.com/open-source/isoly",
  "private": false,
  "main": "dist/index.js",
  "typings": "dist/index.d.ts",
