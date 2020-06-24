@@ -1,6 +1,8 @@
 import * as model from "./index"
+import { DateTime } from "./DateTime"
 
 describe("DateTime", () => {
+	
 	const data = [
 		["20 Jul 2019 10:30:40 GMT+2", "10:30:40"],
 		["21 Jul 2019 10:30:50 GMT", "12:30:50"],
@@ -12,6 +14,9 @@ describe("DateTime", () => {
 		const d = model.DateTime.create(new Date(Date.UTC(2020, 11, 31, 23, 59, 59)))
 		expect(model.DateTime.is(d))
 		expect(d).toBe("2020-12-31T23:59:59.000Z")
+	})
+	it.skip("Uses GMT", () => {
+		expect(new Date().getTimezoneOffset()).toEqual(0)
 	})
 	it.skip("zero-pads localized", () => {
 		expect(model.DateTime.localize(new Date(dataLocal[0]), "sv-SE")).toEqual(dataLocal[1])
@@ -27,7 +32,7 @@ describe("DateTime", () => {
 		}
 	})
 	it("localize DateTime with locale", () => {
-		expect(model.DateTime.localize("2020-12-31T23:59:59.000Z", "en-US")).toEqual("01/01/2020, 00:59:59 PM")
+		expect(model.DateTime.localize("2020-12-31T23:59:59.000Z", "en-US")).toEqual("12/31/2020, 00:59:59 PM")
 	})
 
 })
