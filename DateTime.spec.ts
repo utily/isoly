@@ -26,4 +26,8 @@ describe("DateTime", () => {
 			expect(model.DateTime.localize(new Date(date[0])).split(" ")[1]).toEqual(date[1])
 		}
 	})
+	it("localize DateTime with locale", () => {
+		expect(model.DateTime.localize("2020-12-31T23:59:59.000Z", "sv-SE")).toEqual("2021-01-01 00:59:59")
+	})
+
 })
