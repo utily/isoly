@@ -15,12 +15,12 @@ export namespace DateTime {
 	export function now(): DateTime {
 		return create(new Date())
 	}
-	export function localize(value: Date, locale?: string): DateTime {
+	export function localize(value: DateTime | Date, locale?: string): DateTime {
 		const localeString = locale ? locale : Intl.DateTimeFormat().resolvedOptions().locale
 		const localeOptions = {
-			year: "numeric", month: "2-digit", day: "2-digit", hour: "numeric", minute: "numeric", second: "numeric",
+			year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit",
 			timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 		}
-		return value.toLocaleDateString(localeString, localeOptions)
+		return (is(value) ? parse(value) : value).toLocaleString(localeString, localeOptions)
 	}
 }
