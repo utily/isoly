@@ -1,7 +1,4 @@
-import * as timeZone from "timezone-mock"
 import * as model from "./index"
-import { DateTime } from "./DateTime"
-
 
 describe("DateTime", () => {
 	it("create + is", () => {
