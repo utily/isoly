@@ -15,10 +15,14 @@ describe("DateTime", () => {
 			["21 Jul 2019 10:30:50 GMT", "12:30:50"],
 		]
 		for (const date of data)
-			it("localize with locale " + date[0], () => expect(model.DateTime.localize(new Date(date[0]), "sv-SE").split(" ")[1]).toEqual(date[1]))
+			it("localize with locale " + date[0], () =>
+				expect(model.DateTime.localize(new Date(date[0]), "sv-SE").split(" ")[1]).toEqual(date[1])
+			)
 
 		for (const date of data)
-			it("localize without locale " + date[0], () => expect(model.DateTime.localize(new Date(date[0])).split(" ")[1]).toEqual(date[1]))
+			it("localize without locale " + date[0], () =>
+				expect(model.DateTime.localize(new Date(date[0])).split(" ")[1]).toEqual(date[1])
+			)
 
 		it("localize DateTime with locale", () => {
 			expect(model.DateTime.localize("2020-12-31T23:59:59.000Z", "en-US")).toEqual("01/01/2021, 12:59:59 AM")

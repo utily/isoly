@@ -7,7 +7,7 @@ export function from(country: Alpha2 | Alpha3 | Numeric): string {
 }
 export function parse(country: string): Alpha2 | undefined {
 	const result = Object.entries(names).find(entry => (entry[1] && entry[1].toLowerCase()) == country.toLowerCase())
-	return result && result[0] as Alpha2
+	return result && (result[0] as Alpha2)
 }
 
 const names: { [country: string]: string | undefined } = {

@@ -5,11 +5,4 @@ import { DateTime } from "./DateTime"
 import { Encoding } from "./Encoding"
 import { Language } from "./Language"
 
-export {
-	CountryCode,
-	Currency,
-	CurrencyCode,
-	DateTime,
-	Encoding,
-	Language,
-}
+export { CountryCode, Currency, CurrencyCode, DateTime, Encoding, Language }
