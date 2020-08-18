@@ -3,9 +3,4 @@ import { Alpha3 } from "./Alpha3"
 import * as Name from "./Name"
 import { Numeric } from "./Numeric"
 
-export {
-	Alpha2,
-	Alpha3,
-	Name,
-	Numeric,
-}
+export { Alpha2, Alpha3, Name, Numeric }
