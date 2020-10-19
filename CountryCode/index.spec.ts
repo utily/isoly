@@ -1,4 +1,4 @@
-import * as isoly from ".."
+import * as isoly from "../index"
 
 describe("CountryCode", () => {
 	it("Alpha2 from Alpha3", () => {
