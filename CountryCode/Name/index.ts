@@ -2,7 +2,6 @@ import { Language } from "../../Language"
 import { Alpha2 } from "../Alpha2"
 import { Alpha3 } from "../Alpha3"
 import { Numeric } from "../Numeric"
-
 import * as ar from "./ar"
 import * as az from "./az"
 import * as be from "./be"
