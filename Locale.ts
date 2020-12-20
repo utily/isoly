@@ -1,5 +1,5 @@
-import { Language } from "./Language"
 import { Alpha2 } from "./CountryCode"
+import { Language } from "./Language"
 export type Locale =
 	| "af-ZA"
 	| "am-ET"
