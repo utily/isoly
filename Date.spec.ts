@@ -4,7 +4,7 @@ describe("Date", () => {
 	it("create + is", () => {
 		const d = model.Date.create(new Date(Date.UTC(2020, 11, 31, 23, 59, 59)))
 		expect(model.Date.is(d))
-		expect(d).toBe("2020-12-31")
+		expect(d).toBe('2020-12-31')
 	})
 	if (new Date(Date.UTC(2020, 11, 31, 23, 59, 59)).getTimezoneOffset() == -60) {
 		it("zero-pads localized", () => {
