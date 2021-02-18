@@ -511,6 +511,42 @@ export namespace Alpha2 {
 	export function from(country: Alpha3 | Numeric): Alpha2 {
 		return typeof country == "number" ? numericToAlpha2[country.toString()] : alpha3ToAlpha2[country]
 	}
+	export function isEEA(country: Alpha2): boolean {
+		return [
+			"AL",
+			"AT",
+			"BA",
+			"BE",
+			"BG",
+			"CH",
+			"CY",
+			"DE",
+			"DK",
+			"EE",
+			"ES",
+			"FI",
+			"FR",
+			"GB",
+			"GR",
+			"HR",
+			"HU",
+			"IE",
+			"IS",
+			"IT",
+			"LT",
+			"LV",
+			"MK",
+			"MT",
+			"NL",
+			"NO",
+			"PL",
+			"PT",
+			"RO",
+			"RS",
+			"SE",
+			"SI",
+		].some(c => c == country)
+	}
 }
 
 const numericToAlpha2: { [country: string]: Alpha2 } = {
