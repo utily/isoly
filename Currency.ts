@@ -549,6 +549,10 @@ export namespace Currency {
 			"932": "ZWL",
 		}[currencyCode] as Currency
 	}
+	export function round(value: number, currency: Currency): number {
+		const factor = Math.pow(10, decimalDigits(currency) ?? 2)
+		return Math.round((value + Number.EPSILON) * factor) / factor
+	}
 	export function decimalDigits(currency: Currency): number | undefined {
 		return {
 			AED: 2,
