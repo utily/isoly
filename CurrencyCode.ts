@@ -364,7 +364,7 @@ export namespace CurrencyCode {
 		"999",
 	]
 	export function is(value: CurrencyCode | any): value is CurrencyCode {
-		return typeof value == "string" && types.includes(value as any)
+		return types.includes(value)
 	}
 	export function from(currency: Currency): CurrencyCode {
 		return {
