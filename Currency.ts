@@ -364,7 +364,7 @@ export namespace Currency {
 		"ZWL",
 	]
 	export function is(currency: Currency | any): currency is Currency {
-		return typeof currency == "string" && types.includes(currency as any)
+		return types.includes(currency)
 	}
 	export function from(currencyCode: CurrencyCode): Currency {
 		return {
