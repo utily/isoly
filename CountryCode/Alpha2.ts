@@ -253,260 +253,259 @@ export type Alpha2 =
 	| "ZW"
 
 export namespace Alpha2 {
+	export const types: Alpha2[] = [
+		"AF",
+		"AX",
+		"AL",
+		"DZ",
+		"AS",
+		"AD",
+		"AO",
+		"AI",
+		"AQ",
+		"AG",
+		"AR",
+		"AM",
+		"AW",
+		"AU",
+		"AT",
+		"AZ",
+		"BS",
+		"BH",
+		"BD",
+		"BB",
+		"BY",
+		"BE",
+		"BZ",
+		"BJ",
+		"BM",
+		"BT",
+		"BO",
+		"BQ",
+		"BA",
+		"BW",
+		"BV",
+		"BR",
+		"IO",
+		"BN",
+		"BG",
+		"BF",
+		"BI",
+		"CV",
+		"KH",
+		"CM",
+		"CA",
+		"KY",
+		"CF",
+		"TD",
+		"CL",
+		"CN",
+		"CX",
+		"CC",
+		"CO",
+		"KM",
+		"CG",
+		"CD",
+		"CK",
+		"CR",
+		"CI",
+		"HR",
+		"CU",
+		"CW",
+		"CY",
+		"CZ",
+		"DK",
+		"DJ",
+		"DM",
+		"DO",
+		"EC",
+		"EG",
+		"SV",
+		"GQ",
+		"ER",
+		"EE",
+		"SZ",
+		"ET",
+		"FK",
+		"FO",
+		"FJ",
+		"FI",
+		"FR",
+		"GF",
+		"PF",
+		"TF",
+		"GA",
+		"GM",
+		"GE",
+		"DE",
+		"GH",
+		"GI",
+		"GR",
+		"GL",
+		"GD",
+		"GP",
+		"GU",
+		"GT",
+		"GG",
+		"GN",
+		"GW",
+		"GY",
+		"HT",
+		"HM",
+		"VA",
+		"HN",
+		"HK",
+		"HU",
+		"IS",
+		"IN",
+		"ID",
+		"IR",
+		"IQ",
+		"IE",
+		"IM",
+		"IL",
+		"IT",
+		"JM",
+		"JP",
+		"JE",
+		"JO",
+		"KZ",
+		"KE",
+		"KI",
+		"KP",
+		"KR",
+		"KW",
+		"KG",
+		"LA",
+		"LV",
+		"LB",
+		"LS",
+		"LR",
+		"LY",
+		"LI",
+		"LT",
+		"LU",
+		"MO",
+		"MG",
+		"MW",
+		"MY",
+		"MV",
+		"ML",
+		"MT",
+		"MH",
+		"MQ",
+		"MR",
+		"MU",
+		"YT",
+		"MX",
+		"FM",
+		"MD",
+		"MC",
+		"MN",
+		"ME",
+		"MS",
+		"MA",
+		"MZ",
+		"MM",
+		"NA",
+		"NR",
+		"NP",
+		"NL",
+		"NC",
+		"NZ",
+		"NI",
+		"NE",
+		"NG",
+		"NU",
+		"NF",
+		"MK",
+		"MP",
+		"NO",
+		"OM",
+		"PK",
+		"PW",
+		"PS",
+		"PA",
+		"PG",
+		"PY",
+		"PE",
+		"PH",
+		"PN",
+		"PL",
+		"PT",
+		"PR",
+		"QA",
+		"RE",
+		"RO",
+		"RU",
+		"RW",
+		"BL",
+		"SH",
+		"KN",
+		"LC",
+		"MF",
+		"PM",
+		"VC",
+		"WS",
+		"SM",
+		"ST",
+		"SA",
+		"SN",
+		"RS",
+		"SC",
+		"SL",
+		"SG",
+		"SX",
+		"SK",
+		"SI",
+		"SB",
+		"SO",
+		"ZA",
+		"GS",
+		"SS",
+		"ES",
+		"LK",
+		"SD",
+		"SR",
+		"SJ",
+		"SE",
+		"CH",
+		"SY",
+		"TW",
+		"TJ",
+		"TZ",
+		"TH",
+		"TL",
+		"TG",
+		"TK",
+		"TO",
+		"TT",
+		"TN",
+		"TR",
+		"TM",
+		"TC",
+		"TV",
+		"UG",
+		"UA",
+		"AE",
+		"GB",
+		"US",
+		"UM",
+		"UY",
+		"UZ",
+		"VU",
+		"VE",
+		"VN",
+		"VG",
+		"VI",
+		"WF",
+		"EH",
+		"YE",
+		"ZM",
+		"ZW",
+	]
 	export function is(value: any | Alpha2): value is Alpha2 {
-		return (
-			typeof value == "string" &&
-			value.length == 2 &&
-			(value == "AF" ||
-				value == "AX" ||
-				value == "AL" ||
-				value == "DZ" ||
-				value == "AS" ||
-				value == "AD" ||
-				value == "AO" ||
-				value == "AI" ||
-				value == "AQ" ||
-				value == "AG" ||
-				value == "AR" ||
-				value == "AM" ||
-				value == "AW" ||
-				value == "AU" ||
-				value == "AT" ||
-				value == "AZ" ||
-				value == "BS" ||
-				value == "BH" ||
-				value == "BD" ||
-				value == "BB" ||
-				value == "BY" ||
-				value == "BE" ||
-				value == "BZ" ||
-				value == "BJ" ||
-				value == "BM" ||
-				value == "BT" ||
-				value == "BO" ||
-				value == "BQ" ||
-				value == "BA" ||
-				value == "BW" ||
-				value == "BV" ||
-				value == "BR" ||
-				value == "IO" ||
-				value == "BN" ||
-				value == "BG" ||
-				value == "BF" ||
-				value == "BI" ||
-				value == "CV" ||
-				value == "KH" ||
-				value == "CM" ||
-				value == "CA" ||
-				value == "KY" ||
-				value == "CF" ||
-				value == "TD" ||
-				value == "CL" ||
-				value == "CN" ||
-				value == "CX" ||
-				value == "CC" ||
-				value == "CO" ||
-				value == "KM" ||
-				value == "CG" ||
-				value == "CD" ||
-				value == "CK" ||
-				value == "CR" ||
-				value == "CI" ||
-				value == "HR" ||
-				value == "CU" ||
-				value == "CW" ||
-				value == "CY" ||
-				value == "CZ" ||
-				value == "DK" ||
-				value == "DJ" ||
-				value == "DM" ||
-				value == "DO" ||
-				value == "EC" ||
-				value == "EG" ||
-				value == "SV" ||
-				value == "GQ" ||
-				value == "ER" ||
-				value == "EE" ||
-				value == "SZ" ||
-				value == "ET" ||
-				value == "FK" ||
-				value == "FO" ||
-				value == "FJ" ||
-				value == "FI" ||
-				value == "FR" ||
-				value == "GF" ||
-				value == "PF" ||
-				value == "TF" ||
-				value == "GA" ||
-				value == "GM" ||
-				value == "GE" ||
-				value == "DE" ||
-				value == "GH" ||
-				value == "GI" ||
-				value == "GR" ||
-				value == "GL" ||
-				value == "GD" ||
-				value == "GP" ||
-				value == "GU" ||
-				value == "GT" ||
-				value == "GG" ||
-				value == "GN" ||
-				value == "GW" ||
-				value == "GY" ||
-				value == "HT" ||
-				value == "HM" ||
-				value == "VA" ||
-				value == "HN" ||
-				value == "HK" ||
-				value == "HU" ||
-				value == "IS" ||
-				value == "IN" ||
-				value == "ID" ||
-				value == "IR" ||
-				value == "IQ" ||
-				value == "IE" ||
-				value == "IM" ||
-				value == "IL" ||
-				value == "IT" ||
-				value == "JM" ||
-				value == "JP" ||
-				value == "JE" ||
-				value == "JO" ||
-				value == "KZ" ||
-				value == "KE" ||
-				value == "KI" ||
-				value == "KP" ||
-				value == "KR" ||
-				value == "KW" ||
-				value == "KG" ||
-				value == "LA" ||
-				value == "LV" ||
-				value == "LB" ||
-				value == "LS" ||
-				value == "LR" ||
-				value == "LY" ||
-				value == "LI" ||
-				value == "LT" ||
-				value == "LU" ||
-				value == "MO" ||
-				value == "MG" ||
-				value == "MW" ||
-				value == "MY" ||
-				value == "MV" ||
-				value == "ML" ||
-				value == "MT" ||
-				value == "MH" ||
-				value == "MQ" ||
-				value == "MR" ||
-				value == "MU" ||
-				value == "YT" ||
-				value == "MX" ||
-				value == "FM" ||
-				value == "MD" ||
-				value == "MC" ||
-				value == "MN" ||
-				value == "ME" ||
-				value == "MS" ||
-				value == "MA" ||
-				value == "MZ" ||
-				value == "MM" ||
-				value == "NA" ||
-				value == "NR" ||
-				value == "NP" ||
-				value == "NL" ||
-				value == "NC" ||
-				value == "NZ" ||
-				value == "NI" ||
-				value == "NE" ||
-				value == "NG" ||
-				value == "NU" ||
-				value == "NF" ||
-				value == "MK" ||
-				value == "MP" ||
-				value == "NO" ||
-				value == "OM" ||
-				value == "PK" ||
-				value == "PW" ||
-				value == "PS" ||
-				value == "PA" ||
-				value == "PG" ||
-				value == "PY" ||
-				value == "PE" ||
-				value == "PH" ||
-				value == "PN" ||
-				value == "PL" ||
-				value == "PT" ||
-				value == "PR" ||
-				value == "QA" ||
-				value == "RE" ||
-				value == "RO" ||
-				value == "RU" ||
-				value == "RW" ||
-				value == "BL" ||
-				value == "SH" ||
-				value == "KN" ||
-				value == "LC" ||
-				value == "MF" ||
-				value == "PM" ||
-				value == "VC" ||
-				value == "WS" ||
-				value == "SM" ||
-				value == "ST" ||
-				value == "SA" ||
-				value == "SN" ||
-				value == "RS" ||
-				value == "SC" ||
-				value == "SL" ||
-				value == "SG" ||
-				value == "SX" ||
-				value == "SK" ||
-				value == "SI" ||
-				value == "SB" ||
-				value == "SO" ||
-				value == "ZA" ||
-				value == "GS" ||
-				value == "SS" ||
-				value == "ES" ||
-				value == "LK" ||
-				value == "SD" ||
-				value == "SR" ||
-				value == "SJ" ||
-				value == "SE" ||
-				value == "CH" ||
-				value == "SY" ||
-				value == "TW" ||
-				value == "TJ" ||
-				value == "TZ" ||
-				value == "TH" ||
-				value == "TL" ||
-				value == "TG" ||
-				value == "TK" ||
-				value == "TO" ||
-				value == "TT" ||
-				value == "TN" ||
-				value == "TR" ||
-				value == "TM" ||
-				value == "TC" ||
-				value == "TV" ||
-				value == "UG" ||
-				value == "UA" ||
-				value == "AE" ||
-				value == "GB" ||
-				value == "US" ||
-				value == "UM" ||
-				value == "UY" ||
-				value == "UZ" ||
-				value == "VU" ||
-				value == "VE" ||
-				value == "VN" ||
-				value == "VG" ||
-				value == "VI" ||
-				value == "WF" ||
-				value == "EH" ||
-				value == "YE" ||
-				value == "ZM" ||
-				value == "ZW")
-		)
+		return types.includes(value)
 	}
 	export function from(country: Alpha3 | Numeric): Alpha2 {
 		return typeof country == "number" ? numericToAlpha2[country.toString()] : alpha3ToAlpha2[country]
@@ -545,7 +544,7 @@ export namespace Alpha2 {
 			"RS",
 			"SE",
 			"SI",
-		].some(c => c == country)
+		].includes(country)
 	}
 }
 
