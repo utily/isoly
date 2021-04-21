@@ -91,7 +91,7 @@ export type CallingCode =
 	| "+44"
 	| "+224"
 	| "+245"
-	| "+595"
+	| "+592"
 	| "+509"
 	| "+379"
 	| "+504"
@@ -339,7 +339,7 @@ export namespace CallingCode {
 				value == "+44" ||
 				value == "+224" ||
 				value == "+245" ||
-				value == "+595" ||
+				value == "+592" ||
 				value == "+509" ||
 				value == "+379" ||
 				value == "+504" ||
@@ -516,7 +516,7 @@ export namespace CallingCode {
 
 const callingCodetoAlpha2: { [key in CallingCode]: Alpha2 | Alpha2[] } = {
 	"+93": "AF",
-	"+358": ["AX", "FI"],
+	"+358": ["FI", "AX"],
 	"+355": "AL",
 	"+213": "DZ",
 	"+1684": "AS",
@@ -553,7 +553,7 @@ const callingCodetoAlpha2: { [key in CallingCode]: Alpha2 | Alpha2[] } = {
 	"+257": "BI",
 	"+855": "KH",
 	"+237": "CM",
-	"+1": ["CA", "US"],
+	"+1": ["US", "CA"],
 	"+238": "CV",
 	"+345": "KY",
 	"+236": "CF",
@@ -600,10 +600,11 @@ const callingCodetoAlpha2: { [key in CallingCode]: Alpha2 | Alpha2[] } = {
 	"+590": ["GP", "BL", "MF"],
 	"+1671": "GU",
 	"+502": "GT",
-	"+44": ["GG", "GB", "IM", "JE"],
+	"+44": ["GB", "JE", "IM", "GG"],
 	"+224": "GN",
 	"+245": "GW",
-	"+595": ["GY", "PY"],
+	"+592": "GY",
+	"+595": "PY",
 	"+509": "HT",
 	"+379": "VA",
 	"+504": "HN",
@@ -648,7 +649,7 @@ const callingCodetoAlpha2: { [key in CallingCode]: Alpha2 | Alpha2[] } = {
 	"+596": "MQ",
 	"+222": "MR",
 	"+230": "MU",
-	"+262": ["YT", "RE"],
+	"+262": ["RE", "YT"],
 	"+52": "MX",
 	"+691": "FM",
 	"+373": "MD",
@@ -837,7 +838,7 @@ const alpha2toCallingCode: { [country in Alpha2]?: CallingCode | undefined } = {
 	GG: "+44",
 	GN: "+224",
 	GW: "+245",
-	GY: "+595",
+	GY: "+592",
 	HT: "+509",
 	VA: "+379",
 	HN: "+504",
