@@ -19,9 +19,6 @@ describe("Date", () => {
 				expect(model.Date.localize(new Date(date[0]), "sv-SE")).toEqual(date[1])
 			)
 
-		for (const date of data)
-			it("localize without locale " + date[0], () => expect(model.Date.localize(new Date(date[0]))).toEqual(date[1]))
-
 		it("localize Date with locale", () => {
 			expect(model.Date.localize("2020-12-31", "en-US")).toEqual("12/31/2020")
 		})
