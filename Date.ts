@@ -1,31 +1,80 @@
-export type IsoDate = string
+import { DateSpan } from "./DateSpan"
 
-export namespace IsoDate {
-	export function is(value: any | IsoDate): value is IsoDate {
+export type Date = string
+
+export namespace Date {
+	export function is(value: any | Date): value is Date {
 		return (
 			typeof value == "string" && /^(\d{4}-[01]\d-[0-3]\d)|(\d{4}-[01]\d-[0-3]\d)|(\d{4}-[01]\d-[0-3]\d)$/.test(value)
 		)
 	}
-	export function parse(value: IsoDate, time?: string): Date {
-		return new Date(value + (time ?? "T12:00:00.000Z"))
+	export function parse(value: Date, time?: string): globalThis.Date {
+		return new globalThis.Date(value + (time ?? "T12:00:00.000Z"))
 	}
-	export function create(value: Date): IsoDate {
+	export function create(value: globalThis.Date): Date {
 		return value.toISOString().substring(0, 10)
 	}
-	export function now(): IsoDate {
-		return create(new Date())
+	export function now(): Date {
+		return create(new globalThis.Date())
 	}
-	export function localize(value: IsoDate | Date, locale?: string): IsoDate {
-		const localeString = locale ? locale : Intl.DateTimeFormat().resolvedOptions().locale
-		const localeOptions = {
-			year: "numeric",
-			month: "2-digit",
-			day: "2-digit",
-			hour: "2-digit",
-			minute: "2-digit",
-			second: "2-digit",
-			timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+	export function localize(value: Date | globalThis.Date, locale?: string): Date {
+		return (is(value) ? parse(value) : value)
+			.toLocaleString(locale ? locale : Intl.DateTimeFormat().resolvedOptions().locale, {
+				year: "numeric",
+				month: "2-digit",
+				day: "2-digit",
+				hour: "2-digit",
+				minute: "2-digit",
+				second: "2-digit",
+				timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+			})
+			.substring(0, 10)
+	}
+	export function next(date: Date, days: number | DateSpan = 1): Date {
+		let result: Date
+		if (typeof days == "number") {
+			const r = new globalThis.Date(date)
+			r.setDate(r.getDate() + days)
+			result = Date.create(r)
+		} else {
+			result = date
+			if (days.years)
+				result = nextYear(result, days.years)
+			if (days.months)
+				result = nextYear(result, days.months)
+			if (days.days)
+				result = nextYear(result, days.days)
 		}
-		return (is(value) ? parse(value) : value).toLocaleString(localeString, localeOptions).substring(0, 10)
+		return result
+	}
+	export function previous(date: Date, days = 1): Date {
+		return next(date, -days)
+	}
+	export function nextMonth(date: Date, months = 1): Date {
+		const result = new globalThis.Date(date)
+		result.setMonth(result.getMonth() + months)
+		return Date.create(result)
+	}
+	export function previousMonth(date: Date, months = 1): Date {
+		return nextMonth(date, -months)
+	}
+	export function nextYear(date: Date, years = 1): Date {
+		const result = new globalThis.Date(date)
+		result.setFullYear(result.getFullYear() + years)
+		return Date.create(result)
+	}
+	export function previousYear(date: Date, years = 1): Date {
+		return nextYear(date, -years)
+	}
+	export function firstOfMonth(date: Date): Date {
+		const result = new globalThis.Date(date)
+		result.setDate(1)
+		return Date.create(result)
+	}
+	export function lastOfMonth(date: Date): Date {
+		const result = new globalThis.Date(date)
+		result.setMonth(result.getMonth() + 1)
+		result.setDate(-1)
+		return Date.create(result)
 	}
 }
