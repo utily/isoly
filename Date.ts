@@ -41,14 +41,28 @@ export namespace Date {
 			if (days.years)
 				result = nextYear(result, days.years)
 			if (days.months)
-				result = nextYear(result, days.months)
+				result = nextMonth(result, days.months)
 			if (days.days)
-				result = nextYear(result, days.days)
+				result = next(result, days.days)
 		}
 		return result
 	}
-	export function previous(date: Date, days = 1): Date {
-		return next(date, -days)
+	export function previous(date: Date, days: number | DateSpan = 1): Date {
+		let result: Date
+		if (typeof days == "number") {
+			const r = new globalThis.Date(date)
+			r.setDate(r.getDate() - days)
+			result = Date.create(r)
+		} else {
+			result = date
+			if (days.years)
+				result = previousYear(result, days.years)
+			if (days.months)
+				result = previousMonth(result, days.months)
+			if (days.days)
+				result = previous(result, days.days)
+		}
+		return result
 	}
 	export function nextMonth(date: Date, months = 1): Date {
 		const result = new globalThis.Date(date)
