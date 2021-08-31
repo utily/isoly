@@ -6,9 +6,9 @@ describe("DateRange", () => {
 			start: "2001-01-01",
 			end: "2002-03-04",
 		})
-		expect(model.DateRange.create("2001-01-01", { years: 1, months: 1, days: 1 })).toEqual({
-			start: "2001-01-01",
-			end: "2002-02-02",
+		expect(model.DateRange.create("2001-01-01", { years: -1, months: -1, days: -1 })).toEqual({
+			start: "1999-11-30",
+			end: "2001-01-01",
 		})
 	})
 })
