@@ -33,7 +33,7 @@ export namespace Date {
 	export function next(date: Date, days: number | DateSpan = 1): Date {
 		let result: Date
 		if (typeof days == "number") {
-			const r = new globalThis.Date(date)
+			const r = parse(date)
 			r.setDate(r.getDate() + days)
 			result = Date.create(r)
 		} else {
@@ -50,7 +50,7 @@ export namespace Date {
 	export function previous(date: Date, days: number | DateSpan = 1): Date {
 		let result: Date
 		if (typeof days == "number") {
-			const r = new globalThis.Date(date)
+			const r = parse(date)
 			r.setDate(r.getDate() - days)
 			result = Date.create(r)
 		} else {
@@ -65,7 +65,7 @@ export namespace Date {
 		return result
 	}
 	export function nextMonth(date: Date, months = 1): Date {
-		const result = new globalThis.Date(date)
+		const result = parse(date)
 		result.setMonth(result.getMonth() + months)
 		return Date.create(result)
 	}
@@ -73,7 +73,7 @@ export namespace Date {
 		return nextMonth(date, -months)
 	}
 	export function nextYear(date: Date, years = 1): Date {
-		const result = new globalThis.Date(date)
+		const result = parse(date)
 		result.setFullYear(result.getFullYear() + years)
 		return Date.create(result)
 	}
@@ -81,12 +81,12 @@ export namespace Date {
 		return nextYear(date, -years)
 	}
 	export function firstOfMonth(date: Date): Date {
-		const result = new globalThis.Date(date)
+		const result = parse(date)
 		result.setDate(1)
 		return Date.create(result)
 	}
 	export function lastOfMonth(date: Date): Date {
-		const result = new globalThis.Date(date)
+		const result = parse(date)
 		result.setMonth(result.getMonth() + 1)
 		result.setDate(-1)
 		return Date.create(result)
