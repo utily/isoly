@@ -20,7 +20,7 @@ export namespace DateTime {
 	}
 	export function localize(value: DateTime | Date, locale?: string): DateTime {
 		const localeString = locale ? locale : Intl.DateTimeFormat().resolvedOptions().locale
-		const localeOptions = {
+		return (is(value) ? parse(value) : value).toLocaleString(localeString, {
 			year: "numeric",
 			month: "2-digit",
 			day: "2-digit",
@@ -28,7 +28,6 @@ export namespace DateTime {
 			minute: "2-digit",
 			second: "2-digit",
 			timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-		}
-		return (is(value) ? parse(value) : value).toLocaleString(localeString, localeOptions)
+		})
 	}
 }
