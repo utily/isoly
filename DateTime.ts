@@ -30,4 +30,26 @@ export namespace DateTime {
 			timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 		})
 	}
+	export function epoch(
+		value: DateTime | Date,
+		resolution: "days" | "hours" | "minutes" | "seconds" | "milliseconds" = "seconds"
+	): number {
+		let result = (typeof value == "string" ? parse(value) : value).getTime()
+		switch (resolution) {
+			case "days":
+				result = Math.round(result / 24)
+			// eslint-disable-next-line no-fallthrough
+			case "hours":
+				result = Math.round(result / 60)
+			// eslint-disable-next-line no-fallthrough
+			case "minutes":
+				result = Math.round(result / 60)
+			// eslint-disable-next-line no-fallthrough
+			case "seconds":
+				result = Math.round(result / 1000)
+			// eslint-disable-next-line no-fallthrough
+			case "milliseconds":
+		}
+		return result
+	}
 }
