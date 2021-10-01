@@ -7,13 +7,15 @@ commands:
   prepare:
     description: "Prepare working directory"
     steps:
+      # update to latest npm to support lock file version 2
       - checkout
       - restore_cache:
           keys:
           - v2-dependencies-{{ checksum "package.json" }}
           # fallback to using the latest cache if no exact match is found
           - v2-dependencies-
-      - run: npm install
+      - run: npm i npm
+      - run: npx npm install
       - save_cache:
           paths:
             - node_modules
@@ -25,10 +27,10 @@ jobs:
       - prepare
       - run:
           name: Build
-          command: npm run build
+          command: npx npm run build
       - run:
           name: Run tests
-          command: npm run test
+          command: npx npm run test
   deploy:
     <<: *default
     steps:
@@ -39,7 +41,7 @@ jobs:
             git config user.email circleci@circleci
             git config user.name CircleCI
             git checkout -- package-lock.json
-            npm version patch -m "patch version bump %s [ci skip]"
+            npx npm version patch -m "patch version bump %s [ci skip]"
             git push
             git push --tags
       - run:
@@ -47,7 +49,7 @@ jobs:
           command: |
             git status
             echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
-            npm publish --access public
+            npx npm publish --access public
 workflows:
   version: 2.1
   build-flow:
