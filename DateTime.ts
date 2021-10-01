@@ -14,7 +14,10 @@ export namespace DateTime {
 	export function parse(value: DateTime): Date {
 		return new Date(value)
 	}
-	export function create(value: number, resolution: "days" | "hours" | "minutes" | "seconds" | "milliseconds"): DateTime
+	export function create(
+		value: number,
+		resolution?: "days" | "hours" | "minutes" | "seconds" | "milliseconds"
+	): DateTime
 	export function create(value: Date): DateTime
 	export function create(
 		value: number | Date,
