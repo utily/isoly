@@ -14,7 +14,30 @@ export namespace DateTime {
 	export function parse(value: DateTime): Date {
 		return new Date(value)
 	}
-	export function create(value: Date): DateTime {
+	export function create(value: number, resolution: "days" | "hours" | "minutes" | "seconds" | "milliseconds"): DateTime
+	export function create(value: Date): DateTime
+	export function create(
+		value: number | Date,
+		resolution: "days" | "hours" | "minutes" | "seconds" | "milliseconds" = "seconds"
+	): DateTime {
+		if (typeof value == "number") {
+			switch (resolution) {
+				case "days":
+					value = value * 24
+				// eslint-disable-next-line no-fallthrough
+				case "hours":
+					value = value * 60
+				// eslint-disable-next-line no-fallthrough
+				case "minutes":
+					value = value * 60
+				// eslint-disable-next-line no-fallthrough
+				case "seconds":
+					value = value * 1000
+				// eslint-disable-next-line no-fallthrough
+				case "milliseconds":
+			}
+			value = new Date(value)
+		}
 		return value.toISOString()
 	}
 	export function now(): DateTime {
