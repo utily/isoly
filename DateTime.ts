@@ -118,7 +118,7 @@ export namespace DateTime {
 			if (span.hours)
 				result = previousHour(result, span.hours)
 			if (span.minutes)
-				result = previousMinutes(result, span.minutes)
+				result = previousMinute(result, span.minutes)
 			if (span.seconds)
 				result = previousSecond(result, span.seconds)
 			if (span.milliseconds)
@@ -147,7 +147,7 @@ export namespace DateTime {
 		result.setMinutes(result.getMinutes() + minutes)
 		return DateTime.create(result)
 	}
-	export function previousMinutes(date: DateTime, minutes = 1): DateTime {
+	export function previousMinute(date: DateTime, minutes = 1): DateTime {
 		return nextMinute(date, -minutes)
 	}
 	export function nextHour(time: DateTime, hours = 1): DateTime {
