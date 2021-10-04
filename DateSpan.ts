@@ -1,4 +1,4 @@
-export type DateSpan = {
+export interface DateSpan {
 	years?: number
 	months?: number
 	days?: number
