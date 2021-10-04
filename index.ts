@@ -9,6 +9,8 @@ import { DateTime } from "./DateTime"
 import { Encoding } from "./Encoding"
 import { Language } from "./Language"
 import { Locale } from "./Locale"
+import { TimeRange } from "./TimeRange"
+import { TimeSpan } from "./TimeSpan"
 
 export {
 	CallingCode,
@@ -22,4 +24,6 @@ export {
 	Encoding,
 	Language,
 	Locale,
+	TimeRange,
+	TimeSpan,
 }
