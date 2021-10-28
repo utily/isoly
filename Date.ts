@@ -91,4 +91,13 @@ export namespace Date {
 		result.setDate(-1)
 		return Date.create(result)
 	}
+	export function getYear(time: Date): number {
+		return Number.parseInt(time.substring(0, 4))
+	}
+	export function getMonth(time: Date): number {
+		return Number.parseInt(time.substring(5, 7))
+	}
+	export function getDay(time: Date): number {
+		return Number.parseInt(time.substring(8, 10))
+	}
 }
