@@ -5,7 +5,9 @@ export type Date = string
 export namespace Date {
 	export function is(value: any | Date): value is Date {
 		return (
-			typeof value == "string" && /^(\d{4}-[01]\d-[0-3]\d)|(\d{4}-[01]\d-[0-3]\d)|(\d{4}-[01]\d-[0-3]\d)$/.test(value)
+			typeof value == "string" &&
+			value.length == 10 &&
+			/^(\d{4}-[01]\d-[0-3]\d)|(\d{4}-[01]\d-[0-3]\d)|(\d{4}-[01]\d-[0-3]\d)$/.test(value)
 		)
 	}
 	export function parse(value: Date, time?: string): globalThis.Date {

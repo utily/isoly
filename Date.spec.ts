@@ -3,8 +3,11 @@ import * as isoly from "./index"
 describe("Date", () => {
 	it("create + is", () => {
 		const d = isoly.Date.create(new Date(Date.UTC(2020, 11, 31, 23, 59, 59)))
-		expect(isoly.Date.is(d))
+		expect(isoly.Date.is(d)).toEqual(true)
 		expect(d).toBe("2020-12-31")
+	})
+	it("is not DateTime", () => {
+		expect(isoly.Date.is("2020-12-31T23:59:59.000Z")).toEqual(false)
 	})
 	it("next day original test", () => {
 		expect(isoly.Date.next("2001-01-01")).toEqual("2001-01-02")
