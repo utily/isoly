@@ -1,11 +1,14 @@
 import { DateSpan } from "./DateSpan"
+import { Locale } from "./Locale"
 
 export type Date = string
 
 export namespace Date {
 	export function is(value: any | Date): value is Date {
 		return (
-			typeof value == "string" && /^(\d{4}-[01]\d-[0-3]\d)|(\d{4}-[01]\d-[0-3]\d)|(\d{4}-[01]\d-[0-3]\d)$/.test(value)
+			typeof value == "string" &&
+			value.length == 10 &&
+			/^(\d{4}-[01]\d-[0-3]\d)|(\d{4}-[01]\d-[0-3]\d)|(\d{4}-[01]\d-[0-3]\d)$/.test(value)
 		)
 	}
 	export function parse(value: Date, time?: string): globalThis.Date {
@@ -17,16 +20,13 @@ export namespace Date {
 	export function now(): Date {
 		return create(new globalThis.Date())
 	}
-	export function localize(value: Date | globalThis.Date, locale?: string): Date {
+	export function localize(value: Date | globalThis.Date, locale?: Locale, timezone?: string): Date {
 		return (is(value) ? parse(value) : value)
 			.toLocaleString(locale ? locale : Intl.DateTimeFormat().resolvedOptions().locale, {
 				year: "numeric",
 				month: "2-digit",
 				day: "2-digit",
-				hour: "2-digit",
-				minute: "2-digit",
-				second: "2-digit",
-				timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+				timeZone: timezone ?? Intl.DateTimeFormat().resolvedOptions().timeZone,
 			})
 			.substring(0, 10)
 	}
@@ -90,5 +90,14 @@ export namespace Date {
 		result.setMonth(result.getMonth() + 1)
 		result.setDate(-1)
 		return Date.create(result)
+	}
+	export function getYear(time: Date): number {
+		return Number.parseInt(time.substring(0, 4))
+	}
+	export function getMonth(time: Date): number {
+		return Number.parseInt(time.substring(5, 7))
+	}
+	export function getDay(time: Date): number {
+		return Number.parseInt(time.substring(8, 10))
 	}
 }

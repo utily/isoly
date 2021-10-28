@@ -1,3 +1,5 @@
+import { Date } from "./Date"
+import { Locale } from "./Locale"
 import { TimeSpan } from "./TimeSpan"
 
 export type DateTime = string
@@ -11,16 +13,16 @@ export namespace DateTime {
 			)
 		)
 	}
-	export function parse(value: DateTime): Date {
-		return new Date(value)
+	export function parse(value: DateTime): globalThis.Date {
+		return new globalThis.Date(value)
 	}
 	export function create(
 		value: number,
 		resolution?: "days" | "hours" | "minutes" | "seconds" | "milliseconds"
 	): DateTime
-	export function create(value: Date): DateTime
+	export function create(value: globalThis.Date): DateTime
 	export function create(
-		value: number | Date,
+		value: number | globalThis.Date,
 		resolution: "days" | "hours" | "minutes" | "seconds" | "milliseconds" = "seconds"
 	): DateTime {
 		if (typeof value == "number") {
@@ -39,14 +41,14 @@ export namespace DateTime {
 				// eslint-disable-next-line no-fallthrough
 				case "milliseconds":
 			}
-			value = new Date(value)
+			value = new globalThis.Date(value)
 		}
 		return value.toISOString()
 	}
 	export function now(): DateTime {
-		return create(new Date())
+		return create(new globalThis.Date())
 	}
-	export function localize(value: DateTime | Date, locale?: string): DateTime {
+	export function localize(value: DateTime | globalThis.Date, locale?: Locale, timezone?: string): DateTime {
 		const localeString = locale ? locale : Intl.DateTimeFormat().resolvedOptions().locale
 		return (is(value) ? parse(value) : value).toLocaleString(localeString, {
 			year: "numeric",
@@ -55,11 +57,11 @@ export namespace DateTime {
 			hour: "2-digit",
 			minute: "2-digit",
 			second: "2-digit",
-			timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+			timeZone: timezone ?? Intl.DateTimeFormat().resolvedOptions().timeZone,
 		})
 	}
 	export function epoch(
-		value: DateTime | Date,
+		value: DateTime | globalThis.Date,
 		resolution: "days" | "hours" | "minutes" | "seconds" | "milliseconds" = "seconds"
 	): number {
 		let result = (typeof value == "string" ? parse(value) : value).getTime()
@@ -131,55 +133,84 @@ export namespace DateTime {
 		result.setMilliseconds(result.getMilliseconds() + milliseconds)
 		return DateTime.create(result)
 	}
-	export function previousMillisecond(date: DateTime, seconds = 1): DateTime {
-		return nextMillisecond(date, -seconds)
+	export function previousMillisecond(time: DateTime, seconds = 1): DateTime {
+		return nextMillisecond(time, -seconds)
 	}
 	export function nextSecond(time: DateTime, seconds = 1): DateTime {
 		const result = parse(time)
 		result.setSeconds(result.getSeconds() + seconds)
 		return DateTime.create(result)
 	}
-	export function previousSecond(date: DateTime, seconds = 1): DateTime {
-		return nextSecond(date, -seconds)
+	export function previousSecond(time: DateTime, seconds = 1): DateTime {
+		return nextSecond(time, -seconds)
 	}
 	export function nextMinute(time: DateTime, minutes = 1): DateTime {
 		const result = parse(time)
 		result.setMinutes(result.getMinutes() + minutes)
 		return DateTime.create(result)
 	}
-	export function previousMinute(date: DateTime, minutes = 1): DateTime {
-		return nextMinute(date, -minutes)
+	export function previousMinute(time: DateTime, minutes = 1): DateTime {
+		return nextMinute(time, -minutes)
 	}
 	export function nextHour(time: DateTime, hours = 1): DateTime {
 		const result = parse(time)
 		result.setHours(result.getHours() + hours)
 		return DateTime.create(result)
 	}
-	export function previousHour(date: DateTime, hours = 1): DateTime {
-		return nextHour(date, -hours)
+	export function previousHour(time: DateTime, hours = 1): DateTime {
+		return nextHour(time, -hours)
 	}
 	export function nextDay(time: DateTime, days = 1): DateTime {
 		const result = parse(time)
 		result.setDate(result.getDate() + days)
 		return DateTime.create(result)
 	}
-	export function previousDay(date: DateTime, days = 1): DateTime {
-		return nextDay(date, -days)
+	export function previousDay(time: DateTime, days = 1): DateTime {
+		return nextDay(time, -days)
 	}
 	export function nextMonth(time: DateTime, months = 1): DateTime {
 		const result = parse(time)
 		result.setMonth(result.getMonth() + months)
 		return DateTime.create(result)
 	}
-	export function previousMonth(date: DateTime, months = 1): DateTime {
-		return nextMonth(date, -months)
+	export function previousMonth(time: DateTime, months = 1): DateTime {
+		return nextMonth(time, -months)
 	}
 	export function nextYear(time: DateTime, years = 1): DateTime {
 		const result = parse(time)
 		result.setFullYear(result.getFullYear() + years)
 		return DateTime.create(result)
 	}
-	export function previousYear(date: DateTime, years = 1): DateTime {
-		return nextYear(date, -years)
+	export function previousYear(time: DateTime, years = 1): DateTime {
+		return nextYear(time, -years)
+	}
+	export function getDate(time: DateTime): Date {
+		return time.substring(0, 10)
+	}
+	export function getTime(time: DateTime): string {
+		return time.substring(11)
+	}
+	export function getYear(time: DateTime): number {
+		return Number.parseInt(time.substring(0, 4))
+	}
+	export function getMonth(time: DateTime): number {
+		return Number.parseInt(time.substring(5, 7))
+	}
+	export function getDay(time: DateTime): number {
+		return Number.parseInt(time.substring(8, 10))
+	}
+	export function getHour(time: DateTime): number {
+		return Number.parseInt(time.substring(11, 13))
+	}
+	export function getMinute(time: DateTime): number {
+		return Number.parseInt(time.substring(14, 16))
+	}
+	export function getSecond(time: DateTime): number {
+		return Number.parseInt(time.substring(17, 19))
 	}
 }
+/*
+2021-01-10T13:37:42.000Z
+012345678901234567890123
+0         1         2
+*/
