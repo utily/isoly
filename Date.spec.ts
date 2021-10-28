@@ -9,6 +9,9 @@ describe("Date", () => {
 	it("is not DateTime", () => {
 		expect(isoly.Date.is("2020-12-31T23:59:59.000Z")).toEqual(false)
 	})
+	it("localize Date with locale", () => {
+		expect(isoly.Date.localize("2020-12-31", "en-US")).toEqual("12/31/2020")
+	})
 	it("next day original test", () => {
 		expect(isoly.Date.next("2001-01-01")).toEqual("2001-01-02")
 		expect(isoly.Date.next("2001-01-01", 90)).toEqual("2001-04-01")

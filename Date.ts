@@ -1,3 +1,4 @@
+import { Locale } from "."
 import { DateSpan } from "./DateSpan"
 
 export type Date = string
@@ -19,16 +20,13 @@ export namespace Date {
 	export function now(): Date {
 		return create(new globalThis.Date())
 	}
-	export function localize(value: Date | globalThis.Date, locale?: string): Date {
+	export function localize(value: Date | globalThis.Date, locale?: Locale, timezone?: string): Date {
 		return (is(value) ? parse(value) : value)
 			.toLocaleString(locale ? locale : Intl.DateTimeFormat().resolvedOptions().locale, {
 				year: "numeric",
 				month: "2-digit",
 				day: "2-digit",
-				hour: "2-digit",
-				minute: "2-digit",
-				second: "2-digit",
-				timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+				timeZone: timezone ?? Intl.DateTimeFormat().resolvedOptions().timeZone,
 			})
 			.substring(0, 10)
 	}
