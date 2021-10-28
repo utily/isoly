@@ -1,5 +1,5 @@
-import { Locale } from "."
 import { DateSpan } from "./DateSpan"
+import { Locale } from "./Locale"
 
 export type Date = string
 
