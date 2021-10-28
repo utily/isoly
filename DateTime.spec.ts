@@ -30,5 +30,26 @@ describe("DateTime", () => {
 		it("getDate", () => {
 			expect(isoly.DateTime.getDate("2020-12-31T23:59:59.000Z")).toEqual("2020-12-31")
 		})
+		it("getTime", () => {
+			expect(isoly.DateTime.getTime("2020-12-31T23:59:59.000Z")).toEqual("23:59:59.000Z")
+		})
+		it("getYear", () => {
+			expect(isoly.DateTime.getYear("2020-12-31T23:59:59.000Z")).toEqual(2020)
+		})
+		it("getMonth", () => {
+			expect(isoly.DateTime.getMonth("2020-12-31T23:59:59.000Z")).toEqual(12)
+		})
+		it("getDay", () => {
+			expect(isoly.DateTime.getDay("2020-12-31T23:59:59.000Z")).toEqual(31)
+		})
+		it("getHour", () => {
+			expect(isoly.DateTime.getHour("2020-12-31T23:59:59.000Z")).toEqual(23)
+		})
+		it("getMinute", () => {
+			expect(isoly.DateTime.getMinute("2020-12-31T23:59:59.000Z")).toEqual(59)
+		})
+		it("getSecond", () => {
+			expect(isoly.DateTime.getSecond("2020-12-31T23:59:57.000Z")).toEqual(57)
+		})
 	}
 })

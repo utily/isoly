@@ -187,4 +187,30 @@ export namespace DateTime {
 	export function getDate(time: DateTime): Date {
 		return time.substring(0, 10)
 	}
+	export function getTime(time: DateTime): string {
+		return time.substring(11)
+	}
+	export function getYear(time: DateTime): number {
+		return Number.parseInt(time.substring(0, 4))
+	}
+	export function getMonth(time: DateTime): number {
+		return Number.parseInt(time.substring(5, 7))
+	}
+	export function getDay(time: DateTime): number {
+		return Number.parseInt(time.substring(8, 10))
+	}
+	export function getHour(time: DateTime): number {
+		return Number.parseInt(time.substring(11, 13))
+	}
+	export function getMinute(time: DateTime): number {
+		return Number.parseInt(time.substring(14, 16))
+	}
+	export function getSecond(time: DateTime): number {
+		return Number.parseInt(time.substring(17, 19))
+	}
 }
+/*
+2021-01-10T13:37:42.000Z
+012345678901234567890123
+0         1         2
+*/
