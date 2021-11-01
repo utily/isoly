@@ -1,6 +1,6 @@
 {
 	"name": "isoly",
-	"version": "0.0.35",
+	"version": "0.0.36",
 	"description": "Datatypes and functions specified by ISO-standards.",
 	"author": "PayFunc",
 	"license": "MIT",
