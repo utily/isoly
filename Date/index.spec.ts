@@ -1,4 +1,4 @@
-import * as model from "./index"
+import * as model from "../index"
 
 describe("Date", () => {
 	it("create + is", () => {
@@ -72,6 +72,12 @@ describe("Date", () => {
 
 		it("localize Date with locale", () => {
 			expect(model.Date.localize("2020-12-31", "en-US")).toEqual("12/31/2020")
+		})
+		it("fromLocale Date", () => {
+			expect(model.Date.fromLocale("2020-12-31", "sv-SE")).toEqual("2020-12-31")
+			expect(model.Date.fromLocale("2020/12/31", "en-ZA")).toEqual("2020-12-31")
+			expect(model.Date.fromLocale("12/31/2020", "en-GB")).toEqual("2020-12-31")
+			expect(model.Date.fromLocale("31/12/2020", "en-US")).toEqual("2020-12-31")
 		})
 	}
 })

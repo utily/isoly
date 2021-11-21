@@ -1,4 +1,5 @@
-import { DateSpan } from "./DateSpan"
+import { DateSpan } from "../DateSpan"
+import { locales } from "./locales"
 
 export type Date = string
 
@@ -29,6 +30,29 @@ export namespace Date {
 				timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 			})
 			.substring(0, 10)
+	}
+	export function fromLocale(value: string, locale?: string): Date {
+		let result: Date | undefined
+		const loc = locales[locale ? locale : Intl.DateTimeFormat().resolvedOptions().locale] ?? locales["sv-SE"]
+		let year, month, day: string | undefined
+		switch (loc.order) {
+			case "YMD":
+				result = value.replace(loc.divider, "-").replace(loc.divider, "-")
+				break
+			case "MDY":
+				year = value.substr(4 + 2 * loc.divider.length, 4)
+				month = value.substr(0, 2)
+				day = value.substr(2 + loc.divider.length, 2)
+				result = `${year}-${day}-${month}`
+				break
+			case "DMY":
+				year = value.substr(4 + 2 * loc.divider.length, 4)
+				month = value.substr(2 + loc.divider.length, 2)
+				day = value.substr(0, 2)
+				result = `${year}-${day}-${month}`
+				break
+		}
+		return result
 	}
 	export function next(date: Date, days: number | DateSpan = 1): Date {
 		let result: Date
