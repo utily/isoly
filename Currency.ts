@@ -1,368 +1,190 @@
 import { CurrencyCode } from "./CurrencyCode"
 
-export type Currency =
-	| "AED"
-	| "AFN"
-	| "ALL"
-	| "AMD"
-	| "ANG"
-	| "AOA"
-	| "ARS"
-	| "AUD"
-	| "AWG"
-	| "AZN"
-	| "BAM"
-	| "BBD"
-	| "BDT"
-	| "BGN"
-	| "BHD"
-	| "BIF"
-	| "BMD"
-	| "BND"
-	| "BOB"
-	| "BOV"
-	| "BRL"
-	| "BSD"
-	| "BTN"
-	| "BWP"
-	| "BYN"
-	| "BZD"
-	| "CAD"
-	| "CDF"
-	| "CHE"
-	| "CHF"
-	| "CHW"
-	| "CLF"
-	| "CLP"
-	| "CNY"
-	| "COP"
-	| "COU"
-	| "CRC"
-	| "CUC"
-	| "CUP"
-	| "CVE"
-	| "CZK"
-	| "DJF"
-	| "DKK"
-	| "DOP"
-	| "DZD"
-	| "EGP"
-	| "ERN"
-	| "ETB"
-	| "EUR"
-	| "FJD"
-	| "FKP"
-	| "GBP"
-	| "GEL"
-	| "GHS"
-	| "GIP"
-	| "GMD"
-	| "GNF"
-	| "GTQ"
-	| "GYD"
-	| "HKD"
-	| "HNL"
-	| "HRK"
-	| "HTG"
-	| "HUF"
-	| "IDR"
-	| "ILS"
-	| "INR"
-	| "IQD"
-	| "IRR"
-	| "ISK"
-	| "JMD"
-	| "JOD"
-	| "JPY"
-	| "KES"
-	| "KGS"
-	| "KHR"
-	| "KMF"
-	| "KPW"
-	| "KRW"
-	| "KWD"
-	| "KYD"
-	| "KZT"
-	| "LAK"
-	| "LBP"
-	| "LKR"
-	| "LRD"
-	| "LSL"
-	| "LYD"
-	| "MAD"
-	| "MDL"
-	| "MGA"
-	| "MKD"
-	| "MMK"
-	| "MNT"
-	| "MOP"
-	| "MRU"
-	| "MUR"
-	| "MVR"
-	| "MWK"
-	| "MXN"
-	| "MXV"
-	| "MYR"
-	| "MZN"
-	| "NAD"
-	| "NGN"
-	| "NIO"
-	| "NOK"
-	| "NPR"
-	| "NZD"
-	| "OMR"
-	| "PAB"
-	| "PEN"
-	| "PGK"
-	| "PHP"
-	| "PKR"
-	| "PLN"
-	| "PYG"
-	| "QAR"
-	| "RON"
-	| "RSD"
-	| "RUB"
-	| "RWF"
-	| "SAR"
-	| "SBD"
-	| "SCR"
-	| "SDG"
-	| "SEK"
-	| "SGD"
-	| "SHP"
-	| "SLL"
-	| "SOS"
-	| "SRD"
-	| "SSP"
-	| "STN"
-	| "SVC"
-	| "SYP"
-	| "SZL"
-	| "THB"
-	| "TJS"
-	| "TMT"
-	| "TND"
-	| "TOP"
-	| "TRY"
-	| "TTD"
-	| "TWD"
-	| "TZS"
-	| "UAH"
-	| "UGX"
-	| "USD"
-	| "USN"
-	| "UYI"
-	| "UYU"
-	| "UYW"
-	| "UZS"
-	| "VES"
-	| "VND"
-	| "VUV"
-	| "WST"
-	| "XAF"
-	| "XAG"
-	| "XAU"
-	| "XBA"
-	| "XBB"
-	| "XBC"
-	| "XBD"
-	| "XCD"
-	| "XDR"
-	| "XOF"
-	| "XPD"
-	| "XPF"
-	| "XPT"
-	| "XSU"
-	| "XTS"
-	| "XUA"
-	| "XXX"
-	| "YER"
-	| "ZAR"
-	| "ZMW"
-	| "ZWL"
+const currencies = [
+	"AED",
+	"AFN",
+	"ALL",
+	"AMD",
+	"ANG",
+	"AOA",
+	"ARS",
+	"AUD",
+	"AWG",
+	"AZN",
+	"BAM",
+	"BBD",
+	"BDT",
+	"BGN",
+	"BHD",
+	"BIF",
+	"BMD",
+	"BND",
+	"BOB",
+	"BOV",
+	"BRL",
+	"BSD",
+	"BTN",
+	"BWP",
+	"BYN",
+	"BZD",
+	"CAD",
+	"CDF",
+	"CHE",
+	"CHF",
+	"CHW",
+	"CLF",
+	"CLP",
+	"CNY",
+	"COP",
+	"COU",
+	"CRC",
+	"CUC",
+	"CUP",
+	"CVE",
+	"CZK",
+	"DJF",
+	"DKK",
+	"DOP",
+	"DZD",
+	"EGP",
+	"ERN",
+	"ETB",
+	"EUR",
+	"FJD",
+	"FKP",
+	"GBP",
+	"GEL",
+	"GHS",
+	"GIP",
+	"GMD",
+	"GNF",
+	"GTQ",
+	"GYD",
+	"HKD",
+	"HNL",
+	"HRK",
+	"HTG",
+	"HUF",
+	"IDR",
+	"ILS",
+	"INR",
+	"IQD",
+	"IRR",
+	"ISK",
+	"JMD",
+	"JOD",
+	"JPY",
+	"KES",
+	"KGS",
+	"KHR",
+	"KMF",
+	"KPW",
+	"KRW",
+	"KWD",
+	"KYD",
+	"KZT",
+	"LAK",
+	"LBP",
+	"LKR",
+	"LRD",
+	"LSL",
+	"LYD",
+	"MAD",
+	"MDL",
+	"MGA",
+	"MKD",
+	"MMK",
+	"MNT",
+	"MOP",
+	"MRU",
+	"MUR",
+	"MVR",
+	"MWK",
+	"MXN",
+	"MXV",
+	"MYR",
+	"MZN",
+	"NAD",
+	"NGN",
+	"NIO",
+	"NOK",
+	"NPR",
+	"NZD",
+	"OMR",
+	"PAB",
+	"PEN",
+	"PGK",
+	"PHP",
+	"PKR",
+	"PLN",
+	"PYG",
+	"QAR",
+	"RON",
+	"RSD",
+	"RUB",
+	"RWF",
+	"SAR",
+	"SBD",
+	"SCR",
+	"SDG",
+	"SEK",
+	"SGD",
+	"SHP",
+	"SLL",
+	"SOS",
+	"SRD",
+	"SSP",
+	"STN",
+	"SVC",
+	"SYP",
+	"SZL",
+	"THB",
+	"TJS",
+	"TMT",
+	"TND",
+	"TOP",
+	"TRY",
+	"TTD",
+	"TWD",
+	"TZS",
+	"UAH",
+	"UGX",
+	"USD",
+	"USN",
+	"UYI",
+	"UYU",
+	"UYW",
+	"UZS",
+	"VES",
+	"VND",
+	"VUV",
+	"WST",
+	"XAF",
+	"XAG",
+	"XAU",
+	"XBA",
+	"XBB",
+	"XBC",
+	"XBD",
+	"XCD",
+	"XDR",
+	"XOF",
+	"XPD",
+	"XPF",
+	"XPT",
+	"XSU",
+	"XTS",
+	"XUA",
+	"XXX",
+	"YER",
+	"ZAR",
+	"ZMW",
+	"ZWL",
+] as const
+export type Currency = typeof currencies[number]
 
 export namespace Currency {
-	export const types: Currency[] = [
-		"AED",
-		"AFN",
-		"ALL",
-		"AMD",
-		"ANG",
-		"AOA",
-		"ARS",
-		"AUD",
-		"AWG",
-		"AZN",
-		"BAM",
-		"BBD",
-		"BDT",
-		"BGN",
-		"BHD",
-		"BIF",
-		"BMD",
-		"BND",
-		"BOB",
-		"BOV",
-		"BRL",
-		"BSD",
-		"BTN",
-		"BWP",
-		"BYN",
-		"BZD",
-		"CAD",
-		"CDF",
-		"CHE",
-		"CHF",
-		"CHW",
-		"CLF",
-		"CLP",
-		"CNY",
-		"COP",
-		"COU",
-		"CRC",
-		"CUC",
-		"CUP",
-		"CVE",
-		"CZK",
-		"DJF",
-		"DKK",
-		"DOP",
-		"DZD",
-		"EGP",
-		"ERN",
-		"ETB",
-		"EUR",
-		"FJD",
-		"FKP",
-		"GBP",
-		"GEL",
-		"GHS",
-		"GIP",
-		"GMD",
-		"GNF",
-		"GTQ",
-		"GYD",
-		"HKD",
-		"HNL",
-		"HRK",
-		"HTG",
-		"HUF",
-		"IDR",
-		"ILS",
-		"INR",
-		"IQD",
-		"IRR",
-		"ISK",
-		"JMD",
-		"JOD",
-		"JPY",
-		"KES",
-		"KGS",
-		"KHR",
-		"KMF",
-		"KPW",
-		"KRW",
-		"KWD",
-		"KYD",
-		"KZT",
-		"LAK",
-		"LBP",
-		"LKR",
-		"LRD",
-		"LSL",
-		"LYD",
-		"MAD",
-		"MDL",
-		"MGA",
-		"MKD",
-		"MMK",
-		"MNT",
-		"MOP",
-		"MRU",
-		"MUR",
-		"MVR",
-		"MWK",
-		"MXN",
-		"MXV",
-		"MYR",
-		"MZN",
-		"NAD",
-		"NGN",
-		"NIO",
-		"NOK",
-		"NPR",
-		"NZD",
-		"OMR",
-		"PAB",
-		"PEN",
-		"PGK",
-		"PHP",
-		"PKR",
-		"PLN",
-		"PYG",
-		"QAR",
-		"RON",
-		"RSD",
-		"RUB",
-		"RWF",
-		"SAR",
-		"SBD",
-		"SCR",
-		"SDG",
-		"SEK",
-		"SGD",
-		"SHP",
-		"SLL",
-		"SOS",
-		"SRD",
-		"SSP",
-		"STN",
-		"SVC",
-		"SYP",
-		"SZL",
-		"THB",
-		"TJS",
-		"TMT",
-		"TND",
-		"TOP",
-		"TRY",
-		"TTD",
-		"TWD",
-		"TZS",
-		"UAH",
-		"UGX",
-		"USD",
-		"USN",
-		"UYI",
-		"UYU",
-		"UYW",
-		"UZS",
-		"VES",
-		"VND",
-		"VUV",
-		"WST",
-		"XAF",
-		"XAG",
-		"XAU",
-		"XBA",
-		"XBB",
-		"XBC",
-		"XBD",
-		"XCD",
-		"XDR",
-		"XOF",
-		"XPD",
-		"XPF",
-		"XPT",
-		"XSU",
-		"XTS",
-		"XUA",
-		"XXX",
-		"YER",
-		"ZAR",
-		"ZMW",
-		"ZWL",
-	]
+	export const types: Currency[] = [...currencies]
 	export function is(currency: Currency | any): currency is Currency {
 		return types.includes(currency)
 	}
@@ -552,6 +374,31 @@ export namespace Currency {
 	export function round(value: number, currency: Currency): number {
 		const factor = Math.pow(10, decimalDigits(currency) ?? 2)
 		return Math.round((value + Number.EPSILON) * factor) / factor
+	}
+
+	export function add(currency: Currency, ...value: number[]): number {
+		const decimals = decimalDigits(currency)
+		const factor = Math.pow(10, decimals == 0 ? 2 : decimals ?? 2)
+		const result = Math.round(value.reduce((r, e) => factor * e + r, 0)) / factor
+		return decimals == 0 ? Math.round(result) : result
+	}
+	export function divide(currency: Currency, nominator: number, denominator: number): number {
+		const decimals = decimalDigits(currency)
+		const factor = Math.pow(10, decimals == 0 ? 2 : decimals ?? 2)
+		const result = Math.round(factor * (nominator / denominator)) / factor
+		return decimals == 0 ? Math.round(result) : result
+	}
+	export function multiply(currency: Currency, ...value: number[]): number {
+		const decimals = decimalDigits(currency)
+		const factor = Math.pow(10, decimals == 0 ? 2 : decimals ?? 2)
+		const result = Math.round(value.reduce((r, e) => factor * e * r, 1) / Math.pow(factor, value.length - 1)) / factor
+		return decimals == 0 ? Math.round(result) : result
+	}
+	export function subtract(currency: Currency, minuend: number, subtrahend: number): number {
+		const decimals = decimalDigits(currency)
+		const factor = Math.pow(10, decimals == 0 ? 2 : decimals ?? 2)
+		const result = Math.round((minuend - subtrahend) * factor) / factor
+		return decimals == 0 ? Math.round(result) : result
 	}
 	export function decimalDigits(currency: Currency): number | undefined {
 		return {
