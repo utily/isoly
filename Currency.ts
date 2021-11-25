@@ -375,11 +375,10 @@ export namespace Currency {
 		const factor = Math.pow(10, decimalDigits(currency) ?? 2)
 		return Math.round((value + Number.EPSILON) * factor) / factor
 	}
-
-	export function add(currency: Currency, ...value: number[]): number {
+	export function add(currency: Currency, value1: number, value2: number): number {
 		const decimals = decimalDigits(currency)
 		const factor = Math.pow(10, decimals == 0 ? 2 : decimals ?? 2)
-		const result = Math.round(value.reduce((r, e) => factor * e + r, 0)) / factor
+		const result = Math.round(factor * value1 + factor * value2) / factor
 		return decimals == 0 ? Math.round(result) : result
 	}
 	export function divide(currency: Currency, nominator: number, denominator: number): number {
@@ -388,10 +387,12 @@ export namespace Currency {
 		const result = Math.round(factor * (nominator / denominator)) / factor
 		return decimals == 0 ? Math.round(result) : result
 	}
-	export function multiply(currency: Currency, ...value: number[]): number {
+	export function multiply(currency: Currency, value1: number, value2: number): number {
 		const decimals = decimalDigits(currency)
 		const factor = Math.pow(10, decimals == 0 ? 2 : decimals ?? 2)
-		const result = Math.round(value.reduce((r, e) => factor * e * r, 1) / Math.pow(factor, value.length - 1)) / factor
+		value1 = factor * value1
+		value2 = factor * value2
+		const result = Math.round((value1 * value2) / factor) / factor
 		return decimals == 0 ? Math.round(result) : result
 	}
 	export function subtract(currency: Currency, minuend: number, subtrahend: number): number {
