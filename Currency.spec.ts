@@ -66,6 +66,11 @@ describe("Currency", () => {
 		expect(Currency.multiply("ISK", 0.1, 1.5)).toEqual(0)
 		expect(Currency.multiply("SEK", 0.1, 1.5)).toEqual(0.15)
 		expect(Currency.multiply("BHD", 0.1, 1.5)).toEqual(0.15)
+
+		expect(0.1 * 1.5).toEqual(0.15000000000000002) //should be 0.15
+		expect(Currency.multiply("SEK", 0.1, 1.5, "ISK")).toEqual(0)
+		expect(Currency.multiply("SEK", 0.1, 1.5, "SEK")).toEqual(0.15)
+		expect(Currency.multiply("SEK", 0.1, 1.5, "BHD")).toEqual(0.15)
 	})
 	it("subtract", () => {
 		expect(1.4 - 0.9).toEqual(0.4999999999999999) //should be 0.5

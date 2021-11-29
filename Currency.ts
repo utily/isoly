@@ -381,8 +381,13 @@ export namespace Currency {
 	export function divide(currency: Currency, amount: number, denominator: number): number {
 		return round(round(amount, currency) / denominator, currency)
 	}
-	export function multiply(currency: Currency, amount: number, multiplicand: number): number {
-		return round(round(amount, currency) * multiplicand, currency)
+	export function multiply(
+		currency: Currency,
+		amount: number,
+		multiplicand: number,
+		outputCurrency?: Currency
+	): number {
+		return round(round(amount, currency) * multiplicand, outputCurrency ?? currency)
 	}
 	export function subtract(currency: Currency, minuend: number, subtrahend: number): number {
 		return round(round(minuend, currency) - round(subtrahend, currency), currency)
