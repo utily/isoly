@@ -373,33 +373,19 @@ export namespace Currency {
 	}
 	export function round(value: number, currency: Currency): number {
 		const factor = Math.pow(10, decimalDigits(currency) ?? 2)
-		return Math.round((value + Number.EPSILON) * factor) / factor
+		return Math.round(Math.round(value * factor * 10) / 10) / factor
 	}
 	export function add(currency: Currency, value1: number, value2: number): number {
-		const decimals = decimalDigits(currency)
-		const factor = Math.pow(10, decimals == 0 ? 2 : decimals ?? 2)
-		const result = Math.round(factor * value1 + factor * value2) / factor
-		return decimals == 0 ? Math.round(result) : result
+		return round(round(value1, currency) + round(value2, currency), currency)
 	}
-	export function divide(currency: Currency, nominator: number, denominator: number): number {
-		const decimals = decimalDigits(currency)
-		const factor = Math.pow(10, decimals == 0 ? 2 : decimals ?? 2)
-		const result = Math.round(factor * (nominator / denominator)) / factor
-		return decimals == 0 ? Math.round(result) : result
+	export function divide(currency: Currency, amount: number, denominator: number): number {
+		return round(round(amount, currency) / denominator, currency)
 	}
-	export function multiply(currency: Currency, value1: number, value2: number): number {
-		const decimals = decimalDigits(currency)
-		const factor = Math.pow(10, decimals == 0 ? 2 : decimals ?? 2)
-		value1 = factor * value1
-		value2 = factor * value2
-		const result = Math.round((value1 * value2) / factor) / factor
-		return decimals == 0 ? Math.round(result) : result
+	export function multiply(currency: Currency, amount: number, multiplicand: number): number {
+		return round(round(amount, currency) * multiplicand, currency)
 	}
 	export function subtract(currency: Currency, minuend: number, subtrahend: number): number {
-		const decimals = decimalDigits(currency)
-		const factor = Math.pow(10, decimals == 0 ? 2 : decimals ?? 2)
-		const result = Math.round((minuend - subtrahend) * factor) / factor
-		return decimals == 0 ? Math.round(result) : result
+		return round(round(minuend, currency) - round(subtrahend, currency), currency)
 	}
 	export function decimalDigits(currency: Currency): number | undefined {
 		return {
