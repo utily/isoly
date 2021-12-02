@@ -156,9 +156,24 @@ describe("Currency", () => {
 		expect(isoly.Currency.fromMinor(123.456, "XPT")).toEqual(123.456)
 	})
 
+	it("round", () => {
+		expect(Currency.round(0.004755520000000001, "SEK")).toEqual(0)
+		expect(Currency.round(0.004999920000000001, "SEK")).toEqual(0)
+		expect(Currency.round(17999.204999999998, "SEK")).toEqual(17999.21) //correct
+		expect(Currency.round(0.005, "SEK")).toEqual(0.01)
+		expect(Currency.round(0.0049, "SEK")).toEqual(0.0)
+		expect(Currency.round(0.00499, "SEK")).toEqual(0.0)
+		expect(Currency.round(0.004999, "SEK")).toEqual(0.0)
+		expect(Currency.round(0.0049999, "SEK")).toEqual(0.0)
+		expect(Currency.round(0.00499999, "SEK")).toEqual(0.0)
+		expect(Currency.round(0.004999999, "SEK")).toEqual(0.01)
+		expect(Currency.round(0.004999991, "SEK")).toEqual(0.01)
+		expect(Currency.round(0.004999981, "SEK")).toEqual(0.0)
+	})
+
 	it("add", () => {
 		expect(95.385 + 18.114 + 0.001).toEqual(113.50000000000001) //should be 113.5
-		expect(Currency.add("ISK", 95.385 + 18.114, 0.001)).toEqual(114)
+		expect(Currency.add("ISK", 95.385 + 18.114, 0.001)).toEqual(113)
 		expect(Currency.add("SEK", 95.385 + 18.114, 0.001)).toEqual(113.5)
 		expect(Currency.add("BHD", 95.385 + 18.114, 0.001)).toEqual(113.5)
 
@@ -187,8 +202,8 @@ describe("Currency", () => {
 
 	it("multiply", () => {
 		expect(2090.5 * 8.61).toEqual(17999.204999999998)
-		expect(Currency.multiply("SEK", 2090.5, 8.61)).toEqual(17999.21)
 		expect(Currency.multiply("ISK", 2090.5, 8.61)).toEqual(18004)
+		expect(Currency.multiply("SEK", 2090.5, 8.61)).toEqual(17999.21)
 		expect(Currency.multiply("BHD", 2090.5, 8.61)).toEqual(17999.205)
 
 		expect(50000 * 0.000001 * 1000).toEqual(49.99999999999999) //should be 50
