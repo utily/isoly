@@ -375,8 +375,10 @@ export namespace Currency {
 	export function round(value: number, currency: Currency): number {
 		const factor = Math.pow(10, decimalDigits(currency) ?? 2)
 		const decimals = (value.toString().split(".")?.[1]?.length ?? 0) - 1
-		const test = (value + (decimals <= (decimalDigits(currency) ?? 2) + 5 ? 0 : Math.pow(10, -decimals))) * factor
-		return Math.round(test) / factor
+		return (
+			Math.round((value + (decimals <= (decimalDigits(currency) ?? 2) + 5 ? 0 : Math.pow(10, -decimals))) * factor) /
+			factor
+		)
 	}
 	export function add(currency: Currency, value1: number, value2: number): number {
 		return round(round(value1, currency) + round(value2, currency), currency)
@@ -390,8 +392,7 @@ export namespace Currency {
 		multiplicand: number,
 		outputCurrency?: Currency
 	): number {
-		const test = round(amount, currency) * multiplicand
-		return round(test, outputCurrency ?? currency)
+		return round(round(amount, currency) * multiplicand, outputCurrency ?? currency)
 	}
 	export function subtract(currency: Currency, minuend: number, subtrahend: number): number {
 		return round(round(minuend, currency) - round(subtrahend, currency), currency)
