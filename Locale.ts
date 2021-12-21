@@ -444,8 +444,35 @@ export namespace Locale {
 		const result = locale.split("-").pop()
 		return Alpha2.is(result) ? result : undefined
 	}
-	export function toLocale(language: Language, alpha2: Alpha2): Locale | undefined {
-		const result = language + "-" + alpha2
+	export function toLocale(language: Language, alpha2?: Alpha2): Locale | undefined {
+		let result: string | undefined
+		if (alpha2)
+			result = language + "-" + alpha2
+		else {
+			result = ({
+				ca: "ca-ES",
+				co: "co-FR",
+				da: "da-DK",
+				de: "de-DE",
+				en: "en-GB",
+				es: "es-ES",
+				et: "et-EE",
+				fi: "fi-FI",
+				fr: "fr-FR",
+				is: "is-IS",
+				ja: "ja-JP",
+				ko: "ko-KR",
+				lb: "lb-LU",
+				lt: "lt-LT",
+				nb: "nb-NO",
+				no: "nn-NO",
+				nl: "nl-NL",
+				pl: "pl-PL",
+				pt: "pt-PT",
+				ru: "ru-RU",
+				sv: "sv-SE",
+			} as Partial<Record<Language, Locale>>)[language]
+		}
 		return is(result) ? result : undefined
 	}
 }
