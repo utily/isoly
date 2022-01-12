@@ -58,13 +58,13 @@ export namespace TimeSpan {
 	}
 }
 
-type Round = "round" | "rounddown" | "roundup"
+type Round = "round" | "floor" | "ceiling"
 function performRound(value: number, round?: Round): number {
 	return !round
 		? value
-		: round == "roundup"
+		: round == "ceiling"
 		? Math.ceil(value)
-		: round == "rounddown"
+		: round == "floor"
 		? Math.floor(value)
 		: Math.round(value)
 }
