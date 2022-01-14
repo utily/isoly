@@ -27,7 +27,7 @@ export namespace TimeSpan {
 				typeof value.milliseconds == "number")
 		)
 	}
-	export function toHours(value: Omit<TimeSpan, "days" | "months" | "years">, round?: Round): number {
+	export function toHours(value: TimeSpan, round?: Round): number {
 		const result =
 			(value.milliseconds ?? 0) / (60 * 60 * 1000) +
 			(value.seconds ?? 0) / (60 * 60) +
@@ -35,7 +35,7 @@ export namespace TimeSpan {
 			(value.hours ?? 0)
 		return performRound(result, round)
 	}
-	export function toMinutes(value: Omit<TimeSpan, "days" | "months" | "years">, round?: Round): number {
+	export function toMinutes(value: TimeSpan, round?: Round): number {
 		const result =
 			(value.milliseconds ?? 0) / (60 * 1000) +
 			(value.seconds ?? 0) / 60 +
@@ -43,12 +43,12 @@ export namespace TimeSpan {
 			(value.hours ?? 0) * 60
 		return performRound(result, round)
 	}
-	export function toSeconds(value: Omit<TimeSpan, "days" | "months" | "years">, round?: Round): number {
+	export function toSeconds(value: TimeSpan, round?: Round): number {
 		const result =
 			(value.milliseconds ?? 0) / 1000 + (value.seconds ?? 0) + (value.minutes ?? 0) * 60 + (value.hours ?? 0) * 60 * 60
 		return performRound(result, round)
 	}
-	export function toMilliseconds(value: Omit<TimeSpan, "days" | "months" | "years">, round?: Round): number {
+	export function toMilliseconds(value: TimeSpan, round?: Round): number {
 		const result =
 			(value.milliseconds ?? 0) +
 			(value.seconds ?? 0) * 1000 +
