@@ -27,4 +27,44 @@ export namespace TimeSpan {
 				typeof value.milliseconds == "number")
 		)
 	}
+	export function toHours(value: TimeSpan, round?: Round): number {
+		const result =
+			(value.milliseconds ?? 0) / (60 * 60 * 1000) +
+			(value.seconds ?? 0) / (60 * 60) +
+			(value.minutes ?? 0) / 60 +
+			(value.hours ?? 0)
+		return performRound(result, round)
+	}
+	export function toMinutes(value: TimeSpan, round?: Round): number {
+		const result =
+			(value.milliseconds ?? 0) / (60 * 1000) +
+			(value.seconds ?? 0) / 60 +
+			(value.minutes ?? 0) +
+			(value.hours ?? 0) * 60
+		return performRound(result, round)
+	}
+	export function toSeconds(value: TimeSpan, round?: Round): number {
+		const result =
+			(value.milliseconds ?? 0) / 1000 + (value.seconds ?? 0) + (value.minutes ?? 0) * 60 + (value.hours ?? 0) * 60 * 60
+		return performRound(result, round)
+	}
+	export function toMilliseconds(value: TimeSpan, round?: Round): number {
+		const result =
+			(value.milliseconds ?? 0) +
+			(value.seconds ?? 0) * 1000 +
+			(value.minutes ?? 0) * 60 * 1000 +
+			(value.hours ?? 0) * 60 * 60 * 1000
+		return performRound(result, round)
+	}
+}
+
+type Round = "round" | "floor" | "ceiling"
+function performRound(value: number, round?: Round): number {
+	return !round
+		? value
+		: round == "ceiling"
+		? Math.ceil(value)
+		: round == "floor"
+		? Math.floor(value)
+		: Math.round(value)
 }
