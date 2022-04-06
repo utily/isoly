@@ -251,6 +251,7 @@ export type Numeric =
 	| 887
 	| 894
 	| 716
+	| 280
 
 export namespace Numeric {
 	export function is(value: any | Numeric): value is Numeric {
@@ -507,7 +508,8 @@ export namespace Numeric {
 				value == 732 ||
 				value == 887 ||
 				value == 894 ||
-				value == 716)
+				value == 716 ||
+				value == 280)
 		)
 	}
 	export function from(country: Alpha2 | Alpha3): Numeric {

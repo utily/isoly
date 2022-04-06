@@ -13,6 +13,13 @@ describe("CountryCode", () => {
 		const input: isoly.CountryCode.Numeric = 752
 		expect(isoly.CountryCode.Alpha2.from(input)).toEqual("SE")
 	})
+	it("Alpha2 from Numeric, special case for banking usage of 280 (West Germany).", () => {
+		const input: isoly.CountryCode.Numeric = 280
+		expect(isoly.CountryCode.Numeric.is(input))
+		expect(isoly.CountryCode.Alpha2.from(input)).toEqual("DE")
+		expect(isoly.CountryCode.Name.en.from(input)).toEqual("Germany")
+		expect(isoly.CountryCode.Name.sv.from(input)).toEqual("Tyskland")
+	})
 	it("Alpha3 from Numeric", () => {
 		const input: isoly.CountryCode.Numeric = 752
 		expect(isoly.CountryCode.Alpha3.from(input)).toEqual("SWE")
