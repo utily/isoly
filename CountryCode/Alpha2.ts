@@ -631,6 +631,7 @@ const numericToAlpha2: { [country: string]: Alpha2 } = {
 	"270": "GM",
 	"268": "GE",
 	"276": "DE",
+	"280": "DE", // West Germany banking fallback
 	"288": "GH",
 	"292": "GI",
 	"300": "GR",
