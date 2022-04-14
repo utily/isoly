@@ -103,4 +103,22 @@ describe("Currency", () => {
 		expect(Currency.subtract("SEK", 76.9, 21.4)).toEqual(55.5)
 		expect(Currency.subtract("BHD", 76.9, 21.4)).toEqual(55.5)
 	})
+	it("sum", () => {
+		function addUp(amounts: number[]): number {
+			return amounts.reduce((sum, amount) => Currency.add("EUR", amount, sum), 0)
+		}
+		expect(addUp([10.42, 3.01])).toEqual(13.43)
+		expect(addUp([10.4, 3.03])).toEqual(13.43)
+		expect(addUp([10.2, 3.03, 0.2])).toEqual(13.43)
+		expect(addUp([9.81, 3.41, 0.21])).toEqual(13.43)
+		expect(addUp([10.02, 3.2, 0.21])).toEqual(13.43)
+		expect(addUp([5.01, 5.19, 3.03, 0.2])).toEqual(13.43)
+		expect(addUp([0.11, 0.11, 0.11])).toEqual(0.33)
+		expect(addUp([0.01, 0.08, 0.24])).toEqual(0.33)
+		expect(addUp([0.13, 0.13, 0.11])).toEqual(0.37)
+		expect(addUp([0.11, 0.09, 0.14])).toEqual(0.34)
+		expect(addUp([0, 0.01, 0.56, 0.14])).toEqual(0.71)
+		expect(addUp([-0.01, 0.02, 0.56, 0.14])).toEqual(0.71)
+		expect(addUp([-0.01, 0.02, 0.55, 0.14])).toEqual(0.7)
+	})
 })
