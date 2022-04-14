@@ -63,6 +63,14 @@ describe("Date", () => {
 		expect(isoly.Date.lastOfMonth("2001-01-01")).toEqual("2001-01-30")
 		expect(isoly.Date.lastOfMonth("2001-12-24")).toEqual("2001-12-30")
 	})
+	it("firstOfWeek", () => {
+		expect(isoly.Date.firstOfWeek("2000-01-01")).toEqual("1999-12-27")
+		expect(isoly.Date.firstOfWeek("2000-01-31")).toEqual("2000-01-31")
+	})
+	it("lastOfWeek", () => {
+		expect(isoly.Date.lastOfWeek("2000-01-01")).toEqual("2000-01-02")
+		expect(isoly.Date.lastOfWeek("2000-01-31")).toEqual("2000-02-06")
+	})
 	if (new Date(Date.UTC(2020, 11, 31, 23, 59, 59)).getTimezoneOffset() == -60) {
 		it("zero-pads localized", () => {
 			expect(isoly.Date.localize(new Date("4 Jul 2020 10:20:30 GMT"), "sv-SE")).toEqual("2020-07-04")
