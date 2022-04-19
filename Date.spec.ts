@@ -60,8 +60,10 @@ describe("Date", () => {
 		expect(isoly.Date.firstOfMonth("2021-02-01")).toEqual("2021-02-01")
 	})
 	it("lastOfMonth", () => {
-		expect(isoly.Date.lastOfMonth("2001-01-01")).toEqual("2001-01-30")
-		expect(isoly.Date.lastOfMonth("2001-12-24")).toEqual("2001-12-30")
+		expect(isoly.Date.lastOfMonth("2001-01-01")).toEqual("2001-01-31")
+		expect(isoly.Date.lastOfMonth("2001-11-24")).toEqual("2001-11-30")
+		expect(isoly.Date.lastOfMonth("2001-02-01")).toEqual("2001-02-28")
+		expect(isoly.Date.lastOfMonth("2004-02-24")).toEqual("2004-02-29")
 	})
 	it("firstOfWeek", () => {
 		expect(isoly.Date.firstOfWeek("2000-01-01")).toEqual("1999-12-27")

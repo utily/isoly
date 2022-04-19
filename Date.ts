@@ -88,7 +88,7 @@ export namespace Date {
 	export function lastOfMonth(date: Date): Date {
 		const result = parse(date)
 		result.setMonth(result.getMonth() + 1)
-		result.setDate(-1)
+		result.setDate(0)
 		return Date.create(result)
 	}
 	export function firstOfWeek(date: Date): Date {
