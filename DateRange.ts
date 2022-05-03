@@ -18,4 +18,14 @@ export namespace DateRange {
 			? { start, end }
 			: { start: end, end: start }
 	}
+	export function getDays(value: DateRange): number {
+		const result =
+			value.start <= value.end
+				? Math.ceil(
+						(new globalThis.Date(value.end).getTime() - new globalThis.Date(value.start).getTime()) / (1000 * 3600 * 24)
+				  )
+				: -getDays({ start: value.end, end: value.start })
+
+		return result
+	}
 }
