@@ -3,8 +3,11 @@ import * as isoly from "./index"
 describe("DateTime", () => {
 	it("create + is", () => {
 		const d = isoly.DateTime.create(new Date(Date.UTC(2020, 11, 31, 23, 59, 59)))
-		expect(isoly.DateTime.is(d))
+		expect(isoly.DateTime.is(d)).toEqual(true)
 		expect(d).toBe("2020-12-31T23:59:59.000Z")
+	})
+	it("epoch", () => {
+		expect(isoly.DateTime.epoch("2019-04-01T00:00:00.000Z")).toBe(1554076800)
 	})
 	if (new Date(Date.UTC(2020, 11, 31, 23, 59, 59)).getTimezoneOffset() == -60) {
 		it("zero-pads localized", () => {
