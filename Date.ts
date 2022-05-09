@@ -91,6 +91,18 @@ export namespace Date {
 		result.setDate(0)
 		return Date.create(result)
 	}
+	export function firstOfWeek(date: Date): Date {
+		const result = parse(date)
+		const relativeDay = result.getDate() - result.getDay() + 1
+		result.setDate(relativeDay)
+		return Date.create(result)
+	}
+	export function lastOfWeek(date: Date): Date {
+		const result = parse(date)
+		const relativeDay = result.getDate() - result.getDay() + 7
+		result.setDate(relativeDay)
+		return Date.create(result)
+	}
 	export function getYear(time: Date): number {
 		return Number.parseInt(time.substring(0, 4))
 	}
