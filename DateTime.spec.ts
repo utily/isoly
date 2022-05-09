@@ -89,6 +89,9 @@ describe("DateTime", () => {
 	it("epoch", () => {
 		expect(isoly.DateTime.epoch("2019-04-01T00:00:00.000Z")).toBe(1554076800)
 	})
+	it("epoch", () => {
+		expect(isoly.DateTime.epoch("2019-04-01T00:00:00.000Z")).toBe(1554076800)
+	})
 	if (new Date(Date.UTC(2020, 11, 31, 23, 59, 59)).getTimezoneOffset() == -60) {
 		it("zero-pads localized", () => {
 			expect(isoly.DateTime.localize(new Date("4 Jul 2020 10:20:30 GMT"), "sv-SE")).toEqual("2020-07-04 12:20:30")
