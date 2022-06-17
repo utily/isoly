@@ -99,4 +99,10 @@ describe("Date", () => {
 	it("getDay", () => {
 		expect(isoly.DateTime.getDay("2020-12-31")).toEqual(31)
 	})
+	it("getWeekDay", () => {
+		expect(isoly.Date.getWeekDay("2022-05-11")).toEqual(3)
+		expect(isoly.Date.getWeekDay("2022-05-02")).toEqual(1)
+		expect(isoly.Date.getWeekDay("2022-05-07")).toEqual(6)
+		expect(isoly.Date.getWeekDay("2022-05-08")).toEqual(0)
+	})
 })

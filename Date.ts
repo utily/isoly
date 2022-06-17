@@ -112,4 +112,7 @@ export namespace Date {
 	export function getDay(time: Date): number {
 		return Number.parseInt(time.substring(8, 10))
 	}
+	export function getWeekDay(time: Date): number {
+		return new globalThis.Date(time).getDay()
+	}
 }
