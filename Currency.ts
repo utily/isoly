@@ -397,6 +397,14 @@ export namespace Currency {
 	export function subtract(currency: Currency, minuend: number, subtrahend: number): number {
 		return round(round(minuend, currency) - round(subtrahend, currency), currency)
 	}
+	export function toMinor(amount: number, currency: Currency): number {
+		const decimals = Currency.decimalDigits(currency)
+		return typeof decimals == "number" ? Math.round(amount * 10 ** decimals) : amount
+	}
+	export function fromMinor(amount: number, currency: Currency): number {
+		const decimals = Currency.decimalDigits(currency)
+		return typeof decimals == "number" ? Currency.divide(currency, amount, 10 ** decimals) : amount
+	}
 	export function decimalDigits(currency: Currency): number | undefined {
 		return {
 			AED: 2,
