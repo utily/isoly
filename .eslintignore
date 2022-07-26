@@ -1,5 +1,4 @@
 node_modules
-dist 
-CallingCode.ts
-Encoding/index.*.*
-Encoding/index.*
+dist
+transpiled
+*.js

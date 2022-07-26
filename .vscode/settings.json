@@ -2,10 +2,13 @@
 	"files.exclude": {
 		".*": true,
 		"*.json": true,
+		"CODEOWNERS": true,
 		"dist": true,
 		"README.md": true,
 		"LICENSE": true,
-		"tsconfig.*": true
+		"tsconfig.*": true,
+		"node_modules": true,
+		"*.code-workspace": true
 	},
 	"files.insertFinalNewline": true,
 	"editor.tabSize": 2,
@@ -17,9 +20,26 @@
 		"source.fixAll.eslint": true,
 		"eslint.autoFixOnSave": true,
 	},
+	"eslint.format.enable": true,
+	"eslint.lintTask.enable": true,
 	"javascript.format.enable": false,
 	"typescript.format.enable": false,
 	"cSpell.words": [
-		"isoly"
+		"authly",
+		"cloudly",
+		"cryptly",
+		"flagly",
+		"gracely",
+		"isoly",
+		"langly",
+		"paramly",
+		"persistly",
+		"selectivly",
+		"servly",
+		"servly-azure",
+		"smoothly",
+		"tidily",
+		"transactly",
+		"uply"
 	]
 }
