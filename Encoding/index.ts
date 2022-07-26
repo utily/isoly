@@ -1,6 +1,6 @@
+import { Iso88591 } from "./Iso88591"
 import { Transcoder } from "./Transcoder"
 import { Utf8 } from "./Utf8"
-import { Iso88591 } from "./Iso88591"
 
 export type Encoding =
 	| "UTF-8"

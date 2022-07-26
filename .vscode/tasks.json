@@ -12,20 +12,7 @@
 					"isDefault": true
 				},
 				"problemMatcher": [
-					"$tslint5",
-					"$tsc"
-				]
-			},
-			{
-				"label": "test",
-				"type": "npm",
-				"script": "test",
-				"group": {
-					"kind": "test",
-					"isDefault": true
-				},
-				"problemMatcher": [
-					"$tslint5",
+					"$eslint-compact",
 					"$tsc"
 				]
 			},
@@ -33,7 +20,7 @@
 				"type": "npm",
 				"script": "lint",
 				"problemMatcher": [
-					"$tslint5"
+					"$eslint-compact"
 				]
 			}
 		]
