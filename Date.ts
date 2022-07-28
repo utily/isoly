@@ -9,7 +9,7 @@ export namespace Date {
 			typeof value == "string" &&
 			value.length == 10 &&
 			new globalThis.Date(value).toString() != "Invalid Date" &&
-			localize(value) == value
+			create(new globalThis.Date(value)) == value
 		)
 	}
 	export function parse(value: Date, time?: string): globalThis.Date {
