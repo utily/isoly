@@ -105,4 +105,13 @@ describe("Date", () => {
 		expect(isoly.Date.getWeekDay("2022-05-07")).toEqual(6)
 		expect(isoly.Date.getWeekDay("2022-05-08")).toEqual(0)
 	})
+	it("invalid date", () => {
+		expect(isoly.Date.is("2020-13-31")).toEqual(false)
+	})
+	it("valid date", () => {
+		expect(isoly.Date.is("2020-02-29")).toEqual(true)
+	})
+	it("invalid date", () => {
+		expect(isoly.Date.is("2022-02-29")).toEqual(false)
+	})
 })
