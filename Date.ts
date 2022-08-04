@@ -8,7 +8,8 @@ export namespace Date {
 		return (
 			typeof value == "string" &&
 			value.length == 10 &&
-			/^(\d{4}-[01]\d-[0-3]\d)|(\d{4}-[01]\d-[0-3]\d)|(\d{4}-[01]\d-[0-3]\d)$/.test(value)
+			new globalThis.Date(value).toString() != "Invalid Date" &&
+			create(new globalThis.Date(value)) == value
 		)
 	}
 	export function parse(value: Date, time?: string): globalThis.Date {
