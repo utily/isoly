@@ -54,5 +54,10 @@ describe("DateTime", () => {
 		it("getSecond", () => {
 			expect(isoly.DateTime.getSecond("2020-12-31T23:59:57.000Z")).toEqual(57)
 		})
+		it("precision minutes", () => {
+			const value = "2020-12-31T23:59:59.123Z"
+			const minutes = isoly.DateTime.truncate(value, "minutes")
+			expect(minutes).toEqual("2020-12-31T23:59Z")
+		})
 	}
 })

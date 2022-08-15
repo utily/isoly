@@ -1,6 +1,7 @@
 import { Date } from "./Date"
 import { Locale } from "./Locale"
 import { TimeSpan } from "./TimeSpan"
+import { TimeZone } from "./TimeZone"
 
 export type DateTime = string
 
@@ -48,7 +49,7 @@ export namespace DateTime {
 	export function now(): DateTime {
 		return create(new globalThis.Date())
 	}
-	export function localize(value: DateTime | globalThis.Date, locale?: Locale, timezone?: string): DateTime {
+	export function localize(value: DateTime | globalThis.Date, locale?: Locale, timeZone?: TimeZone): DateTime {
 		const localeString = locale ? locale : Intl.DateTimeFormat().resolvedOptions().locale
 		return (is(value) ? parse(value) : value).toLocaleString(localeString, {
 			year: "numeric",
@@ -57,8 +58,68 @@ export namespace DateTime {
 			hour: "2-digit",
 			minute: "2-digit",
 			second: "2-digit",
-			timeZone: timezone ?? Intl.DateTimeFormat().resolvedOptions().timeZone,
+			timeZone: timeZone ?? Intl.DateTimeFormat().resolvedOptions().timeZone,
 		})
+	}
+	export function timeZone(value: DateTime): TimeZone | "" {
+		const result = value[value.length - 1] == "Z" ? "Z" : value.substring(value.length - 6)
+		return TimeZone.is(result) ? result : ""
+	}
+	export type Precision = "hours" | "minutes" | "seconds" | "milliseconds"
+	export function precision(value: DateTime): Precision {
+		const zone = timeZone(value)
+		const time = value.substring(0, value.length - zone.length).split("T", 2)[1]
+		let result: Precision
+		switch (time.length) {
+			case 2:
+				result = "hours"
+				break
+			case 5:
+				result = "minutes"
+				break
+			case 8:
+				result = "seconds"
+				break
+			default:
+			case 12:
+				result = "milliseconds"
+				break
+		}
+		return result
+	}
+
+	export function truncate(value: DateTime, precision: Precision): DateTime {
+		const zone = timeZone(value)
+		// eslint-disable-next-line prefer-const
+		let [date, time] = value.split("T", 2)
+		time = time.substring(0, time.length - zone.length)
+		switch (value.length) {
+			case 2:
+				time += ":00:00.000"
+				break
+			case 5:
+				time += ":00.000"
+				break
+			case 8:
+				time += ".000"
+				break
+		}
+		let result: string
+		switch (precision) {
+			case "hours":
+				result = time.substring(0, 2)
+				break
+			case "minutes":
+				result = time.substring(0, 5)
+				break
+			case "seconds":
+				result = time.substring(0, 8)
+				break
+			case "milliseconds":
+				result = time.substring(0, 12)
+				break
+		}
+		return date + "T" + result + zone
 	}
 	export function epoch(
 		value: DateTime | globalThis.Date,
