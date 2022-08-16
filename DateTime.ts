@@ -6,16 +6,60 @@ import { TimeZone } from "./TimeZone"
 export type DateTime = string
 
 export namespace DateTime {
+	function isHours(v: string): boolean {
+		return (v[0] >= "0" && v[0] <= "1" && v[1] >= "0" && v[1] <= "9") || (v[0] == "2" && v[1] >= "0" && v[1] <= "3")
+	}
+	function isMinutes(v: string): boolean {
+		return v[0] >= "0" && v[0] <= "5" && v[1] >= "0" && v[1] <= "9"
+	}
+	function isSeconds(v: string): boolean {
+		return (v[0] >= "0" && v[0] <= "5" && v[1] >= "0" && v[1] <= "9") || v == "60" || v == "61"
+	}
 	export function is(value: any | DateTime): value is DateTime {
+		const length = value.length
+		// 2019-04-01T01
+		// 2019-04-01T01Z
+		// 2019-04-01T01+01:00
+		// 2019-04-01T01:11
+		// 2019-04-01T01:11Z
+		// 2019-04-01T01:11+01:00
+		// 2019-04-01T01:11:29
+		// 2019-04-01T01:11:29Z
+		// 2019-04-01T01:11:29+01:00
+		// 2019-04-01T01:11:29.000
+		// 2019-04-01T01:11:29.000Z
+		// 2019-04-01T01:11:29.000+01:00
+		// 01234567890123456789012345678
+		// 0         1         2
 		return (
 			typeof value == "string" &&
-			/^(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)$/.test(
-				value
-			)
+			length >= 13 &&
+			length <= 29 &&
+			Date.is(value.substring(0, 10)) &&
+			value[10] == "T" &&
+			isHours(value.substring(11, 13)) &&
+			(length == 13 ||
+				TimeZone.is(value.substring(13)) ||
+				(value[13] == ":" &&
+					length >= 16 &&
+					isMinutes(value.substring(14, 16)) &&
+					(length == 16 ||
+						TimeZone.is(value.substring(16)) ||
+						(value[16] == ":" &&
+							length >= 19 &&
+							isSeconds(value.substring(17, 19)) &&
+							(length == 19 ||
+								TimeZone.is(value.substring(19)) ||
+								(value[19] == "." &&
+									length >= 23 &&
+									[...value.substring(20, 23)].every(c => c >= "0" && c <= "9") &&
+									(length == 23 || TimeZone.is(value.substring(23)))))))))
+			// /^(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)$/.test(
+			// 	value
 		)
 	}
 	export function parse(value: DateTime): globalThis.Date {
-		return new globalThis.Date(value)
+		return new globalThis.Date(DateTime.truncate(value, "milliseconds"))
 	}
 	export function create(
 		value: number,
@@ -49,18 +93,52 @@ export namespace DateTime {
 	export function now(): DateTime {
 		return create(new globalThis.Date())
 	}
-	export function localize(value: DateTime | globalThis.Date, locale?: Locale, timeZone?: TimeZone): DateTime {
-		const localeString = locale ? locale : Intl.DateTimeFormat().resolvedOptions().locale
-		return (is(value) ? parse(value) : value).toLocaleString(localeString, {
-			year: "numeric",
-			month: "2-digit",
-			day: "2-digit",
-			hour: "2-digit",
-			minute: "2-digit",
-			second: "2-digit",
-			timeZone: timeZone ?? Intl.DateTimeFormat().resolvedOptions().timeZone,
-		})
+	export interface Format {
+		localeMatcher?: "best fit" | "lookup" | undefined
+		weekday?: "long" | "short" | "narrow" | undefined
+		era?: "long" | "short" | "narrow" | undefined
+		year?: "numeric" | "2-digit" | undefined
+		month?: "numeric" | "2-digit" | "long" | "short" | "narrow" | undefined
+		day?: "numeric" | "2-digit" | undefined
+		hour?: "numeric" | "2-digit" | undefined
+		minute?: "numeric" | "2-digit" | undefined
+		second?: "numeric" | "2-digit" | undefined
+		timeZoneName?: "short" | "long" | "shortOffset" | "longOffset" | "shortGeneric" | "longGeneric" | undefined
+		formatMatcher?: "best fit" | "basic" | undefined
+		hour12?: boolean | undefined
+		timeZone?: TimeZone | undefined
 	}
+	export function localize(value: DateTime | globalThis.Date, format: Format, locale?: Locale): string
+	export function localize(value: DateTime | globalThis.Date, locale?: Locale, timeZone?: TimeZone): string
+	export function localize(
+		value: DateTime | globalThis.Date,
+		locale?: Locale | Format,
+		timeZone?: TimeZone | Locale
+	): string {
+		let result: string
+		if (typeof locale == "object") {
+			const localeString = timeZone ? timeZone : Intl.DateTimeFormat().resolvedOptions().locale
+			result = (is(value) ? parse(value) : value).toLocaleString(localeString, locale as any)
+		} else {
+			const precision = is(value) ? DateTime.precision(value) : "milliseconds"
+			result = localize(
+				value,
+				{
+					year: "numeric",
+					month: "2-digit",
+					day: "2-digit",
+					hour: "2-digit",
+					minute:
+						precision == "minutes" || precision == "seconds" || precision == "milliseconds" ? "2-digit" : undefined,
+					second: precision == "seconds" || precision == "milliseconds" ? "2-digit" : undefined,
+					timeZone: timeZone as TimeZone,
+				},
+				locale
+			)
+		}
+		return result
+	}
+
 	export function timeZone(value: DateTime): TimeZone | "" {
 		const result = value[value.length - 1] == "Z" ? "Z" : value.substring(value.length - 6)
 		return TimeZone.is(result) ? result : ""
@@ -93,7 +171,7 @@ export namespace DateTime {
 		// eslint-disable-next-line prefer-const
 		let [date, time] = value.split("T", 2)
 		time = time.substring(0, time.length - zone.length)
-		switch (value.length) {
+		switch (time.length) {
 			case 2:
 				time += ":00:00.000"
 				break
