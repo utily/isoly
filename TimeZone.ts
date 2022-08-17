@@ -1,7 +1,7 @@
 export type TimeZone = typeof TimeZone.values[number]
 
 export namespace TimeZone {
-	export const values = [
+	export const values: string[] = [
 		"-12:00",
 		"-11:00",
 		"-10:00",
@@ -40,8 +40,8 @@ export namespace TimeZone {
 		"+12:45",
 		"+13:00",
 		"+14:00",
-	] as const
+	]
 	export function is(value: TimeZone | any): value is TimeZone {
-		return typeof value == "string" && values.some(v => v == value)
+		return typeof value == "string" && values.includes(value)
 	}
 }

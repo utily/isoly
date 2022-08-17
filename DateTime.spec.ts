@@ -130,6 +130,15 @@ describe("DateTime", () => {
 				)
 			).toEqual("1. Jan., 00:12")
 		})
+		it('localize 2020-12-01T23:02Z to se-SE { month: "short", day: "numeric", hour: "numeric", minute: "numeric" }', () => {
+			expect(
+				isoly.DateTime.localize(
+					"2020-12-01T23:02Z",
+					{ month: "short", day: "numeric", hour: "numeric", minute: "numeric" },
+					"sv-SE"
+				)
+			).toEqual("2 dec. 00:02")
+		})
 
 		it("getDate", () => {
 			expect(isoly.DateTime.getDate("2020-12-31T23:59:59.000Z")).toEqual("2020-12-31")
@@ -159,7 +168,7 @@ describe("DateTime", () => {
 			const value = "2020-12-31T23:59:59.123Z"
 			const minutes = isoly.DateTime.truncate(value, "minutes")
 			expect(minutes).toEqual("2020-12-31T23:59Z")
-			// expect(isoly.DateTime.is(minutes)).toEqual(true)
+			expect(isoly.DateTime.is(minutes)).toEqual(true)
 		})
 	}
 })

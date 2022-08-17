@@ -54,8 +54,6 @@ export namespace DateTime {
 									length >= 23 &&
 									[...value.substring(20, 23)].every(c => c >= "0" && c <= "9") &&
 									(length == 23 || TimeZone.is(value.substring(23)))))))))
-			// /^(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)$/.test(
-			// 	value
 		)
 	}
 	export function parse(value: DateTime): globalThis.Date {
