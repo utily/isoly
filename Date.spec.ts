@@ -100,10 +100,13 @@ describe("Date", () => {
 		expect(isoly.DateTime.getDay("2020-12-31")).toEqual(31)
 	})
 	it("getWeekDay", () => {
-		expect(isoly.Date.getWeekDay("2022-05-11")).toEqual(3)
-		expect(isoly.Date.getWeekDay("2022-05-02")).toEqual(1)
-		expect(isoly.Date.getWeekDay("2022-05-07")).toEqual(6)
-		expect(isoly.Date.getWeekDay("2022-05-08")).toEqual(0)
+		expect(isoly.Date.getWeekDay("2022-05-02")).toEqual(1) // Monday
+		expect(isoly.Date.getWeekDay("2022-05-03")).toEqual(2) // Tuesday
+		expect(isoly.Date.getWeekDay("2022-05-04")).toEqual(3) // Wednesday
+		expect(isoly.Date.getWeekDay("2022-05-05")).toEqual(4) // Thursday
+		expect(isoly.Date.getWeekDay("2022-05-06")).toEqual(5) // Friday
+		expect(isoly.Date.getWeekDay("2022-05-07")).toEqual(6) // Saturday
+		expect(isoly.Date.getWeekDay("2022-05-08")).toEqual(0) // Sunday
 	})
 	it("invalid date", () => {
 		expect(isoly.Date.is("2020-13-31")).toEqual(false)
