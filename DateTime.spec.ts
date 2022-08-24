@@ -170,5 +170,8 @@ describe("DateTime", () => {
 			expect(minutes).toEqual("2020-12-31T23:59Z")
 			expect(isoly.DateTime.is(minutes)).toEqual(true)
 		})
+		it("previousMillisecond", () => {
+			expect(isoly.DateTime.previousMillisecond("2020-01-01T00:00:00.100Z", 200)).toEqual("2019-12-31T23:59:59.900Z")
+		})
 	}
 })

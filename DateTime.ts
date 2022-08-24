@@ -270,8 +270,8 @@ export namespace DateTime {
 		result.setMilliseconds(result.getMilliseconds() + milliseconds)
 		return DateTime.create(result)
 	}
-	export function previousMillisecond(time: DateTime, seconds = 1): DateTime {
-		return nextMillisecond(time, -seconds)
+	export function previousMillisecond(time: DateTime, milliseconds = 1): DateTime {
+		return nextMillisecond(time, -milliseconds)
 	}
 	export function nextSecond(time: DateTime, seconds = 1): DateTime {
 		const result = parse(time)
