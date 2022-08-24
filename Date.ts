@@ -116,4 +116,11 @@ export namespace Date {
 	export function getWeekDay(time: Date): number {
 		return new globalThis.Date(time).getDay()
 	}
+	export function span(date: Date, relative: Date): DateSpan {
+		return {
+			years: getYear(date) - getYear(relative),
+			months: getMonth(date) - getMonth(relative),
+			days: getDay(date) - getDay(relative),
+		}
+	}
 }
