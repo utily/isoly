@@ -164,6 +164,9 @@ describe("DateTime", () => {
 		it("getSecond", () => {
 			expect(isoly.DateTime.getSecond("2020-12-31T23:59:57.000Z")).toEqual(57)
 		})
+		it("getMillisecond", () => {
+			expect(isoly.DateTime.getMillisecond("2020-12-31T23:59:57.321Z")).toEqual(321)
+		})
 		it("precision minutes", () => {
 			const value = "2020-12-31T23:59:59.123Z"
 			const minutes = isoly.DateTime.truncate(value, "minutes")
@@ -172,6 +175,17 @@ describe("DateTime", () => {
 		})
 		it("previousMillisecond", () => {
 			expect(isoly.DateTime.previousMillisecond("2020-01-01T00:00:00.100Z", 200)).toEqual("2019-12-31T23:59:59.900Z")
+		})
+		it("span", () => {
+			expect(isoly.DateTime.span("2013-01-19T22:01:20:000Z", "2023-03-20T00:00:0:003Z")).toEqual({
+				years: -10,
+				months: -2,
+				days: -1,
+				hours: 22,
+				minutes: 1,
+				seconds: 20,
+				milliseconds: -3,
+			})
 		})
 	}
 })

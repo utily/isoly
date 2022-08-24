@@ -345,6 +345,18 @@ export namespace DateTime {
 	export function getSecond(time: DateTime): number {
 		return Number.parseInt(time.substring(17, 19))
 	}
+	export function getMillisecond(time: DateTime): number {
+		return Number.parseInt(time.substring(20, 23))
+	}
+	export function span(time: DateTime, relative: DateTime): TimeSpan {
+		return {
+			...Date.span(time, relative),
+			hours: getHour(time) - getHour(relative),
+			minutes: getMinute(time) - getMinute(relative),
+			seconds: getSecond(time) - getSecond(relative),
+			milliseconds: getMillisecond(time) - getMillisecond(relative),
+		}
+	}
 }
 /*
 2021-01-10T13:37:42.000Z
