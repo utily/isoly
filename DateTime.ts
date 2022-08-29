@@ -91,32 +91,22 @@ export namespace DateTime {
 	export function now(): DateTime {
 		return create(new globalThis.Date())
 	}
-	export interface Format {
-		localeMatcher?: "best fit" | "lookup" | undefined
-		weekday?: "long" | "short" | "narrow" | undefined
-		era?: "long" | "short" | "narrow" | undefined
-		year?: "numeric" | "2-digit" | undefined
-		month?: "numeric" | "2-digit" | "long" | "short" | "narrow" | undefined
-		day?: "numeric" | "2-digit" | undefined
-		hour?: "numeric" | "2-digit" | undefined
-		minute?: "numeric" | "2-digit" | undefined
-		second?: "numeric" | "2-digit" | undefined
-		timeZoneName?: "short" | "long" | "shortOffset" | "longOffset" | "shortGeneric" | "longGeneric" | undefined
-		formatMatcher?: "best fit" | "basic" | undefined
-		hour12?: boolean | undefined
-		timeZone?: TimeZone | undefined
-	}
-	export function localize(value: DateTime | globalThis.Date, format: Format, locale?: Locale): string
+	export type Format = Intl.DateTimeFormatOptions
+	export function localize(
+		value: DateTime | globalThis.Date,
+		format: Intl.DateTimeFormatOptions,
+		locale?: Locale
+	): string
 	export function localize(value: DateTime | globalThis.Date, locale?: Locale, timeZone?: TimeZone): string
 	export function localize(
 		value: DateTime | globalThis.Date,
-		locale?: Locale | Format,
-		timeZone?: TimeZone | Locale
+		locale?: Locale | Intl.DateTimeFormatOptions,
+		timeZone?: string | Locale
 	): string {
 		let result: string
 		if (typeof locale == "object") {
 			const localeString = timeZone ? timeZone : Intl.DateTimeFormat().resolvedOptions().locale
-			result = (is(value) ? parse(value) : value).toLocaleString(localeString, locale as any)
+			result = (is(value) ? parse(value) : value).toLocaleString(localeString, locale)
 		} else {
 			const precision = is(value) ? DateTime.precision(value) : "milliseconds"
 			result = localize(
@@ -129,7 +119,7 @@ export namespace DateTime {
 					minute:
 						precision == "minutes" || precision == "seconds" || precision == "milliseconds" ? "2-digit" : undefined,
 					second: precision == "seconds" || precision == "milliseconds" ? "2-digit" : undefined,
-					timeZone: timeZone as TimeZone,
+					timeZone: timeZone,
 				},
 				locale
 			)
@@ -140,6 +130,9 @@ export namespace DateTime {
 	export function timeZone(value: DateTime): TimeZone | "" {
 		const result = value[value.length - 1] == "Z" ? "Z" : value.substring(value.length - 6)
 		return TimeZone.is(result) ? result : ""
+	}
+	export function timeZoneShort(value: DateTime): number {
+		return parse(value).getTimezoneOffset()
 	}
 	export type Precision = "hours" | "minutes" | "seconds" | "milliseconds"
 	export function precision(value: DateTime): Precision {
