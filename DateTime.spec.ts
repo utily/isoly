@@ -146,7 +146,7 @@ describe("DateTime", () => {
 					{ month: "short", day: "numeric", hour: "numeric", minute: "numeric" },
 					"en-GB"
 				)
-			).toEqual("2 dec. 00:02")
+			).toEqual("1 Jun, 19:02")
 		})
 		it("getDate", () => {
 			expect(isoly.DateTime.getDate("2020-12-31T23:59:59.000Z")).toEqual("2020-12-31")
