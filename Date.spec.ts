@@ -34,6 +34,18 @@ describe("Date", () => {
 		expect(nonUniqueDay).toBeUndefined()
 		expect(isoly.Date.next("2001-01-01", 83) == isoly.Date.next("2001-01-01", 84)).toBeFalsy()
 	})
+	it("next DateSpan", () => {
+		expect(isoly.Date.next("2001-01-01")).toEqual("2001-01-02")
+		expect(isoly.Date.next("2001-01-01", 10)).toEqual("2001-01-11")
+		expect(isoly.Date.next("2012-12-10", { years: 10, months: 12, days: 1 })).toEqual("2023-12-11")
+		expect(
+			isoly.Date.next("2022-03-10", {
+				days: 18,
+				months: -1,
+				years: 0,
+			})
+		).toEqual("2022-02-28")
+	})
 	it("previous", () => {
 		expect(isoly.Date.previous("2001-01-01")).toEqual("2000-12-31")
 		expect(isoly.Date.previous("2001-01-01", 10)).toEqual("2000-12-22")
@@ -116,5 +128,12 @@ describe("Date", () => {
 	})
 	it("invalid date", () => {
 		expect(isoly.Date.is("2022-02-29")).toEqual(false)
+	})
+	it("span", () => {
+		expect(isoly.Date.span("2022-02-28", "2022-03-10")).toEqual({
+			days: 18,
+			months: -1,
+			years: 0,
+		})
 	})
 })
