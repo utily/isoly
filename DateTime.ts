@@ -292,7 +292,9 @@ export namespace DateTime {
 	}
 	export function nextDay(time: DateTime, days = 1): DateTime {
 		const result = parse(time)
+		const offset = result.getTimezoneOffset()
 		result.setDate(result.getDate() + days)
+		result.setMinutes(result.getMinutes() + offset - result.getTimezoneOffset()) // handle changing potential daylight saving time
 		return DateTime.create(result)
 	}
 	export function previousDay(time: DateTime, days = 1): DateTime {
@@ -300,7 +302,9 @@ export namespace DateTime {
 	}
 	export function nextMonth(time: DateTime, months = 1): DateTime {
 		const result = parse(time)
+		const offset = result.getTimezoneOffset()
 		result.setMonth(result.getMonth() + months)
+		result.setMinutes(result.getMinutes() + offset - result.getTimezoneOffset()) // handle changing potential daylight saving time
 		return DateTime.create(result)
 	}
 	export function previousMonth(time: DateTime, months = 1): DateTime {

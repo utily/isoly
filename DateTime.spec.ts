@@ -196,4 +196,13 @@ describe("DateTime", () => {
 			})
 		})
 	}
+	it("next month", () => {
+		expect(isoly.DateTime.nextMonth("2023-10-20T13:37:00.000Z", -8)).toEqual("2023-02-20T13:37:00.000Z")
+	})
+	it("next day", () => {
+		expect(isoly.DateTime.nextDay("2023-10-20T13:37:00.000Z", 10)).toEqual("2023-10-30T13:37:00.000Z")
+	})
+	it("next hour", () => {
+		expect(isoly.DateTime.nextHour("2023-10-29T13:37:00.000Z", 24)).toEqual("2023-10-30T13:37:00.000Z")
+	})
 })
