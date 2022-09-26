@@ -1,6 +1,9 @@
 import { Currency } from "./Currency"
 
 describe("Currency", () => {
+	it("undefined", () => {
+		expect(Currency.is(undefined)).toBeFalsy()
+	})
 	it("check types array", () => {
 		expect(Currency.types.every(c => Currency.is(c))).toBeTruthy()
 		expect(Currency.is("SEK")).toBeTruthy()
