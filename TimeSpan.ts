@@ -29,7 +29,7 @@ export namespace TimeSpan {
 	}
 	export function toHours(value: TimeSpan, round?: Round): number {
 		const result =
-			(value.milliseconds ?? 0) / (60 * 60 * 1000) +
+			(dateToMilliseconds(value) + (value.milliseconds ?? 0)) / (60 * 60 * 1000) +
 			(value.seconds ?? 0) / (60 * 60) +
 			(value.minutes ?? 0) / 60 +
 			(value.hours ?? 0)
@@ -37,7 +37,7 @@ export namespace TimeSpan {
 	}
 	export function toMinutes(value: TimeSpan, round?: Round): number {
 		const result =
-			(value.milliseconds ?? 0) / (60 * 1000) +
+			(dateToMilliseconds(value) + (value.milliseconds ?? 0)) / (60 * 1000) +
 			(value.seconds ?? 0) / 60 +
 			(value.minutes ?? 0) +
 			(value.hours ?? 0) * 60
@@ -45,17 +45,36 @@ export namespace TimeSpan {
 	}
 	export function toSeconds(value: TimeSpan, round?: Round): number {
 		const result =
-			(value.milliseconds ?? 0) / 1000 + (value.seconds ?? 0) + (value.minutes ?? 0) * 60 + (value.hours ?? 0) * 60 * 60
+			(dateToMilliseconds(value) + (value.milliseconds ?? 0)) / 1000 +
+			(value.seconds ?? 0) +
+			(value.minutes ?? 0) * 60 +
+			(value.hours ?? 0) * 60 * 60
 		return performRound(result, round)
 	}
 	export function toMilliseconds(value: TimeSpan, round?: Round): number {
 		const result =
+			dateToMilliseconds(value) +
 			(value.milliseconds ?? 0) +
 			(value.seconds ?? 0) * 1000 +
 			(value.minutes ?? 0) * 60 * 1000 +
 			(value.hours ?? 0) * 60 * 60 * 1000
 		return performRound(result, round)
 	}
+}
+
+function dateToMilliseconds(span: TimeSpan): number {
+	const now = Date.UTC(0, 0)
+	const date = new Date(now)
+	const future = Date.UTC(
+		date.getUTCFullYear() + (span.years ?? 0),
+		date.getUTCMonth() + (span.months ?? 0),
+		date.getUTCDate() + (span.days ?? 0),
+		date.getUTCHours(),
+		date.getUTCMinutes(),
+		date.getUTCSeconds(),
+		date.getUTCMilliseconds()
+	)
+	return future.valueOf() - date.valueOf()
 }
 
 type Round = "round" | "floor" | "ceiling"
