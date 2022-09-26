@@ -1,5 +1,8 @@
 import { TimeSpan } from "./TimeSpan"
 describe("TimeSpan", () => {
+	it("undefined", () => {
+		expect(TimeSpan.is(undefined)).toBeFalsy()
+	})
 	it("Timespan to Unit", () => {
 		expect(TimeSpan.toMilliseconds({ hours: 0.75, minutes: 14, seconds: 59, milliseconds: 1000 })).toEqual(3600000)
 		expect(TimeSpan.toMinutes({ hours: 1, minutes: 10, seconds: 44, milliseconds: 1000 })).toEqual(70.75)

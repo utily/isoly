@@ -1,6 +1,9 @@
 import * as isoly from "./index"
 
 describe("DateTime", () => {
+	it("undefined", () => {
+		expect(isoly.DateTime.is(undefined)).toBeFalsy()
+	})
 	it("create + is", () => {
 		const d = isoly.DateTime.create(new Date(Date.UTC(2020, 11, 31, 23, 59, 59)))
 		expect(d).toBe("2020-12-31T23:59:59.000Z")

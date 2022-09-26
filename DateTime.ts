@@ -16,7 +16,6 @@ export namespace DateTime {
 		return (v[0] >= "0" && v[0] <= "5" && v[1] >= "0" && v[1] <= "9") || v == "60" || v == "61"
 	}
 	export function is(value: any | DateTime): value is DateTime {
-		const length = value.length
 		// 2019-04-01T01
 		// 2019-04-01T01Z
 		// 2019-04-01T01+01:00
@@ -33,27 +32,27 @@ export namespace DateTime {
 		// 0         1         2
 		return (
 			typeof value == "string" &&
-			length >= 13 &&
-			length <= 29 &&
+			value.length >= 13 &&
+			value.length <= 29 &&
 			Date.is(value.substring(0, 10)) &&
 			value[10] == "T" &&
 			isHours(value.substring(11, 13)) &&
-			(length == 13 ||
+			(value.length == 13 ||
 				TimeZone.is(value.substring(13)) ||
 				(value[13] == ":" &&
-					length >= 16 &&
+					value.length >= 16 &&
 					isMinutes(value.substring(14, 16)) &&
-					(length == 16 ||
+					(value.length == 16 ||
 						TimeZone.is(value.substring(16)) ||
 						(value[16] == ":" &&
-							length >= 19 &&
+							value.length >= 19 &&
 							isSeconds(value.substring(17, 19)) &&
-							(length == 19 ||
+							(value.length == 19 ||
 								TimeZone.is(value.substring(19)) ||
 								(value[19] == "." &&
-									length >= 23 &&
+									value.length >= 23 &&
 									[...value.substring(20, 23)].every(c => c >= "0" && c <= "9") &&
-									(length == 23 || TimeZone.is(value.substring(23)))))))))
+									(value.length == 23 || TimeZone.is(value.substring(23)))))))))
 		)
 	}
 	export function parse(value: DateTime): globalThis.Date {
