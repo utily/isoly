@@ -116,6 +116,16 @@ export namespace Date {
 	export function getWeekDay(time: Date): number {
 		return new globalThis.Date(time).getDay()
 	}
+	export function nextWeekday(date: Date, days: number | DateSpan = 1, holidays: Date[] = []): Date {
+		const holidaySet = new Set(holidays)
+		let result = next(date, days)
+		let weekday = getWeekDay(result)
+		while (weekday == 6 || weekday == 0 || holidaySet.has(result)) {
+			result = next(result, weekday == 6 ? 2 : 1)
+			weekday = getWeekDay(result)
+		}
+		return result
+	}
 	export function span(date: Date, relative: Date): DateSpan {
 		return {
 			years: getYear(date) - getYear(relative),
