@@ -123,6 +123,16 @@ describe("Date", () => {
 		expect(isoly.Date.getWeekDay("2022-05-07")).toEqual(6) // Saturday
 		expect(isoly.Date.getWeekDay("2022-05-08")).toEqual(0) // Sunday
 	})
+	it("nextWeekday", () => {
+		expect(isoly.Date.nextWeekday("2022-05-04")).toEqual("2022-05-05") // Wednesday -> Thursday
+		expect(isoly.Date.nextWeekday("2022-05-04", 2)).toEqual("2022-05-06") // Wednesday -> Friday
+		expect(isoly.Date.nextWeekday("2022-05-04", 3)).toEqual("2022-05-09") // Wednesday -> Monday
+		expect(isoly.Date.nextWeekday("2022-05-04", 4)).toEqual("2022-05-09") // Wednesday -> Monday
+		expect(isoly.Date.nextWeekday("2022-05-04", 5)).toEqual("2022-05-09") // Wednesday -> Monday
+		expect(isoly.Date.nextWeekday("2022-05-04", 6)).toEqual("2022-05-10") // Wednesday -> Tuesday
+		expect(isoly.Date.nextWeekday("2023-11-30", 1, ["2023-12-01"])).toEqual("2023-12-04") // Thursday -> Monday
+		expect(isoly.Date.nextWeekday("2023-11-30", 1, ["2023-12-01", "2023-12-04"])).toEqual("2023-12-05") // Thursday -> Tuesday
+	})
 	it("invalid date", () => {
 		expect(isoly.Date.is("2020-13-31")).toEqual(false)
 	})
