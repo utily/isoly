@@ -188,7 +188,7 @@ describe("DateTime", () => {
 			expect(isoly.DateTime.previousMillisecond("2020-01-01T00:00:00.100Z", 200)).toEqual("2019-12-31T23:59:59.900Z")
 		})
 		it("span", () => {
-			expect(isoly.DateTime.span("2013-01-19T22:01:20:000Z", "2023-03-20T00:00:0:003Z")).toEqual({
+			expect(isoly.DateTime.span("2013-01-19T22:01:20.000Z", "2023-03-20T00:00:0.003Z")).toEqual({
 				years: -10,
 				months: -2,
 				days: -1,
@@ -197,6 +197,22 @@ describe("DateTime", () => {
 				seconds: 20,
 				milliseconds: -3,
 			})
+		})
+		it("invert leap second", () => {
+			expect(isoly.DateTime.invert("2013-01-19T22:01:61.070Z")).toEqual("7986-12-13T02:59:-1.929Z")
+			expect(isoly.DateTime.invert("7986-12-13T02:59:-1.929Z")).toEqual("2013-01-19T22:01:61.070Z")
+		})
+		it("invert", () => {
+			expect(isoly.DateTime.invert("2013-01-19T22:01:20:070Z")).toEqual("7986-12-13T02:59:40.929Z")
+			expect(isoly.DateTime.invert("7986-12-13T02:59:40:929Z")).toEqual("2013-01-19T22:01:20.070Z")
+		})
+		it("invert consecutive", () => {
+			expect(
+				isoly.DateTime.invert("2013-01-19T22:01:20.000Z") > isoly.DateTime.invert("2013-01-19T22:01:20.001Z")
+			).toEqual(true)
+			expect(
+				isoly.DateTime.invert("1999-12-31T23:59:59.999Z") > isoly.DateTime.invert("2000-01-01T00:00:00.000Z")
+			).toEqual(true)
 		})
 	}
 	it("next month", () => {
