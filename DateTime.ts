@@ -353,6 +353,15 @@ export namespace DateTime {
 			milliseconds: getMillisecond(time) - getMillisecond(relative),
 		}
 	}
+	export const epochStart = "0000-01-01T00:00:00.000Z" as const
+	export const epochEnd = "9999-12-31T23:59:59.999Z" as const
+	export function invert(time: DateTime): DateTime {
+		return `${Date.invert(getDate(time))}T${(24 - getHour(time)).toFixed(0).padStart(2, "0")}:${(60 - getMinute(time))
+			.toFixed(0)
+			.padStart(2, "0")}:${(60 - getSecond(time)).toFixed(0).padStart(2, "0")}.${(999 - getMillisecond(time))
+			.toFixed(0)
+			.padStart(3, "0")}Z`
+	}
 }
 /*
 2021-01-10T13:37:42.000Z
