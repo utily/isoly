@@ -18,6 +18,16 @@ export namespace DateRange {
 			? { start, end }
 			: { start: end, end: start }
 	}
+	export function toDates(value: DateRange, includeLast = true): Date[] {
+		const result: string[] = []
+		for (
+			let current = value.start;
+			includeLast ? current <= value.end : current < value.end;
+			current = Date.next(current)
+		)
+			result.push(current)
+		return result
+	}
 	export function getDays(value: DateRange): number {
 		const result =
 			value.start <= value.end
