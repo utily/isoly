@@ -1,4 +1,5 @@
-import * as isoly from "./TimeRange"
+import { isoly } from "./index"
+
 describe("TimeRange", () => {
 	it("undefined", () => {
 		expect(isoly.TimeRange.is(undefined)).toBeFalsy()
