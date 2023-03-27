@@ -22,14 +22,18 @@ export namespace Date {
 		return create(new globalThis.Date())
 	}
 	export function localize(value: Date | globalThis.Date, locale?: Locale, timezone?: string): Date {
-		return (is(value) ? parse(value) : value)
-			.toLocaleString(locale ? locale : Intl.DateTimeFormat().resolvedOptions().locale, {
-				year: "numeric",
-				month: "2-digit",
-				day: "2-digit",
-				timeZone: timezone ?? Intl.DateTimeFormat().resolvedOptions().timeZone,
-			})
-			.substring(0, 10)
+		return (
+			(is(value) ? parse(value) : value)
+				.toLocaleString(locale ? locale : Intl.DateTimeFormat().resolvedOptions().locale, {
+					year: "numeric",
+					month: "2-digit",
+					day: "2-digit",
+					timeZone: timezone ?? Intl.DateTimeFormat().resolvedOptions().timeZone,
+				})
+				.substring(0, 10)
+				// See DateTime:localize for note.
+				.replaceAll(" ", " ")
+		)
 	}
 	export function next(date: Date, days: number | DateSpan = 1): Date {
 		let result: Date
