@@ -106,14 +106,14 @@ describe("DateTime", () => {
 				expect(isoly.DateTime.localize(new Date(date[0])).split(" ")[1]).toEqual(date[1])
 			)
 		it("localize DateTime with locale", () => {
-			expect(isoly.DateTime.localize("2020-12-31T23:59:59.000Z", "en-US")).toEqual("01/01/2021, 12:59:59 AM")
+			expect(isoly.DateTime.localize("2020-12-31T23:59:59.000Z", "en-US")).toEqual("01/01/2021, 12:59:59 AM")
 		})
 
 		it("localize 2020-12-31T23:59Z to en-US", () => {
-			expect(isoly.DateTime.localize("2020-12-31T23:59Z", "en-US")).toEqual("01/01/2021, 12:59 AM")
+			expect(isoly.DateTime.localize("2020-12-31T23:59Z", "en-US")).toEqual("01/01/2021, 12:59 AM")
 		})
 		it("localize 2020-12-31T23Z to en-US", () => {
-			expect(isoly.DateTime.localize("2020-12-31T23Z", "en-US")).toEqual("01/01/2021, 12 AM")
+			expect(isoly.DateTime.localize("2020-12-31T23Z", "en-US")).toEqual("01/01/2021, 12 AM")
 		})
 		it('localize 2020-12-31T23:12Z to en-US { month: "short", day: "numeric", hour: "numeric", minute: "numeric" }', () => {
 			expect(
@@ -122,7 +122,7 @@ describe("DateTime", () => {
 					{ month: "short", day: "numeric", hour: "numeric", minute: "numeric" },
 					"en-US"
 				)
-			).toEqual("Jan 1, 12:12 AM")
+			).toEqual("Jan 1, 12:12 AM")
 		})
 		it('localize 2020-12-31T23:12Z to de-DE { month: "short", day: "numeric", hour: "numeric", minute: "numeric" }', () => {
 			expect(

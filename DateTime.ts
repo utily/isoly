@@ -105,7 +105,14 @@ export namespace DateTime {
 		let result: string
 		if (typeof locale == "object") {
 			const localeString = timeZone ? timeZone : Intl.DateTimeFormat().resolvedOptions().locale
-			result = (is(value) ? parse(value) : value).toLocaleString(localeString, locale)
+			result = (is(value) ? parse(value) : value)
+				.toLocaleString(localeString, locale)
+				// For consistency, replace NNBSP with space:
+				// Unicode has decided to use `Narrow No-Break Space (NNBSP)` (U+202F) instead of space in some cases.
+				// It breaks tests, when running in different environments.
+				// https://icu.unicode.org/download/72#:~:text=In%20many%20formatting%20patterns%2C%20ASCII%20spaces%20are%20replaced%20with%20Unicode%20spaces%20(e.g.%2C%20a%20%22thin%20space%22)
+				// This can be removed, with a breaking change and updated tests, when all systems use updated versions of ICU.
+				.replaceAll(" ", " ")
 		} else {
 			const precision = is(value) ? DateTime.precision(value) : "milliseconds"
 			result = localize(
