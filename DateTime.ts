@@ -72,16 +72,16 @@ export namespace DateTime {
 			switch (resolution) {
 				case "days":
 					value = value * 24
-				// eslint-disable-next-line no-fallthrough
+				// fallthrough...
 				case "hours":
 					value = value * 60
-				// eslint-disable-next-line no-fallthrough
+				// fallthrough...
 				case "minutes":
 					value = value * 60
-				// eslint-disable-next-line no-fallthrough
+				// fallthrough...
 				case "seconds":
 					value = value * 1000
-				// eslint-disable-next-line no-fallthrough
+				// fallthrough...
 				case "milliseconds":
 			}
 			value = new globalThis.Date(value)
@@ -209,16 +209,16 @@ export namespace DateTime {
 		switch (resolution) {
 			case "days":
 				result = Math.round(result / 24)
-			// eslint-disable-next-line no-fallthrough
+			// fallthrough...
 			case "hours":
 				result = Math.round(result / 60)
-			// eslint-disable-next-line no-fallthrough
+			// fallthrough...
 			case "minutes":
 				result = Math.round(result / 60)
-			// eslint-disable-next-line no-fallthrough
+			// fallthrough...
 			case "seconds":
 				result = Math.round(result / 1000)
-			// eslint-disable-next-line no-fallthrough
+			// fallthrough...
 			case "milliseconds":
 		}
 		return result
