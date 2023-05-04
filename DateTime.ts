@@ -2,6 +2,7 @@ import { Date } from "./Date"
 import { Locale } from "./Locale"
 import { TimeSpan } from "./TimeSpan"
 import { TimeZone } from "./TimeZone"
+import { TimeZoneOffset } from "./TimeZoneOffset"
 
 export type DateTime = string
 
@@ -38,21 +39,21 @@ export namespace DateTime {
 			value[10] == "T" &&
 			isHours(value.substring(11, 13)) &&
 			(value.length == 13 ||
-				TimeZone.is(value.substring(13)) ||
+				TimeZoneOffset.is(value.substring(13)) ||
 				(value[13] == ":" &&
 					value.length >= 16 &&
 					isMinutes(value.substring(14, 16)) &&
 					(value.length == 16 ||
-						TimeZone.is(value.substring(16)) ||
+						TimeZoneOffset.is(value.substring(16)) ||
 						(value[16] == ":" &&
 							value.length >= 19 &&
 							isSeconds(value.substring(17, 19)) &&
 							(value.length == 19 ||
-								TimeZone.is(value.substring(19)) ||
+								TimeZoneOffset.is(value.substring(19)) ||
 								(value[19] == "." &&
 									value.length >= 23 &&
 									[...value.substring(20, 23)].every(c => c >= "0" && c <= "9") &&
-									(value.length == 23 || TimeZone.is(value.substring(23)))))))))
+									(value.length == 23 || TimeZoneOffset.is(value.substring(23)))))))))
 		)
 	}
 	export function parse(value: DateTime): globalThis.Date {
@@ -91,22 +92,21 @@ export namespace DateTime {
 		return create(new globalThis.Date())
 	}
 	export type Format = Intl.DateTimeFormatOptions
-	export function localize(
-		value: DateTime | globalThis.Date,
-		format: Intl.DateTimeFormatOptions,
-		locale?: Locale
-	): string
+
+	export function localize(value: DateTime | globalThis.Date, format: Format, locale?: Locale): string
 	export function localize(value: DateTime | globalThis.Date, locale?: Locale, timeZone?: TimeZone): string
 	export function localize(
 		value: DateTime | globalThis.Date,
-		locale?: Locale | Intl.DateTimeFormatOptions,
-		timeZone?: string | Locale
+		formatOrLocale?: Locale | Format,
+		localeOrTimeZone?: string | Locale
 	): string {
 		let result: string
-		if (typeof locale == "object") {
-			const localeString = timeZone ? timeZone : Intl.DateTimeFormat().resolvedOptions().locale
+		if (typeof formatOrLocale == "object") {
+			// formatOrLocale is Format
+			// localeOrTimeZone is Locale | undefined
+			const localeString = localeOrTimeZone ? localeOrTimeZone : Intl.DateTimeFormat().resolvedOptions().locale
 			result = (is(value) ? parse(value) : value)
-				.toLocaleString(localeString, locale)
+				.toLocaleString(localeString, formatOrLocale)
 				// For consistency, replace NNBSP with space:
 				// Unicode has decided to use `Narrow No-Break Space (NNBSP)` (U+202F) instead of space in some cases.
 				// It breaks tests, when running in different environments.
@@ -114,6 +114,8 @@ export namespace DateTime {
 				// This can be removed, with a breaking change and updated tests, when all systems use updated versions of ICU.
 				.replaceAll(" ", " ")
 		} else {
+			// formatOrLocale is Locale | undefined
+			// localeOrTimeZone is timeZone | undefined
 			const precision = is(value) ? DateTime.precision(value) : "milliseconds"
 			result = localize(
 				value,
@@ -125,24 +127,27 @@ export namespace DateTime {
 					minute:
 						precision == "minutes" || precision == "seconds" || precision == "milliseconds" ? "2-digit" : undefined,
 					second: precision == "seconds" || precision == "milliseconds" ? "2-digit" : undefined,
-					timeZone: timeZone,
-				},
-				locale
+					timeZone: localeOrTimeZone,
+				} as Format,
+				formatOrLocale
 			)
 		}
 		return result
 	}
-
-	export function timeZone(value: DateTime): TimeZone | "" {
+	/** @deprecated Use timeZoneOffset() */
+	export function timeZone(value: DateTime): TimeZoneOffset | "" {
+		return timeZoneOffset(value)
+	}
+	export function timeZoneOffset(value: DateTime): TimeZoneOffset | "" {
 		const result = value[value.length - 1] == "Z" ? "Z" : value.substring(value.length - 6)
-		return TimeZone.is(result) ? result : ""
+		return TimeZoneOffset.is(result) ? result : ""
 	}
 	export function timeZoneShort(value: DateTime): number {
 		return parse(value).getTimezoneOffset()
 	}
 	export type Precision = "hours" | "minutes" | "seconds" | "milliseconds"
 	export function precision(value: DateTime): Precision {
-		const zone = timeZone(value)
+		const zone = timeZoneOffset(value)
 		const time = value.substring(0, value.length - zone.length).split("T", 2)[1]
 		let result: Precision
 		switch (time.length) {
@@ -164,7 +169,7 @@ export namespace DateTime {
 	}
 
 	export function truncate(value: DateTime, precision: Precision): DateTime {
-		const zone = timeZone(value)
+		const zone = timeZoneOffset(value)
 		// eslint-disable-next-line prefer-const
 		let [date, time] = value.split("T", 2)
 		time = time.substring(0, time.length - zone.length)

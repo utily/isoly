@@ -12,6 +12,7 @@ import { Language } from "./Language"
 import { Locale } from "./Locale"
 import { TimeRange } from "./TimeRange"
 import { TimeSpan } from "./TimeSpan"
+import { TimeZone } from "./TimeZone"
 
 export {
 	CallingCode,
@@ -27,4 +28,5 @@ export {
 	Locale,
 	TimeRange,
 	TimeSpan,
+	TimeZone,
 }

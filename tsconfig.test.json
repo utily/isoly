@@ -10,7 +10,7 @@
 		"allowSyntheticDefaultImports": true,
 		"esModuleInterop": true,
 		"noImplicitAny": true,
-		"removeComments": true,
+		"removeComments": false,
 		"preserveConstEnums": true,
 		"forceConsistentCasingInFileNames": true,
 		"noImplicitThis": true,
@@ -24,7 +24,9 @@
 				"types/*"
 			]
 		},
-		"types": ["jest"]
+		"types": [
+			"jest"
+		]
 	},
 	"files": [
 		"index.ts"
