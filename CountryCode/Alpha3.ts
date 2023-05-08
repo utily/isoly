@@ -1,519 +1,270 @@
 import { Alpha2 } from "./Alpha2"
 import { Numeric } from "./Numeric"
 
-export type Alpha3 =
-	| "AFG"
-	| "ALA"
-	| "ALB"
-	| "DZA"
-	| "ASM"
-	| "AND"
-	| "AGO"
-	| "AIA"
-	| "ATA"
-	| "ATG"
-	| "ARG"
-	| "ARM"
-	| "ABW"
-	| "AUS"
-	| "AUT"
-	| "AZE"
-	| "BHS"
-	| "BHR"
-	| "BGD"
-	| "BRB"
-	| "BLR"
-	| "BEL"
-	| "BLZ"
-	| "BEN"
-	| "BMU"
-	| "BTN"
-	| "BOL"
-	| "BES"
-	| "BIH"
-	| "BWA"
-	| "BVT"
-	| "BRA"
-	| "IOT"
-	| "BRN"
-	| "BGR"
-	| "BFA"
-	| "BDI"
-	| "CPV"
-	| "KHM"
-	| "CMR"
-	| "CAN"
-	| "CYM"
-	| "CAF"
-	| "TCD"
-	| "CHL"
-	| "CHN"
-	| "CXR"
-	| "CCK"
-	| "COL"
-	| "COM"
-	| "COG"
-	| "COD"
-	| "COK"
-	| "CRI"
-	| "CIV"
-	| "HRV"
-	| "CUB"
-	| "CUW"
-	| "CYP"
-	| "CZE"
-	| "DNK"
-	| "DJI"
-	| "DMA"
-	| "DOM"
-	| "ECU"
-	| "EGY"
-	| "SLV"
-	| "GNQ"
-	| "ERI"
-	| "EST"
-	| "SWZ"
-	| "ETH"
-	| "FLK"
-	| "FRO"
-	| "FJI"
-	| "FIN"
-	| "FRA"
-	| "GUF"
-	| "PYF"
-	| "ATF"
-	| "GAB"
-	| "GMB"
-	| "GEO"
-	| "DEU"
-	| "GHA"
-	| "GIB"
-	| "GRC"
-	| "GRL"
-	| "GRD"
-	| "GLP"
-	| "GUM"
-	| "GTM"
-	| "GGY"
-	| "GIN"
-	| "GNB"
-	| "GUY"
-	| "HTI"
-	| "HMD"
-	| "VAT"
-	| "HND"
-	| "HKG"
-	| "HUN"
-	| "ISL"
-	| "IND"
-	| "IDN"
-	| "IRN"
-	| "IRQ"
-	| "IRL"
-	| "IMN"
-	| "ISR"
-	| "ITA"
-	| "JAM"
-	| "JPN"
-	| "JEY"
-	| "JOR"
-	| "KAZ"
-	| "KEN"
-	| "KIR"
-	| "PRK"
-	| "KOR"
-	| "KWT"
-	| "KGZ"
-	| "LAO"
-	| "LVA"
-	| "LBN"
-	| "LSO"
-	| "LBR"
-	| "LBY"
-	| "LIE"
-	| "LTU"
-	| "LUX"
-	| "MAC"
-	| "MDG"
-	| "MWI"
-	| "MYS"
-	| "MDV"
-	| "MLI"
-	| "MLT"
-	| "MHL"
-	| "MTQ"
-	| "MRT"
-	| "MUS"
-	| "MYT"
-	| "MEX"
-	| "FSM"
-	| "MDA"
-	| "MCO"
-	| "MNG"
-	| "MNE"
-	| "MSR"
-	| "MAR"
-	| "MOZ"
-	| "MMR"
-	| "NAM"
-	| "NRU"
-	| "NPL"
-	| "NLD"
-	| "NCL"
-	| "NZL"
-	| "NIC"
-	| "NER"
-	| "NGA"
-	| "NIU"
-	| "NFK"
-	| "MKD"
-	| "MNP"
-	| "NOR"
-	| "OMN"
-	| "PAK"
-	| "PLW"
-	| "PSE"
-	| "PAN"
-	| "PNG"
-	| "PRY"
-	| "PER"
-	| "PHL"
-	| "PCN"
-	| "POL"
-	| "PRT"
-	| "PRI"
-	| "QAT"
-	| "REU"
-	| "ROU"
-	| "RUS"
-	| "RWA"
-	| "BLM"
-	| "SHN"
-	| "KNA"
-	| "LCA"
-	| "MAF"
-	| "SPM"
-	| "VCT"
-	| "WSM"
-	| "SMR"
-	| "STP"
-	| "SAU"
-	| "SEN"
-	| "SRB"
-	| "SYC"
-	| "SLE"
-	| "SGP"
-	| "SXM"
-	| "SVK"
-	| "SVN"
-	| "SLB"
-	| "SOM"
-	| "ZAF"
-	| "SGS"
-	| "SSD"
-	| "ESP"
-	| "LKA"
-	| "SDN"
-	| "SUR"
-	| "SJM"
-	| "SWE"
-	| "CHE"
-	| "SYR"
-	| "TWN"
-	| "TJK"
-	| "TZA"
-	| "THA"
-	| "TLS"
-	| "TGO"
-	| "TKL"
-	| "TON"
-	| "TTO"
-	| "TUN"
-	| "TUR"
-	| "TKM"
-	| "TCA"
-	| "TUV"
-	| "UGA"
-	| "UKR"
-	| "ARE"
-	| "GBR"
-	| "USA"
-	| "UMI"
-	| "URY"
-	| "UZB"
-	| "VUT"
-	| "VEN"
-	| "VNM"
-	| "VGB"
-	| "VIR"
-	| "WLF"
-	| "ESH"
-	| "YEM"
-	| "ZMB"
-	| "ZWE"
+export type Alpha3 = typeof Alpha3.types[number]
 
 export namespace Alpha3 {
+	export const types = [
+		"ABW",
+		"AFG",
+		"AGO",
+		"AIA",
+		"ALA",
+		"ALB",
+		"AND",
+		"ARE",
+		"ARG",
+		"ARM",
+		"ASM",
+		"ATA",
+		"ATF",
+		"ATG",
+		"AUS",
+		"AUT",
+		"AZE",
+		"BDI",
+		"BEL",
+		"BEN",
+		"BES",
+		"BFA",
+		"BGD",
+		"BGR",
+		"BHR",
+		"BHS",
+		"BIH",
+		"BLM",
+		"BLR",
+		"BLZ",
+		"BMU",
+		"BOL",
+		"BRA",
+		"BRB",
+		"BRN",
+		"BTN",
+		"BVT",
+		"BWA",
+		"CAF",
+		"CAN",
+		"CCK",
+		"CHE",
+		"CHL",
+		"CHN",
+		"CIV",
+		"CMR",
+		"COD",
+		"COG",
+		"COK",
+		"COL",
+		"COM",
+		"CPV",
+		"CRI",
+		"CUB",
+		"CUW",
+		"CXR",
+		"CYM",
+		"CYP",
+		"CZE",
+		"DEU",
+		"DJI",
+		"DMA",
+		"DNK",
+		"DOM",
+		"DZA",
+		"ECU",
+		"EGY",
+		"ERI",
+		"ESH",
+		"ESP",
+		"EST",
+		"ETH",
+		"FIN",
+		"FJI",
+		"FLK",
+		"FRA",
+		"FRO",
+		"FSM",
+		"GAB",
+		"GBR",
+		"GEO",
+		"GGY",
+		"GHA",
+		"GIB",
+		"GIN",
+		"GLP",
+		"GMB",
+		"GNB",
+		"GNQ",
+		"GRC",
+		"GRD",
+		"GRL",
+		"GTM",
+		"GUF",
+		"GUM",
+		"GUY",
+		"HKG",
+		"HMD",
+		"HND",
+		"HRV",
+		"HTI",
+		"HUN",
+		"IDN",
+		"IMN",
+		"IND",
+		"IOT",
+		"IRL",
+		"IRN",
+		"IRQ",
+		"ISL",
+		"ISR",
+		"ITA",
+		"JAM",
+		"JEY",
+		"JOR",
+		"JPN",
+		"KAZ",
+		"KEN",
+		"KGZ",
+		"KHM",
+		"KIR",
+		"KNA",
+		"KOR",
+		"KWT",
+		"LAO",
+		"LBN",
+		"LBR",
+		"LBY",
+		"LCA",
+		"LIE",
+		"LKA",
+		"LSO",
+		"LTU",
+		"LUX",
+		"LVA",
+		"MAC",
+		"MAF",
+		"MAR",
+		"MCO",
+		"MDA",
+		"MDG",
+		"MDV",
+		"MEX",
+		"MHL",
+		"MKD",
+		"MLI",
+		"MLT",
+		"MMR",
+		"MNE",
+		"MNG",
+		"MNP",
+		"MOZ",
+		"MRT",
+		"MSR",
+		"MTQ",
+		"MUS",
+		"MWI",
+		"MYS",
+		"MYT",
+		"NAM",
+		"NCL",
+		"NER",
+		"NFK",
+		"NGA",
+		"NIC",
+		"NIU",
+		"NLD",
+		"NOR",
+		"NPL",
+		"NRU",
+		"NZL",
+		"OMN",
+		"PAK",
+		"PAN",
+		"PCN",
+		"PER",
+		"PHL",
+		"PLW",
+		"PNG",
+		"POL",
+		"PRI",
+		"PRK",
+		"PRT",
+		"PRY",
+		"PSE",
+		"PYF",
+		"QAT",
+		"REU",
+		"ROU",
+		"RUS",
+		"RWA",
+		"SAU",
+		"SDN",
+		"SEN",
+		"SGP",
+		"SGS",
+		"SHN",
+		"SJM",
+		"SLB",
+		"SLE",
+		"SLV",
+		"SMR",
+		"SOM",
+		"SPM",
+		"SRB",
+		"SSD",
+		"STP",
+		"SUR",
+		"SVK",
+		"SVN",
+		"SWE",
+		"SWZ",
+		"SXM",
+		"SYC",
+		"SYR",
+		"TCA",
+		"TCD",
+		"TGO",
+		"THA",
+		"TJK",
+		"TKL",
+		"TKM",
+		"TLS",
+		"TON",
+		"TTO",
+		"TUN",
+		"TUR",
+		"TUV",
+		"TWN",
+		"TZA",
+		"UGA",
+		"UKR",
+		"UMI",
+		"URY",
+		"USA",
+		"UZB",
+		"VAT",
+		"VCT",
+		"VEN",
+		"VGB",
+		"VIR",
+		"VNM",
+		"VUT",
+		"WLF",
+		"WSM",
+		"XKX",
+		"YEM",
+		"ZAF",
+		"ZMB",
+		"ZWE",
+	] as const
 	export function is(value: any | Alpha3): value is Alpha3 {
-		return (
-			typeof value == "string" &&
-			value.length == 3 &&
-			(value == "AFG" ||
-				value == "ALA" ||
-				value == "ALB" ||
-				value == "DZA" ||
-				value == "ASM" ||
-				value == "AND" ||
-				value == "AGO" ||
-				value == "AIA" ||
-				value == "ATA" ||
-				value == "ATG" ||
-				value == "ARG" ||
-				value == "ARM" ||
-				value == "ABW" ||
-				value == "AUS" ||
-				value == "AUT" ||
-				value == "AZE" ||
-				value == "BHS" ||
-				value == "BHR" ||
-				value == "BGD" ||
-				value == "BRB" ||
-				value == "BLR" ||
-				value == "BEL" ||
-				value == "BLZ" ||
-				value == "BEN" ||
-				value == "BMU" ||
-				value == "BTN" ||
-				value == "BOL" ||
-				value == "BES" ||
-				value == "BIH" ||
-				value == "BWA" ||
-				value == "BVT" ||
-				value == "BRA" ||
-				value == "IOT" ||
-				value == "BRN" ||
-				value == "BGR" ||
-				value == "BFA" ||
-				value == "BDI" ||
-				value == "CPV" ||
-				value == "KHM" ||
-				value == "CMR" ||
-				value == "CAN" ||
-				value == "CYM" ||
-				value == "CAF" ||
-				value == "TCD" ||
-				value == "CHL" ||
-				value == "CHN" ||
-				value == "CXR" ||
-				value == "CCK" ||
-				value == "COL" ||
-				value == "COM" ||
-				value == "COG" ||
-				value == "COD" ||
-				value == "COK" ||
-				value == "CRI" ||
-				value == "CIV" ||
-				value == "HRV" ||
-				value == "CUB" ||
-				value == "CUW" ||
-				value == "CYP" ||
-				value == "CZE" ||
-				value == "DNK" ||
-				value == "DJI" ||
-				value == "DMA" ||
-				value == "DOM" ||
-				value == "ECU" ||
-				value == "EGY" ||
-				value == "SLV" ||
-				value == "GNQ" ||
-				value == "ERI" ||
-				value == "EST" ||
-				value == "SWZ" ||
-				value == "ETH" ||
-				value == "FLK" ||
-				value == "FRO" ||
-				value == "FJI" ||
-				value == "FIN" ||
-				value == "FRA" ||
-				value == "GUF" ||
-				value == "PYF" ||
-				value == "ATF" ||
-				value == "GAB" ||
-				value == "GMB" ||
-				value == "GEO" ||
-				value == "DEU" ||
-				value == "GHA" ||
-				value == "GIB" ||
-				value == "GRC" ||
-				value == "GRL" ||
-				value == "GRD" ||
-				value == "GLP" ||
-				value == "GUM" ||
-				value == "GTM" ||
-				value == "GGY" ||
-				value == "GIN" ||
-				value == "GNB" ||
-				value == "GUY" ||
-				value == "HTI" ||
-				value == "HMD" ||
-				value == "VAT" ||
-				value == "HND" ||
-				value == "HKG" ||
-				value == "HUN" ||
-				value == "ISL" ||
-				value == "IND" ||
-				value == "IDN" ||
-				value == "IRN" ||
-				value == "IRQ" ||
-				value == "IRL" ||
-				value == "IMN" ||
-				value == "ISR" ||
-				value == "ITA" ||
-				value == "JAM" ||
-				value == "JPN" ||
-				value == "JEY" ||
-				value == "JOR" ||
-				value == "KAZ" ||
-				value == "KEN" ||
-				value == "KIR" ||
-				value == "PRK" ||
-				value == "KOR" ||
-				value == "KWT" ||
-				value == "KGZ" ||
-				value == "LAO" ||
-				value == "LVA" ||
-				value == "LBN" ||
-				value == "LSO" ||
-				value == "LBR" ||
-				value == "LBY" ||
-				value == "LIE" ||
-				value == "LTU" ||
-				value == "LUX" ||
-				value == "MAC" ||
-				value == "MDG" ||
-				value == "MWI" ||
-				value == "MYS" ||
-				value == "MDV" ||
-				value == "MLI" ||
-				value == "MLT" ||
-				value == "MHL" ||
-				value == "MTQ" ||
-				value == "MRT" ||
-				value == "MUS" ||
-				value == "MYT" ||
-				value == "MEX" ||
-				value == "FSM" ||
-				value == "MDA" ||
-				value == "MCO" ||
-				value == "MNG" ||
-				value == "MNE" ||
-				value == "MSR" ||
-				value == "MAR" ||
-				value == "MOZ" ||
-				value == "MMR" ||
-				value == "NAM" ||
-				value == "NRU" ||
-				value == "NPL" ||
-				value == "NLD" ||
-				value == "NCL" ||
-				value == "NZL" ||
-				value == "NIC" ||
-				value == "NER" ||
-				value == "NGA" ||
-				value == "NIU" ||
-				value == "NFK" ||
-				value == "MKD" ||
-				value == "MNP" ||
-				value == "NOR" ||
-				value == "OMN" ||
-				value == "PAK" ||
-				value == "PLW" ||
-				value == "PSE" ||
-				value == "PAN" ||
-				value == "PNG" ||
-				value == "PRY" ||
-				value == "PER" ||
-				value == "PHL" ||
-				value == "PCN" ||
-				value == "POL" ||
-				value == "PRT" ||
-				value == "PRI" ||
-				value == "QAT" ||
-				value == "REU" ||
-				value == "ROU" ||
-				value == "RUS" ||
-				value == "RWA" ||
-				value == "BLM" ||
-				value == "SHN" ||
-				value == "KNA" ||
-				value == "LCA" ||
-				value == "MAF" ||
-				value == "SPM" ||
-				value == "VCT" ||
-				value == "WSM" ||
-				value == "SMR" ||
-				value == "STP" ||
-				value == "SAU" ||
-				value == "SEN" ||
-				value == "SRB" ||
-				value == "SYC" ||
-				value == "SLE" ||
-				value == "SGP" ||
-				value == "SXM" ||
-				value == "SVK" ||
-				value == "SVN" ||
-				value == "SLB" ||
-				value == "SOM" ||
-				value == "ZAF" ||
-				value == "SGS" ||
-				value == "SSD" ||
-				value == "ESP" ||
-				value == "LKA" ||
-				value == "SDN" ||
-				value == "SUR" ||
-				value == "SJM" ||
-				value == "SWE" ||
-				value == "CHE" ||
-				value == "SYR" ||
-				value == "TWN" ||
-				value == "TJK" ||
-				value == "TZA" ||
-				value == "THA" ||
-				value == "TLS" ||
-				value == "TGO" ||
-				value == "TKL" ||
-				value == "TON" ||
-				value == "TTO" ||
-				value == "TUN" ||
-				value == "TUR" ||
-				value == "TKM" ||
-				value == "TCA" ||
-				value == "TUV" ||
-				value == "UGA" ||
-				value == "UKR" ||
-				value == "ARE" ||
-				value == "GBR" ||
-				value == "USA" ||
-				value == "UMI" ||
-				value == "URY" ||
-				value == "UZB" ||
-				value == "VUT" ||
-				value == "VEN" ||
-				value == "VNM" ||
-				value == "VGB" ||
-				value == "VIR" ||
-				value == "WLF" ||
-				value == "ESH" ||
-				value == "YEM" ||
-				value == "ZMB" ||
-				value == "ZWE")
-		)
+		return typeof value == "string" && value.length == 3 && types.includes(value as Alpha3)
 	}
 	export function from(country: Alpha2 | Numeric): Alpha3 {
 		return typeof country == "number" ? from(Alpha2.from(country)) : alpha2ToAlpha3[country]
 	}
 }
 
-const alpha2ToAlpha3: { [country: string]: Alpha3 } = {
+const alpha2ToAlpha3: Record<Alpha2, Alpha3> = {
 	AF: "AFG",
 	AX: "ALA",
 	AL: "ALB",
@@ -763,4 +514,5 @@ const alpha2ToAlpha3: { [country: string]: Alpha3 } = {
 	YE: "YEM",
 	ZM: "ZMB",
 	ZW: "ZWE",
+	XK: "XKX",
 }

@@ -61,4 +61,39 @@ describe("CountryCode", () => {
 	it("is not Numeric", () => {
 		expect(isoly.CountryCode.Alpha3.is(42)).toBeFalsy()
 	})
+	it("Data consistency Alpha2", () => {
+		isoly.CountryCode.Alpha2.types.forEach(a2 => {
+			expect(isoly.CountryCode.Alpha2.is(a2)).toBe(true)
+			expect(isoly.CountryCode.Alpha3.is(a2)).toBe(false)
+			expect(isoly.CountryCode.Numeric.is(a2)).toBe(false)
+			expect(isoly.CountryCode.Alpha2.from(isoly.CountryCode.Numeric.from(isoly.CountryCode.Alpha3.from(a2)))).toBe(a2)
+			expect(isoly.CountryCode.Alpha2.from(isoly.CountryCode.Alpha3.from(isoly.CountryCode.Numeric.from(a2)))).toBe(a2)
+		})
+	})
+	it("Data consistency Alpha3", () => {
+		isoly.CountryCode.Alpha3.types.forEach(a3 => {
+			expect(isoly.CountryCode.Alpha2.is(a3)).toBe(false)
+			expect(isoly.CountryCode.Alpha3.is(a3)).toBe(true)
+			expect(isoly.CountryCode.Numeric.is(a3)).toBe(false)
+			expect(isoly.CountryCode.Alpha3.from(isoly.CountryCode.Numeric.from(isoly.CountryCode.Alpha2.from(a3)))).toBe(a3)
+			expect(isoly.CountryCode.Alpha3.from(isoly.CountryCode.Alpha2.from(isoly.CountryCode.Numeric.from(a3)))).toBe(a3)
+		})
+	})
+	it("Data consistency Numeric", () => {
+		isoly.CountryCode.Numeric.types.forEach(n => {
+			expect(isoly.CountryCode.Alpha2.is(n)).toBe(false)
+			expect(isoly.CountryCode.Alpha3.is(n)).toBe(false)
+			expect(isoly.CountryCode.Numeric.is(n)).toBe(true)
+			if (
+				![
+					280, // West Germany with fallback
+				].includes(n)
+			) {
+				expect(isoly.CountryCode.Numeric.from(isoly.CountryCode.Alpha3.from(isoly.CountryCode.Alpha2.from(n)))).toBe(n)
+				expect(isoly.CountryCode.Numeric.from(isoly.CountryCode.Alpha2.from(isoly.CountryCode.Alpha3.from(n)))).toBe(n)
+			}
+		})
+		console.log(JSON.stringify([...isoly.CountryCode.Alpha3.types].sort()))
+		// console.log([...isoly.CountryCode.Numeric.types].sort())
+	})
 })
