@@ -93,7 +93,5 @@ describe("CountryCode", () => {
 				expect(isoly.CountryCode.Numeric.from(isoly.CountryCode.Alpha2.from(isoly.CountryCode.Alpha3.from(n)))).toBe(n)
 			}
 		})
-		console.log(JSON.stringify([...isoly.CountryCode.Alpha3.types].sort()))
-		// console.log([...isoly.CountryCode.Numeric.types].sort())
 	})
 })
