@@ -1,517 +1,270 @@
 import { Alpha3 } from "./Alpha3"
 import { Numeric } from "./Numeric"
 
-export type Alpha2 =
-	| "AF"
-	| "AX"
-	| "AL"
-	| "DZ"
-	| "AS"
-	| "AD"
-	| "AO"
-	| "AI"
-	| "AQ"
-	| "AG"
-	| "AR"
-	| "AM"
-	| "AW"
-	| "AU"
-	| "AT"
-	| "AZ"
-	| "BS"
-	| "BH"
-	| "BD"
-	| "BB"
-	| "BY"
-	| "BE"
-	| "BZ"
-	| "BJ"
-	| "BM"
-	| "BT"
-	| "BO"
-	| "BQ"
-	| "BA"
-	| "BW"
-	| "BV"
-	| "BR"
-	| "IO"
-	| "BN"
-	| "BG"
-	| "BF"
-	| "BI"
-	| "CV"
-	| "KH"
-	| "CM"
-	| "CA"
-	| "KY"
-	| "CF"
-	| "TD"
-	| "CL"
-	| "CN"
-	| "CX"
-	| "CC"
-	| "CO"
-	| "KM"
-	| "CG"
-	| "CD"
-	| "CK"
-	| "CR"
-	| "CI"
-	| "HR"
-	| "CU"
-	| "CW"
-	| "CY"
-	| "CZ"
-	| "DK"
-	| "DJ"
-	| "DM"
-	| "DO"
-	| "EC"
-	| "EG"
-	| "SV"
-	| "GQ"
-	| "ER"
-	| "EE"
-	| "SZ"
-	| "ET"
-	| "FK"
-	| "FO"
-	| "FJ"
-	| "FI"
-	| "FR"
-	| "GF"
-	| "PF"
-	| "TF"
-	| "GA"
-	| "GM"
-	| "GE"
-	| "DE"
-	| "GH"
-	| "GI"
-	| "GR"
-	| "GL"
-	| "GD"
-	| "GP"
-	| "GU"
-	| "GT"
-	| "GG"
-	| "GN"
-	| "GW"
-	| "GY"
-	| "HT"
-	| "HM"
-	| "VA"
-	| "HN"
-	| "HK"
-	| "HU"
-	| "IS"
-	| "IN"
-	| "ID"
-	| "IR"
-	| "IQ"
-	| "IE"
-	| "IM"
-	| "IL"
-	| "IT"
-	| "JM"
-	| "JP"
-	| "JE"
-	| "JO"
-	| "KZ"
-	| "KE"
-	| "KI"
-	| "KP"
-	| "KR"
-	| "KW"
-	| "KG"
-	| "LA"
-	| "LV"
-	| "LB"
-	| "LS"
-	| "LR"
-	| "LY"
-	| "LI"
-	| "LT"
-	| "LU"
-	| "MO"
-	| "MG"
-	| "MW"
-	| "MY"
-	| "MV"
-	| "ML"
-	| "MT"
-	| "MH"
-	| "MQ"
-	| "MR"
-	| "MU"
-	| "YT"
-	| "MX"
-	| "FM"
-	| "MD"
-	| "MC"
-	| "MN"
-	| "ME"
-	| "MS"
-	| "MA"
-	| "MZ"
-	| "MM"
-	| "NA"
-	| "NR"
-	| "NP"
-	| "NL"
-	| "NC"
-	| "NZ"
-	| "NI"
-	| "NE"
-	| "NG"
-	| "NU"
-	| "NF"
-	| "MK"
-	| "MP"
-	| "NO"
-	| "OM"
-	| "PK"
-	| "PW"
-	| "PS"
-	| "PA"
-	| "PG"
-	| "PY"
-	| "PE"
-	| "PH"
-	| "PN"
-	| "PL"
-	| "PT"
-	| "PR"
-	| "QA"
-	| "RE"
-	| "RO"
-	| "RU"
-	| "RW"
-	| "BL"
-	| "SH"
-	| "KN"
-	| "LC"
-	| "MF"
-	| "PM"
-	| "VC"
-	| "WS"
-	| "SM"
-	| "ST"
-	| "SA"
-	| "SN"
-	| "RS"
-	| "SC"
-	| "SL"
-	| "SG"
-	| "SX"
-	| "SK"
-	| "SI"
-	| "SB"
-	| "SO"
-	| "ZA"
-	| "GS"
-	| "SS"
-	| "ES"
-	| "LK"
-	| "SD"
-	| "SR"
-	| "SJ"
-	| "SE"
-	| "CH"
-	| "SY"
-	| "TW"
-	| "TJ"
-	| "TZ"
-	| "TH"
-	| "TL"
-	| "TG"
-	| "TK"
-	| "TO"
-	| "TT"
-	| "TN"
-	| "TR"
-	| "TM"
-	| "TC"
-	| "TV"
-	| "UG"
-	| "UA"
-	| "AE"
-	| "GB"
-	| "US"
-	| "UM"
-	| "UY"
-	| "UZ"
-	| "VU"
-	| "VE"
-	| "VN"
-	| "VG"
-	| "VI"
-	| "WF"
-	| "EH"
-	| "YE"
-	| "ZM"
-	| "ZW"
+export type Alpha2 = typeof Alpha2.types[number]
 
 export namespace Alpha2 {
-	export const types: Alpha2[] = [
-		"AF",
-		"AX",
-		"AL",
-		"DZ",
-		"AS",
+	export const types = [
 		"AD",
-		"AO",
-		"AI",
-		"AQ",
+		"AE",
+		"AF",
 		"AG",
-		"AR",
+		"AI",
+		"AL",
 		"AM",
-		"AW",
-		"AU",
+		"AO",
+		"AQ",
+		"AR",
+		"AS",
 		"AT",
+		"AU",
+		"AW",
+		"AX",
 		"AZ",
-		"BS",
-		"BH",
-		"BD",
+		"BA",
 		"BB",
-		"BY",
+		"BD",
 		"BE",
-		"BZ",
+		"BF",
+		"BG",
+		"BH",
+		"BI",
 		"BJ",
+		"BL",
 		"BM",
-		"BT",
+		"BN",
 		"BO",
 		"BQ",
-		"BA",
-		"BW",
-		"BV",
 		"BR",
-		"IO",
-		"BN",
-		"BG",
-		"BF",
-		"BI",
-		"CV",
-		"KH",
-		"CM",
+		"BS",
+		"BT",
+		"BV",
+		"BW",
+		"BY",
+		"BZ",
 		"CA",
-		"KY",
-		"CF",
-		"TD",
-		"CL",
-		"CN",
-		"CX",
 		"CC",
-		"CO",
-		"KM",
-		"CG",
 		"CD",
-		"CK",
-		"CR",
+		"CF",
+		"CG",
+		"CH",
 		"CI",
-		"HR",
+		"CK",
+		"CL",
+		"CM",
+		"CN",
+		"CO",
+		"CR",
 		"CU",
+		"CV",
 		"CW",
+		"CX",
 		"CY",
 		"CZ",
-		"DK",
+		"DE",
 		"DJ",
+		"DK",
 		"DM",
 		"DO",
+		"DZ",
 		"EC",
-		"EG",
-		"SV",
-		"GQ",
-		"ER",
 		"EE",
-		"SZ",
+		"EG",
+		"EH",
+		"ER",
+		"ES",
 		"ET",
-		"FK",
-		"FO",
-		"FJ",
 		"FI",
+		"FJ",
+		"FK",
+		"FM",
+		"FO",
 		"FR",
-		"GF",
-		"PF",
-		"TF",
 		"GA",
-		"GM",
+		"GB",
+		"GD",
 		"GE",
-		"DE",
+		"GF",
+		"GG",
 		"GH",
 		"GI",
-		"GR",
 		"GL",
-		"GD",
-		"GP",
-		"GU",
-		"GT",
-		"GG",
+		"GM",
 		"GN",
+		"GP",
+		"GQ",
+		"GR",
+		"GS",
+		"GT",
+		"GU",
 		"GW",
 		"GY",
-		"HT",
-		"HM",
-		"VA",
-		"HN",
 		"HK",
+		"HM",
+		"HN",
+		"HR",
+		"HT",
 		"HU",
-		"IS",
-		"IN",
 		"ID",
-		"IR",
-		"IQ",
 		"IE",
-		"IM",
 		"IL",
+		"IM",
+		"IN",
+		"IO",
+		"IQ",
+		"IR",
+		"IS",
 		"IT",
-		"JM",
-		"JP",
 		"JE",
+		"JM",
 		"JO",
-		"KZ",
+		"JP",
 		"KE",
+		"KG",
+		"KH",
 		"KI",
+		"KM",
+		"KN",
 		"KP",
 		"KR",
 		"KW",
-		"KG",
+		"KY",
+		"KZ",
 		"LA",
-		"LV",
 		"LB",
-		"LS",
-		"LR",
-		"LY",
+		"LC",
 		"LI",
+		"LK",
+		"LR",
+		"LS",
 		"LT",
 		"LU",
-		"MO",
+		"LV",
+		"LY",
+		"MA",
+		"MC",
+		"MD",
+		"ME",
+		"MF",
 		"MG",
-		"MW",
-		"MY",
-		"MV",
-		"ML",
-		"MT",
 		"MH",
+		"MK",
+		"ML",
+		"MM",
+		"MN",
+		"MO",
+		"MP",
 		"MQ",
 		"MR",
-		"MU",
-		"YT",
-		"MX",
-		"FM",
-		"MD",
-		"MC",
-		"MN",
-		"ME",
 		"MS",
-		"MA",
+		"MT",
+		"MU",
+		"MV",
+		"MW",
+		"MX",
+		"MY",
 		"MZ",
-		"MM",
 		"NA",
-		"NR",
-		"NP",
-		"NL",
 		"NC",
-		"NZ",
-		"NI",
 		"NE",
-		"NG",
-		"NU",
 		"NF",
-		"MK",
-		"MP",
+		"NG",
+		"NI",
+		"NL",
 		"NO",
+		"NP",
+		"NR",
+		"NU",
+		"NZ",
 		"OM",
-		"PK",
-		"PW",
-		"PS",
 		"PA",
-		"PG",
-		"PY",
 		"PE",
+		"PF",
+		"PG",
 		"PH",
-		"PN",
+		"PK",
 		"PL",
-		"PT",
+		"PM",
+		"PN",
 		"PR",
+		"PS",
+		"PT",
+		"PW",
+		"PY",
 		"QA",
 		"RE",
 		"RO",
+		"RS",
 		"RU",
 		"RW",
-		"BL",
-		"SH",
-		"KN",
-		"LC",
-		"MF",
-		"PM",
-		"VC",
-		"WS",
-		"SM",
-		"ST",
 		"SA",
-		"SN",
-		"RS",
-		"SC",
-		"SL",
-		"SG",
-		"SX",
-		"SK",
-		"SI",
 		"SB",
-		"SO",
-		"ZA",
-		"GS",
-		"SS",
-		"ES",
-		"LK",
+		"SC",
 		"SD",
-		"SR",
-		"SJ",
 		"SE",
-		"CH",
+		"SG",
+		"SH",
+		"SI",
+		"SJ",
+		"SK",
+		"SL",
+		"SM",
+		"SN",
+		"SO",
+		"SR",
+		"SS",
+		"ST",
+		"SV",
+		"SX",
 		"SY",
-		"TW",
-		"TJ",
-		"TZ",
-		"TH",
-		"TL",
-		"TG",
-		"TK",
-		"TO",
-		"TT",
-		"TN",
-		"TR",
-		"TM",
+		"SZ",
 		"TC",
+		"TD",
+		"TF",
+		"TG",
+		"TH",
+		"TJ",
+		"TK",
+		"TL",
+		"TM",
+		"TN",
+		"TO",
+		"TR",
+		"TT",
 		"TV",
-		"UG",
+		"TW",
+		"TZ",
 		"UA",
-		"AE",
-		"GB",
-		"US",
+		"UG",
 		"UM",
+		"US",
 		"UY",
 		"UZ",
-		"VU",
+		"VA",
+		"VC",
 		"VE",
-		"VN",
 		"VG",
 		"VI",
+		"VN",
+		"VU",
 		"WF",
-		"EH",
+		"WS",
+		"XK",
 		"YE",
+		"YT",
+		"ZA",
 		"ZM",
 		"ZW",
-	]
+	] as const
+
 	export function is(value: any | Alpha2): value is Alpha2 {
 		return types.includes(value)
 	}
-	export function from(country: Alpha3 | Numeric): Alpha2 {
-		return typeof country == "number" ? numericToAlpha2[country.toString()] : alpha3ToAlpha2[country]
+	export function from(country: Numeric | Alpha3): Alpha2 {
+		return typeof country == "number" ? numericToAlpha2[country] : alpha3ToAlpha2[country]
 	}
 	export function isEEA(country: Alpha2): boolean {
-		return [
+		const eea: Alpha2[] = [
 			"AT",
 			"BE",
 			"BG",
@@ -542,11 +295,12 @@ export namespace Alpha2 {
 			"LU",
 			"SK",
 			"CZ",
-		].includes(country)
+		]
+		return eea.includes(country)
 	}
 }
 
-const numericToAlpha2: { [country: string]: Alpha2 } = {
+const numericToAlpha2: Record<Numeric, Alpha2> = {
 	"4": "AF",
 	"248": "AX",
 	"8": "AL",
@@ -797,8 +551,9 @@ const numericToAlpha2: { [country: string]: Alpha2 } = {
 	"887": "YE",
 	"894": "ZM",
 	"716": "ZW",
+	"926": "XK",
 }
-const alpha3ToAlpha2: { [country: string]: Alpha2 } = {
+const alpha3ToAlpha2: Record<Alpha3, Alpha2> = {
 	AFG: "AF",
 	ALA: "AX",
 	ALB: "AL",
@@ -1048,4 +803,5 @@ const alpha3ToAlpha2: { [country: string]: Alpha2 } = {
 	YEM: "YE",
 	ZMB: "ZM",
 	ZWE: "ZW",
+	XKX: "XK",
 }
