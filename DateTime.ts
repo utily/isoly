@@ -368,13 +368,17 @@ export namespace DateTime {
 	export function duration(
 		from: DateTime,
 		to: DateTime,
-		greatestUnit: "hours" | "minutes" | "seconds" | "milliseconds" = "hours"
+		greatestUnit: "days" | "hours" | "minutes" | "seconds" | "milliseconds" = "hours"
 	): TimeSpan {
 		let milliseconds = epoch(to, "milliseconds") - epoch(from, "milliseconds")
 		const sign = Math.sign(milliseconds)
 		milliseconds = Math.abs(milliseconds)
 		const result: TimeSpan = {}
 		switch (greatestUnit) {
+			case "days":
+				result.days = sign * Math.floor(milliseconds / (24 * 3600 * 1000))
+				milliseconds -= sign * result.days * 24 * 3600 * 1000
+			// Fallthrough...
 			case "hours":
 				result.hours = sign * Math.floor(milliseconds / (3600 * 1000))
 				milliseconds -= sign * result.hours * 3600 * 1000

@@ -225,6 +225,13 @@ describe("DateTime", () => {
 		expect(isoly.DateTime.nextHour("2023-10-29T13:37:00.000Z", 24)).toEqual("2023-10-30T13:37:00.000Z")
 	})
 	it("duration", () => {
+		expect(isoly.DateTime.duration("2023-05-13T22:01:20.000Z", "2023-05-15T23:03:23.004Z", "days")).toEqual({
+			days: 2,
+			hours: 1,
+			minutes: 2,
+			seconds: 3,
+			milliseconds: 4,
+		})
 		expect(isoly.DateTime.duration("2023-05-15T22:01:20.000Z", "2023-05-15T23:03:23.004Z")).toEqual({
 			hours: 1,
 			minutes: 2,
