@@ -365,6 +365,39 @@ export namespace DateTime {
 			milliseconds: getMillisecond(time) - getMillisecond(relative),
 		}
 	}
+	export function duration(
+		from: DateTime,
+		to: DateTime,
+		greatestUnit: "hours" | "minutes" | "seconds" | "milliseconds" = "hours"
+	): TimeSpan {
+		let milliseconds = epoch(to, "milliseconds") - epoch(from, "milliseconds")
+		const sign = Math.sign(milliseconds)
+		milliseconds = Math.abs(milliseconds)
+		const result: TimeSpan = {}
+		switch (greatestUnit) {
+			case "hours":
+				result.hours = sign * Math.floor(milliseconds / (3600 * 1000))
+				milliseconds -= sign * result.hours * 3600 * 1000
+			// Fallthrough...
+			case "minutes":
+				result.minutes = sign * Math.floor(milliseconds / (60 * 1000))
+				milliseconds -= sign * result.minutes * 60 * 1000
+			// Fallthrough...
+			case "seconds":
+				result.seconds = sign * Math.floor(milliseconds / 1000)
+				milliseconds -= sign * result.seconds * 1000
+			// Fallthrough...
+			case "milliseconds":
+				result.milliseconds = sign * milliseconds
+		}
+		return result
+		// return {
+		// 	hours: getHour(time) - getHour(relative),
+		// 	minutes: getMinute(time) - getMinute(relative),
+		// 	seconds: getSecond(time) - getSecond(relative),
+		// 	milliseconds: getMillisecond(time) - getMillisecond(relative),
+		// }
+	}
 	export const epochStart = "0000-01-01T00:00:00.000Z" as const
 	export const epochEnd = "9999-12-31T23:59:59.999Z" as const
 	export function invert(time: DateTime): DateTime {

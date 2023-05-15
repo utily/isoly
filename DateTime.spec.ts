@@ -224,4 +224,55 @@ describe("DateTime", () => {
 	it("next hour", () => {
 		expect(isoly.DateTime.nextHour("2023-10-29T13:37:00.000Z", 24)).toEqual("2023-10-30T13:37:00.000Z")
 	})
+	it("duration", () => {
+		expect(isoly.DateTime.duration("2023-05-15T22:01:20.000Z", "2023-05-15T23:03:23.004Z")).toEqual({
+			hours: 1,
+			minutes: 2,
+			seconds: 3,
+			milliseconds: 4,
+		})
+		expect(isoly.DateTime.duration("2023-05-15T22:01:20.000Z", "2023-05-15T23:03:23.004Z", "hours")).toEqual({
+			hours: 1,
+			minutes: 2,
+			seconds: 3,
+			milliseconds: 4,
+		})
+		expect(isoly.DateTime.duration("2023-05-15T22:01:20.000Z", "2023-05-15T23:03:23.004Z", "minutes")).toEqual({
+			minutes: 62,
+			seconds: 3,
+			milliseconds: 4,
+		})
+		expect(isoly.DateTime.duration("2023-05-15T22:01:20.000Z", "2023-05-15T23:03:23.004Z", "seconds")).toEqual({
+			seconds: 3723,
+			milliseconds: 4,
+		})
+		expect(isoly.DateTime.duration("2023-05-15T22:01:20.000Z", "2023-05-15T23:03:23.004Z", "milliseconds")).toEqual({
+			milliseconds: 3723004,
+		})
+
+		expect(isoly.DateTime.duration("2023-05-15T22:01:20.000+01:00", "2023-05-15T23:03:23.004-01:00")).toEqual({
+			hours: 3,
+			minutes: 2,
+			seconds: 3,
+			milliseconds: 4,
+		})
+		expect(isoly.DateTime.duration("2023-05-15T23:03:23.004-01:00", "2023-05-15T22:01:20.000+01:00")).toEqual({
+			hours: -3,
+			minutes: -2,
+			seconds: -3,
+			milliseconds: -4,
+		})
+		expect(isoly.DateTime.duration("2023-05-15T11:50:00.004+02:00", "2023-05-15T09:50:00.004Z")).toEqual({
+			hours: 0,
+			minutes: 0,
+			seconds: 0,
+			milliseconds: 0,
+		})
+		expect(isoly.DateTime.duration("2023-05-15T09:50:00.004+00:00", "2023-05-15T09:50:00.004Z")).toEqual({
+			hours: 0,
+			minutes: 0,
+			seconds: 0,
+			milliseconds: 0,
+		})
+	})
 })
