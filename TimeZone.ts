@@ -1,4 +1,4 @@
-/** IANA format. */
+/** IANA format. Takes any time zone Stockholm, London and UTC is only examples. */
 export type TimeZone = "Europe/Stockholm" | "Europe/London" | "UTC" | (string & Record<never, never>) // The Record<never...> makes autocomplete work in your IDE.
 export namespace TimeZone {
 	export function is(value: TimeZone | any): value is TimeZone {

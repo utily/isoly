@@ -278,4 +278,18 @@ describe("DateTime", () => {
 			milliseconds: 0,
 		})
 	})
+	it("fromLocalDateTime", () => {
+		expect(isoly.DateTime.fromLocalDateTime("2023-05-16T12:00:00", "Europe/Stockholm")).toEqual(
+			"2023-05-16T12:00:00+02:00"
+		)
+		expect(isoly.DateTime.fromLocalDateTime("2023-01-16T12:00:00", "Europe/Stockholm")).toEqual(
+			"2023-01-16T12:00:00+01:00"
+		)
+		expect(isoly.DateTime.fromLocalDateTime("2023-05-16T14:00:00", "Europe/London")).toEqual(
+			"2023-05-16T14:00:00+01:00"
+		)
+		expect(isoly.DateTime.fromLocalDateTime("2023-01-16T14:00:00", "Europe/London")).toEqual(
+			"2023-01-16T14:00:00+00:00"
+		)
+	})
 })

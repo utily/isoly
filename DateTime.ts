@@ -88,6 +88,37 @@ export namespace DateTime {
 		}
 		return value.toISOString()
 	}
+	/**
+	 * Return local time with offset.
+	 * Note: During DST-change, this might be wrong.
+	 */
+	export function fromLocalDateTime(localDateTime: DateTime, timeZone: TimeZone) {
+		// Cut off any time-zone-information:
+		// TODO: Use the information, and just change offset.
+		localDateTime = localDateTime.replace(/(Z|([+-].{5}))?$/, "")
+
+		// Create a Date object with the specified time as UTC
+		const utcDateTime = new globalThis.Date(`${localDateTime}Z`)
+
+		const localDate = new globalThis.Date(
+			utcDateTime.toLocaleString("sv-SE", { timeZone: timeZone }).replace(" ", "T") + "Z"
+		)
+
+		// Calculate the time difference in minutes
+		const diffInMinutes = (localDate.getTime() - utcDateTime.getTime()) / 60000
+
+		// Calculate the timezone's offset in hours and minutes
+		const offsetHours = Math.floor(Math.abs(diffInMinutes) / 60)
+			.toString()
+			.padStart(2, "0")
+		const offsetMinutes = (Math.abs(diffInMinutes) % 60).toString().padStart(2, "0")
+
+		// Create the timezone string
+		const timeZoneString = `${diffInMinutes >= 0 ? "+" : "-"}${offsetHours}:${offsetMinutes}`
+
+		// Return the formatted date string with timezone information
+		return `${localDateTime}${timeZoneString}`
+	}
 	export function now(): DateTime {
 		return create(new globalThis.Date())
 	}
