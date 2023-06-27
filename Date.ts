@@ -85,6 +85,19 @@ export namespace Date {
 	export function previousYear(date: Date, years = 1): Date {
 		return nextYear(date, -years)
 	}
+	export function firstOfYear(date: Date): Date {
+		const result = parse(date)
+		result.setMonth(0)
+		result.setDate(1)
+		return Date.create(result)
+	}
+	export function lastOfYear(date: Date): Date {
+		const result = parse(date)
+		result.setFullYear(result.getFullYear() + 1)
+		result.setMonth(0)
+		result.setDate(0)
+		return Date.create(result)
+	}
 	export function firstOfMonth(date: Date): Date {
 		const result = parse(date)
 		result.setDate(1)
