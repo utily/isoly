@@ -70,6 +70,12 @@ describe("Date", () => {
 		expect(isoly.Date.previousYear("2001-01-01")).toEqual("2000-01-01")
 		expect(isoly.Date.previousYear("2001-03-01", 10)).toEqual("1991-03-01")
 	})
+	it("firstOfYear", () => {
+		expect(isoly.Date.firstOfYear("2021-05-27")).toEqual("2021-01-01")
+		expect(isoly.Date.firstOfYear("2021-01-01")).toEqual("2021-01-01")
+		expect(isoly.Date.firstOfYear("2021-12-31")).toEqual("2021-01-01")
+		expect(isoly.Date.firstOfYear("2023-03-04")).toEqual("2023-01-01")
+	})
 	it("firstOfMonth", () => {
 		expect(isoly.Date.firstOfMonth("2002-12-21")).toEqual("2002-12-01")
 		expect(isoly.Date.firstOfMonth("2021-02-01")).toEqual("2021-02-01")
