@@ -91,6 +91,13 @@ export namespace Date {
 		result.setDate(1)
 		return Date.create(result)
 	}
+	export function lastOfYear(date: Date): Date {
+		const result = parse(date)
+		result.setFullYear(result.getFullYear() + 1)
+		result.setMonth(0)
+		result.setDate(0)
+		return Date.create(result)
+	}
 	export function firstOfMonth(date: Date): Date {
 		const result = parse(date)
 		result.setDate(1)

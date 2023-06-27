@@ -75,6 +75,14 @@ describe("Date", () => {
 		expect(isoly.Date.firstOfYear("2021-01-01")).toEqual("2021-01-01")
 		expect(isoly.Date.firstOfYear("2021-12-31")).toEqual("2021-01-01")
 		expect(isoly.Date.firstOfYear("2023-03-04")).toEqual("2023-01-01")
+		expect(isoly.Date.firstOfYear("2023-12-31")).toEqual("2023-01-01")
+	})
+	it("lastOfYear", () => {
+		expect(isoly.Date.lastOfYear("2021-05-27")).toEqual("2021-12-31")
+		expect(isoly.Date.lastOfYear("2021-01-01")).toEqual("2021-12-31")
+		expect(isoly.Date.lastOfYear("2021-12-31")).toEqual("2021-12-31")
+		expect(isoly.Date.lastOfYear("2023-03-04")).toEqual("2023-12-31")
+		expect(isoly.Date.lastOfYear("2023-12-31")).toEqual("2023-12-31")
 	})
 	it("firstOfMonth", () => {
 		expect(isoly.Date.firstOfMonth("2002-12-21")).toEqual("2002-12-01")
