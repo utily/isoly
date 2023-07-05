@@ -22,6 +22,10 @@ describe("Currency", () => {
 		expect(isoly.Currency.round(0.00499999, "SEK")).toEqual(0.0)
 		expect(isoly.Currency.round(0.004999999, "SEK")).toEqual(0.01)
 		expect(isoly.Currency.round(0.004999981, "SEK")).toEqual(0.0)
+		expect(isoly.Currency.round(0.575, "EUR")).toEqual(0.58)
+		expect(isoly.Currency.round(0.855, "EUR")).toEqual(0.86)
+		expect(isoly.Currency.round(0.565, "EUR")).toEqual(0.57)
+		expect(isoly.Currency.round(0.055, "EUR")).toEqual(0.06)
 	})
 
 	it("add", () => {
@@ -51,6 +55,8 @@ describe("Currency", () => {
 		expect(isoly.Currency.divide("ISK", 95.55, 0.1)).toEqual(960)
 		expect(isoly.Currency.divide("SEK", 95.55, 0.1)).toEqual(955.5)
 		expect(isoly.Currency.divide("BHD", 95.55, 0.1)).toEqual(955.5)
+
+		expect(isoly.Currency.divide("EUR", 57.5, 100)).toEqual(0.58)
 	})
 
 	it("multiply", () => {
