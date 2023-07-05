@@ -373,11 +373,11 @@ export namespace Currency {
 	}
 
 	export function round(value: number, currency: Currency): number {
-		const factor = Math.pow(10, decimalDigits(currency) ?? 2)
+		const decimalDigits = Currency.decimalDigits(currency) ?? 2
+		const factor = Math.pow(10, decimalDigits)
 		const decimals = (value.toString().split(".")?.[1]?.length ?? 0) - 1
 		return (
-			Math.round((value + (decimals <= (decimalDigits(currency) ?? 2) + 5 ? 0 : Math.pow(10, -decimals))) * factor) /
-			factor
+			Math.round((value + (decimals <= decimalDigits + 5 ? Number.EPSILON : Math.pow(10, -decimals))) * factor) / factor
 		)
 	}
 	export function add(currency: Currency, value1: number, value2: number): number {
