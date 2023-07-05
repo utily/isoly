@@ -405,6 +405,14 @@ export namespace Currency {
 		const decimals = Currency.decimalDigits(currency)
 		return typeof decimals == "number" ? Currency.divide(currency, amount, 10 ** decimals) : amount
 	}
+	export function isRounded(amount: number, currency: Currency): boolean {
+		const decimals = Currency.decimalDigits(currency)
+		return decimals == undefined
+			? true
+			: isNaN(amount)
+			? false
+			: (amount.toString().split(".")[1]?.length ?? 0) <= decimals
+	}
 	export function decimalDigits(currency: Currency): number | undefined {
 		return {
 			AED: 2,
