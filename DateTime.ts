@@ -1,20 +1,63 @@
 import { Date } from "./Date"
 import { Locale } from "./Locale"
 import { TimeSpan } from "./TimeSpan"
+import { TimeZone } from "./TimeZone"
+import { TimeZoneOffset } from "./TimeZoneOffset"
 
 export type DateTime = string
 
 export namespace DateTime {
+	function isHours(v: string): boolean {
+		return (v[0] >= "0" && v[0] <= "1" && v[1] >= "0" && v[1] <= "9") || (v[0] == "2" && v[1] >= "0" && v[1] <= "3")
+	}
+	function isMinutes(v: string): boolean {
+		return v[0] >= "0" && v[0] <= "5" && v[1] >= "0" && v[1] <= "9"
+	}
+	function isSeconds(v: string): boolean {
+		return (v[0] >= "0" && v[0] <= "5" && v[1] >= "0" && v[1] <= "9") || v == "60" || v == "61"
+	}
 	export function is(value: any | DateTime): value is DateTime {
+		// 2019-04-01T01
+		// 2019-04-01T01Z
+		// 2019-04-01T01+01:00
+		// 2019-04-01T01:11
+		// 2019-04-01T01:11Z
+		// 2019-04-01T01:11+01:00
+		// 2019-04-01T01:11:29
+		// 2019-04-01T01:11:29Z
+		// 2019-04-01T01:11:29+01:00
+		// 2019-04-01T01:11:29.000
+		// 2019-04-01T01:11:29.000Z
+		// 2019-04-01T01:11:29.000+01:00
+		// 01234567890123456789012345678
+		// 0         1         2
 		return (
 			typeof value == "string" &&
-			/^(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)$/.test(
-				value
-			)
+			value.length >= 13 &&
+			value.length <= 29 &&
+			Date.is(value.substring(0, 10)) &&
+			value[10] == "T" &&
+			isHours(value.substring(11, 13)) &&
+			(value.length == 13 ||
+				TimeZoneOffset.is(value.substring(13)) ||
+				(value[13] == ":" &&
+					value.length >= 16 &&
+					isMinutes(value.substring(14, 16)) &&
+					(value.length == 16 ||
+						TimeZoneOffset.is(value.substring(16)) ||
+						(value[16] == ":" &&
+							value.length >= 19 &&
+							isSeconds(value.substring(17, 19)) &&
+							(value.length == 19 ||
+								TimeZoneOffset.is(value.substring(19)) ||
+								(value[19] == "." &&
+									value.length >= 23 &&
+									[...value.substring(20, 23)].every(c => c >= "0" && c <= "9") &&
+									(value.length == 23 || TimeZoneOffset.is(value.substring(23)))))))))
 		)
 	}
 	export function parse(value: DateTime): globalThis.Date {
-		return new globalThis.Date(value)
+		return new globalThis.Date(DateTime.truncate(value, "milliseconds"))
 	}
 	export function create(
 		value: number,
@@ -29,36 +72,163 @@ export namespace DateTime {
 			switch (resolution) {
 				case "days":
 					value = value * 24
-				// eslint-disable-next-line no-fallthrough
+				// fallthrough...
 				case "hours":
 					value = value * 60
-				// eslint-disable-next-line no-fallthrough
+				// fallthrough...
 				case "minutes":
 					value = value * 60
-				// eslint-disable-next-line no-fallthrough
+				// fallthrough...
 				case "seconds":
 					value = value * 1000
-				// eslint-disable-next-line no-fallthrough
+				// fallthrough...
 				case "milliseconds":
 			}
 			value = new globalThis.Date(value)
 		}
 		return value.toISOString()
 	}
+	/**
+	 * Return local time with offset.
+	 * Note: During DST-change, this might be wrong.
+	 */
+	export function fromLocalDateTime(localDateTime: DateTime, timeZone: TimeZone) {
+		// Cut off any time-zone-information:
+		// TODO: Use the information, and just change offset.
+		localDateTime = localDateTime.replace(/(Z|([+-].{5}))?$/, "")
+
+		// Create a Date object with the specified time as UTC
+		const utcDateTime = new globalThis.Date(`${localDateTime}Z`)
+
+		const localDate = new globalThis.Date(
+			utcDateTime.toLocaleString("sv-SE", { timeZone: timeZone }).replace(" ", "T") + "Z"
+		)
+
+		// Calculate the time difference in minutes
+		const diffInMinutes = (localDate.getTime() - utcDateTime.getTime()) / 60000
+
+		// Calculate the timezone's offset in hours and minutes
+		const offsetHours = Math.floor(Math.abs(diffInMinutes) / 60)
+			.toString()
+			.padStart(2, "0")
+		const offsetMinutes = (Math.abs(diffInMinutes) % 60).toString().padStart(2, "0")
+
+		// Create the timezone string
+		const timeZoneString = `${diffInMinutes >= 0 ? "+" : "-"}${offsetHours}:${offsetMinutes}`
+
+		// Return the formatted date string with timezone information
+		return `${localDateTime}${timeZoneString}`
+	}
 	export function now(): DateTime {
 		return create(new globalThis.Date())
 	}
-	export function localize(value: DateTime | globalThis.Date, locale?: Locale, timezone?: string): DateTime {
-		const localeString = locale ? locale : Intl.DateTimeFormat().resolvedOptions().locale
-		return (is(value) ? parse(value) : value).toLocaleString(localeString, {
-			year: "numeric",
-			month: "2-digit",
-			day: "2-digit",
-			hour: "2-digit",
-			minute: "2-digit",
-			second: "2-digit",
-			timeZone: timezone ?? Intl.DateTimeFormat().resolvedOptions().timeZone,
-		})
+	export type Format = Intl.DateTimeFormatOptions
+
+	export function localize(value: DateTime | globalThis.Date, format: Format, locale?: Locale): string
+	export function localize(value: DateTime | globalThis.Date, locale?: Locale, timeZone?: TimeZone): string
+	export function localize(
+		value: DateTime | globalThis.Date,
+		formatOrLocale?: Locale | Format,
+		localeOrTimeZone?: string | Locale
+	): string {
+		let result: string
+		if (typeof formatOrLocale == "object") {
+			// formatOrLocale is Format
+			// localeOrTimeZone is Locale | undefined
+			const localeString = localeOrTimeZone ? localeOrTimeZone : Intl.DateTimeFormat().resolvedOptions().locale
+			result = (is(value) ? parse(value) : value).toLocaleString(localeString, formatOrLocale)
+			// For consistency, replace NNBSP with space:
+			// Unicode has decided to use `Narrow No-Break Space (NNBSP)` (U+202F) instead of space in some cases.
+			// It breaks tests, when running in different environments.
+			// https://icu.unicode.org/download/72#:~:text=In%20many%20formatting%20patterns%2C%20ASCII%20spaces%20are%20replaced%20with%20Unicode%20spaces%20(e.g.%2C%20a%20%22thin%20space%22)
+			// This can be removed, with a breaking change and updated tests, when all systems use updated versions of ICU.
+		} else {
+			// formatOrLocale is Locale | undefined
+			// localeOrTimeZone is timeZone | undefined
+			const precision = is(value) ? DateTime.precision(value) : "milliseconds"
+			result = localize(
+				value,
+				{
+					year: "numeric",
+					month: "2-digit",
+					day: "2-digit",
+					hour: "2-digit",
+					minute:
+						precision == "minutes" || precision == "seconds" || precision == "milliseconds" ? "2-digit" : undefined,
+					second: precision == "seconds" || precision == "milliseconds" ? "2-digit" : undefined,
+					timeZone: localeOrTimeZone,
+				} as Format,
+				formatOrLocale
+			)
+		}
+		return result
+	}
+	/** @deprecated Use timeZoneOffset() */
+	export function timeZone(value: DateTime): TimeZoneOffset | "" {
+		return timeZoneOffset(value)
+	}
+	export function timeZoneOffset(value: DateTime): TimeZoneOffset | "" {
+		const result = value[value.length - 1] == "Z" ? "Z" : value.substring(value.length - 6)
+		return TimeZoneOffset.is(result) ? result : ""
+	}
+	export function timeZoneShort(value: DateTime): number {
+		return parse(value).getTimezoneOffset()
+	}
+	export type Precision = "hours" | "minutes" | "seconds" | "milliseconds"
+	export function precision(value: DateTime): Precision {
+		const zone = timeZoneOffset(value)
+		const time = value.substring(0, value.length - zone.length).split("T", 2)[1]
+		let result: Precision
+		switch (time.length) {
+			case 2:
+				result = "hours"
+				break
+			case 5:
+				result = "minutes"
+				break
+			case 8:
+				result = "seconds"
+				break
+			default:
+			case 12:
+				result = "milliseconds"
+				break
+		}
+		return result
+	}
+
+	export function truncate(value: DateTime, precision: Precision): DateTime {
+		const zone = timeZoneOffset(value)
+		// eslint-disable-next-line prefer-const
+		let [date, time] = value.split("T", 2)
+		time = time.substring(0, time.length - zone.length)
+		switch (time.length) {
+			case 2:
+				time += ":00:00.000"
+				break
+			case 5:
+				time += ":00.000"
+				break
+			case 8:
+				time += ".000"
+				break
+		}
+		let result: string
+		switch (precision) {
+			case "hours":
+				result = time.substring(0, 2)
+				break
+			case "minutes":
+				result = time.substring(0, 5)
+				break
+			case "seconds":
+				result = time.substring(0, 8)
+				break
+			case "milliseconds":
+				result = time.substring(0, 12)
+				break
+		}
+		return date + "T" + result + zone
 	}
 	export function epoch(
 		value: DateTime | globalThis.Date,
@@ -68,16 +238,16 @@ export namespace DateTime {
 		switch (resolution) {
 			case "days":
 				result = Math.round(result / 24)
-			// eslint-disable-next-line no-fallthrough
+			// fallthrough...
 			case "hours":
 				result = Math.round(result / 60)
-			// eslint-disable-next-line no-fallthrough
+			// fallthrough...
 			case "minutes":
 				result = Math.round(result / 60)
-			// eslint-disable-next-line no-fallthrough
+			// fallthrough...
 			case "seconds":
 				result = Math.round(result / 1000)
-			// eslint-disable-next-line no-fallthrough
+			// fallthrough...
 			case "milliseconds":
 		}
 		return result
@@ -133,8 +303,8 @@ export namespace DateTime {
 		result.setMilliseconds(result.getMilliseconds() + milliseconds)
 		return DateTime.create(result)
 	}
-	export function previousMillisecond(time: DateTime, seconds = 1): DateTime {
-		return nextMillisecond(time, -seconds)
+	export function previousMillisecond(time: DateTime, milliseconds = 1): DateTime {
+		return nextMillisecond(time, -milliseconds)
 	}
 	export function nextSecond(time: DateTime, seconds = 1): DateTime {
 		const result = parse(time)
@@ -162,7 +332,9 @@ export namespace DateTime {
 	}
 	export function nextDay(time: DateTime, days = 1): DateTime {
 		const result = parse(time)
+		const offset = result.getTimezoneOffset()
 		result.setDate(result.getDate() + days)
+		result.setMinutes(result.getMinutes() + offset - result.getTimezoneOffset()) // handle changing potential daylight saving time
 		return DateTime.create(result)
 	}
 	export function previousDay(time: DateTime, days = 1): DateTime {
@@ -170,7 +342,9 @@ export namespace DateTime {
 	}
 	export function nextMonth(time: DateTime, months = 1): DateTime {
 		const result = parse(time)
+		const offset = result.getTimezoneOffset()
 		result.setMonth(result.getMonth() + months)
+		result.setMinutes(result.getMinutes() + offset - result.getTimezoneOffset()) // handle changing potential daylight saving time
 		return DateTime.create(result)
 	}
 	export function previousMonth(time: DateTime, months = 1): DateTime {
@@ -207,6 +381,56 @@ export namespace DateTime {
 	}
 	export function getSecond(time: DateTime): number {
 		return Number.parseInt(time.substring(17, 19))
+	}
+	export function getMillisecond(time: DateTime): number {
+		return Number.parseInt(time.substring(20, 23))
+	}
+	export function span(
+		time: DateTime,
+		relative: DateTime,
+		greatestUnit: "years" | "hours" | "minutes" | "seconds" | "milliseconds" = "years"
+	): TimeSpan {
+		let result: TimeSpan
+		if (greatestUnit == "years") {
+			result = {
+				...Date.span(time, relative),
+				hours: getHour(time) - getHour(relative),
+				minutes: getMinute(time) - getMinute(relative),
+				seconds: getSecond(time) - getSecond(relative),
+				milliseconds: getMillisecond(time) - getMillisecond(relative),
+			}
+		} else {
+			let milliseconds = epoch(time, "milliseconds") - epoch(relative, "milliseconds")
+			const sign = Math.sign(milliseconds)
+			milliseconds = Math.abs(milliseconds)
+			result = {}
+			switch (greatestUnit) {
+				case "hours":
+					result.hours = sign * Math.floor(milliseconds / (3600 * 1000))
+					milliseconds -= sign * result.hours * 3600 * 1000
+				// Fallthrough...
+				case "minutes":
+					result.minutes = sign * Math.floor(milliseconds / (60 * 1000))
+					milliseconds -= sign * result.minutes * 60 * 1000
+				// Fallthrough...
+				case "seconds":
+					result.seconds = sign * Math.floor(milliseconds / 1000)
+					milliseconds -= sign * result.seconds * 1000
+				// Fallthrough...
+				case "milliseconds":
+					result.milliseconds = sign * milliseconds
+			}
+		}
+		return result
+	}
+	export const epochStart = "0000-01-01T00:00:00.000Z" as const
+	export const epochEnd = "9999-12-31T23:59:59.999Z" as const
+	export function invert(time: DateTime): DateTime {
+		return `${Date.invert(getDate(time))}T${(24 - getHour(time)).toFixed(0).padStart(2, "0")}:${(60 - getMinute(time))
+			.toFixed(0)
+			.padStart(2, "0")}:${(60 - getSecond(time)).toFixed(0).padStart(2, "0")}.${(999 - getMillisecond(time))
+			.toFixed(0)
+			.padStart(3, "0")}Z`
 	}
 }
 /*

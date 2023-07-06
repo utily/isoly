@@ -1,6 +1,9 @@
 import * as isoly from "./index"
 
 describe("Date", () => {
+	it("undefined", () => {
+		expect(isoly.Date.is(undefined)).toBeFalsy()
+	})
 	it("create + is", () => {
 		const d = isoly.Date.create(new Date(Date.UTC(2020, 11, 31, 23, 59, 59)))
 		expect(isoly.Date.is(d)).toEqual(true)
@@ -34,6 +37,18 @@ describe("Date", () => {
 		expect(nonUniqueDay).toBeUndefined()
 		expect(isoly.Date.next("2001-01-01", 83) == isoly.Date.next("2001-01-01", 84)).toBeFalsy()
 	})
+	it("next DateSpan", () => {
+		expect(isoly.Date.next("2001-01-01")).toEqual("2001-01-02")
+		expect(isoly.Date.next("2001-01-01", 10)).toEqual("2001-01-11")
+		expect(isoly.Date.next("2012-12-10", { years: 10, months: 12, days: 1 })).toEqual("2023-12-11")
+		expect(
+			isoly.Date.next("2022-03-10", {
+				days: 18,
+				months: -1,
+				years: 0,
+			})
+		).toEqual("2022-02-28")
+	})
 	it("previous", () => {
 		expect(isoly.Date.previous("2001-01-01")).toEqual("2000-12-31")
 		expect(isoly.Date.previous("2001-01-01", 10)).toEqual("2000-12-22")
@@ -54,6 +69,20 @@ describe("Date", () => {
 	it("previousYear", () => {
 		expect(isoly.Date.previousYear("2001-01-01")).toEqual("2000-01-01")
 		expect(isoly.Date.previousYear("2001-03-01", 10)).toEqual("1991-03-01")
+	})
+	it("firstOfYear", () => {
+		expect(isoly.Date.firstOfYear("2021-05-27")).toEqual("2021-01-01")
+		expect(isoly.Date.firstOfYear("2021-01-01")).toEqual("2021-01-01")
+		expect(isoly.Date.firstOfYear("2021-12-31")).toEqual("2021-01-01")
+		expect(isoly.Date.firstOfYear("2023-03-04")).toEqual("2023-01-01")
+		expect(isoly.Date.firstOfYear("2023-12-31")).toEqual("2023-01-01")
+	})
+	it("lastOfYear", () => {
+		expect(isoly.Date.lastOfYear("2021-05-27")).toEqual("2021-12-31")
+		expect(isoly.Date.lastOfYear("2021-01-01")).toEqual("2021-12-31")
+		expect(isoly.Date.lastOfYear("2021-12-31")).toEqual("2021-12-31")
+		expect(isoly.Date.lastOfYear("2023-03-04")).toEqual("2023-12-31")
+		expect(isoly.Date.lastOfYear("2023-12-31")).toEqual("2023-12-31")
 	})
 	it("firstOfMonth", () => {
 		expect(isoly.Date.firstOfMonth("2002-12-21")).toEqual("2002-12-01")
@@ -100,9 +129,38 @@ describe("Date", () => {
 		expect(isoly.DateTime.getDay("2020-12-31")).toEqual(31)
 	})
 	it("getWeekDay", () => {
-		expect(isoly.Date.getWeekDay("2022-05-11")).toEqual(3)
-		expect(isoly.Date.getWeekDay("2022-05-02")).toEqual(1)
-		expect(isoly.Date.getWeekDay("2022-05-07")).toEqual(6)
-		expect(isoly.Date.getWeekDay("2022-05-08")).toEqual(0)
+		expect(isoly.Date.getWeekDay("2022-05-02")).toEqual(1) // Monday
+		expect(isoly.Date.getWeekDay("2022-05-03")).toEqual(2) // Tuesday
+		expect(isoly.Date.getWeekDay("2022-05-04")).toEqual(3) // Wednesday
+		expect(isoly.Date.getWeekDay("2022-05-05")).toEqual(4) // Thursday
+		expect(isoly.Date.getWeekDay("2022-05-06")).toEqual(5) // Friday
+		expect(isoly.Date.getWeekDay("2022-05-07")).toEqual(6) // Saturday
+		expect(isoly.Date.getWeekDay("2022-05-08")).toEqual(0) // Sunday
+	})
+	it("nextWeekday", () => {
+		expect(isoly.Date.nextWeekday("2022-05-04")).toEqual("2022-05-05") // Wednesday -> Thursday
+		expect(isoly.Date.nextWeekday("2022-05-04", 2)).toEqual("2022-05-06") // Wednesday -> Friday
+		expect(isoly.Date.nextWeekday("2022-05-04", 3)).toEqual("2022-05-09") // Wednesday -> Monday
+		expect(isoly.Date.nextWeekday("2022-05-04", 4)).toEqual("2022-05-09") // Wednesday -> Monday
+		expect(isoly.Date.nextWeekday("2022-05-04", 5)).toEqual("2022-05-09") // Wednesday -> Monday
+		expect(isoly.Date.nextWeekday("2022-05-04", 6)).toEqual("2022-05-10") // Wednesday -> Tuesday
+		expect(isoly.Date.nextWeekday("2023-11-30", 1, ["2023-12-01"])).toEqual("2023-12-04") // Thursday -> Monday
+		expect(isoly.Date.nextWeekday("2023-11-30", 1, ["2023-12-01", "2023-12-04"])).toEqual("2023-12-05") // Thursday -> Tuesday
+	})
+	it("invalid date", () => {
+		expect(isoly.Date.is("2020-13-31")).toEqual(false)
+	})
+	it("valid date", () => {
+		expect(isoly.Date.is("2020-02-29")).toEqual(true)
+	})
+	it("invalid date", () => {
+		expect(isoly.Date.is("2022-02-29")).toEqual(false)
+	})
+	it("span", () => {
+		expect(isoly.Date.span("2022-02-28", "2022-03-10")).toEqual({
+			days: 18,
+			months: -1,
+			years: 0,
+		})
 	})
 })

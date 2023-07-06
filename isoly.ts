@@ -1,4 +1,3 @@
-export * as isoly from "./isoly"
 import { CallingCode } from "./CallingCode"
 import * as CountryCode from "./CountryCode"
 import { Currency } from "./Currency"

@@ -8,7 +8,8 @@ export namespace Date {
 		return (
 			typeof value == "string" &&
 			value.length == 10 &&
-			/^(\d{4}-[01]\d-[0-3]\d)|(\d{4}-[01]\d-[0-3]\d)|(\d{4}-[01]\d-[0-3]\d)$/.test(value)
+			new globalThis.Date(value).toString() != "Invalid Date" &&
+			create(new globalThis.Date(value)) == value
 		)
 	}
 	export function parse(value: Date, time?: string): globalThis.Date {
@@ -29,6 +30,7 @@ export namespace Date {
 				timeZone: timezone ?? Intl.DateTimeFormat().resolvedOptions().timeZone,
 			})
 			.substring(0, 10)
+		// See DateTime:localize for note.
 	}
 	export function next(date: Date, days: number | DateSpan = 1): Date {
 		let result: Date
@@ -80,6 +82,19 @@ export namespace Date {
 	export function previousYear(date: Date, years = 1): Date {
 		return nextYear(date, -years)
 	}
+	export function firstOfYear(date: Date): Date {
+		const result = parse(date)
+		result.setMonth(0)
+		result.setDate(1)
+		return Date.create(result)
+	}
+	export function lastOfYear(date: Date): Date {
+		const result = parse(date)
+		result.setFullYear(result.getFullYear() + 1)
+		result.setMonth(0)
+		result.setDate(0)
+		return Date.create(result)
+	}
 	export function firstOfMonth(date: Date): Date {
 		const result = parse(date)
 		result.setDate(1)
@@ -103,16 +118,40 @@ export namespace Date {
 		result.setDate(relativeDay)
 		return Date.create(result)
 	}
-	export function getYear(time: Date): number {
-		return Number.parseInt(time.substring(0, 4))
+	export function getYear(date: Date): number {
+		return Number.parseInt(date.substring(0, 4))
 	}
-	export function getMonth(time: Date): number {
-		return Number.parseInt(time.substring(5, 7))
+	export function getMonth(date: Date): number {
+		return Number.parseInt(date.substring(5, 7))
 	}
-	export function getDay(time: Date): number {
-		return Number.parseInt(time.substring(8, 10))
+	export function getDay(date: Date): number {
+		return Number.parseInt(date.substring(8, 10))
 	}
-	export function getWeekDay(time: Date): number {
-		return new globalThis.Date(time).getDay()
+	export function getWeekDay(date: Date): number {
+		return new globalThis.Date(date).getDay()
+	}
+	export function nextWeekday(date: Date, days: number | DateSpan = 1, holidays: Date[] = []): Date {
+		const holidaySet = new Set(holidays)
+		let result = next(date, days)
+		let weekday = getWeekDay(result)
+		while (weekday == 6 || weekday == 0 || holidaySet.has(result)) {
+			result = next(result, weekday == 6 ? 2 : 1)
+			weekday = getWeekDay(result)
+		}
+		return result
+	}
+	export function span(date: Date, relative: Date): DateSpan {
+		return {
+			years: getYear(date) - getYear(relative),
+			months: getMonth(date) - getMonth(relative),
+			days: getDay(date) - getDay(relative),
+		}
+	}
+	export const epochStart = "0000-01-01" as const
+	export const epochEnd = "9999-12-31" as const
+	export function invert(date: Date): Date {
+		return `${(9999 - getYear(date)).toFixed(0).padStart(4, "0")}-${(13 - getMonth(date))
+			.toFixed(0)
+			.padStart(2, "0")}-${(32 - getDay(date)).toFixed(0).padStart(2, "0")}`
 	}
 }

@@ -1,5 +1,9 @@
-import * as isoly from "./TimeRange"
+import { isoly } from "./index"
+
 describe("TimeRange", () => {
+	it("undefined", () => {
+		expect(isoly.TimeRange.is(undefined)).toBeFalsy()
+	})
 	it("create DateTime + DateTime", () => {
 		expect(isoly.TimeRange.create("2021-01-01T00:00:00.000Z", "2021-01-01T13:37:42.000Z")).toEqual({
 			start: "2021-01-01T00:00:00.000Z",
