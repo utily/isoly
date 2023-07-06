@@ -26,7 +26,23 @@ describe("Currency", () => {
 		expect(isoly.Currency.round(0.565, "EUR")).toEqual(0.57)
 		expect(isoly.Currency.round(0.055, "EUR")).toEqual(0.06)
 	})
-
+	it("isRounded", () => {
+		expect(isoly.Currency.isRounded(1234567890, "SEK")).toEqual(true)
+		expect(isoly.Currency.isRounded(10, "SEK")).toEqual(true)
+		expect(isoly.Currency.isRounded(1, "SEK")).toEqual(true)
+		expect(isoly.Currency.isRounded(1.1, "SEK")).toEqual(true)
+		expect(isoly.Currency.isRounded(1.11, "SEK")).toEqual(true)
+		expect(isoly.Currency.isRounded(1.111, "SEK")).toEqual(false)
+		expect(isoly.Currency.isRounded(1.1111, "SEK")).toEqual(false)
+		expect(isoly.Currency.isRounded(NaN, "SEK")).toEqual(false)
+		expect(isoly.Currency.isRounded(1234567890, "ISK")).toEqual(true)
+		expect(isoly.Currency.isRounded(10, "ISK")).toEqual(true)
+		expect(isoly.Currency.isRounded(1, "ISK")).toEqual(true)
+		expect(isoly.Currency.isRounded(1.1, "ISK")).toEqual(false)
+		expect(isoly.Currency.isRounded(1.11, "ISK")).toEqual(false)
+		expect(isoly.Currency.isRounded(1.12345678, "XAU")).toEqual(true) // Ounce of gold -> decimalDigits undefined -> any number of decimals accepted
+		expect(isoly.Currency.isRounded(12345678, "XAU")).toEqual(true)
+	})
 	it("add", () => {
 		expect(95.385 + 18.114 + 0.001).toEqual(113.50000000000001) //should be 113.5
 		expect(isoly.Currency.add("ISK", 95.385 + 18.114, 0.001)).toEqual(113)
