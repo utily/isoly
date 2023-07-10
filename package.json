@@ -55,10 +55,10 @@
     "@typescript-eslint/eslint-plugin": "^5.23.0",
     "@typescript-eslint/parser": "^5.23.0",
     "eslint": "^8.15.0",
-    "eslint-plugin-prettierx": "github:utily/eslint-plugin-prettierx#utily-20220323",
+    "@utily/eslint-plugin-prettierx": "0.18.3",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "jest": "^28",
-    "prettierx": "github:utily/prettierx#utily-20220323",
+    "@utily/prettierx": "0.19.3",
     "ts-jest": "^28",
     "typescript": "^4.7.3"
   }
