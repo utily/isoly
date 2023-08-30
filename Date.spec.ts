@@ -96,6 +96,7 @@ describe("Date", () => {
 	})
 	it("firstOfWeek", () => {
 		expect(isoly.Date.firstOfWeek("2023-01-08")).toEqual("2023-01-02")
+		expect(isoly.Date.firstOfWeek("2023-01-07")).toEqual("2023-01-02")
 		expect(isoly.Date.firstOfWeek("2023-01-06")).toEqual("2023-01-02")
 		expect(isoly.Date.firstOfWeek("2023-01-05")).toEqual("2023-01-02")
 		expect(isoly.Date.firstOfWeek("2023-01-04")).toEqual("2023-01-02")
