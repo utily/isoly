@@ -111,7 +111,7 @@ export namespace Date {
 	}
 	export function firstOfWeek(date: Date): Date {
 		const result = parse(date)
-		const relativeDay = result.getDate() - result.getDay() + 1
+		const relativeDay = result.getDate() - (result.getDay() || 7) + 1
 		result.setDate(relativeDay)
 		return Date.create(result)
 	}

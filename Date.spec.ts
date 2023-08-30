@@ -95,8 +95,10 @@ describe("Date", () => {
 		expect(isoly.Date.lastOfMonth("2004-02-24")).toEqual("2004-02-29")
 	})
 	it("firstOfWeek", () => {
+		expect(isoly.Date.firstOfWeek("2023-01-08")).toEqual("2023-01-02")
 		expect(isoly.Date.firstOfWeek("2000-01-01")).toEqual("1999-12-27")
 		expect(isoly.Date.firstOfWeek("2000-01-31")).toEqual("2000-01-31")
+		expect(isoly.Date.firstOfWeek("2023-02-05")).toEqual("2023-01-30")
 	})
 	it("lastOfWeek", () => {
 		expect(isoly.Date.lastOfWeek("2000-01-01")).toEqual("2000-01-02")

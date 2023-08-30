@@ -292,4 +292,9 @@ describe("DateTime", () => {
 			"2023-01-16T14:00:00+00:00"
 		)
 	})
+	it("testing", () => {
+		const first = "2023-08-09T13:55:56.370Z"
+		const second = "2023-08-09T13:56:04.098Z"
+		console.log(isoly.TimeSpan.toMilliseconds(isoly.DateTime.span(second, first)))
+	})
 })
