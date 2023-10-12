@@ -127,6 +127,30 @@ export namespace Date {
 	export function getMonth(date: Date): number {
 		return Number.parseInt(date.substring(5, 7))
 	}
+	// export function getWeek(date: Date): number {
+	// 	const days = DateRange.getDays({ start: Date.firstOfYear(date), end: date }) + 1
+	// 	let week: number
+	// 	if (days < 5 && Date.getWeekDay(date) < 4 && Date.getWeekDay(date) != 0)
+	// 		week = Date.getWeek(Date.lastOfYear(Date.previousYear(date)))
+	// 	else {
+	// 		week = Math.floor(days / 7)
+	// 		const weekday = Date.getWeekDay(Date.firstOfYear(date))
+	// 		if (weekday < 4 && weekday != 0)
+	// 			//note sure if correct
+	// 			week = week + 1
+	// 	}
+	// 	return week
+	// }
+	export function getWeek(date: Date): number {
+		const parsed = new globalThis.Date(date)
+		parsed.setHours(0, 0, 0, 0)
+		// Thursday in current week decides the year.
+		parsed.setDate(parsed.getDate() + 3 - ((parsed.getDay() + 6) % 7))
+		// January 4 is always in week 1.
+		const week1 = new globalThis.Date(parsed.getFullYear(), 0, 4)
+		// Adjust to Thursday in week 1 and count number of weeks from date to week1.
+		return 1 + Math.round(((parsed.getTime() - week1.getTime()) / 86_400_000 - 3 + ((week1.getDay() + 6) % 7)) / 7)
+	}
 	export function getDay(date: Date): number {
 		return Number.parseInt(date.substring(8, 10))
 	}
