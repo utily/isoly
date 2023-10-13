@@ -1,13 +1,10 @@
-cat >dist/cjs/package.json <<!EOF
-{
+echo >dist/cjs/package.json '{
   "type": "commonjs",
 	"typings": "dist/cjs/index.d.ts"
-}
-!EOF
+}'
 
-cat >dist/mjs/package.json <<!EOF
-{
+echo >dist/mjs/package.json '{
   "type": "module",
 	"typings": "dist/mjs/index.d.ts"
-}
-!EOF
+}'
+
