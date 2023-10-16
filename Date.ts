@@ -135,10 +135,10 @@ export namespace Date {
 	export function getWeekDay(
 		date: Date,
 		locale?: Locale,
-		{ format: format = "long" }: { format: "long" | "short" | "narrow" } = { format: "long" }
+		options?: { format?: "long" | "short" | "narrow" }
 	): number | string {
 		return locale
-			? new globalThis.Date(date).toLocaleDateString(locale, { weekday: format })
+			? new globalThis.Date(date).toLocaleDateString(locale, { weekday: options?.format })
 			: new globalThis.Date(date).getDay()
 	}
 	export function nextWeekday(date: Date, days: number | DateSpan = 1, holidays: Date[] = []): Date {
