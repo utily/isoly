@@ -159,7 +159,7 @@ const names: { [country: string]: string | undefined } = {
 	NA: "Namibia",
 	NR: "Nauru",
 	NP: "Nepal",
-	NL: "Netherlands, Kingdom of the",
+	NL: "Netherlands",
 	NC: "New Caledonia",
 	NZ: "New Zealand",
 	NI: "Nicaragua",
