@@ -127,6 +127,13 @@ export namespace Date {
 	export function getMonth(date: Date): number {
 		return Number.parseInt(date.substring(5, 7))
 	}
+	export function getWeek(date: Date): number {
+		const parsed = new globalThis.Date(date)
+		parsed.setHours(0, 0, 0, 0)
+		parsed.setDate(parsed.getDate() + 3 - ((parsed.getDay() + 6) % 7))
+		const week1 = new globalThis.Date(parsed.getFullYear(), 0, 4)
+		return 1 + Math.round(((parsed.getTime() - week1.getTime()) / 86_400_000 - 3 + ((week1.getDay() + 6) % 7)) / 7)
+	}
 	export function getDay(date: Date): number {
 		return Number.parseInt(date.substring(8, 10))
 	}

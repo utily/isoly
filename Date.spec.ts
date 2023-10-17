@@ -134,6 +134,16 @@ describe("Date", () => {
 	it("getMonth", () => {
 		expect(isoly.DateTime.getMonth("2020-12-31")).toEqual(12)
 	})
+	it("getWeek", () => {
+		expect(isoly.Date.getWeek("2027-01-01")).toEqual(53)
+		expect(isoly.Date.getWeek("2020-12-31")).toEqual(53)
+		expect(isoly.Date.getWeek("2019-12-31")).toEqual(1)
+		expect(isoly.Date.getWeek("2023-01-08")).toEqual(1)
+		expect(isoly.Date.getWeek("2024-01-08")).toEqual(2)
+		expect(isoly.Date.getWeek("2025-01-19")).toEqual(3)
+		expect(isoly.Date.getWeek("2025-01-01")).toEqual(1)
+		expect(isoly.Date.getWeek("2023-01-01")).toEqual(52)
+	})
 	it("getDay", () => {
 		expect(isoly.DateTime.getDay("2020-12-31")).toEqual(31)
 	})
