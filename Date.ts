@@ -137,8 +137,17 @@ export namespace Date {
 	export function getDay(date: Date): number {
 		return Number.parseInt(date.substring(8, 10))
 	}
-	export function getWeekDay(date: Date): number {
-		return new globalThis.Date(date).getDay()
+	export function getWeekDay(date: Date): number
+	export function getWeekDay(date: Date, locale: Locale, options?: { format?: "long" | "short" | "narrow" }): string
+	export function getWeekDay(
+		date: Date,
+		locale?: Locale,
+		options?: { format?: "long" | "short" | "narrow" }
+	): number | string {
+		const format = options?.format ?? "long"
+		return locale
+			? new globalThis.Date(date).toLocaleDateString(locale, { weekday: format })
+			: new globalThis.Date(date).getDay()
 	}
 	export function nextWeekday(date: Date, days: number | DateSpan = 1, holidays: Date[] = []): Date {
 		const holidaySet = new Set(holidays)

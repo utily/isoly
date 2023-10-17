@@ -155,6 +155,20 @@ describe("Date", () => {
 		expect(isoly.Date.getWeekDay("2022-05-06")).toEqual(5) // Friday
 		expect(isoly.Date.getWeekDay("2022-05-07")).toEqual(6) // Saturday
 		expect(isoly.Date.getWeekDay("2022-05-08")).toEqual(0) // Sunday
+		expect(isoly.Date.getWeekDay("2022-05-02", "en-US", { format: "long" })).toEqual("Monday")
+		expect(isoly.Date.getWeekDay("2022-05-02", "en-US")).toEqual("Monday")
+		expect(isoly.Date.getWeekDay("2022-05-02", "en-US", {})).toEqual("Monday")
+		expect(isoly.Date.getWeekDay("2022-05-02", "en-US", { format: "short" })).toEqual("Mon")
+		expect(isoly.Date.getWeekDay("2022-05-02", "en-US", { format: "narrow" })).toEqual("M")
+		expect(isoly.Date.getWeekDay("2022-05-02", "sv-SE", { format: "long" })).toEqual("måndag")
+		expect(isoly.Date.getWeekDay("2022-05-02", "sv-SE", { format: "short" })).toEqual("mån")
+		expect(isoly.Date.getWeekDay("2022-05-02", "sv-SE", { format: "narrow" })).toEqual("M")
+		expect(isoly.Date.getWeekDay("2022-05-03", "en-US", { format: "short" })).toEqual("Tue")
+		expect(isoly.Date.getWeekDay("2022-05-04", "en-US", { format: "short" })).toEqual("Wed")
+		expect(isoly.Date.getWeekDay("2022-05-05", "en-US", { format: "short" })).toEqual("Thu")
+		expect(isoly.Date.getWeekDay("2022-05-06", "en-US", { format: "short" })).toEqual("Fri")
+		expect(isoly.Date.getWeekDay("2022-05-07", "en-US", { format: "short" })).toEqual("Sat")
+		expect(isoly.Date.getWeekDay("2022-05-08", "en-US", { format: "short" })).toEqual("Sun")
 	})
 	it("nextWeekday", () => {
 		expect(isoly.Date.nextWeekday("2022-05-04")).toEqual("2022-05-05") // Wednesday -> Thursday

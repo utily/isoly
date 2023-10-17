@@ -4,9 +4,9 @@
 		"declaration": true,
 		"sourceMap": true,
 		"sourceRoot": "../",
-		"outDir": "dist",
+		"outDir": "dist/mjs",
 		"baseUrl": ".",
-		"allowSyntheticDefaultImports":true,
+		"allowSyntheticDefaultImports": true,
 		"types": []
 	},
 	"files": [

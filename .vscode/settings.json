@@ -1,6 +1,7 @@
 {
 	"files.exclude": {
 		".*": true,
+		"*.sh": true,
 		"*.json": true,
 		"CODEOWNERS": true,
 		"dist": true,
@@ -43,6 +44,7 @@
 		"gracely",
 		"isoly",
 		"langly",
+		"måndag",
 		"paramly",
 		"persistly",
 		"selectivly",
