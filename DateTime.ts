@@ -86,7 +86,14 @@ export namespace DateTime {
 			}
 			value = new globalThis.Date(value)
 		}
-		return value.toISOString()
+		return fixIncorrect(value.toISOString())
+	}
+	export function fixIncorrect(value: DateTime | string): DateTime {
+		if (value.length == 22 && value.match(/\.\dZ$/))
+			value = value.substring(0, 21) + "00Z"
+		else if (value.length == 23 && value.match(/\.\d\dZ$/))
+			value = value.substring(0, 22) + "0Z"
+		return value
 	}
 	/**
 	 * Return local time with offset.
