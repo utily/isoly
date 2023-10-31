@@ -292,4 +292,10 @@ describe("DateTime", () => {
 			"2023-01-16T14:00:00+00:00"
 		)
 	})
+	it("fixIncorrect milliseconds", () => {
+		expect(isoly.DateTime.fixIncorrect("2023-10-31T11:23:40.8Z")).toEqual("2023-10-31T11:23:40.800Z")
+		expect(isoly.DateTime.fixIncorrect("2023-10-31T11:23:40.81Z")).toEqual("2023-10-31T11:23:40.810Z")
+		expect(isoly.DateTime.fixIncorrect("2023-10-31T11:23:40Z")).toEqual("2023-10-31T11:23:40Z")
+		expect(isoly.DateTime.fixIncorrect("2023-10-31T11:23:40.000Z")).toEqual("2023-10-31T11:23:40.000Z")
+	})
 })
