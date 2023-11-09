@@ -61,17 +61,15 @@ export namespace TimeSpan {
 		return performRound(result, round)
 	}
 	export function add(...addends: TimeSpan[]): TimeSpan {
-		return addends
-			.slice(1)
-			.reduce(
-				(result, addend) =>
-					Object.entries(addend).reduce(
-						(result, [key, addend]: [keyof TimeSpan, number]) =>
-							Object.assign(result, { [key]: (result[key] ?? 0) + addend }),
-						result
-					),
-				{ ...(addends[0] ?? {}) }
-			)
+		return addends.reduce(
+			(result, addend) =>
+				Object.entries(addend).reduce(
+					(result, [key, addend]: [keyof TimeSpan, number]) =>
+						Object.assign(result, { [key]: (result[key] ?? 0) + addend }),
+					result
+				),
+			{}
+		)
 	}
 }
 
