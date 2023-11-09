@@ -33,12 +33,12 @@ describe("TimeSpan", () => {
 		expect(daysInYear.map(e => e * hoursInDay)).toContain(isoly.TimeSpan.toHours({ years: 1 }))
 	})
 	it("add", () => {
-		const first: TimeSpan = { hours: 8, minutes: 15 }
-		const other: TimeSpan = { minutes: 10, seconds: 17 }
-		const result = isoly.TimeSpan.add(first, other)
+		const value: TimeSpan = { hours: 8, minutes: 15 }
+		const addend: TimeSpan = { minutes: 10, seconds: 17 }
+		const result = isoly.TimeSpan.add(value, addend)
 		expect(result).toEqual({ hours: 8, minutes: 25, seconds: 17 })
-		expect(result).not.toBe(first)
-		expect(result).not.toBe(other)
+		expect(result).not.toBe(value)
+		expect(result).not.toBe(addend)
 		expect(isoly.TimeSpan.add({ hours: 8, minutes: 15 }, { minutes: -10, seconds: -17 })).toEqual({
 			hours: 8,
 			minutes: 5,
