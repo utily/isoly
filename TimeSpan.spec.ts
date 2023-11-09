@@ -1,4 +1,4 @@
-import { isoly } from "./index"
+import { isoly, TimeSpan } from "./index"
 
 describe("TimeSpan", () => {
 	it("undefined", () => {
@@ -31,5 +31,23 @@ describe("TimeSpan", () => {
 	it("Years", () => {
 		const daysInYear = [365, 366]
 		expect(daysInYear.map(e => e * hoursInDay)).toContain(isoly.TimeSpan.toHours({ years: 1 }))
+	})
+	it("add", () => {
+		const first: TimeSpan = { hours: 8, minutes: 15 }
+		const other: TimeSpan = { minutes: 10, seconds: 17 }
+		const result = isoly.TimeSpan.add(first, other)
+		expect(result).toEqual({ hours: 8, minutes: 25, seconds: 17 })
+		expect(result).not.toBe(first)
+		expect(result).not.toBe(other)
+		expect(isoly.TimeSpan.add({ hours: 8, minutes: 15 }, { minutes: -10, seconds: -17 })).toEqual({
+			hours: 8,
+			minutes: 5,
+			seconds: -17,
+		})
+		expect(isoly.TimeSpan.add({ minutes: -10, seconds: -17 }, { hours: 8, minutes: 15 })).toEqual({
+			hours: 8,
+			minutes: 5,
+			seconds: -17,
+		})
 	})
 })
