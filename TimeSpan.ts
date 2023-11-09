@@ -66,11 +66,6 @@ export namespace TimeSpan {
 				Object.assign(result, { [key]: (result[key] ?? 0) + value }),
 			{ ...other }
 		)
-		// return Array.from(new Set([...Object.keys(first), ...Object.keys(other)])).reduce(
-		// 	(result: TimeSpan, key: keyof TimeSpan) =>
-		// 		Object.assign(result, { [key]: (first[key] ?? 0) + (other[key] ?? 0) }),
-		// 	{}
-		// )
 	}
 }
 
