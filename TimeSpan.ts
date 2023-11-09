@@ -72,11 +72,6 @@ export namespace TimeSpan {
 					),
 				{ ...(addends[0] ?? {}) }
 			)
-		// return Object.entries(addend).reduce(
-		// 	(result: TimeSpan, [key, value]: [keyof TimeSpan, number]) =>
-		// 		Object.assign(result, { [key]: (result[key] ?? 0) + value }),
-		// 	{ ...value }
-		// )
 	}
 }
 
