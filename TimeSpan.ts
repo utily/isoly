@@ -60,6 +60,13 @@ export namespace TimeSpan {
 			(value.hours ?? 0) * 60 * 60 * 1000
 		return performRound(result, round)
 	}
+	export function add(value: TimeSpan, addend: TimeSpan): TimeSpan {
+		return Object.entries(addend).reduce(
+			(result: TimeSpan, [key, value]: [keyof TimeSpan, number]) =>
+				Object.assign(result, { [key]: (result[key] ?? 0) + value }),
+			{ ...value }
+		)
+	}
 }
 
 function dateToMilliseconds(span: TimeSpan): number {
