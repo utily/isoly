@@ -1,7 +1,7 @@
 export type TimeZoneOffset = typeof TimeZoneOffset.values[number]
 
 export namespace TimeZoneOffset {
-	export const values: string[] = [
+	export const values = <const>[
 		"-12:00",
 		"-11:00",
 		"-10:00",
@@ -44,6 +44,6 @@ export namespace TimeZoneOffset {
 		"+14:00",
 	]
 	export function is(value: TimeZoneOffset | any): value is TimeZoneOffset {
-		return typeof value == "string" && values.includes(value)
+		return typeof value == "string" && values.includes(value as any)
 	}
 }

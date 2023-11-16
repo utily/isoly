@@ -309,7 +309,7 @@ export namespace DateTime {
 	}
 	export function nextMillisecond(time: DateTime, milliseconds = 1): DateTime {
 		const result = parse(time)
-		result.setMilliseconds(result.getMilliseconds() + milliseconds)
+		result.setUTCMilliseconds(result.getUTCMilliseconds() + milliseconds)
 		return DateTime.create(result)
 	}
 	export function previousMillisecond(time: DateTime, milliseconds = 1): DateTime {
@@ -317,7 +317,7 @@ export namespace DateTime {
 	}
 	export function nextSecond(time: DateTime, seconds = 1): DateTime {
 		const result = parse(time)
-		result.setSeconds(result.getSeconds() + seconds)
+		result.setUTCSeconds(result.getUTCSeconds() + seconds)
 		return DateTime.create(result)
 	}
 	export function previousSecond(time: DateTime, seconds = 1): DateTime {
@@ -325,7 +325,7 @@ export namespace DateTime {
 	}
 	export function nextMinute(time: DateTime, minutes = 1): DateTime {
 		const result = parse(time)
-		result.setMinutes(result.getMinutes() + minutes)
+		result.setUTCMinutes(result.getUTCMinutes() + minutes)
 		return DateTime.create(result)
 	}
 	export function previousMinute(time: DateTime, minutes = 1): DateTime {
@@ -333,7 +333,7 @@ export namespace DateTime {
 	}
 	export function nextHour(time: DateTime, hours = 1): DateTime {
 		const result = parse(time)
-		result.setHours(result.getHours() + hours)
+		result.setUTCHours(result.getUTCHours() + hours)
 		return DateTime.create(result)
 	}
 	export function previousHour(time: DateTime, hours = 1): DateTime {
@@ -341,9 +341,8 @@ export namespace DateTime {
 	}
 	export function nextDay(time: DateTime, days = 1): DateTime {
 		const result = parse(time)
-		const offset = result.getTimezoneOffset()
-		result.setDate(result.getDate() + days)
-		result.setMinutes(result.getMinutes() + offset - result.getTimezoneOffset()) // handle changing potential daylight saving time
+		result.setUTCDate(result.getUTCDate() + days)
+		result.setUTCMinutes(result.getUTCMinutes())
 		return DateTime.create(result)
 	}
 	export function previousDay(time: DateTime, days = 1): DateTime {
@@ -351,9 +350,8 @@ export namespace DateTime {
 	}
 	export function nextMonth(time: DateTime, months = 1): DateTime {
 		const result = parse(time)
-		const offset = result.getTimezoneOffset()
-		result.setMonth(result.getMonth() + months)
-		result.setMinutes(result.getMinutes() + offset - result.getTimezoneOffset()) // handle changing potential daylight saving time
+		result.setUTCMonth(result.getUTCMonth() + months)
+		result.setUTCMinutes(result.getUTCMinutes())
 		return DateTime.create(result)
 	}
 	export function previousMonth(time: DateTime, months = 1): DateTime {
@@ -361,7 +359,7 @@ export namespace DateTime {
 	}
 	export function nextYear(time: DateTime, years = 1): DateTime {
 		const result = parse(time)
-		result.setFullYear(result.getFullYear() + years)
+		result.setUTCFullYear(result.getUTCFullYear() + years)
 		return DateTime.create(result)
 	}
 	export function previousYear(time: DateTime, years = 1): DateTime {

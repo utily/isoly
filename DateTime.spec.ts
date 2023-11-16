@@ -217,6 +217,25 @@ describe("DateTime", () => {
 	}
 	it("next month", () => {
 		expect(isoly.DateTime.nextMonth("2023-10-20T13:37:00.000Z", -8)).toEqual("2023-02-20T13:37:00.000Z")
+		expect(isoly.DateTime.nextMonth("2023-03-25T00:30:00.000Z", 1)).toEqual("2023-04-25T00:30:00.000Z")
+		expect(isoly.DateTime.nextMonth("2023-03-26T00:30:00.000Z", 1)).toEqual("2023-04-26T00:30:00.000Z")
+		expect(isoly.DateTime.nextMonth("2023-03-26T01:30:00.000Z", 1)).toEqual("2023-04-26T01:30:00.000Z")
+		expect(isoly.DateTime.nextMonth("2023-03-26T02:30:00.000Z", 1)).toEqual("2023-04-26T02:30:00.000Z")
+		expect(isoly.DateTime.nextMonth("2023-03-26T03:30:00.000Z", 1)).toEqual("2023-04-26T03:30:00.000Z")
+	})
+	it("next millisecond", () => {
+		expect(isoly.DateTime.nextMillisecond("2023-10-20T13:37:00.000Z", 10)).toEqual("2023-10-20T13:37:00.010Z")
+		expect(isoly.DateTime.nextMillisecond("2023-03-26T01:30:00.000Z", 24 * 60 * 60 * 1000)).toEqual(
+			"2023-03-27T01:30:00.000Z"
+		)
+		expect(isoly.DateTime.nextMillisecond("2023-03-26T02:30:00.000Z", 24 * 60 * 60 * 1000)).toEqual(
+			"2023-03-27T02:30:00.000Z"
+		)
+	})
+	it("next second", () => {
+		expect(isoly.DateTime.nextSecond("2023-10-20T13:37:00.000Z", 10)).toEqual("2023-10-20T13:37:10.000Z")
+		expect(isoly.DateTime.nextSecond("2023-03-26T01:30:00.000Z", 24 * 60 * 60)).toEqual("2023-03-27T01:30:00.000Z")
+		expect(isoly.DateTime.nextSecond("2023-03-26T02:30:00.000Z", 24 * 60 * 60)).toEqual("2023-03-27T02:30:00.000Z")
 	})
 	it("next day", () => {
 		expect(isoly.DateTime.nextDay("2023-10-20T13:37:00.000Z", 10)).toEqual("2023-10-30T13:37:00.000Z")
@@ -291,6 +310,18 @@ describe("DateTime", () => {
 		expect(isoly.DateTime.fromLocalDateTime("2023-01-16T14:00:00", "Europe/London")).toEqual(
 			"2023-01-16T14:00:00+00:00"
 		)
+	})
+	it("check fixed nextX issues related to change to summer time", () => {
+		expect(isoly.DateTime.nextDay("2023-03-25T01:30:00.000Z", 1)).toEqual("2023-03-26T01:30:00.000Z")
+		expect(isoly.DateTime.nextMinute("2023-03-26T00:30:00.000Z", 24 * 60)).toEqual("2023-03-27T00:30:00.000Z")
+		expect(isoly.DateTime.nextHour("2023-03-26T00:30:00.000Z", 24)).toEqual("2023-03-27T00:30:00.000Z")
+		expect(isoly.DateTime.nextDay("2023-03-25T01:30:00.000Z", 1)).toEqual("2023-03-26T01:30:00.000Z")
+		expect(isoly.DateTime.nextMinute("2023-03-25T02:30:00.000Z", 24 * 60)).toEqual("2023-03-26T02:30:00.000Z")
+		expect(isoly.DateTime.nextHour("2023-03-25T02:30:00.000Z", 24)).toEqual("2023-03-26T02:30:00.000Z")
+
+		expect(isoly.DateTime.nextDay("2023-03-25T02:30:00.000+01:00", 1)).toEqual("2023-03-26T01:30:00.000Z")
+		expect(isoly.DateTime.nextMinute("2023-03-26T00:30:00.000+01:00", 24 * 60)).toEqual("2023-03-26T23:30:00.000Z")
+		expect(isoly.DateTime.nextHour("2023-03-26T00:30:00.000+01:00", 24)).toEqual("2023-03-26T23:30:00.000Z")
 	})
 	it("fixIncorrect milliseconds", () => {
 		expect(isoly.DateTime.fixIncorrect("2023-10-31T11:23:40.8Z")).toEqual("2023-10-31T11:23:40.800Z")
