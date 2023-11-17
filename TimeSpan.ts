@@ -81,11 +81,6 @@ export namespace TimeSpan {
 				),
 			minuend
 		)
-		// return Object.entries(subtrahend).reduce(
-		// 	(result, [key, subtrahend]: [keyof TimeSpan, number]) =>
-		// 		Object.assign(result, { [key]: (result[key] ?? 0) - subtrahend }),
-		// 	minuend
-		// )
 	}
 }
 
