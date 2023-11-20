@@ -53,6 +53,78 @@ describe("TimeSpan", () => {
 	it("subtract", () => {
 		const minuend: isoly.TimeSpan = { hours: 8, minutes: 15 }
 		const subtrahends: isoly.TimeSpan[] = [{ hours: 8 }, { minutes: 15, seconds: 10 }]
-		expect(isoly.TimeSpan.subtract(minuend, ...subtrahends)).toEqual({ hours: 0, minutes: 0, seconds: -10 })
+		expect(isoly.TimeSpan.subtract(minuend, ...subtrahends)).toEqual({ seconds: -10 })
+		const result = isoly.TimeSpan.subtract({ hours: 8 }, { hours: 6.4 })
+		expect(result).toEqual({ hours: 1, minutes: 36 })
+	})
+	it("fromMilliseconds", () => {
+		const milliseconds = 1234560
+		expect(isoly.TimeSpan.fromMilliseconds(milliseconds)).toEqual({
+			minutes: 20,
+			seconds: 34,
+			milliseconds: 560,
+		})
+	})
+	it("fromSeconds", () => {
+		const seconds = 1234.56
+		expect(isoly.TimeSpan.fromSeconds(seconds, { precision: "milliseconds" })).toEqual({
+			minutes: 20,
+			seconds: 34,
+			milliseconds: 560,
+		})
+		expect(isoly.TimeSpan.fromSeconds(seconds * 2, { precision: "milliseconds" })).toEqual({
+			minutes: 41,
+			seconds: 9,
+			milliseconds: 120,
+		})
+		expect(isoly.TimeSpan.fromSeconds(seconds, { precision: "seconds" })).toEqual({
+			minutes: 20,
+			seconds: 35,
+		})
+		expect(isoly.TimeSpan.fromSeconds(seconds * 2, { precision: "seconds" })).toEqual({
+			minutes: 41,
+			seconds: 9,
+		})
+	})
+	it("fromMinutes", () => {
+		const minutes = 20.576
+		expect(isoly.TimeSpan.fromMinutes(minutes, { precision: "milliseconds" })).toEqual({
+			minutes: 20,
+			seconds: 34,
+			milliseconds: 560,
+		})
+		expect(isoly.TimeSpan.fromMinutes(minutes * 2, { precision: "milliseconds" })).toEqual({
+			minutes: 41,
+			seconds: 9,
+			milliseconds: 120,
+		})
+		expect(isoly.TimeSpan.fromMinutes(minutes, { precision: "seconds" })).toEqual({ minutes: 20, seconds: 35 })
+		expect(isoly.TimeSpan.fromMinutes(minutes * 2, { precision: "seconds" })).toEqual({ minutes: 41, seconds: 9 })
+		expect(isoly.TimeSpan.fromMinutes(minutes, { precision: "minutes" })).toEqual({ minutes: 21 })
+		expect(isoly.TimeSpan.fromMinutes(minutes * 2, { precision: "minutes" })).toEqual({ minutes: 41 })
+	})
+	it("fromHours", () => {
+		const hours = 0.34293333333333337
+		expect(isoly.TimeSpan.fromHours(hours, { precision: "milliseconds" })).toEqual({
+			minutes: 20,
+			seconds: 34,
+			milliseconds: 560,
+		})
+		expect(isoly.TimeSpan.fromHours(hours * 2, { precision: "milliseconds" })).toEqual({
+			minutes: 41,
+			seconds: 9,
+			milliseconds: 120,
+		})
+		expect(isoly.TimeSpan.fromHours(hours, { precision: "seconds" })).toEqual({ minutes: 20, seconds: 35 })
+		expect(isoly.TimeSpan.fromHours(hours * 2, { precision: "seconds" })).toEqual({ minutes: 41, seconds: 9 })
+		expect(isoly.TimeSpan.fromHours(hours, { precision: "minutes" })).toEqual({ minutes: 21 })
+		expect(isoly.TimeSpan.fromHours(hours * 2, { precision: "minutes" })).toEqual({ minutes: 41 })
+		expect(isoly.TimeSpan.fromHours(hours * 2, { precision: "hours" })).toEqual({ hours: 1 })
+		expect(isoly.TimeSpan.fromHours(6.4, { precision: "minutes" })).toEqual({ hours: 6, minutes: 24 })
+		// handle bad floating point math
+		// 6.4 - 4 == 2.4000000000000004
+		expect(isoly.TimeSpan.fromHours(6.4 - 4, { precision: "milliseconds" })).toEqual({ hours: 2, minutes: 24 })
+		// 6.4 - 4 - 0.4 ==  2.0000000000000004
+		expect(isoly.TimeSpan.fromHours(6.4 - 4 - 0.4, { precision: "milliseconds" })).toEqual({ hours: 2 })
 	})
 })
