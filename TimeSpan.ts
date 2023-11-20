@@ -63,22 +63,22 @@ export namespace TimeSpan {
 	export function add(...addends: TimeSpan[]): TimeSpan {
 		return addends.reduce(
 			(result, addend) =>
-				Object.entries(addend).reduce((result, [key, addend]: [keyof TimeSpan, number]) => {
-					const sum = (result[key] ?? 0) + addend
-					return !sum ? (({ [key]: _, ...result }) => result)(result) : Object.assign(result, from[key](sum))
-				}, result),
+				Object.entries(addend).reduce(
+					(result, [key, addend]: [keyof TimeSpan, number]) =>
+						(({ [key]: value, ...result }) => sum(result, from[key]((value ?? 0) + addend)))(result),
+					result
+				),
 			{}
 		)
 	}
 	export function subtract(minuend: TimeSpan, ...subtrahends: TimeSpan[]): TimeSpan {
 		return subtrahends.reduce(
 			(result, subtrahend) =>
-				Object.entries(subtrahend).reduce((result, [key, subtrahend]: [keyof TimeSpan, number]) => {
-					const difference = (result[key] ?? 0) - subtrahend
-					return !difference
-						? (({ [key]: _, ...result }) => result)(result)
-						: Object.assign(result, from[key](difference))
-				}, result),
+				Object.entries(subtrahend).reduce(
+					(result, [key, subtrahend]: [keyof TimeSpan, number]) =>
+						(({ [key]: value, ...result }) => sum(result, from[key]((value ?? 0) - subtrahend)))(result),
+					result
+				),
 			minuend
 		)
 	}
