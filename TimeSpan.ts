@@ -60,6 +60,18 @@ export namespace TimeSpan {
 			(value.hours ?? 0) * 60 * 60 * 1000
 		return performRound(result, round)
 	}
+	function sum(...addends: TimeSpan[]): TimeSpan {
+		return addends.reduce(
+			(result, addend) =>
+				Object.entries(addend).reduce((result, [key, addend]: [keyof TimeSpan, number]) => {
+					const sum = (result[key] ?? 0) + addend
+					return !sum
+						? (({ [key]: _, ...result }) => result)(result)
+						: Object.assign(result, { [key]: (result[key] ?? 0) + addend })
+				}, result),
+			{}
+		)
+	}
 	export function add(...addends: TimeSpan[]): TimeSpan {
 		return addends.reduce(
 			(result, addend) =>
@@ -80,18 +92,6 @@ export namespace TimeSpan {
 					result
 				),
 			minuend
-		)
-	}
-	function sum(...addends: TimeSpan[]): TimeSpan {
-		return addends.reduce(
-			(result, addend) =>
-				Object.entries(addend).reduce((result, [key, addend]: [keyof TimeSpan, number]) => {
-					const sum = (result[key] ?? 0) + addend
-					return !sum
-						? (({ [key]: _, ...result }) => result)(result)
-						: Object.assign(result, { [key]: (result[key] ?? 0) + addend })
-				}, result),
-			{}
 		)
 	}
 	export function fromHours(
