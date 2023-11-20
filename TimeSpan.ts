@@ -71,6 +71,17 @@ export namespace TimeSpan {
 			{}
 		)
 	}
+	export function subtract(minuend: TimeSpan, ...subtrahends: TimeSpan[]): TimeSpan {
+		return subtrahends.reduce(
+			(result, subtrahend) =>
+				Object.entries(subtrahend).reduce(
+					(result, [key, subtrahend]: [keyof TimeSpan, number]) =>
+						Object.assign(result, { [key]: (result[key] ?? 0) - subtrahend }),
+					result
+				),
+			minuend
+		)
+	}
 }
 
 function dateToMilliseconds(span: TimeSpan): number {
