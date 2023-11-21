@@ -60,12 +60,24 @@ export namespace TimeSpan {
 			(value.hours ?? 0) * 60 * 60 * 1000
 		return performRound(result, round)
 	}
+	function sum(...addends: TimeSpan[]): TimeSpan {
+		return addends.reduce(
+			(result, addend) =>
+				Object.entries(addend).reduce((result, [key, addend]: [keyof TimeSpan, number]) => {
+					const sum = (result[key] ?? 0) + addend
+					return !sum
+						? (({ [key]: _, ...result }) => result)(result)
+						: Object.assign(result, { [key]: (result[key] ?? 0) + addend })
+				}, result),
+			{}
+		)
+	}
 	export function add(...addends: TimeSpan[]): TimeSpan {
 		return addends.reduce(
 			(result, addend) =>
 				Object.entries(addend).reduce(
 					(result, [key, addend]: [keyof TimeSpan, number]) =>
-						Object.assign(result, { [key]: (result[key] ?? 0) + addend }),
+						(({ [key]: value, ...result }) => sum(result, from[key]((value ?? 0) + addend)))(result),
 					result
 				),
 			{}
@@ -76,11 +88,80 @@ export namespace TimeSpan {
 			(result, subtrahend) =>
 				Object.entries(subtrahend).reduce(
 					(result, [key, subtrahend]: [keyof TimeSpan, number]) =>
-						Object.assign(result, { [key]: (result[key] ?? 0) - subtrahend }),
+						(({ [key]: value, ...result }) => sum(result, from[key]((value ?? 0) - subtrahend)))(result),
 					result
 				),
 			minuend
 		)
+	}
+	export function fromHours(
+		value: number,
+		options?: { precision?: "hours" | "minutes" | "seconds" | "milliseconds" }
+	): TimeSpan {
+		let result: ReturnType<typeof fromHours>
+		const precision = options?.precision ?? "milliseconds"
+		const hours = Math.trunc(value)
+		const remainder = +(value % 1).toFixed(9)
+		if (precision != "hours") {
+			result = fromMinutes(remainder * 60, { precision })
+			if (hours)
+				result.hours = hours
+		} else
+			result = sum({ hours: hours + Math.round(remainder) })
+		return result
+	}
+	export function fromMinutes(
+		value: number,
+		options?: { precision?: "minutes" | "seconds" | "milliseconds" }
+	): TimeSpan {
+		let result: ReturnType<typeof fromMinutes>
+		const precision = options?.precision ?? "milliseconds"
+		const minutes = Math.trunc(value)
+		const remainder = +(value % 1).toFixed(7)
+		if (precision != "minutes")
+			result = sum(
+				{ minutes: minutes % 60 },
+				fromSeconds(remainder * 60, { precision }),
+				minutes < 60 ? {} : fromHours(Math.trunc(minutes / 60), { precision: "hours" })
+			)
+		else {
+			const rounded = minutes + Math.round(remainder)
+			result = sum({ minutes: rounded % 60 }, fromHours(Math.trunc(rounded / 60), { precision: "hours" }))
+		}
+		return result
+	}
+	export function fromSeconds(value: number, options?: { precision?: "seconds" | "milliseconds" }): TimeSpan {
+		let result: ReturnType<typeof fromSeconds>
+		const precision = options?.precision ?? "milliseconds"
+		const seconds = Math.trunc(value)
+		const remainder = +(value % 1).toFixed(5)
+		if (precision != "seconds")
+			result = sum(
+				{ seconds: seconds % 60 },
+				fromMilliseconds(remainder * 1000),
+				seconds < 60 ? {} : fromMinutes(Math.trunc(seconds / 60), { precision: "minutes" })
+			)
+		else {
+			const rounded = seconds + Math.round(remainder)
+			result = sum({ seconds: rounded % 60 }, fromMinutes(Math.trunc(rounded / 60), { precision: "minutes" }))
+		}
+		return result
+	}
+	export function fromMilliseconds(value: number): TimeSpan {
+		const rounded = Math.round(value)
+		return sum(
+			{ milliseconds: rounded % 1000 },
+			rounded < 1000 ? {} : fromSeconds(Math.trunc(rounded / 1000), { precision: "seconds" })
+		)
+	}
+	const from = {
+		years: (value: number) => ({ ...(value && { years: value }) }),
+		months: (value: number) => ({ ...(value && { months: value }) }),
+		days: (value: number) => ({ ...(value && { days: value }) }),
+		hours: fromHours,
+		minutes: fromMinutes,
+		seconds: fromSeconds,
+		milliseconds: fromMilliseconds,
 	}
 }
 
