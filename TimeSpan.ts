@@ -122,7 +122,7 @@ export namespace TimeSpan {
 			result = sum(
 				{ minutes: minutes % 60 },
 				fromSeconds(remainder * 60, { precision }),
-				minutes < 60 ? {} : fromHours(Math.trunc(minutes / 60), { precision: "hours" })
+				Math.abs(minutes) < 60 ? {} : fromHours(Math.trunc(minutes / 60), { precision: "hours" })
 			)
 		else {
 			const rounded = minutes + Math.round(remainder)
@@ -139,7 +139,7 @@ export namespace TimeSpan {
 			result = sum(
 				{ seconds: seconds % 60 },
 				fromMilliseconds(remainder * 1000),
-				seconds < 60 ? {} : fromMinutes(Math.trunc(seconds / 60), { precision: "minutes" })
+				Math.abs(seconds) < 60 ? {} : fromMinutes(Math.trunc(seconds / 60), { precision: "minutes" })
 			)
 		else {
 			const rounded = seconds + Math.round(remainder)
@@ -151,7 +151,7 @@ export namespace TimeSpan {
 		const rounded = Math.round(value)
 		return sum(
 			{ milliseconds: rounded % 1000 },
-			rounded < 1000 ? {} : fromSeconds(Math.trunc(rounded / 1000), { precision: "seconds" })
+			Math.abs(rounded) < 1000 ? {} : fromSeconds(Math.trunc(rounded / 1000), { precision: "seconds" })
 		)
 	}
 	const from = {
