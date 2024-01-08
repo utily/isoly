@@ -196,4 +196,23 @@ describe("Date", () => {
 			years: 0,
 		})
 	})
+	it("nextBusinessDay", () => {
+		expect(isoly.Date.nextBusinessDay("2022-05-04", 0)).toEqual("2022-05-04") // Wednesday -> Wednesday
+		expect(isoly.Date.nextBusinessDay("2022-05-04", 1)).toEqual("2022-05-05") // Wednesday -> Thursday
+		expect(isoly.Date.nextBusinessDay("2022-05-04", 2)).toEqual("2022-05-06") // Wednesday -> Friday
+		expect(isoly.Date.nextBusinessDay("2022-05-04", 3)).toEqual("2022-05-09") // Wednesday -> Monday
+		expect(isoly.Date.nextBusinessDay("2022-05-04", 4)).toEqual("2022-05-10") // Wednesday -> Tuesday
+		expect(isoly.Date.nextBusinessDay("2022-05-04", 5)).toEqual("2022-05-11") // Wednesday -> Wednesday
+		expect(isoly.Date.nextBusinessDay("2022-05-04", 6)).toEqual("2022-05-12") // Wednesday -> Thursday
+		expect(isoly.Date.nextBusinessDay("2022-05-07", 0)).toEqual("2022-05-09") // Saturday -> Monday
+		expect(isoly.Date.nextBusinessDay("2022-05-07", 1)).toEqual("2022-05-09") // Saturday -> Monday
+		expect(isoly.Date.nextBusinessDay("2022-05-07", 2)).toEqual("2022-05-10") // Saturday -> Tuesday
+		expect(isoly.Date.nextBusinessDay("2022-05-07", 3)).toEqual("2022-05-11") // Saturday -> Wednesday
+		expect(isoly.Date.nextBusinessDay("2022-05-04", 1, ["2022-05-05", "2022-05-06"])).toEqual("2022-05-09") // Saturday -> Monday
+		expect(isoly.Date.nextBusinessDay("2022-05-04", 2, ["2022-05-05", "2022-05-06"])).toEqual("2022-05-10") // Saturday -> Tuesday
+		expect(isoly.Date.nextBusinessDay("2022-05-04", 3, ["2022-05-05", "2022-05-06"])).toEqual("2022-05-11") // Saturday -> Wednesday
+		expect(
+			isoly.Date.nextBusinessDay("2022-05-04", 3, ["2022-05-05", "2022-05-06", "2022-05-10", "2022-05-11"])
+		).toEqual("2022-05-13") // Saturday -> Friday
+	})
 })
