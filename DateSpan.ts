@@ -10,8 +10,7 @@ export namespace DateSpan {
 			typeof value == "object" &&
 			(typeof value.years == "number" || value.years == undefined) &&
 			(typeof value.months == "number" || value.months == undefined) &&
-			(typeof value.days == "number" || value.days == undefined) &&
-			(typeof value.years == "number" || typeof value.months == "number" || typeof value.days == "number")
+			(typeof value.days == "number" || value.days == undefined)
 		)
 	}
 }
