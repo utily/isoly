@@ -111,6 +111,10 @@ export namespace DateTime {
 		const localDate = new globalThis.Date(
 			utcDateTime.toLocaleString("sv-SE", { timeZone: timeZone }).replace(" ", "T") + "Z"
 		)
+		console.log(
+			"some invalid date?",
+			utcDateTime.toLocaleString("sv-SE", { timeZone: timeZone }).replace(" ", "T") + "Z"
+		)
 		console.log("localeDate", localDate)
 
 		// Calculate the time difference in minutes
