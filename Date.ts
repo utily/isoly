@@ -159,6 +159,18 @@ export namespace Date {
 		}
 		return result
 	}
+	export function nextBusinessDay(date: Date, bankingDays = 1, bankingHolidays: Date[] | Set<Date> = []): Date {
+		const holidaySet = new Set(bankingHolidays)
+		if (bankingDays <= 0 && isBusinessDay(date, holidaySet))
+			return date
+		const tomorrow = next(date)
+		const tomorrowIsBusinessDay = isBusinessDay(tomorrow, holidaySet)
+		return nextBusinessDay(tomorrow, tomorrowIsBusinessDay ? bankingDays - 1 : bankingDays, holidaySet)
+	}
+	function isBusinessDay(date: Date, holidaySet: Set<Date> = new Set()) {
+		const weekday = getWeekDay(date)
+		return !(weekday == 6 || weekday == 0 || holidaySet.has(date))
+	}
 	export function span(date: Date, relative: Date): DateSpan {
 		return {
 			years: getYear(date) - getYear(relative),
