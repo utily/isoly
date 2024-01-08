@@ -11,6 +11,8 @@ export namespace TimeSpan {
 	export function is(value: TimeSpan | any): value is TimeSpan {
 		return (
 			typeof value == "object" &&
+			!!value &&
+			!Array.isArray(value) &&
 			(typeof value.years == "number" || value.years == undefined) &&
 			(typeof value.months == "number" || value.months == undefined) &&
 			(typeof value.days == "number" || value.days == undefined) &&

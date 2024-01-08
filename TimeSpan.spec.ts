@@ -1,6 +1,13 @@
 import { isoly } from "./index"
 
 describe("TimeSpan", () => {
+	it("is", () => {
+		expect(isoly.TimeSpan.is({})).toEqual(true)
+		expect(isoly.TimeSpan.is({ hours: 0.75, minutes: 14, seconds: 59, milliseconds: 1000 })).toEqual(true)
+		expect(isoly.TimeSpan.is({ hours: "4" })).toEqual(false)
+		expect(isoly.TimeSpan.is([0.75, 14, 59, 1000])).toEqual(false)
+		expect(isoly.TimeSpan.is(null)).toEqual(false)
+	})
 	it("undefined", () => {
 		expect(isoly.TimeSpan.is(undefined)).toBeFalsy()
 	})
