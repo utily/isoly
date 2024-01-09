@@ -106,27 +106,19 @@ export namespace DateTime {
 
 		// Create a Date object with the specified time as UTC
 		const utcDateTime = new globalThis.Date(`${localDateTime}Z`)
-		console.log("utcDateTime", utcDateTime)
 
 		const localDate = new globalThis.Date(
 			utcDateTime.toLocaleString("sv-SE", { timeZone: timeZone }).replace(" ", "T") + "Z"
 		)
-		console.log(
-			"some invalid date?",
-			utcDateTime.toLocaleString("sv-SE", { timeZone: timeZone }).replace(" ", "T") + "Z"
-		)
-		console.log("localeDate", localDate)
-
 		// Calculate the time difference in minutes
 		const diffInMinutes = (localDate.getTime() - utcDateTime.getTime()) / 60000
-		console.log("diffInMinutes", diffInMinutes)
+
 		// Calculate the timezone's offset in hours and minutes
 		const offsetHours = Math.floor(Math.abs(diffInMinutes) / 60)
 			.toString()
 			.padStart(2, "0")
-		console.log("offsetHours", offsetHours)
 		const offsetMinutes = (Math.abs(diffInMinutes) % 60).toString().padStart(2, "0")
-		console.log("offsetMinutes", offsetMinutes)
+
 		// Create the timezone string
 		const timeZoneString = `${diffInMinutes >= 0 ? "+" : "-"}${offsetHours}:${offsetMinutes}`
 
