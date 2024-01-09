@@ -110,6 +110,7 @@ export namespace DateTime {
 		const localDate = new globalThis.Date(
 			utcDateTime.toLocaleString("sv-SE", { timeZone: timeZone }).replace(" ", "T") + "Z"
 		)
+
 		// Calculate the time difference in minutes
 		const diffInMinutes = (localDate.getTime() - utcDateTime.getTime()) / 60000
 
