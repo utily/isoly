@@ -188,13 +188,11 @@ describe("TimeSpan", () => {
 		span = { hours: 1.6, minutes: 4 }
 		result = isoly.TimeSpan.normalize(span)
 		expect(isoly.TimeSpan.toMilliseconds(isoly.TimeSpan.normalize(span))).toEqual(isoly.TimeSpan.toMilliseconds(span))
-		console.log(result)
 		expect(result).toEqual({ hours: 1, minutes: 40 })
 
 		span = { hours: 0 }
 		result = isoly.TimeSpan.normalize(span)
 		expect(isoly.TimeSpan.toMilliseconds(isoly.TimeSpan.normalize(span))).toEqual(isoly.TimeSpan.toMilliseconds(span))
-		console.log(result)
 		expect(result).toEqual({})
 	})
 })
