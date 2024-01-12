@@ -1,10 +1,10 @@
 import { DateSpan } from "./DateSpan"
 
 export interface TimeSpan extends DateSpan {
-	hours?: number | undefined
-	minutes?: number | undefined
-	seconds?: number | undefined
-	milliseconds?: number | undefined
+	hours?: number
+	minutes?: number
+	seconds?: number
+	milliseconds?: number
 }
 
 export namespace TimeSpan {
