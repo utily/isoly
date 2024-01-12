@@ -1,10 +1,10 @@
 import { DateSpan } from "./DateSpan"
 
 export interface TimeSpan extends DateSpan {
-	hours?: number
-	minutes?: number
-	seconds?: number
-	milliseconds?: number
+	hours?: number | undefined
+	minutes?: number | undefined
+	seconds?: number | undefined
+	milliseconds?: number | undefined
 }
 
 export namespace TimeSpan {
@@ -55,108 +55,104 @@ export namespace TimeSpan {
 			(value.hours ?? 0) * 60 * 60 * 1000
 		return performRound(result, round)
 	}
-	function sum(...addends: TimeSpan[]): TimeSpan {
-		return addends.reduce(
-			(result, addend) =>
-				Object.entries(addend).reduce((result, [key, addend]: [keyof TimeSpan, number]) => {
-					const sum = (result[key] ?? 0) + addend
-					return !sum
-						? (({ [key]: _, ...result }) => result)(result)
-						: Object.assign(result, { [key]: (result[key] ?? 0) + addend })
-				}, result),
-			{}
-		)
-	}
 	export function add(...addends: TimeSpan[]): TimeSpan {
-		return addends.reduce(
-			(result, addend) =>
-				Object.entries(addend).reduce(
-					(result, [key, addend]: [keyof TimeSpan, number]) =>
-						(({ [key]: value, ...result }) => sum(result, from[key]((value ?? 0) + addend)))(result),
-					result
-				),
-			{}
+		return normalize(
+			addends.reduce(
+				(result, addend) =>
+					Object.entries<number | undefined>(addend).reduce(
+						(result, [key, addend]: [keyof TimeSpan, number | undefined]) =>
+							(({ [key]: value, ...result }) =>
+								Object.assign(result, { [key]: +((value ?? 0) + (addend ?? 0)).toFixed(9) }))(result),
+						result
+					),
+				{}
+			)
 		)
 	}
 	export function subtract(minuend: TimeSpan, ...subtrahends: TimeSpan[]): TimeSpan {
-		return subtrahends.reduce(
-			(result, subtrahend) =>
-				Object.entries(subtrahend).reduce(
-					(result, [key, subtrahend]: [keyof TimeSpan, number]) =>
-						(({ [key]: value, ...result }) => sum(result, from[key]((value ?? 0) - subtrahend)))(result),
-					result
-				),
-			minuend
+		return normalize(
+			subtrahends.reduce(
+				(result, subtrahend) =>
+					Object.entries<number | undefined>(subtrahend).reduce(
+						(result, [key, subtrahend]: [keyof TimeSpan, number | undefined]) =>
+							(({ [key]: value, ...result }) =>
+								Object.assign(result, { [key]: +((value ?? 0) - (subtrahend ?? 0)).toFixed(9) }))(result),
+						result
+					),
+				minuend
+			)
 		)
 	}
 	export function fromHours(
 		value: number,
-		options?: { precision?: "hours" | "minutes" | "seconds" | "milliseconds" }
+		options?: { precision?: "hours" | "minutes" | "seconds" | "milliseconds"; normalize?: boolean }
 	): TimeSpan {
 		let result: ReturnType<typeof fromHours>
 		const precision = options?.precision ?? "milliseconds"
 		const hours = Math.trunc(value)
 		const remainder = +(value % 1).toFixed(9)
 		if (precision != "hours") {
-			result = fromMinutes(remainder * 60, { precision })
-			if (hours)
-				result.hours = hours
+			result = { hours: hours, ...fromMinutes(remainder * 60, { precision, normalize: false }) }
 		} else
-			result = sum({ hours: hours + Math.round(remainder) })
-		return result
+			result = { hours: hours + Math.round(remainder) }
+		return options?.normalize == false ? result : normalize(result)
 	}
 	export function fromMinutes(
 		value: number,
-		options?: { precision?: "minutes" | "seconds" | "milliseconds" }
+		options?: { precision?: "minutes" | "seconds" | "milliseconds"; normalize?: boolean }
 	): TimeSpan {
 		let result: ReturnType<typeof fromMinutes>
 		const precision = options?.precision ?? "milliseconds"
 		const minutes = Math.trunc(value)
 		const remainder = +(value % 1).toFixed(7)
 		if (precision != "minutes")
-			result = sum(
-				{ minutes: minutes % 60 },
-				fromSeconds(remainder * 60, { precision }),
-				Math.abs(minutes) < 60 ? {} : fromHours(Math.trunc(minutes / 60), { precision: "hours" })
-			)
+			result = { minutes: minutes, ...fromSeconds(remainder * 60, { precision, normalize: false }) }
 		else {
 			const rounded = minutes + Math.round(remainder)
-			result = sum({ minutes: rounded % 60 }, fromHours(Math.trunc(rounded / 60), { precision: "hours" }))
+			result = add(
+				{ minutes: rounded % 60 },
+				fromHours(Math.trunc(rounded / 60), { precision: "hours", normalize: false })
+			)
 		}
-		return result
+		return options?.normalize == false ? result : normalize(result)
 	}
-	export function fromSeconds(value: number, options?: { precision?: "seconds" | "milliseconds" }): TimeSpan {
+	export function fromSeconds(
+		value: number,
+		options?: { precision?: "seconds" | "milliseconds"; normalize?: boolean }
+	): TimeSpan {
 		let result: ReturnType<typeof fromSeconds>
 		const precision = options?.precision ?? "milliseconds"
 		const seconds = Math.trunc(value)
 		const remainder = +(value % 1).toFixed(5)
 		if (precision != "seconds")
-			result = sum(
-				{ seconds: seconds % 60 },
-				fromMilliseconds(remainder * 1000),
-				Math.abs(seconds) < 60 ? {} : fromMinutes(Math.trunc(seconds / 60), { precision: "minutes" })
-			)
+			result = { ...(seconds && { seconds: seconds }), ...fromMilliseconds(remainder * 1000, { normalize: false }) }
 		else {
 			const rounded = seconds + Math.round(remainder)
-			result = sum({ seconds: rounded % 60 }, fromMinutes(Math.trunc(rounded / 60), { precision: "minutes" }))
+			result = add(
+				{ seconds: rounded % 60 },
+				fromMinutes(Math.trunc(rounded / 60), { precision: "minutes", normalize: false })
+			)
 		}
-		return result
+		return options?.normalize == false ? result : normalize(result)
 	}
-	export function fromMilliseconds(value: number): TimeSpan {
+	export function fromMilliseconds(value: number, options?: { normalize?: boolean }): TimeSpan {
 		const rounded = Math.round(value)
-		return sum(
-			{ milliseconds: rounded % 1000 },
-			Math.abs(rounded) < 1000 ? {} : fromSeconds(Math.trunc(rounded / 1000), { precision: "seconds" })
+		const result = add(
+			!rounded ? {} : { milliseconds: rounded % 1000 },
+			Math.abs(rounded) < 1000
+				? {}
+				: fromSeconds(Math.trunc(rounded / 1000), { precision: "seconds", normalize: false })
 		)
+		return options?.normalize == false ? result : normalize(result)
 	}
-	const from = {
-		years: (value: number) => ({ ...(value && { years: value }) }),
-		months: (value: number) => ({ ...(value && { months: value }) }),
-		days: (value: number) => ({ ...(value && { days: value }) }),
-		hours: fromHours,
-		minutes: fromMinutes,
-		seconds: fromSeconds,
-		milliseconds: fromMilliseconds,
+	export function normalize(value: TimeSpan): TimeSpan {
+		const result: TimeSpan = {
+			milliseconds: Math.round(toMilliseconds(value) % 1000),
+			seconds: Math.trunc(toSeconds(value) % 60),
+			minutes: Math.trunc(toMinutes(value) % 60),
+			hours: Math.trunc(toHours(value)),
+		}
+		return Object.fromEntries(Object.entries(result).filter(([, value]) => value != 0))
 	}
 }
 

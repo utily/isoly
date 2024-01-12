@@ -48,13 +48,13 @@ describe("TimeSpan", () => {
 		expect(result).not.toBe(addend)
 		expect(isoly.TimeSpan.add({ hours: 8, minutes: 15 }, { minutes: -10, seconds: -17 })).toEqual({
 			hours: 8,
-			minutes: 5,
-			seconds: -17,
+			minutes: 4,
+			seconds: 43,
 		})
 		expect(isoly.TimeSpan.add({ minutes: -10, seconds: -17 }, { hours: 8, minutes: 15 })).toEqual({
 			hours: 8,
-			minutes: 5,
-			seconds: -17,
+			minutes: 4,
+			seconds: 43,
 		})
 	})
 	it("subtract", () => {
@@ -164,5 +164,37 @@ describe("TimeSpan", () => {
 		expect(isoly.TimeSpan.fromHours(6.4 - 4, { precision: "milliseconds" })).toEqual({ hours: 2, minutes: 24 })
 		// 6.4 - 4 - 0.4 ==  2.0000000000000004
 		expect(isoly.TimeSpan.fromHours(6.4 - 4 - 0.4, { precision: "milliseconds" })).toEqual({ hours: 2 })
+	})
+	it("normalize", () => {
+		let span: isoly.TimeSpan = { hours: 1, minutes: -123, seconds: 56, milliseconds: 996 }
+		let result = isoly.TimeSpan.normalize(span)
+		expect(isoly.TimeSpan.toMilliseconds(result)).toEqual(isoly.TimeSpan.toMilliseconds(span))
+		expect(result).toEqual({ hours: -1, minutes: -2, seconds: -3, milliseconds: -4 })
+
+		span = { hours: 2, minutes: -244, seconds: 4, milliseconds: 5 }
+		result = isoly.TimeSpan.normalize(span)
+		expect(isoly.TimeSpan.toMilliseconds(isoly.TimeSpan.normalize(span))).toEqual(isoly.TimeSpan.toMilliseconds(span))
+
+		span = { hours: 1, minutes: -60, seconds: -4, milliseconds: 4001 }
+		result = isoly.TimeSpan.normalize(span)
+		expect(isoly.TimeSpan.toMilliseconds(isoly.TimeSpan.normalize(span))).toEqual(isoly.TimeSpan.toMilliseconds(span))
+		expect(result).toEqual({ milliseconds: 1 })
+
+		span = { milliseconds: 3723004 }
+		result = isoly.TimeSpan.normalize(span)
+		expect(isoly.TimeSpan.toMilliseconds(isoly.TimeSpan.normalize(span))).toEqual(isoly.TimeSpan.toMilliseconds(span))
+		expect(result).toEqual({ hours: 1, minutes: 2, seconds: 3, milliseconds: 4 })
+
+		span = { hours: 1.6, minutes: 4 }
+		result = isoly.TimeSpan.normalize(span)
+		expect(isoly.TimeSpan.toMilliseconds(isoly.TimeSpan.normalize(span))).toEqual(isoly.TimeSpan.toMilliseconds(span))
+		console.log(result)
+		expect(result).toEqual({ hours: 1, minutes: 40 })
+
+		span = { hours: 0 }
+		result = isoly.TimeSpan.normalize(span)
+		expect(isoly.TimeSpan.toMilliseconds(isoly.TimeSpan.normalize(span))).toEqual(isoly.TimeSpan.toMilliseconds(span))
+		console.log(result)
+		expect(result).toEqual({})
 	})
 })
