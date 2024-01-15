@@ -179,7 +179,6 @@ function dateToMilliseconds(span: TimeSpan): number {
 
 type Round = "round" | "floor" | "ceiling"
 function performRound(value: number, round?: Round): number {
-	// console.log("rounding", value)
 	return !round
 		? value
 		: round == "ceiling"
