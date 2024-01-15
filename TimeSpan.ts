@@ -140,13 +140,25 @@ export namespace TimeSpan {
 		return options?.normalize == false ? result : normalize(result)
 	}
 	export function normalize(value: TimeSpan): TimeSpan {
-		const result: TimeSpan = {
+		const result = {
 			milliseconds: Math.round(toMilliseconds(value) % 1000),
 			seconds: Math.trunc(toSeconds(value) % 60),
 			minutes: Math.trunc(toMinutes(value) % 60),
 			hours: Math.trunc(toHours(value)),
 		}
-		return Object.fromEntries(Object.entries(result).filter(([, value]) => value != 0))
+		if (!(-1000 < result.milliseconds && result.milliseconds < 1000)) {
+			result.seconds += Math.trunc(result.milliseconds / 1000)
+			result.milliseconds = result.milliseconds % 1000
+		}
+		if (!(-60 < result.seconds && result.seconds < 60)) {
+			result.minutes += Math.trunc(result.seconds / 60)
+			result.seconds = result.seconds % 60
+		}
+		if (!(-60 < result.minutes && result.minutes < 60)) {
+			result.hours += Math.trunc(result.minutes)
+			result.minutes = result.minutes % 60
+		}
+		return Object.fromEntries(Object.entries<number | undefined>(result).filter(([, value]) => !!value))
 	}
 }
 
