@@ -55,33 +55,39 @@ export namespace TimeSpan {
 			(value.hours ?? 0) * 60 * 60 * 1000
 		return performRound(result, round)
 	}
-	export function add(...addends: TimeSpan[]): TimeSpan {
-		return normalize(
-			addends.reduce(
-				(result, addend) =>
-					Object.entries<number | undefined>(addend).reduce(
-						(result, [key, addend]: [keyof TimeSpan, number | undefined]) =>
-							(({ [key]: value, ...result }) =>
-								Object.assign(result, { [key]: +((value ?? 0) + (addend ?? 0)).toFixed(9) }))(result),
-						result
-					),
-				{}
-			)
+	function unitByUnit(
+		operation: (left: number, right: number) => number,
+		left: TimeSpan,
+		...rights: TimeSpan[]
+	): TimeSpan {
+		return rights.reduce(
+			(result, span) =>
+				Object.entries<number | undefined>(span).reduce(
+					(result, [key, right]: [keyof TimeSpan, number | undefined]) =>
+						(({ [key]: left, ...result }) =>
+							Object.assign(result, { [key]: +operation(left ?? 0, right ?? 0).toFixed(9) }))(result),
+					result
+				),
+			left
 		)
 	}
+	export function add(...addends: TimeSpan[]): TimeSpan {
+		return normalize(unitByUnit((left, right) => left + right, {}, ...addends))
+	}
 	export function subtract(minuend: TimeSpan, ...subtrahends: TimeSpan[]): TimeSpan {
-		return normalize(
-			subtrahends.reduce(
-				(result, subtrahend) =>
-					Object.entries<number | undefined>(subtrahend).reduce(
-						(result, [key, subtrahend]: [keyof TimeSpan, number | undefined]) =>
-							(({ [key]: value, ...result }) =>
-								Object.assign(result, { [key]: +((value ?? 0) - (subtrahend ?? 0)).toFixed(9) }))(result),
-						result
-					),
-				minuend
-			)
-		)
+		return normalize(unitByUnit((left, right) => left - right, minuend, ...subtrahends))
+		// return normalize(
+		// 	subtrahends.reduce(
+		// 		(result, subtrahend) =>
+		// 			Object.entries<number | undefined>(subtrahend).reduce(
+		// 				(result, [key, subtrahend]: [keyof TimeSpan, number | undefined]) =>
+		// 					(({ [key]: value, ...result }) =>
+		// 						Object.assign(result, { [key]: +((value ?? 0) - (subtrahend ?? 0)).toFixed(9) }))(result),
+		// 				result
+		// 			),
+		// 		minuend
+		// 	)
+		// )
 	}
 	export function fromHours(
 		value: number,
