@@ -76,18 +76,6 @@ export namespace TimeSpan {
 	}
 	export function subtract(minuend: TimeSpan, ...subtrahends: TimeSpan[]): TimeSpan {
 		return normalize(unitByUnit((left, right) => left - right, minuend, ...subtrahends))
-		// return normalize(
-		// 	subtrahends.reduce(
-		// 		(result, subtrahend) =>
-		// 			Object.entries<number | undefined>(subtrahend).reduce(
-		// 				(result, [key, subtrahend]: [keyof TimeSpan, number | undefined]) =>
-		// 					(({ [key]: value, ...result }) =>
-		// 						Object.assign(result, { [key]: +((value ?? 0) - (subtrahend ?? 0)).toFixed(9) }))(result),
-		// 				result
-		// 			),
-		// 		minuend
-		// 	)
-		// )
 	}
 	export function fromHours(
 		value: number,
