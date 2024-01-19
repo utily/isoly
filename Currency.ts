@@ -371,6 +371,10 @@ export namespace Currency {
 			"932": "ZWL",
 		}[currencyCode] as Currency
 	}
+	export function roundAwayFromZero() {}
+
+	// aka bankersRounding
+	export function roundToEven() {}
 
 	export function round(value: number, currency: Currency): number {
 		const decimalDigits = Currency.decimalDigits(currency) ?? 2
