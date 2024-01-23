@@ -77,5 +77,8 @@
 	},
 	"overrides": {
 		"semver": "^7.5.3"
+	},
+	"dependencies": {
+		"isly": "0.1.13"
 	}
 }

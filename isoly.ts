@@ -2,6 +2,7 @@ import { CallingCode } from "./CallingCode"
 import * as CountryCode from "./CountryCode"
 import { Currency } from "./Currency"
 import { CurrencyCode } from "./CurrencyCode"
+import { CurrencyConversion } from "./CurrencyConversion"
 import { Date } from "./Date"
 import { DateRange } from "./DateRange"
 import { DateSpan } from "./DateSpan"
@@ -20,6 +21,7 @@ export {
 	DateRange,
 	Currency,
 	CurrencyCode,
+	CurrencyConversion,
 	Date,
 	DateTime,
 	Encoding,
