@@ -1,3 +1,4 @@
+import { Address } from "./Address"
 import { CallingCode } from "./CallingCode"
 import * as CountryCode from "./CountryCode"
 import { Currency } from "./Currency"
@@ -14,6 +15,7 @@ import { TimeSpan } from "./TimeSpan"
 import { TimeZone } from "./TimeZone"
 
 export {
+	Address,
 	CallingCode,
 	CountryCode,
 	DateSpan,
