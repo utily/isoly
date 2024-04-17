@@ -172,6 +172,12 @@ export namespace DateTime {
 		}
 		return result
 	}
+	export function startOfDay(value: DateTime | Date): DateTime {
+		return value.slice(0, 10) + "T00:00:00.000" + (DateTime.is(value) ? timeZoneOffset(value) || "Z" : "Z")
+	}
+	export function endOfDay(value: DateTime | Date): DateTime {
+		return value.slice(0, 10) + "T23:59:59.999" + (DateTime.is(value) ? timeZoneOffset(value) || "Z" : "Z")
+	}
 	/** @deprecated Use timeZoneOffset() */
 	export function timeZone(value: DateTime): TimeZoneOffset | "" {
 		return timeZoneOffset(value)

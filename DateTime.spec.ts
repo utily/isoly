@@ -329,4 +329,16 @@ describe("DateTime", () => {
 		expect(isoly.DateTime.fixIncorrect("2023-10-31T11:23:40Z")).toEqual("2023-10-31T11:23:40Z")
 		expect(isoly.DateTime.fixIncorrect("2023-10-31T11:23:40.000Z")).toEqual("2023-10-31T11:23:40.000Z")
 	})
+	it.each([
+		["2023-10-29", "2023-10-29T00:00:00.000Z", "2023-10-29T23:59:59.999Z"],
+		["1993-05-11T15:07:40.430Z", "1993-05-11T00:00:00.000Z", "1993-05-11T23:59:59.999Z"],
+		["2023-10-29T15:07:40.430+00:00", "2023-10-29T00:00:00.000+00:00", "2023-10-29T23:59:59.999+00:00"],
+		["2023-10-29T15:07:40.430+01:00", "2023-10-29T00:00:00.000+01:00", "2023-10-29T23:59:59.999+01:00"],
+		["2023-10-29T15:07:40.430+05:30", "2023-10-29T00:00:00.000+05:30", "2023-10-29T23:59:59.999+05:30"],
+	])("startOfDay and endOfDay", (date: isoly.DateTime | isoly.Date, start: isoly.DateTime, end: isoly.DateTime) => {
+		expect(isoly.DateTime.startOfDay(date)).toEqual(start)
+		expect(isoly.DateTime.is(isoly.DateTime.startOfDay(date))).toBeTruthy()
+		expect(isoly.DateTime.endOfDay(date)).toEqual(end)
+		expect(isoly.DateTime.is(isoly.DateTime.endOfDay(date))).toBeTruthy()
+	})
 })
