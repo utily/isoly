@@ -377,8 +377,8 @@ export namespace DateTime {
 	export function getTime(time: DateTime): string {
 		return time.substring(11)
 	}
-	export function getYear(time: DateTime): number {
-		return Number.parseInt(time.substring(0, 4))
+	export function getYear(time: DateTime, options?: { digits?: 2 | 4 }): number {
+		return options?.digits != 2 ? Number.parseInt(time.substring(0, 4)) : +getYear(time).toString().slice(-2)
 	}
 	export function getMonth(time: DateTime): number {
 		return Number.parseInt(time.substring(5, 7))

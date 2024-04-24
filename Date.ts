@@ -121,8 +121,8 @@ export namespace Date {
 		result.setDate(relativeDay)
 		return Date.create(result)
 	}
-	export function getYear(date: Date): number {
-		return Number.parseInt(date.substring(0, 4))
+	export function getYear(date: Date, options?: { digits?: 2 | 4 }): number {
+		return options?.digits != 2 ? Number.parseInt(date.substring(0, 4)) : +getYear(date).toString().slice(-2)
 	}
 	export function getMonth(date: Date): number {
 		return Number.parseInt(date.substring(5, 7))

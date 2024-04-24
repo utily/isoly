@@ -130,6 +130,8 @@ describe("Date", () => {
 	}
 	it("getYear", () => {
 		expect(isoly.DateTime.getYear("2020-12-31")).toEqual(2020)
+		expect(isoly.DateTime.getYear("2024-12-31", { digits: 4 })).toEqual(2024)
+		expect(isoly.DateTime.getYear("2024-12-31", { digits: 2 })).toEqual(24)
 	})
 	it("getMonth", () => {
 		expect(isoly.DateTime.getMonth("2020-12-31")).toEqual(12)
