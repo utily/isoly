@@ -1,4 +1,4 @@
-import * as isoly from "../index"
+import { isoly } from "../index"
 
 describe("Encoding", () => {
 	const sample = "\n\r\t\b 0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyzÅÄÖåäöÜüß"

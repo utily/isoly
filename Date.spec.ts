@@ -1,20 +1,20 @@
-import * as isoly from "./index"
+import { isoly } from "./index"
 
 describe("Date", () => {
-	it("undefined", () => {
-		expect(isoly.Date.is(undefined)).toBeFalsy()
-	})
+	it("undefined", () => expect(isoly.Date.is(undefined)).toBeFalsy())
 	it("create + is", () => {
 		const d = isoly.Date.create(new Date(Date.UTC(2020, 11, 31, 23, 59, 59)))
 		expect(isoly.Date.is(d)).toEqual(true)
 		expect(d).toBe("2020-12-31")
 	})
-	it("is not DateTime", () => {
-		expect(isoly.Date.is("2020-12-31T23:59:59.000Z")).toEqual(false)
-	})
-	it("localize Date with locale", () => {
-		expect(isoly.Date.localize("2020-12-31", "en-US")).toEqual("12/31/2020")
-	})
+	;["1999-02-29", "1900-02-29", "2000-02-30", "2000-12-32"].forEach(invalid =>
+		it("is not " + invalid, () => expect(isoly.Date.is(invalid)).toEqual(false))
+	)
+	;["1999-12-31", "2000-01-29", "2000-02-29", "2000-01-30"].forEach(valid =>
+		it("is " + valid, () => expect(isoly.Date.is(valid)).toEqual(true))
+	)
+	it("is not DateTime", () => expect(isoly.Date.is("2020-12-31T23:59:59.000Z")).toEqual(false))
+	it("localize Date with locale", () => expect(isoly.Date.localize("2020-12-31", "en-US")).toEqual("12/31/2020"))
 	it("next day original test", () => {
 		expect(isoly.Date.next("2001-01-01")).toEqual("2001-01-02")
 		expect(isoly.Date.next("2001-01-01", 90)).toEqual("2001-04-01")
@@ -146,9 +146,7 @@ describe("Date", () => {
 		expect(isoly.Date.getWeek("2025-01-01")).toEqual(1)
 		expect(isoly.Date.getWeek("2023-01-01")).toEqual(52)
 	})
-	it("getDay", () => {
-		expect(isoly.DateTime.getDay("2020-12-31")).toEqual(31)
-	})
+	it("getDay", () => expect(isoly.DateTime.getDay("2020-12-31")).toEqual(31))
 	it("getWeekDay", () => {
 		expect(isoly.Date.getWeekDay("2022-05-02")).toEqual(1) // Monday
 		expect(isoly.Date.getWeekDay("2022-05-03")).toEqual(2) // Tuesday
@@ -182,22 +180,15 @@ describe("Date", () => {
 		expect(isoly.Date.nextWeekday("2023-11-30", 1, ["2023-12-01"])).toEqual("2023-12-04") // Thursday -> Monday
 		expect(isoly.Date.nextWeekday("2023-11-30", 1, ["2023-12-01", "2023-12-04"])).toEqual("2023-12-05") // Thursday -> Tuesday
 	})
-	it("invalid date", () => {
-		expect(isoly.Date.is("2020-13-31")).toEqual(false)
-	})
-	it("valid date", () => {
-		expect(isoly.Date.is("2020-02-29")).toEqual(true)
-	})
-	it("invalid date", () => {
-		expect(isoly.Date.is("2022-02-29")).toEqual(false)
-	})
-	it("span", () => {
+	it("invalid date", () => expect(isoly.Date.is("2020-13-31")).toEqual(false))
+	it("valid date", () => expect(isoly.Date.is("2020-02-29")).toEqual(true))
+	it("invalid date", () => expect(isoly.Date.is("2022-02-29")).toEqual(false))
+	it("span", () =>
 		expect(isoly.Date.span("2022-02-28", "2022-03-10")).toEqual({
 			days: 18,
 			months: -1,
 			years: 0,
-		})
-	})
+		}))
 	it("nextBusinessDay", () => {
 		expect(isoly.Date.nextBusinessDay("2022-05-04", 0)).toEqual("2022-05-04") // Wednesday -> Wednesday
 		expect(isoly.Date.nextBusinessDay("2022-05-04", 1)).toEqual("2022-05-05") // Wednesday -> Thursday

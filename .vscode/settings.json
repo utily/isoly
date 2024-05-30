@@ -60,7 +60,8 @@
 		"transactly",
 		"typedly",
 		"uply",
-		"måndag"
+		"måndag",
+		"transcoders"
 	],
 	"typescript.tsdk": "node_modules/typescript/lib"
 }

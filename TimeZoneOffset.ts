@@ -1,7 +1,9 @@
+import { isly } from "isly"
+
 export type TimeZoneOffset = typeof TimeZoneOffset.values[number]
 
 export namespace TimeZoneOffset {
-	export const values = <const>[
+	export const values = [
 		"-12:00",
 		"-11:00",
 		"-10:00",
@@ -42,8 +44,8 @@ export namespace TimeZoneOffset {
 		"+12:45",
 		"+13:00",
 		"+14:00",
-	]
-	export function is(value: TimeZoneOffset | any): value is TimeZoneOffset {
-		return typeof value == "string" && values.includes(value as any)
-	}
+	] as const
+	export const type = isly.string(values)
+	export const is = type.is
+	export const flaw = type.flaw
 }
