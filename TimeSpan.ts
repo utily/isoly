@@ -1,3 +1,4 @@
+import { isly } from "isly"
 import { DateSpan } from "./DateSpan"
 
 export interface TimeSpan extends DateSpan {
@@ -8,20 +9,17 @@ export interface TimeSpan extends DateSpan {
 }
 
 export namespace TimeSpan {
-	export function is(value: TimeSpan | any): value is TimeSpan {
-		return (
-			typeof value == "object" &&
-			!!value &&
-			!Array.isArray(value) &&
-			(typeof value.years == "number" || value.years == undefined) &&
-			(typeof value.months == "number" || value.months == undefined) &&
-			(typeof value.days == "number" || value.days == undefined) &&
-			(typeof value.hours == "number" || value.hours == undefined) &&
-			(typeof value.minutes == "number" || value.minutes == undefined) &&
-			(typeof value.seconds == "number" || value.seconds == undefined) &&
-			(typeof value.milliseconds == "number" || value.milliseconds == undefined)
-		)
-	}
+	export const type = DateSpan.type.extend<TimeSpan>(
+		{
+			hours: isly.number().optional(),
+			minutes: isly.number().optional(),
+			seconds: isly.number().optional(),
+			milliseconds: isly.number().optional(),
+		},
+		"isoly.TimeSpan"
+	)
+	export const is = type.is
+	export const flaw = type.flaw
 	export function toHours(value: TimeSpan, round?: Round): number {
 		const result =
 			(dateToMilliseconds(value) + (value.milliseconds ?? 0)) / (60 * 60 * 1000) +
