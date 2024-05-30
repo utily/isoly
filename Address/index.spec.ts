@@ -1,7 +1,7 @@
-import { isoly } from "./index"
+import { isoly } from "../index"
 
 describe("Address", () => {
-	const defaultAddress: isoly.Address.Default = {
+	const defaultAddress: isoly.Address.Generic = {
 		countryCode: "AT",
 		street: "Kaiserstrasse 1",
 		zipCode: "5555",
@@ -27,9 +27,9 @@ describe("Address", () => {
 		city: "",
 	}
 	it("Default", () => {
-		expect(isoly.Address.Default.is(defaultAddress)).toBeTruthy()
-		expect(isoly.Address.Default.is(britishAddress)).toBeFalsy()
-		expect(isoly.Address.Default.is(badAddress)).toBeFalsy()
+		expect(isoly.Address.Generic.is(defaultAddress)).toBeTruthy()
+		expect(isoly.Address.Generic.is(britishAddress)).toBeTruthy()
+		expect(isoly.Address.Generic.is(badAddress)).toBeFalsy()
 	})
 	it("British", () => {
 		expect(isoly.Address.GB.is(britishAddress)).toBeTruthy()

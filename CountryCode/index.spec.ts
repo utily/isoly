@@ -1,4 +1,4 @@
-import * as isoly from "../index"
+import { isoly } from "../index"
 
 describe("CountryCode", () => {
 	it("Alpha2 from Alpha3", () => {
@@ -62,7 +62,7 @@ describe("CountryCode", () => {
 		expect(isoly.CountryCode.Alpha3.is(42)).toBeFalsy()
 	})
 	it("Data consistency Alpha2", () => {
-		isoly.CountryCode.Alpha2.types.forEach(a2 => {
+		isoly.CountryCode.Alpha2.values.forEach(a2 => {
 			expect(isoly.CountryCode.Alpha2.is(a2)).toBe(true)
 			expect(isoly.CountryCode.Alpha3.is(a2)).toBe(false)
 			expect(isoly.CountryCode.Numeric.is(a2)).toBe(false)
@@ -71,7 +71,7 @@ describe("CountryCode", () => {
 		})
 	})
 	it("Data consistency Alpha3", () => {
-		isoly.CountryCode.Alpha3.types.forEach(a3 => {
+		isoly.CountryCode.Alpha3.values.forEach(a3 => {
 			expect(isoly.CountryCode.Alpha2.is(a3)).toBe(false)
 			expect(isoly.CountryCode.Alpha3.is(a3)).toBe(true)
 			expect(isoly.CountryCode.Numeric.is(a3)).toBe(false)
@@ -80,7 +80,7 @@ describe("CountryCode", () => {
 		})
 	})
 	it("Data consistency Numeric", () => {
-		isoly.CountryCode.Numeric.types.forEach(n => {
+		isoly.CountryCode.Numeric.values.forEach(n => {
 			expect(isoly.CountryCode.Alpha2.is(n)).toBe(false)
 			expect(isoly.CountryCode.Alpha3.is(n)).toBe(false)
 			expect(isoly.CountryCode.Numeric.is(n)).toBe(true)

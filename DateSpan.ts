@@ -1,3 +1,5 @@
+import { isly } from "isly"
+
 export interface DateSpan {
 	years?: number
 	months?: number
@@ -5,14 +7,11 @@ export interface DateSpan {
 }
 
 export namespace DateSpan {
-	export function is(value: DateSpan | any): value is DateSpan {
-		return (
-			typeof value == "object" &&
-			!!value &&
-			!Array.isArray(value) &&
-			(typeof value.years == "number" || value.years == undefined) &&
-			(typeof value.months == "number" || value.months == undefined) &&
-			(typeof value.days == "number" || value.days == undefined)
-		)
-	}
+	export const type = isly.object<DateSpan>({
+		years: isly.number().optional(),
+		months: isly.number().optional(),
+		days: isly.number().optional(),
+	})
+	export const is = type.is
+	export const flaw = type.flaw
 }
