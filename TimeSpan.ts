@@ -53,11 +53,15 @@ export namespace TimeSpan {
 			(value.hours ?? 0) * 60 * 60 * 1000
 		return performRound(result, round)
 	}
-	function unitByUnit(operation: (left: number, right: number) => number, ...operands: TimeSpan[]): TimeSpan {
+	function unitByUnit(
+		operation: (left: number, right: number) => number,
+		left: TimeSpan,
+		...operands: TimeSpan[]
+	): TimeSpan {
 		return (["years", "months", "days", "hours", "minutes", "seconds", "milliseconds"] as const).reduce(
 			(result, unit) => ({
 				...result,
-				[unit]: operands.reduce((result, operand) => operation(result, operand[unit] ?? 0), 0),
+				[unit]: operands.reduce((result, operand) => operation(result, operand[unit] ?? 0), left[unit] ?? 0),
 			}),
 			{}
 		)
