@@ -53,20 +53,13 @@ export namespace TimeSpan {
 			(value.hours ?? 0) * 60 * 60 * 1000
 		return performRound(result, round)
 	}
-	function unitByUnit(
-		operation: (left: number, right: number) => number,
-		left: TimeSpan,
-		...rights: TimeSpan[]
-	): TimeSpan {
-		return rights.reduce(
-			(result, span) =>
-				Object.entries<number | undefined>(span).reduce(
-					(result, [key, right]: [keyof TimeSpan, number | undefined]) =>
-						(({ [key]: left, ...result }) =>
-							Object.assign(result, { [key]: +operation(left ?? 0, right ?? 0).toFixed(9) }))(result),
-					result
-				),
-			left
+	function unitByUnit(operation: (left: number, right: number) => number, ...operands: TimeSpan[]): TimeSpan {
+		return (["years", "months", "days", "hours", "minutes", "seconds", "milliseconds"] as const).reduce(
+			(result, unit) => ({
+				...result,
+				[unit]: operands.reduce((result, operand) => operation(result, operand[unit] ?? 0), 0),
+			}),
+			{}
 		)
 	}
 	export function add(...addends: TimeSpan[]): TimeSpan {

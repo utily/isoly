@@ -90,25 +90,20 @@ describe("DateTime", () => {
 		const data = [
 			["20 Jul 2019 10:30:40 GMT+2", "10:30:40"],
 			["21 Jul 2019 10:30:50 GMT", "12:30:50"],
-		]
-		for (const date of data)
-			it("localize with locale " + date[0], () =>
-				expect(isoly.DateTime.localize(new Date(date[0]), "sv-SE").split(" ")[1]).toEqual(date[1])
-			)
-		for (const date of data)
-			it("localize without locale " + date[0], () =>
-				expect(isoly.DateTime.localize(new Date(date[0])).split(" ")[1]).toEqual(date[1])
-			)
-		it("localize DateTime with locale", () => {
-			expect(isoly.DateTime.localize("2020-12-31T23:59:59.000Z", "en-US")).toEqual("01/01/2021, 12:59:59 AM")
-		})
+		] as const
+		it.each(data)("localize with locale %s", (full, time) =>
+			expect(isoly.DateTime.localize(new Date(full), "sv-SE").split(" ")[1]).toEqual(time)
+		)
+		it.each(data)("localize without locale %s", (full, time) =>
+			expect(isoly.DateTime.localize(new Date(full)).split(" ")[1]).toEqual(time)
+		)
+		it("localize DateTime with locale", () =>
+			expect(isoly.DateTime.localize("2020-12-31T23:59:59.000Z", "en-US")).toEqual("01/01/2021, 12:59:59 AM"))
 
-		it("localize 2020-12-31T23:59Z to en-US", () => {
-			expect(isoly.DateTime.localize("2020-12-31T23:59Z", "en-US")).toEqual("01/01/2021, 12:59 AM")
-		})
-		it("localize 2020-12-31T23Z to en-US", () => {
-			expect(isoly.DateTime.localize("2020-12-31T23Z", "en-US")).toEqual("01/01/2021, 12 AM")
-		})
+		it("localize 2020-12-31T23:59Z to en-US", () =>
+			expect(isoly.DateTime.localize("2020-12-31T23:59Z", "en-US")).toEqual("01/01/2021, 12:59 AM"))
+		it("localize 2020-12-31T23Z to en-US", () =>
+			expect(isoly.DateTime.localize("2020-12-31T23Z", "en-US")).toEqual("01/01/2021, 12 AM"))
 		it('localize 2020-12-31T23:12Z to en-US { month: "short", day: "numeric", hour: "numeric", minute: "numeric" }', () =>
 			expect(
 				isoly.DateTime.localize(
