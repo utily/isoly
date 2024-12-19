@@ -1,3 +1,4 @@
+import { isly } from "isly"
 import { Date } from "./Date"
 import { DateSpan } from "./DateSpan"
 export interface DateRange {
@@ -6,9 +7,9 @@ export interface DateRange {
 }
 
 export namespace DateRange {
-	export function is(value: any | DateRange): value is DateRange {
-		return typeof value == "object" && Date.is(value.start) && Date.is(value.end)
-	}
+	export const type = isly.object<DateRange>({ start: Date.type, end: Date.type }, "isoly.DateRange")
+	export const is = type.is
+	export const flaw = type.flaw
 	export function create(start: Date, end: Date): DateRange
 	export function create(date: Date, length: DateSpan): DateRange
 	export function create(start: Date, end: Date | DateSpan): DateRange {

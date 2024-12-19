@@ -17,7 +17,7 @@ export default defineConfig({
 		exclude: ["node_modules", "dist"],
 		server: {
 			deps: {
-				inline: [],
+				inline: ["isly"],
 			},
 		},
 	},

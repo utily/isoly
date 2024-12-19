@@ -1,17 +1,19 @@
+import { isly } from "isly"
 import { DateSpan } from "./DateSpan"
 import { Locale } from "./Locale"
 
 export type Date = string
 
 export namespace Date {
-	export function is(value: any | Date): value is Date {
-		return (
-			typeof value == "string" &&
-			value.length == 10 &&
-			new globalThis.Date(value).toString() != "Invalid Date" &&
-			create(new globalThis.Date(value)) == value
+	export const type = isly.named(
+		"isoly.Date",
+		isly.string<Date>( // Should work for all leap years from 1800 to 2499
+			/^(((18|19|20|21|22|23|24)[0-9]{2}-(0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|(18|19|20|21|22|23|24)[0-9]{2}-(0[469]|11)-(0[1-9]|[12][0-9]|30)|(18|19|20|21|22|23|24)[0-9]{2}-(02)-(0[1-9]|1[0-9]|2[0-8])|(((18|19|20|21|22|23|24)(04|08|[2468][048]|[13579][26]))|2000|2400)-(02)-29)$/
 		)
-	}
+	)
+	export const is = type.is
+	export const flaw = type.flaw
+
 	export function parse(value: Date, time?: string): globalThis.Date {
 		return new globalThis.Date(value + (time ?? "T12:00:00.000Z"))
 	}

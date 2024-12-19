@@ -1,11 +1,9 @@
-import { isoly } from "./index"
+import { isoly } from "../index"
 
 describe("Currency", () => {
-	it("undefined", () => {
-		expect(isoly.Currency.is(undefined)).toBeFalsy()
-	})
+	it("undefined", () => expect(isoly.Currency.is(undefined)).toBeFalsy())
 	it("check types array", () => {
-		expect(isoly.Currency.types.every(c => isoly.Currency.is(c))).toBeTruthy()
+		expect(isoly.Currency.values.every(c => isoly.Currency.is(c))).toBeTruthy()
 		expect(isoly.Currency.is("SEK")).toBeTruthy()
 		expect(isoly.Currency.is("ZZZ")).toBeFalsy()
 	})
