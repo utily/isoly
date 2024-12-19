@@ -9,39 +9,33 @@ describe("DateTime", () => {
 		expect(d).toBe("2020-12-31T23:59:59.000Z")
 		expect(isoly.DateTime.is(d)).toEqual(true)
 	})
-	;(
-		[
-			["2019-04-01T01", new Date(2019, 3, 1, 1)],
-			["2019-04-01T01Z", new Date(Date.UTC(2019, 3, 1, 1))],
-			["2019-04-01T01+01:00", new Date(Date.UTC(2019, 3, 1, 0))],
-			["2019-04-01T01:11", new Date(2019, 3, 1, 1, 11)],
-			["2019-04-01T01:11Z", new Date(Date.UTC(2019, 3, 1, 1, 11))],
-			["2019-04-01T01:11+01:00", new Date(Date.UTC(2019, 3, 1, 0, 11))],
-			["2019-04-01T01:11:29", new Date(2019, 3, 1, 1, 11, 29)],
-			["2019-04-01T01:11:29Z", new Date(Date.UTC(2019, 3, 1, 1, 11, 29))],
-			["2019-04-01T01:11:29+01:00", new Date(Date.UTC(2019, 3, 1, 0, 11, 29))],
-			["2019-04-01T01:11:29.123", new Date(2019, 3, 1, 1, 11, 29, 123)],
-			["2019-04-01T01:11:29.123Z", new Date(Date.UTC(2019, 3, 1, 1, 11, 29, 123))],
-			["2020-12-31T23:59:59.999Z", new Date(Date.UTC(2020, 11, 31, 23, 59, 59, 999))],
-			["2019-04-01T01:11:29.123+01:00", new Date(Date.UTC(2019, 3, 1, 0, 11, 29, 123))],
-		] as [isoly.DateTime, Date][]
-	).forEach(([dateTime, date]) => it("parse " + dateTime, () => expect(isoly.DateTime.parse(dateTime)).toEqual(date)))
-	;(
-		[
-			["milliseconds", "2019-04-01T01:11:29.123+01:00", "2019-04-01T01:11:29.123+01:00"],
-			["seconds", "2019-04-01T01:11:29+01:00", "2019-04-01T01:11:29.000+01:00"],
-			["minutes", "2019-04-01T01:11+01:00", "2019-04-01T01:11:00.000+01:00"],
-			["hours", "2019-04-01T01+01:00", "2019-04-01T01:00:00.000+01:00"],
-		] as const
-	).forEach(([precision, expected, padded]) => {
-		it("truncate " + precision, () => {
-			const dateTime = "2019-04-01T01:11:29.123+01:00"
-			const truncated = isoly.DateTime.truncate(dateTime, precision)
-			expect(truncated).toEqual(expected)
-			expect(isoly.DateTime.truncate(truncated, "milliseconds")).toEqual(padded)
-		})
+	it.each([
+		["2019-04-01T01", new Date(2019, 3, 1, 1)],
+		["2019-04-01T01Z", new Date(Date.UTC(2019, 3, 1, 1))],
+		["2019-04-01T01+01:00", new Date(Date.UTC(2019, 3, 1, 0))],
+		["2019-04-01T01:11", new Date(2019, 3, 1, 1, 11)],
+		["2019-04-01T01:11Z", new Date(Date.UTC(2019, 3, 1, 1, 11))],
+		["2019-04-01T01:11+01:00", new Date(Date.UTC(2019, 3, 1, 0, 11))],
+		["2019-04-01T01:11:29", new Date(2019, 3, 1, 1, 11, 29)],
+		["2019-04-01T01:11:29Z", new Date(Date.UTC(2019, 3, 1, 1, 11, 29))],
+		["2019-04-01T01:11:29+01:00", new Date(Date.UTC(2019, 3, 1, 0, 11, 29))],
+		["2019-04-01T01:11:29.123", new Date(2019, 3, 1, 1, 11, 29, 123)],
+		["2019-04-01T01:11:29.123Z", new Date(Date.UTC(2019, 3, 1, 1, 11, 29, 123))],
+		["2020-12-31T23:59:59.999Z", new Date(Date.UTC(2020, 11, 31, 23, 59, 59, 999))],
+		["2019-04-01T01:11:29.123+01:00", new Date(Date.UTC(2019, 3, 1, 0, 11, 29, 123))],
+	])("parse %s", (dateTime, date) => expect(isoly.DateTime.parse(dateTime)).toEqual(date))
+	it.each([
+		["milliseconds", "2019-04-01T01:11:29.123+01:00", "2019-04-01T01:11:29.123+01:00"],
+		["seconds", "2019-04-01T01:11:29+01:00", "2019-04-01T01:11:29.000+01:00"],
+		["minutes", "2019-04-01T01:11+01:00", "2019-04-01T01:11:00.000+01:00"],
+		["hours", "2019-04-01T01+01:00", "2019-04-01T01:00:00.000+01:00"],
+	] as const)("truncate %s", (precision, expected, padded) => {
+		const dateTime = "2019-04-01T01:11:29.123+01:00"
+		const truncated = isoly.DateTime.truncate(dateTime, precision)
+		expect(truncated).toEqual(expected)
+		expect(isoly.DateTime.truncate(truncated, "milliseconds")).toEqual(padded)
 	})
-	;[
+	it.each([
 		"2019-04-01T01",
 		"2019-04-01T01Z",
 		"2019-04-01T01+01:00",
@@ -59,8 +53,8 @@ describe("DateTime", () => {
 		"2019-04-01T01:11:29.000+01:00",
 		"1972-06-30T23:59:60", // leap second
 		"1972-12-31T23:59:60", // leap second
-	].forEach(dateTime => it("is " + dateTime, () => expect(isoly.DateTime.is(dateTime)).toEqual(true)))
-	;[
+	])("is %s", dateTime => expect(isoly.DateTime.is(dateTime)).toEqual(true))
+	it.each([
 		"2019-04-01T1",
 		"2019-04-01T01:Z",
 		"2019-04-01T01+25:00",
@@ -88,7 +82,7 @@ describe("DateTime", () => {
 		"2020-04-01T24:00",
 		"2020-04-01T23:60",
 		"2020-04-01T23:59:63",
-	].forEach(dateTime => it("is not " + dateTime, () => expect(isoly.DateTime.is(dateTime)).toEqual(false)))
+	])("is not %s", dateTime => expect(isoly.DateTime.is(dateTime)).toEqual(false))
 	it("epoch", () => expect(isoly.DateTime.epoch("2019-04-01T00:00:00.000Z")).toBe(1554076800))
 	if (new Date(Date.UTC(2020, 11, 31, 23, 59, 59)).getTimezoneOffset() == -60) {
 		it("zero-pads localized", () =>
