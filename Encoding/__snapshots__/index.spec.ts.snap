@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Encoding ISO-8859-1 1`] = `
+exports[`Encoding > ISO-8859-1 1`] = `
 Uint8Array [
   10,
   13,
@@ -80,7 +80,7 @@ Uint8Array [
 ]
 `;
 
-exports[`Encoding UTF-8 1`] = `
+exports[`Encoding > UTF-8 1`] = `
 Uint8Array [
   10,
   13,
