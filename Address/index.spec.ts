@@ -26,19 +26,19 @@ describe("Address", () => {
 		zipCode: "",
 		city: "",
 	}
-	it("Default", () => {
-		expect(isoly.Address.Generic.is(defaultAddress)).toBeTruthy()
-		expect(isoly.Address.Generic.is(britishAddress)).toBeTruthy()
-		expect(isoly.Address.Generic.is(badAddress)).toBeFalsy()
-	})
-	it("British", () => {
-		expect(isoly.Address.GB.is(britishAddress)).toBeTruthy()
-		expect(isoly.Address.GB.is(defaultAddress)).toBeFalsy()
-		expect(isoly.Address.GB.is(badAddress)).toBeFalsy()
-	})
-	it("Swedish", () => {
-		expect(isoly.Address.SE.is(swedishAddress)).toBeTruthy()
-		expect(isoly.Address.SE.is(britishAddress)).toBeFalsy()
-		expect(isoly.Address.SE.is(badAddress)).toBeFalsy()
-	})
+	it.each([
+		[defaultAddress, true],
+		[britishAddress, true],
+		[badAddress, false],
+	])("Default %s", (address, expected) => expect(isoly.Address.Generic.is(address)).toBe(expected))
+	it.each([
+		[defaultAddress, false],
+		[britishAddress, true],
+		[badAddress, false],
+	])("British %s", (address, expected) => expect(isoly.Address.GB.is(address)).toBe(expected))
+	it.each([
+		[defaultAddress, false],
+		[britishAddress, false],
+		[badAddress, false],
+	])("Swedish %s", (address, expected) => expect(isoly.Address.SE.is(address)).toBe(expected))
 })
