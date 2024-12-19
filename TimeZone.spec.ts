@@ -1,4 +1,4 @@
-import { isoly } from "."
+import { isoly } from "./index"
 
 describe("TimeZone", () => {
 	it("Imports", () => {

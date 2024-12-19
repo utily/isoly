@@ -18,11 +18,11 @@ export namespace Numeric {
 		740, 744, 748, 752, 756, 760, 762, 764, 768, 772, 776, 780, 784, 788, 792, 795, 796, 798, 800, 804, 807, 818, 826,
 		831, 832, 833, 834, 840, 850, 854, 858, 860, 862, 876, 882, 887, 894, 926,
 	] as const
-	export const type = isly.named("isoly.CountryCode.Numeric", isly.number<Numeric>(values as any as number[]))
+	export const type = isly.named("isoly.CountryCode.Numeric", isly.number<Numeric>(values))
 	export const is = type.is
 	export const flaw = type.flaw
 	export function from(country: Alpha2 | Alpha3): Numeric {
-		return country.length == 2 ? alpha2ToNumeric[country as Alpha2] : from(Alpha2.from(country as Alpha3))
+		return Alpha2.is(country) ? alpha2ToNumeric[country] : from(Alpha2.from(country))
 	}
 }
 

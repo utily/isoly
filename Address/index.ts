@@ -7,11 +7,8 @@ import { SE as AddressSE } from "./SE"
 export type Address = AddressGeneric | AddressGB | AddressSE
 
 export namespace Address {
-	export type Generic = AddressGeneric
-	export const Generic = AddressGeneric
-	export type GB = AddressGB
-	export const GB = AddressGB
-	export type SE = AddressSE
-	export const SE = AddressSE
+	export import Generic = AddressGeneric
+	export import GB = AddressGB
+	export import SE = AddressSE
 	export const type = isly.named("isoly.Address", isly.union<Address>(Generic.type, GB.type, SE.type))
 }

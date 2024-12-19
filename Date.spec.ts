@@ -7,12 +7,65 @@ describe("Date", () => {
 		expect(isoly.Date.is(d)).toEqual(true)
 		expect(d).toBe("2020-12-31")
 	})
-	;["1999-02-29", "1900-02-29", "2000-02-30", "2000-12-32"].forEach(invalid =>
-		it("is not " + invalid, () => expect(isoly.Date.is(invalid)).toEqual(false))
+	it.each(["1999-02-29", "1900-02-29", "2000-02-30", "2000-12-32"])("is not %s", invalid =>
+		expect(isoly.Date.is(invalid)).toEqual(false)
 	)
-	;["1999-12-31", "2000-01-29", "2000-02-29", "2000-01-30"].forEach(valid =>
-		it("is " + valid, () => expect(isoly.Date.is(valid)).toEqual(true))
+	it.each(["1999-12-31", "2000-01-29", "2000-02-29", "2000-01-30"])("is %s", valid =>
+		expect(isoly.Date.is(valid)).toEqual(true)
 	)
+	it.each([
+		["1998-02-29", false],
+		["1999-02-29", false],
+		["2000-02-29", true],
+		["2001-02-29", false],
+		["2002-02-29", false],
+		["2003-02-29", false],
+		["2004-02-29", true],
+		["2005-02-29", false],
+		["2006-02-29", false],
+		["2007-02-29", false],
+		["2008-02-29", true],
+		["2009-02-29", false],
+		["2010-02-29", false],
+		["2011-02-29", false],
+		["2012-02-29", true],
+		["2013-02-29", false],
+		["2014-02-29", false],
+		["2015-02-29", false],
+		["2016-02-29", true],
+		["2017-02-29", false],
+		["2018-02-29", false],
+		["2019-02-29", false],
+		["2020-02-29", true],
+		["2021-02-29", false],
+		["2022-02-29", false],
+		["2023-02-29", false],
+		["2024-02-29", true],
+		["2025-02-29", false],
+		["2026-02-29", false],
+		["2027-02-29", false],
+		["2028-02-29", true],
+		["2029-02-29", false],
+		["2030-02-29", false],
+		["2031-02-29", false],
+		["2032-02-29", true],
+		["2033-02-29", false],
+		["2034-02-29", false],
+		["2035-02-29", false],
+		["2036-02-29", true],
+		["2037-02-29", false],
+		["2038-02-29", false],
+		["2039-02-29", false],
+		["2040-02-29", true],
+		["2041-02-29", false],
+		["2042-02-29", false],
+		["2043-02-29", false],
+		["2100-02-29", false],
+		["2200-02-29", false],
+		["2296-02-29", true],
+		["2300-02-29", false],
+		["2400-02-29", true],
+	])("leap days %s", (date, exists) => expect(isoly.Date.is(date)).toBe(exists))
 	it("is not DateTime", () => expect(isoly.Date.is("2020-12-31T23:59:59.000Z")).toEqual(false))
 	it("localize Date with locale", () => expect(isoly.Date.localize("2020-12-31", "en-US")).toEqual("12/31/2020"))
 	it("next day original test", () => {
