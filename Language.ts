@@ -1,6 +1,6 @@
 import { isly } from "isly"
 
-export type Language = string
+export type Language = typeof Language.values[number]
 
 export namespace Language {
 	export const values = [
@@ -193,7 +193,7 @@ export namespace Language {
 	export const is = type.is
 	export const flaw = type.flaw
 	export function toName(language: Language): string {
-		const names: Record<Language, string> = {
+		const names = {
 			ab: "Abkhazian",
 			aa: "Afar",
 			af: "Afrikaans",

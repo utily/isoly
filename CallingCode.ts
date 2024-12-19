@@ -255,7 +255,7 @@ export namespace CallingCode {
 		return alpha2toCallingCode[country]
 	}
 	export function to(callingCode: CallingCode): Alpha2 | Alpha2[] {
-		return callingCodeToAlpha2[callingCode]
+		return callingCodeToAlpha2[callingCode] ?? []
 	}
 	export function separate(phoneNumber: string): [CallingCode | undefined, string] {
 		let result: [CallingCode | undefined, string] = [undefined, phoneNumber]

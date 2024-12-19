@@ -1,13 +1,15 @@
 import { isly } from "isly"
-import { Date } from "./Date"
-import { Locale } from "./Locale"
-import { TimeSpan } from "./TimeSpan"
-import { TimeZone } from "./TimeZone"
-import { TimeZoneOffset } from "./TimeZoneOffset"
+import { Date } from "../Date"
+import { Locale } from "../Locale"
+import { TimeSpan } from "../TimeSpan"
+import { TimeZone } from "../TimeZone"
+import { TimeZoneOffset } from "../TimeZoneOffset"
+import { Resolution as DateTimeResolution } from "./Resolution"
 
 export type DateTime = string
 
 export namespace DateTime {
+	export import Resolution = DateTimeResolution
 	export const type = isly.named(
 		"isoly.DateTime",
 		isly.string<DateTime>(
@@ -19,15 +21,10 @@ export namespace DateTime {
 	export function parse(value: DateTime): globalThis.Date {
 		return new globalThis.Date(DateTime.truncate(value, "milliseconds"))
 	}
-	export function create(
-		value: number,
-		resolution?: "days" | "hours" | "minutes" | "seconds" | "milliseconds"
-	): DateTime
+
+	export function create(value: number, resolution?: Resolution): DateTime
 	export function create(value: globalThis.Date): DateTime
-	export function create(
-		value: number | globalThis.Date,
-		resolution: "days" | "hours" | "minutes" | "seconds" | "milliseconds" = "seconds"
-	): DateTime {
+	export function create(value: number | globalThis.Date, resolution: Resolution = "seconds"): DateTime {
 		if (typeof value == "number") {
 			switch (resolution) {
 				case "days":
@@ -138,10 +135,6 @@ export namespace DateTime {
 	export function endOfDay(value: DateTime | Date): DateTime {
 		return value.slice(0, 10) + "T23:59:59.999" + (DateTime.is(value) ? timeZoneOffset(value) || "Z" : "Z")
 	}
-	/** @deprecated Use timeZoneOffset() */
-	export function timeZone(value: DateTime): TimeZoneOffset | "" {
-		return timeZoneOffset(value)
-	}
 	export function timeZoneOffset(value: DateTime): TimeZoneOffset | "" {
 		const result = value[value.length - 1] == "Z" ? "Z" : value.substring(value.length - 6)
 		return TimeZoneOffset.is(result) ? result : ""
@@ -154,7 +147,7 @@ export namespace DateTime {
 		const zone = timeZoneOffset(value)
 		const time = value.substring(0, value.length - zone.length).split("T", 2)[1]
 		let result: Precision
-		switch (time.length) {
+		switch (time?.length) {
 			case 2:
 				result = "hours"
 				break
@@ -176,39 +169,28 @@ export namespace DateTime {
 		const zone = timeZoneOffset(value)
 		// eslint-disable-next-line prefer-const
 		let [date, time] = value.split("T", 2)
-		time = time.substring(0, time.length - zone.length)
-		switch (time.length) {
-			case 2:
-				time += ":00:00.000"
-				break
-			case 5:
-				time += ":00.000"
-				break
-			case 8:
-				time += ".000"
-				break
-		}
-		let result: string
-		switch (precision) {
-			case "hours":
-				result = time.substring(0, 2)
-				break
-			case "minutes":
-				result = time.substring(0, 5)
-				break
-			case "seconds":
-				result = time.substring(0, 8)
-				break
-			case "milliseconds":
-				result = time.substring(0, 12)
-				break
-		}
-		return date + "T" + result + zone
+		time = time ? time.substring(0, time.length - zone.length) : ""
+		time += {
+			2: ":00:00.000",
+			5: ":00.000",
+			8: ".000",
+		}[time?.length]
+		return (
+			date +
+			"T" +
+			time.substring(
+				0,
+				{
+					hours: 2,
+					minutes: 5,
+					seconds: 8,
+					milliseconds: 12,
+				}[precision]
+			) +
+			zone
+		)
 	}
-	export function epoch(
-		value: DateTime | globalThis.Date,
-		resolution: "days" | "hours" | "minutes" | "seconds" | "milliseconds" = "seconds"
-	): number {
+	export function epoch(value: DateTime | globalThis.Date, resolution: Resolution = "seconds"): number {
 		let result = (typeof value == "string" ? parse(value) : value).getTime()
 		switch (resolution) {
 			case "days":
@@ -381,15 +363,15 @@ export namespace DateTime {
 				case "hours":
 					result.hours = sign * Math.floor(milliseconds / (3600 * 1000))
 					milliseconds -= sign * result.hours * 3600 * 1000
-				// Fallthrough...
+				// fallthrough...
 				case "minutes":
 					result.minutes = sign * Math.floor(milliseconds / (60 * 1000))
 					milliseconds -= sign * result.minutes * 60 * 1000
-				// Fallthrough...
+				// fallthrough...
 				case "seconds":
 					result.seconds = sign * Math.floor(milliseconds / 1000)
 					milliseconds -= sign * result.seconds * 1000
-				// Fallthrough...
+				// fallthrough...
 				case "milliseconds":
 					result.milliseconds = sign * milliseconds
 			}

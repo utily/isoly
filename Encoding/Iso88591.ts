@@ -2,7 +2,7 @@ import { Transcoder } from "./Transcoder"
 
 export class Iso88591 extends Transcoder {
 	encode(data: string): Uint8Array {
-		return Uint8Array.from(data.split(""), c => utf8ToIso88591[c])
+		return Uint8Array.from(data.split(""), c => utf8ToIso88591[c] ?? 0)
 	}
 	decode(data: ArrayBufferView): string {
 		return !data
