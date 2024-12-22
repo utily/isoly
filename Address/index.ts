@@ -1,5 +1,4 @@
 import { isly } from "isly"
-import { Alpha2 } from "../CountryCode"
 import { GB as AddressGB } from "./GB"
 import { Generic as AddressGeneric } from "./Generic"
 import { SE as AddressSE } from "./SE"
