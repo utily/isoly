@@ -8,10 +8,8 @@ const commonlyUsedAreas: { [key: string]: isoly.CallingCode } = {
 }
 
 describe("CallingCode", () => {
-	it("seperate Swedish number", () => {
-		const phoneNumber = "+461570000000"
-		expect(isoly.CallingCode.separate(phoneNumber)).toEqual(["+46", "1570000000"])
-	})
+	it("seperate Swedish number", () =>
+		expect(isoly.CallingCode.separate("+461570000000")).toEqual(["+46", "1570000000"]))
 	it("check common countries", () => {
 		for (const key in commonlyUsedAreas) {
 			const phoneNumber = commonlyUsedAreas[key] + "123456789"

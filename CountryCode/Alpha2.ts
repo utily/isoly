@@ -1,10 +1,11 @@
+import { isly } from "isly"
 import { Alpha3 } from "./Alpha3"
 import { Numeric } from "./Numeric"
 
-export type Alpha2 = typeof Alpha2.types[number]
+export type Alpha2 = typeof Alpha2.values[number]
 
 export namespace Alpha2 {
-	export const types = [
+	export const values = [
 		"AD",
 		"AE",
 		"AF",
@@ -256,15 +257,14 @@ export namespace Alpha2 {
 		"ZM",
 		"ZW",
 	] as const
-
-	export function is(value: any | Alpha2): value is Alpha2 {
-		return types.includes(value)
-	}
+	export const type = isly.named("isoly.CountryCode.Alpha2", isly.string<Alpha2>(values))
+	export const is = type.is
+	export const flaw = type.flaw
 	export function from(country: Numeric | Alpha3): Alpha2 {
 		return typeof country == "number" ? numericToAlpha2[country] : alpha3ToAlpha2[country]
 	}
-	export function isEEA(country: Alpha2): boolean {
-		const eea: Alpha2[] = [
+	export function isEea(country: Alpha2): boolean {
+		return [
 			"AT",
 			"BE",
 			"BG",
@@ -295,8 +295,7 @@ export namespace Alpha2 {
 			"LU",
 			"SK",
 			"CZ",
-		]
-		return eea.includes(country)
+		].includes(country)
 	}
 }
 

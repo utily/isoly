@@ -1,10 +1,11 @@
+import { isly } from "isly"
 import { Alpha2 } from "./Alpha2"
 import { Alpha3 } from "./Alpha3"
 
-export type Numeric = typeof Numeric.types[number]
+export type Numeric = typeof Numeric.values[number]
 
 export namespace Numeric {
-	export const types = [
+	export const values = [
 		4, 8, 10, 12, 16, 20, 24, 28, 31, 32, 36, 40, 44, 48, 50, 51, 52, 56, 60, 64, 68, 70, 72, 74, 76, 84, 86, 90, 92,
 		96, 100, 104, 108, 112, 116, 120, 124, 132, 136, 140, 144, 148, 152, 156, 158, 162, 166, 170, 174, 175, 178, 180,
 		184, 188, 191, 192, 196, 203, 204, 208, 212, 214, 218, 222, 226, 231, 232, 233, 234, 238, 239, 242, 246, 248, 250,
@@ -17,17 +18,11 @@ export namespace Numeric {
 		740, 744, 748, 752, 756, 760, 762, 764, 768, 772, 776, 780, 784, 788, 792, 795, 796, 798, 800, 804, 807, 818, 826,
 		831, 832, 833, 834, 840, 850, 854, 858, 860, 862, 876, 882, 887, 894, 926,
 	] as const
-	export function is(value: any | Numeric): value is Numeric {
-		return (
-			typeof value == "number" &&
-			value >= 0 &&
-			value <= 999 &&
-			Number.isInteger(value) &&
-			types.includes(value as Numeric)
-		)
-	}
+	export const type = isly.named("isoly.CountryCode.Numeric", isly.number<Numeric>(values))
+	export const is = type.is
+	export const flaw = type.flaw
 	export function from(country: Alpha2 | Alpha3): Numeric {
-		return country.length == 2 ? alpha2ToNumeric[country as Alpha2] : from(Alpha2.from(country as Alpha3))
+		return Alpha2.is(country) ? alpha2ToNumeric[country] : from(Alpha2.from(country))
 	}
 }
 

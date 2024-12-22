@@ -1,381 +1,199 @@
-export type Language =
-	| "ab"
-	| "aa"
-	| "af"
-	| "ak"
-	| "sq"
-	| "am"
-	| "ar"
-	| "an"
-	| "hy"
-	| "as"
-	| "av"
-	| "ae"
-	| "ay"
-	| "az"
-	| "bm"
-	| "ba"
-	| "eu"
-	| "be"
-	| "bn"
-	| "bh"
-	| "bi"
-	| "bs"
-	| "br"
-	| "bg"
-	| "my"
-	| "ca"
-	| "ch"
-	| "ce"
-	| "ny"
-	| "zh"
-	| "cv"
-	| "kw"
-	| "co"
-	| "cr"
-	| "hr"
-	| "cs"
-	| "da"
-	| "dv"
-	| "nl"
-	| "dz"
-	| "en"
-	| "eo"
-	| "et"
-	| "ee"
-	| "fo"
-	| "fj"
-	| "fi"
-	| "fr"
-	| "ff"
-	| "gl"
-	| "ka"
-	| "de"
-	| "el"
-	| "gn"
-	| "gu"
-	| "ht"
-	| "ha"
-	| "he"
-	| "hz"
-	| "hi"
-	| "ho"
-	| "hu"
-	| "ia"
-	| "id"
-	| "ie"
-	| "ga"
-	| "ig"
-	| "ik"
-	| "io"
-	| "is"
-	| "it"
-	| "iu"
-	| "ja"
-	| "jv"
-	| "kl"
-	| "kn"
-	| "kr"
-	| "ks"
-	| "kk"
-	| "km"
-	| "ki"
-	| "rw"
-	| "ky"
-	| "kv"
-	| "kg"
-	| "ko"
-	| "ku"
-	| "kj"
-	| "la"
-	| "lb"
-	| "lg"
-	| "li"
-	| "ln"
-	| "lo"
-	| "lt"
-	| "lu"
-	| "lv"
-	| "gv"
-	| "mk"
-	| "mg"
-	| "ms"
-	| "ml"
-	| "mt"
-	| "mi"
-	| "mr"
-	| "mh"
-	| "mn"
-	| "na"
-	| "nv"
-	| "nd"
-	| "ne"
-	| "ng"
-	| "nb"
-	| "nn"
-	| "no"
-	| "ii"
-	| "nr"
-	| "oc"
-	| "oj"
-	| "cu"
-	| "om"
-	| "or"
-	| "os"
-	| "pa"
-	| "pi"
-	| "fa"
-	| "pl"
-	| "ps"
-	| "pt"
-	| "qu"
-	| "rm"
-	| "rn"
-	| "ro"
-	| "ru"
-	| "sa"
-	| "sc"
-	| "sd"
-	| "se"
-	| "sm"
-	| "sg"
-	| "sr"
-	| "gd"
-	| "sn"
-	| "si"
-	| "sk"
-	| "sl"
-	| "so"
-	| "st"
-	| "es"
-	| "su"
-	| "sw"
-	| "ss"
-	| "sv"
-	| "ta"
-	| "te"
-	| "tg"
-	| "th"
-	| "ti"
-	| "bo"
-	| "tk"
-	| "tl"
-	| "tn"
-	| "to"
-	| "tr"
-	| "ts"
-	| "tt"
-	| "tw"
-	| "ty"
-	| "ug"
-	| "uk"
-	| "ur"
-	| "uz"
-	| "ve"
-	| "vi"
-	| "vo"
-	| "wa"
-	| "cy"
-	| "wo"
-	| "fy"
-	| "xh"
-	| "yi"
-	| "yo"
-	| "za"
-	| "zu"
+import { isly } from "isly"
+
+export type Language = string
 
 export namespace Language {
-	export function is(value: Language | any): value is Language {
-		return (
-			typeof value == "string" &&
-			(value == "ab" ||
-				value == "aa" ||
-				value == "af" ||
-				value == "ak" ||
-				value == "sq" ||
-				value == "am" ||
-				value == "ar" ||
-				value == "an" ||
-				value == "hy" ||
-				value == "as" ||
-				value == "av" ||
-				value == "ae" ||
-				value == "ay" ||
-				value == "az" ||
-				value == "bm" ||
-				value == "ba" ||
-				value == "eu" ||
-				value == "be" ||
-				value == "bn" ||
-				value == "bh" ||
-				value == "bi" ||
-				value == "bs" ||
-				value == "br" ||
-				value == "bg" ||
-				value == "my" ||
-				value == "ca" ||
-				value == "ch" ||
-				value == "ce" ||
-				value == "ny" ||
-				value == "zh" ||
-				value == "cv" ||
-				value == "kw" ||
-				value == "co" ||
-				value == "cr" ||
-				value == "hr" ||
-				value == "cs" ||
-				value == "da" ||
-				value == "dv" ||
-				value == "nl" ||
-				value == "dz" ||
-				value == "en" ||
-				value == "eo" ||
-				value == "et" ||
-				value == "ee" ||
-				value == "fo" ||
-				value == "fj" ||
-				value == "fi" ||
-				value == "fr" ||
-				value == "ff" ||
-				value == "gl" ||
-				value == "ka" ||
-				value == "de" ||
-				value == "el" ||
-				value == "gn" ||
-				value == "gu" ||
-				value == "ht" ||
-				value == "ha" ||
-				value == "he" ||
-				value == "hz" ||
-				value == "hi" ||
-				value == "ho" ||
-				value == "hu" ||
-				value == "ia" ||
-				value == "id" ||
-				value == "ie" ||
-				value == "ga" ||
-				value == "ig" ||
-				value == "ik" ||
-				value == "io" ||
-				value == "is" ||
-				value == "it" ||
-				value == "iu" ||
-				value == "ja" ||
-				value == "jv" ||
-				value == "kl" ||
-				value == "kn" ||
-				value == "kr" ||
-				value == "ks" ||
-				value == "kk" ||
-				value == "km" ||
-				value == "ki" ||
-				value == "rw" ||
-				value == "ky" ||
-				value == "kv" ||
-				value == "kg" ||
-				value == "ko" ||
-				value == "ku" ||
-				value == "kj" ||
-				value == "la" ||
-				value == "lb" ||
-				value == "lg" ||
-				value == "li" ||
-				value == "ln" ||
-				value == "lo" ||
-				value == "lt" ||
-				value == "lu" ||
-				value == "lv" ||
-				value == "gv" ||
-				value == "mk" ||
-				value == "mg" ||
-				value == "ms" ||
-				value == "ml" ||
-				value == "mt" ||
-				value == "mi" ||
-				value == "mr" ||
-				value == "mh" ||
-				value == "mn" ||
-				value == "na" ||
-				value == "nv" ||
-				value == "nd" ||
-				value == "ne" ||
-				value == "ng" ||
-				value == "nb" ||
-				value == "nn" ||
-				value == "no" ||
-				value == "ii" ||
-				value == "nr" ||
-				value == "oc" ||
-				value == "oj" ||
-				value == "cu" ||
-				value == "om" ||
-				value == "or" ||
-				value == "os" ||
-				value == "pa" ||
-				value == "pi" ||
-				value == "fa" ||
-				value == "pl" ||
-				value == "ps" ||
-				value == "pt" ||
-				value == "qu" ||
-				value == "rm" ||
-				value == "rn" ||
-				value == "ro" ||
-				value == "ru" ||
-				value == "sa" ||
-				value == "sc" ||
-				value == "sd" ||
-				value == "se" ||
-				value == "sm" ||
-				value == "sg" ||
-				value == "sr" ||
-				value == "gd" ||
-				value == "sn" ||
-				value == "si" ||
-				value == "sk" ||
-				value == "sl" ||
-				value == "so" ||
-				value == "st" ||
-				value == "es" ||
-				value == "su" ||
-				value == "sw" ||
-				value == "ss" ||
-				value == "sv" ||
-				value == "ta" ||
-				value == "te" ||
-				value == "tg" ||
-				value == "th" ||
-				value == "ti" ||
-				value == "bo" ||
-				value == "tk" ||
-				value == "tl" ||
-				value == "tn" ||
-				value == "to" ||
-				value == "tr" ||
-				value == "ts" ||
-				value == "tt" ||
-				value == "tw" ||
-				value == "ty" ||
-				value == "ug" ||
-				value == "uk" ||
-				value == "ur" ||
-				value == "uz" ||
-				value == "ve" ||
-				value == "vi" ||
-				value == "vo" ||
-				value == "wa" ||
-				value == "cy" ||
-				value == "wo" ||
-				value == "fy" ||
-				value == "xh" ||
-				value == "yi" ||
-				value == "yo" ||
-				value == "za" ||
-				value == "zu")
-		)
-	}
+	export const values = [
+		"ab",
+		"aa",
+		"af",
+		"ak",
+		"sq",
+		"am",
+		"ar",
+		"an",
+		"hy",
+		"as",
+		"av",
+		"ae",
+		"ay",
+		"az",
+		"bm",
+		"ba",
+		"eu",
+		"be",
+		"bn",
+		"bh",
+		"bi",
+		"bs",
+		"br",
+		"bg",
+		"my",
+		"ca",
+		"ch",
+		"ce",
+		"ny",
+		"zh",
+		"cv",
+		"kw",
+		"co",
+		"cr",
+		"hr",
+		"cs",
+		"da",
+		"dv",
+		"nl",
+		"dz",
+		"en",
+		"eo",
+		"et",
+		"ee",
+		"fo",
+		"fj",
+		"fi",
+		"fr",
+		"ff",
+		"gl",
+		"ka",
+		"de",
+		"el",
+		"gn",
+		"gu",
+		"ht",
+		"ha",
+		"he",
+		"hz",
+		"hi",
+		"ho",
+		"hu",
+		"ia",
+		"id",
+		"ie",
+		"ga",
+		"ig",
+		"ik",
+		"io",
+		"is",
+		"it",
+		"iu",
+		"ja",
+		"jv",
+		"kl",
+		"kn",
+		"kr",
+		"ks",
+		"kk",
+		"km",
+		"ki",
+		"rw",
+		"ky",
+		"kv",
+		"kg",
+		"ko",
+		"ku",
+		"kj",
+		"la",
+		"lb",
+		"lg",
+		"li",
+		"ln",
+		"lo",
+		"lt",
+		"lu",
+		"lv",
+		"gv",
+		"mk",
+		"mg",
+		"ms",
+		"ml",
+		"mt",
+		"mi",
+		"mr",
+		"mh",
+		"mn",
+		"na",
+		"nv",
+		"nd",
+		"ne",
+		"ng",
+		"nb",
+		"nn",
+		"no",
+		"ii",
+		"nr",
+		"oc",
+		"oj",
+		"cu",
+		"om",
+		"or",
+		"os",
+		"pa",
+		"pi",
+		"fa",
+		"pl",
+		"ps",
+		"pt",
+		"qu",
+		"rm",
+		"rn",
+		"ro",
+		"ru",
+		"sa",
+		"sc",
+		"sd",
+		"se",
+		"sm",
+		"sg",
+		"sr",
+		"gd",
+		"sn",
+		"si",
+		"sk",
+		"sl",
+		"so",
+		"st",
+		"es",
+		"su",
+		"sw",
+		"ss",
+		"sv",
+		"ta",
+		"te",
+		"tg",
+		"th",
+		"ti",
+		"bo",
+		"tk",
+		"tl",
+		"tn",
+		"to",
+		"tr",
+		"ts",
+		"tt",
+		"tw",
+		"ty",
+		"ug",
+		"uk",
+		"ur",
+		"uz",
+		"ve",
+		"vi",
+		"vo",
+		"wa",
+		"cy",
+		"wo",
+		"fy",
+		"xh",
+		"yi",
+		"yo",
+		"za",
+		"zu",
+	] as const
+	export const type = isly.named("isoly.Language", isly.string<Language>(values))
+	export const is = type.is
+	export const flaw = type.flaw
 	export function toName(language: Language): string {
-		return {
+		const names: Record<Language, string> = {
 			ab: "Abkhazian",
 			aa: "Afar",
 			af: "Afrikaans",
@@ -560,10 +378,11 @@ export namespace Language {
 			yo: "Yoruba",
 			za: "Zhuang, Chuang",
 			zu: "Zulu",
-		}[language]
+		} as const
+		return names[language]
 	}
 	export function toNativeName(language: Language): string {
-		return {
+		const names: Record<Language, string> = {
 			ab: "аҧсуа бызшәа, аҧсшәа",
 			aa: "Afaraf",
 			af: "Afrikaans",
@@ -748,6 +567,7 @@ export namespace Language {
 			yo: "Yorùbá",
 			za: "Saɯ cueŋƅ, Saw cuengh",
 			zu: "isiZu",
-		}[language]
+		} as const
+		return names[language]
 	}
 }

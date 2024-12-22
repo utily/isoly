@@ -1,5 +1,7 @@
+import { isly } from "isly"
 import { Date } from "./Date"
 import { Locale } from "./Locale"
+import { Time } from "./Time"
 import { TimeSpan } from "./TimeSpan"
 import { TimeZone } from "./TimeZone"
 import { TimeZoneOffset } from "./TimeZoneOffset"
@@ -7,54 +9,30 @@ import { TimeZoneOffset } from "./TimeZoneOffset"
 export type DateTime = string
 
 export namespace DateTime {
-	function isHours(v: string): boolean {
-		return (v[0] >= "0" && v[0] <= "1" && v[1] >= "0" && v[1] <= "9") || (v[0] == "2" && v[1] >= "0" && v[1] <= "3")
-	}
-	function isMinutes(v: string): boolean {
-		return v[0] >= "0" && v[0] <= "5" && v[1] >= "0" && v[1] <= "9"
-	}
-	function isSeconds(v: string): boolean {
-		return (v[0] >= "0" && v[0] <= "5" && v[1] >= "0" && v[1] <= "9") || v == "60" || v == "61"
-	}
-	export function is(value: any | DateTime): value is DateTime {
-		// 2019-04-01T01
-		// 2019-04-01T01Z
-		// 2019-04-01T01+01:00
-		// 2019-04-01T01:11
-		// 2019-04-01T01:11Z
-		// 2019-04-01T01:11+01:00
-		// 2019-04-01T01:11:29
-		// 2019-04-01T01:11:29Z
-		// 2019-04-01T01:11:29+01:00
-		// 2019-04-01T01:11:29.000
-		// 2019-04-01T01:11:29.000Z
-		// 2019-04-01T01:11:29.000+01:00
-		// 01234567890123456789012345678
-		// 0         1         2
-		return (
-			typeof value == "string" &&
-			value.length >= 13 &&
-			value.length <= 29 &&
-			Date.is(value.substring(0, 10)) &&
-			value[10] == "T" &&
-			isHours(value.substring(11, 13)) &&
-			(value.length == 13 ||
-				TimeZoneOffset.is(value.substring(13)) ||
-				(value[13] == ":" &&
-					value.length >= 16 &&
-					isMinutes(value.substring(14, 16)) &&
-					(value.length == 16 ||
-						TimeZoneOffset.is(value.substring(16)) ||
-						(value[16] == ":" &&
-							value.length >= 19 &&
-							isSeconds(value.substring(17, 19)) &&
-							(value.length == 19 ||
-								TimeZoneOffset.is(value.substring(19)) ||
-								(value[19] == "." &&
-									value.length >= 23 &&
-									[...value.substring(20, 23)].every(c => c >= "0" && c <= "9") &&
-									(value.length == 23 || TimeZoneOffset.is(value.substring(23)))))))))
-		)
+	export const type = isly.named(
+		"isoly.DateTime",
+		isly.string<DateTime>((value: string) => {
+			const { date, time, timeZoneOffset } = DateTime.split(value)
+			return Date.is(date) && Time.type.optional().is(time) && TimeZoneOffset.type.optional().is(timeZoneOffset)
+		})
+	)
+	export const is = type.is
+	export const flaw = type.flaw
+	export function split(value: DateTime): {
+		date: Date
+		time: Time | undefined
+		timeZoneOffset: TimeZoneOffset | undefined
+	} {
+		const [date, splitted] = value.split("T", 2) as [Date, string | undefined]
+		const [time, timeZoneOffset] = (splitted?.split(/(Z|[+-].{5})?$/, 2) ?? [undefined, undefined]) as [
+			Time | undefined,
+			TimeZoneOffset | undefined
+		]
+		return {
+			date,
+			time,
+			timeZoneOffset,
+		}
 	}
 	export function parse(value: DateTime): globalThis.Date {
 		return new globalThis.Date(DateTime.truncate(value, "milliseconds"))
