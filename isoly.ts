@@ -10,6 +10,7 @@ import { DateTime } from "./DateTime"
 import { Encoding } from "./Encoding"
 import { Language } from "./Language"
 import { Locale } from "./Locale"
+import { Time } from "./Time"
 import { TimeRange } from "./TimeRange"
 import { TimeSpan } from "./TimeSpan"
 import { TimeZone } from "./TimeZone"
@@ -27,6 +28,7 @@ export {
 	Encoding,
 	Language,
 	Locale,
+	Time,
 	TimeRange,
 	TimeSpan,
 	TimeZone,

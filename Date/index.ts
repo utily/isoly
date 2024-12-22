@@ -1,19 +1,36 @@
 import { isly } from "isly"
-import { DateSpan } from "./DateSpan"
-import { Locale } from "./Locale"
+import { DateSpan } from "../DateSpan"
+import { Locale } from "../Locale"
+import { Day as DateDay } from "./Day"
+import { Month as DateMonth } from "./Month"
+import { Year as DateYear } from "./Year"
 
 export type Date = string
 
 export namespace Date {
+	export import Day = DateDay
+	export import Month = DateMonth
+	export import Year = DateYear
+
 	export const type = isly.named(
 		"isoly.Date",
-		isly.string<Date>( // Should work for all leap years from 1800 to 2499
-			/^(((18|19|20|21|22|23|24)[0-9]{2}-(0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|(18|19|20|21|22|23|24)[0-9]{2}-(0[469]|11)-(0[1-9]|[12][0-9]|30)|(18|19|20|21|22|23|24)[0-9]{2}-(02)-(0[1-9]|1[0-9]|2[0-8])|(((18|19|20|21|22|23|24)(04|08|[2468][048]|[13579][26]))|2000|2400)-(02)-29)$/
-		)
+		isly.string<Date>((value: string) => {
+			const splitted = /^\d{4}-\d{2}-\d{2}$/.test(value) && Date.split(value)
+			return (
+				splitted &&
+				Date.Year.type.is(splitted[0]) &&
+				Date.Month.type.is(splitted[1]) &&
+				Date.Day.type.is(splitted[2]) &&
+				Date.Month.length(splitted[1], splitted[0]) >= Date.Day.parse(splitted[2])
+			)
+		}, "YYYY-MM-DD")
 	)
 	export const is = type.is
 	export const flaw = type.flaw
 
+	export function split(value: Date): [Year, Month, Day] {
+		return [value.substring(0, 4) as Year, value.substring(5, 7) as Month, value.substring(8, 10) as Day]
+	}
 	export function parse(value: Date, time?: string): globalThis.Date {
 		return new globalThis.Date(value + (time ?? "T12:00:00.000Z"))
 	}

@@ -1,7 +1,7 @@
-import { isoly } from "./index"
+import { isoly } from "../index"
 
 describe("Date", () => {
-	it("undefined", () => expect(isoly.Date.is(undefined)).toBeFalsy())
+	it("undefined", () => expect(isoly.Date.is(undefined)).toEqual(false))
 	it("create + is", () => {
 		const d = isoly.Date.create(new Date(Date.UTC(2020, 11, 31, 23, 59, 59)))
 		expect(isoly.Date.is(d)).toEqual(true)

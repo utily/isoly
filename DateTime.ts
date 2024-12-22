@@ -1,6 +1,7 @@
 import { isly } from "isly"
 import { Date } from "./Date"
 import { Locale } from "./Locale"
+import { Time } from "./Time"
 import { TimeSpan } from "./TimeSpan"
 import { TimeZone } from "./TimeZone"
 import { TimeZoneOffset } from "./TimeZoneOffset"
@@ -10,12 +11,29 @@ export type DateTime = string
 export namespace DateTime {
 	export const type = isly.named(
 		"isoly.DateTime",
-		isly.string<DateTime>(
-			/^((((18|19|20|21|22)[0-9]{2}-(0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|(18|19|20)[0-9]{2}-(0[469]|11)-(0[1-9]|[12][0-9]|30)|(18|19|20)[0-9]{2}-(02)-(0[1-9]|1[0-9]|2[0-8])|(((18|19|20)(04|08|[2468][048]|[13579][26]))|2000)-(02)-29)(T([01]\d|2[0-3]))(:[0-5]\d(:(([0-5]\d)|60)(\.\d{3}?)?)?)?)(Z|([-+](0\d|1[012])(:(00|15|30|45)?)?)?)$/
-		)
+		isly.string<DateTime>((value: string) => {
+			const { date, time, timeZoneOffset } = DateTime.split(value)
+			return Date.is(date) && Time.type.optional().is(time) && TimeZoneOffset.type.optional().is(timeZoneOffset)
+		})
 	)
 	export const is = type.is
 	export const flaw = type.flaw
+	export function split(value: DateTime): {
+		date: Date
+		time: Time | undefined
+		timeZoneOffset: TimeZoneOffset | undefined
+	} {
+		const [date, splitted] = value.split("T", 2) as [Date, string | undefined]
+		const [time, timeZoneOffset] = (splitted?.split(/(Z|[+-].{5})?$/, 2) ?? [undefined, undefined]) as [
+			Time | undefined,
+			TimeZoneOffset | undefined
+		]
+		return {
+			date,
+			time,
+			timeZoneOffset,
+		}
+	}
 	export function parse(value: DateTime): globalThis.Date {
 		return new globalThis.Date(DateTime.truncate(value, "milliseconds"))
 	}
