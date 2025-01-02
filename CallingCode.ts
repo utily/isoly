@@ -1,7 +1,7 @@
 import { isly } from "isly"
 import { Alpha2 } from "./CountryCode"
 
-export type CallingCode = string
+export type CallingCode = typeof CallingCode.values[number]
 
 export namespace CallingCode {
 	export const values = [
