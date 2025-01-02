@@ -1,6 +1,6 @@
 import { isly } from "isly"
 
-export type Language = string
+export type Language = typeof Language.values[number]
 
 export namespace Language {
 	export const values = [
