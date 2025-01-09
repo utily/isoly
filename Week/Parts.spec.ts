@@ -18,6 +18,16 @@ describe("isoly.Week.Parts", () => {
 		expect(isoly.Week.Parts.first(week)).toEqual(expected)
 	})
 	it.each([
+		[{ year: 2024, week: 52 }, "2024-12-29"],
+		[{ year: 2023, week: 52 }, "2023-12-31"],
+		[{ year: 2022, week: 52 }, "2023-01-01"],
+		[{ year: 2021, week: 52 }, "2022-01-02"],
+		[{ year: 2020, week: 53 }, "2021-01-03"],
+		[{ year: 2019, week: 52 }, "2019-12-29"],
+	] as const)("last(%s)", (week, expected) => {
+		expect(isoly.Week.Parts.last(week)).toEqual(expected)
+	})
+	it.each([
 		{ year: 2024, week: 1 },
 		{ year: 2023, week: 1 },
 		{ year: 2022, week: 1 },
@@ -87,8 +97,14 @@ describe("isoly.Week.Parts", () => {
 		[{ year: 2022, week: 1 }, 3, "2022-01-05"],
 		[{ year: 2021, week: 1 }, 4, "2021-01-07"],
 		[{ year: 2020, week: 1 }, 5, "2020-01-03"],
-		[{ year: 2019, week: 1 }, 6, "2019-01-05"],
-	] as const)("getDay(%s, %d) should return %s", (week, day, expected) =>
+		[{ year: 2019, week: 1 }, 7, "2019-01-06"],
+		[{ year: 2024, week: 1 }, "monday", "2024-01-01"],
+		[{ year: 2023, week: 1 }, "tuesday", "2023-01-03"],
+		[{ year: 2022, week: 1 }, "wednesday", "2022-01-05"],
+		[{ year: 2021, week: 1 }, "thursday", "2021-01-07"],
+		[{ year: 2020, week: 1 }, "friday", "2020-01-03"],
+		[{ year: 2019, week: 1 }, "sunday", "2019-01-06"],
+	] as const)("getDay(%s, %s) should return %s", (week, day, expected) =>
 		expect(isoly.Week.Parts.getDate(week, day)).toEqual(expected)
 	)
 	it.each([
@@ -106,5 +122,15 @@ describe("isoly.Week.Parts", () => {
 		],
 	] as const)("getDays(%s) should return dates from %o", (week, range) =>
 		expect(isoly.Week.Parts.getDays(week)).toEqual(isoly.DateRange.toDates(range, true))
+	)
+	it.each([
+		[2024, 52],
+		[2023, 52],
+		[2022, 52],
+		[2021, 52],
+		[2020, 53],
+		[2019, 52],
+	] as const)("lastWeek(%d) should return %d", (year, expected) =>
+		expect(isoly.Week.Parts.lastWeek(year)).toEqual(expected)
 	)
 })

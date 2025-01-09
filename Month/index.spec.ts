@@ -68,4 +68,7 @@ describe("isoly.Month", () => {
 	] as const)("getDays(%s) == %s", (month, range) =>
 		expect(isoly.Month.getDays(month)).toEqual(isoly.DateRange.toDates(range, true))
 	)
+	it("now()", () => {
+		expect(isoly.Month.now()).toEqual(isoly.Date.now().substring(0, 7))
+	})
 })

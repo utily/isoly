@@ -16,6 +16,7 @@ describe("isoly.Week", () => {
 		["2024-W001", false],
 		["2024-W", false],
 		["2025-W52", true],
+		["2025-WNaN", false],
 		["W01", false],
 	] as const)("is(%s) == %s", (week, expected) => expect(isoly.Week.is(week)).toEqual(expected))
 	it.each([
@@ -31,8 +32,25 @@ describe("isoly.Week", () => {
 		["2021-W01", "2021-01-04"],
 		["2020-W01", "2019-12-30"],
 		["2019-W01", "2018-12-31"],
-	] as const)("first(%s)", (week, expected) => {
+	] as const)("first(%s) == %s", (week, expected) => {
 		expect(isoly.Week.first(week)).toEqual(expected)
+	})
+	it.each([
+		["2019-W01", "2019-01-06"],
+		["2019-W52", "2019-12-29"],
+		["2020-W01", "2020-01-05"],
+		["2020-W53", "2021-01-03"],
+		["2021-W01", "2021-01-10"],
+		["2021-W52", "2022-01-02"],
+		["2022-W01", "2022-01-09"],
+		["2022-W52", "2023-01-01"],
+		["2023-W01", "2023-01-08"],
+		["2023-W52", "2023-12-31"],
+		["2024-W01", "2024-01-07"],
+		["2024-W52", "2024-12-29"],
+		["2025-W01", "2025-01-05"],
+	] as const)("last(%s) == %s", (week, expected) => {
+		expect(isoly.Week.last(week)).toEqual(expected)
 	})
 	it.each(["2024-W01", "2023-W01", "2022-W01", "2021-W01", "2020-W01", "2019-W01"] as const)(
 		"first -> from -> first for %s",

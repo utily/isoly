@@ -10,12 +10,12 @@ export namespace Week {
 	export import Number = WeekNumber
 	export import Parts = WeekParts
 	export const type = isly.named(
-		"Week",
+		"isoly.Week",
 		isly.string<Week>(value => {
 			const match = /^(\d{4})-W(\d{2})$/.exec(value) ?? []
 			return (
 				Date.Year.is(match[1]) &&
-				(WeekNumber.Numeric.parse(match[2]) ?? 54) <= WeekParts.lastWeek(globalThis.Number.parseInt(match[1]))
+				(WeekNumber.Numeric.parse(match[2]) ?? 54) <= WeekParts.lastWeek(Date.Year.parse(match[1]))
 			)
 		}, "YYYY-Www")
 	)
@@ -26,7 +26,7 @@ export namespace Week {
 		return week.split("-W").map(globalThis.Number) as [number, Week.Number.Numeric]
 	}
 	export function parts(week: Week): Parts {
-		const [y, w] = week.split("-W").map(globalThis.Number) as [number, Week.Number.Numeric]
+		const [y, w] = split(week)
 		return { year: y, week: w }
 	}
 	export function from(date: Date | Parts): Week {
