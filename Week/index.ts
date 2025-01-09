@@ -4,20 +4,29 @@ import { Date } from "../Date"
 import { Number as WeekNumber } from "./Number"
 import { Parts as WeekParts } from "./Parts"
 
-export type Week = `${number}-W${number}`
+export type Week = `${number}-W${Week.Number}`
 
 export namespace Week {
 	export import Number = WeekNumber
 	export import Parts = WeekParts
-	export const type = isly.named("Week", isly.string<Week>(/^\d{4}-W\d{2}$/))
+	export const type = isly.named(
+		"Week",
+		isly.string<Week>(value => {
+			const match = /^(\d{4})-W(\d{2})$/.exec(value) ?? []
+			return (
+				Date.Year.is(match[1]) &&
+				(WeekNumber.Numeric.parse(match[2]) ?? 54) <= WeekParts.lastWeek(globalThis.Number.parseInt(match[1]))
+			)
+		}, "YYYY-Www")
+	)
 	export const is = type.is
 	export const flaw = type.flaw
 
-	export function split(week: Week): [number, number] {
-		return week.split("-W").map(globalThis.Number) as [number, Week.Number]
+	export function split(week: Week): [number, Week.Number.Numeric] {
+		return week.split("-W").map(globalThis.Number) as [number, Week.Number.Numeric]
 	}
 	export function parts(week: Week): Parts {
-		const [y, w] = week.split("-W").map(globalThis.Number) as [number, Week.Number]
+		const [y, w] = week.split("-W").map(globalThis.Number) as [number, Week.Number.Numeric]
 		return { year: y, week: w }
 	}
 	export function from(date: Date | Parts): Week {

@@ -5,11 +5,11 @@ import { Number } from "./Number"
 
 export interface Parts {
 	year: number
-	week: Number
+	week: Number.Numeric
 }
 
 export namespace Parts {
-	export const type = isly.object<Parts>({ year: isly.number(), week: Number.type }, "isoly.Week.Parts")
+	export const type = isly.object<Parts>({ year: isly.number(), week: Number.Numeric.type }, "isoly.Week.Parts")
 	export const is = type.is
 	export const flaw = type.flaw
 
@@ -17,7 +17,7 @@ export namespace Parts {
 		const parsed = new globalThis.Date(date)
 		parsed.setUTCDate(parsed.getUTCDate() + 4 - (parsed.getUTCDay() || 7))
 		const start = new globalThis.Date(globalThis.Date.UTC(parsed.getUTCFullYear(), 0, 1))
-		const week = Math.ceil(((parsed.getTime() - start.getTime()) / 86400000 + 1) / 7) as Number
+		const week = Math.ceil(((parsed.getTime() - start.getTime()) / 86400000 + 1) / 7) as Number.Numeric
 		return { year: parsed.getUTCFullYear(), week }
 	}
 	export function now(): Parts {
@@ -47,5 +47,8 @@ export namespace Parts {
 	export function getDays(week: Parts): Date[] {
 		const monday = first(week)
 		return [...Array(7).keys()].map(day => Date.next(monday, day))
+	}
+	export function lastWeek(year: number): 52 | 53 {
+		return previous({ year: year + 1, week: 1 }).week as 52 | 53
 	}
 }
