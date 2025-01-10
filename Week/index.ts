@@ -1,6 +1,6 @@
-import { DayOfWeek } from "DayOfWeek"
 import { isly } from "isly"
 import { Date } from "../Date"
+import { DayOfWeek } from "../DayOfWeek"
 import { Number as WeekNumber } from "./Number"
 import { Parts as WeekParts } from "./Parts"
 
