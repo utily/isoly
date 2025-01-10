@@ -1,5 +1,5 @@
 import { isly } from "isly"
-import { DateSpan } from "./DateSpan"
+import { DateSpan } from "../DateSpan"
 
 export interface TimeSpan extends DateSpan {
 	hours?: number

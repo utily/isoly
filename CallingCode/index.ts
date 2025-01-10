@@ -1,5 +1,5 @@
 import { isly } from "isly"
-import { Alpha2 } from "./CountryCode"
+import { Alpha2 } from "../CountryCode"
 
 export type CallingCode = typeof CallingCode.values[number]
 

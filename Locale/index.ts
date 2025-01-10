@@ -1,6 +1,6 @@
 import { isly } from "isly"
-import { Alpha2 } from "./CountryCode"
-import { Language } from "./Language"
+import { Alpha2 } from "../CountryCode"
+import { Language } from "../Language"
 export type Locale = typeof Locale.values[number]
 
 export namespace Locale {

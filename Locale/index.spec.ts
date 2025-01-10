@@ -1,4 +1,4 @@
-import { isoly } from "./index"
+import { isoly } from "../index"
 
 describe("Locale", () => {
 	const swedish = "sv-SE"

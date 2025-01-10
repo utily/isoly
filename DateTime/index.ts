@@ -1,10 +1,9 @@
 import { isly } from "isly"
-import { Date } from "./Date"
-import { Locale } from "./Locale"
-import { Time } from "./Time"
-import { TimeSpan } from "./TimeSpan"
-import { TimeZone } from "./TimeZone"
-import { TimeZoneOffset } from "./TimeZoneOffset"
+import { Date } from "../Date"
+import { Locale } from "../Locale"
+import { Time } from "../Time"
+import { TimeSpan } from "../TimeSpan"
+import { TimeZone } from "../TimeZone"
 
 export type DateTime = string
 
@@ -13,7 +12,7 @@ export namespace DateTime {
 		"isoly.DateTime",
 		isly.string<DateTime>((value: string) => {
 			const { date, time, timeZoneOffset } = DateTime.split(value)
-			return Date.is(date) && Time.type.optional().is(time) && TimeZoneOffset.type.optional().is(timeZoneOffset)
+			return Date.is(date) && Time.type.optional().is(time) && TimeZone.Offset.type.optional().is(timeZoneOffset)
 		})
 	)
 	export const is = type.is
@@ -21,12 +20,12 @@ export namespace DateTime {
 	export function split(value: DateTime): {
 		date: Date
 		time: Time | undefined
-		timeZoneOffset: TimeZoneOffset | undefined
+		timeZoneOffset: TimeZone.Offset | undefined
 	} {
 		const [date, splitted] = value.split("T", 2) as [Date, string | undefined]
 		const [time, timeZoneOffset] = (splitted?.split(/(Z|[+-].{5})?$/, 2) ?? [undefined, undefined]) as [
 			Time | undefined,
-			TimeZoneOffset | undefined
+			TimeZone.Offset | undefined
 		]
 		return {
 			date,
@@ -157,12 +156,12 @@ export namespace DateTime {
 		return value.slice(0, 10) + "T23:59:59.999" + (DateTime.is(value) ? timeZoneOffset(value) || "Z" : "Z")
 	}
 	/** @deprecated Use timeZoneOffset() */
-	export function timeZone(value: DateTime): TimeZoneOffset | "" {
+	export function timeZone(value: DateTime): TimeZone.Offset | "" {
 		return timeZoneOffset(value)
 	}
-	export function timeZoneOffset(value: DateTime): TimeZoneOffset | "" {
+	export function timeZoneOffset(value: DateTime): TimeZone.Offset | "" {
 		const result = value[value.length - 1] == "Z" ? "Z" : value.substring(value.length - 6)
-		return TimeZoneOffset.is(result) ? result : ""
+		return TimeZone.Offset.is(result) ? result : ""
 	}
 	export function timeZoneShort(value: DateTime): number {
 		return parse(value).getTimezoneOffset()
