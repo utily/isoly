@@ -4,7 +4,7 @@ export class Utf8 extends Transcoder {
 	encode(data: string): Uint8Array {
 		return Uint8Array.from(unescape(encodeURIComponent(data)).split(""), c => c.charCodeAt(0))
 	}
-	decode(data: ArrayBufferView): string {
+	decode(data: ArrayBufferView | undefined): string {
 		return !data
 			? ""
 			: decodeURIComponent(
