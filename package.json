@@ -1,6 +1,6 @@
 {
 	"name": "isoly",
-	"version": "2.3.13",
+	"version": "2.3.13-fix.0",
 	"description": "Datatypes and functions specified by ISO-standards.",
 	"author": "Utily Contributors",
 	"license": "MIT",
