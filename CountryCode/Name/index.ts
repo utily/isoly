@@ -146,7 +146,9 @@ export namespace Name {
 			zh.parse(country)
 		)
 	}
-	export function from(language: Language, country: Alpha2 | Alpha3 | Numeric): string {
+	export function from(language: Language, country: Alpha2 | Alpha3 | Numeric): string
+	export function from(language: Language, country: string | number): string | undefined
+	export function from(language: Language, country: string | number): string | undefined {
 		return (
 			{
 				ar: ar.from,
@@ -195,7 +197,7 @@ export namespace Name {
 				uk: uk.from,
 				uz: uz.from,
 				zh: zh.from,
-			} as Record<Language, (country: Alpha2 | Alpha3 | Numeric) => string>
+			} as Record<Language, (country: string | number) => string | undefined>
 		)[language](country)
 	}
 	export const languages = [

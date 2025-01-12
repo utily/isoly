@@ -3,11 +3,12 @@ import { Alpha3 } from "../Alpha3"
 import { Numeric } from "../Numeric"
 
 export namespace ky {
-	export function from(country: Alpha2 | Alpha3 | Numeric): string {
-		return (
-			(names as Record<Alpha2 | Alpha3 | Numeric, string | undefined>)[country] ??
-			from(Alpha2.from(country as Alpha3 | Numeric))
-		)
+	export function from(country: Alpha2 | Alpha3 | Numeric): string
+	export function from(country: string | number): string | undefined
+	export function from(country: string | number): string | undefined {
+		const c =
+			(typeof country == "string" && country.length == 3) || typeof country == "number" ? Alpha2.from(country) : country
+		return c ? (names as Record<string | number, string | undefined>)[c] : undefined
 	}
 	export function parse(country: string): Alpha2 | undefined {
 		return (Object.entries(names) as [Alpha2, string][]).find(

@@ -11,6 +11,12 @@ describe("isoly.CountryCode.Name", () => {
 	it.each(isoly.CountryCode.Name.languages)('from(%s, "DE")', language =>
 		expect(isoly.CountryCode.Name.from(language, "DE")).toMatchSnapshot()
 	)
+	it.each(isoly.CountryCode.Name.languages)('from(%s, "SWE")', language =>
+		expect(isoly.CountryCode.Name.from(language, "SWE")).toMatchSnapshot()
+	)
+	it.each(isoly.CountryCode.Name.languages)('from(%s, "XXX")', language =>
+		expect(isoly.CountryCode.Name.from(language, "XXX" as any)).toBeUndefined()
+	)
 	it.each([
 		["en", "DEU", "Germany"],
 		["fr", "DEU", "Allemagne"],

@@ -22,14 +22,14 @@ describe("CountryCode", () => {
 	it("is not Alpha3", () => expect(isoly.CountryCode.Alpha3.is("Swe")).toBe(false))
 	it("is Numeric", () => expect(isoly.CountryCode.Numeric.is(752)).toBe(true))
 	it("is not Numeric", () => expect(isoly.CountryCode.Alpha3.is(42)).toBe(false))
-	it.each(isoly.CountryCode.Alpha2.values)("Data consistency Alpha2 %i", a2 => {
+	it.each(isoly.CountryCode.Alpha2.values)("Data consistency Alpha2 %s", a2 => {
 		expect(isoly.CountryCode.Alpha2.is(a2)).toBe(true)
 		expect(isoly.CountryCode.Alpha3.is(a2)).toBe(false)
 		expect(isoly.CountryCode.Numeric.is(a2)).toBe(false)
 		expect(isoly.CountryCode.Alpha2.from(isoly.CountryCode.Numeric.from(isoly.CountryCode.Alpha3.from(a2)))).toBe(a2)
 		expect(isoly.CountryCode.Alpha2.from(isoly.CountryCode.Alpha3.from(isoly.CountryCode.Numeric.from(a2)))).toBe(a2)
 	})
-	it.each(isoly.CountryCode.Alpha3.values)("Data consistency Alpha3 %i", a3 => {
+	it.each(isoly.CountryCode.Alpha3.values)("Data consistency Alpha3 %s", a3 => {
 		expect(isoly.CountryCode.Alpha2.is(a3)).toBe(false)
 		expect(isoly.CountryCode.Alpha3.is(a3)).toBe(true)
 		expect(isoly.CountryCode.Numeric.is(a3)).toBe(false)
