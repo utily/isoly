@@ -1,7 +1,7 @@
 {
 	"name": "isoly",
 	"version": "2.3.14",
-	"description": "Datatypes and functions specified by ISO-standards.",
+	"description": "Datatypes and functions specified by ISO-standards. (deprecated version)",
 	"author": "Utily Contributors",
 	"license": "MIT",
 	"private": false,
