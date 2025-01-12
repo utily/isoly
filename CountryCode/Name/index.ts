@@ -50,52 +50,73 @@ import { uz as NameUz } from "./uz"
 import { zh as NameZh } from "./zh"
 
 export namespace Name {
-	export import ar = NameAr
-	export import az = NameAz
-	export import be = NameBe
-	export import bg = NameBg
-	export import bs = NameBs
-	export import ca = NameCa
-	export import cs = NameCs
-	export import da = NameDa
-	export import de = NameDe
-	export import el = NameEl
-	export import en = NameEn
-	export import es = NameEs
-	export import et = NameEt
-	export import fa = NameFa
-	export import fi = NameFi
-	export import fr = NameFr
-	export import he = NameHe
-	export import hr = NameHr
-	export import hu = NameHu
-	export import hy = NameHy
-	export import id = NameId
-	export import it = NameIt
-	export import ja = NameJa
-	export import ka = NameKa
-	export import kk = NameKk
-	export import ko = NameKo
-	export import ky = NameKy
-	export import lt = NameLt
-	export import lv = NameLv
-	export import mk = NameMk
-	export import mn = NameMn
-	export import nb = NameNb
-	export import nl = NameNl
-	export import nn = NameNn
-	export import pl = NamePl
-	export import pt = NamePt
-	export import ro = NameRo
-	export import ru = NameRu
-	export import sk = NameSk
-	export import sl = NameSl
-	export import sr = NameSr
-	export import sv = NameSv
-	export import tr = NameTr
-	export import uk = NameUk
-	export import uz = NameUz
-	export import zh = NameZh
+	interface LanguageObject {
+		from(country: Alpha2 | Alpha3 | Numeric): string
+		from(country: string | number): string | undefined
+		parse(country: string): Alpha2 | undefined
+	}
+	function generate(names: Record<Alpha2, string>): LanguageObject {
+		return {
+			from: (country: string | number): string | undefined => {
+				const c =
+					(typeof country == "string" && country.length == 3) || typeof country == "number"
+						? Alpha2.from(country)
+						: country
+				return c ? (names as Record<string | number, string | undefined>)[c] : undefined
+			},
+			parse: (country: string): Alpha2 | undefined => {
+				return (Object.entries(names) as [Alpha2, string][]).find(
+					entry => entry[1].toLowerCase() == country.toLowerCase()
+				)?.[0]
+			},
+		} as LanguageObject
+	}
+	export const ar = generate(NameAr.names)
+	export const az = generate(NameAz.names)
+	export const be = generate(NameBe.names)
+	export const bg = generate(NameBg.names)
+	export const bs = generate(NameBs.names)
+	export const ca = generate(NameCa.names)
+	export const cs = generate(NameCs.names)
+	export const da = generate(NameDa.names)
+	export const de = generate(NameDe.names)
+	export const el = generate(NameEl.names)
+	export const en = generate(NameEn.names)
+	export const es = generate(NameEs.names)
+	export const et = generate(NameEt.names)
+	export const fa = generate(NameFa.names)
+	export const fi = generate(NameFi.names)
+	export const fr = generate(NameFr.names)
+	export const he = generate(NameHe.names)
+	export const hr = generate(NameHr.names)
+	export const hu = generate(NameHu.names)
+	export const hy = generate(NameHy.names)
+	export const id = generate(NameId.names)
+	export const it = generate(NameIt.names)
+	export const ja = generate(NameJa.names)
+	export const ka = generate(NameKa.names)
+	export const kk = generate(NameKk.names)
+	export const ko = generate(NameKo.names)
+	export const ky = generate(NameKy.names)
+	export const lt = generate(NameLt.names)
+	export const lv = generate(NameLv.names)
+	export const mk = generate(NameMk.names)
+	export const mn = generate(NameMn.names)
+	export const nb = generate(NameNb.names)
+	export const nl = generate(NameNl.names)
+	export const nn = generate(NameNn.names)
+	export const pl = generate(NamePl.names)
+	export const pt = generate(NamePt.names)
+	export const ro = generate(NameRo.names)
+	export const ru = generate(NameRu.names)
+	export const sk = generate(NameSk.names)
+	export const sl = generate(NameSl.names)
+	export const sr = generate(NameSr.names)
+	export const sv = generate(NameSv.names)
+	export const tr = generate(NameTr.names)
+	export const uk = generate(NameUk.names)
+	export const uz = generate(NameUz.names)
+	export const zh = generate(NameZh.names)
 	export function parse(country: string): Alpha2 | undefined {
 		return (
 			ar.parse(country) ??
