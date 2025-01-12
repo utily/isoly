@@ -63,46 +63,42 @@ export namespace DateTime {
 			}
 			value = new globalThis.Date(value)
 		}
-		return fixIncorrect(value.toISOString())
+		return fix(value.toISOString())
 	}
-	export function fixIncorrect(value: DateTime | string): DateTime {
+	export function fix(value: DateTime | string): DateTime {
 		if (value.length == 22 && value.match(/\.\dZ$/))
 			value = value.substring(0, 21) + "00Z"
 		else if (value.length == 23 && value.match(/\.\d\dZ$/))
 			value = value.substring(0, 22) + "0Z"
 		return value
 	}
+	/** @deprecated */
+	export const fixIncorrect = fix
 	/**
 	 * Return local time with offset.
 	 * Note: During DST-change, this might be wrong.
 	 */
-	export function fromLocalDateTime(localDateTime: DateTime, timeZone: TimeZone) {
+	export function fromLocal(local: DateTime, timeZone: TimeZone) {
 		// Cut off any time-zone-information:
 		// TODO: Use the information, and just change offset.
-		localDateTime = localDateTime.replace(/(Z|([+-].{5}))?$/, "")
-
+		local = local.replace(/(Z|([+-].{5}))?$/, "")
 		// Create a Date object with the specified time as UTC
-		const utcDateTime = new globalThis.Date(`${localDateTime}Z`)
-
+		const utcDateTime = new globalThis.Date(`${local}Z`)
 		const localDate = new globalThis.Date(
 			utcDateTime.toLocaleString("sv-SE", { timeZone: timeZone }).replace(" ", "T") + "Z"
 		)
-
 		// Calculate the time difference in minutes
 		const diffInMinutes = (localDate.getTime() - utcDateTime.getTime()) / 60000
-
 		// Calculate the timezone's offset in hours and minutes
 		const offsetHours = Math.floor(Math.abs(diffInMinutes) / 60)
 			.toString()
 			.padStart(2, "0")
 		const offsetMinutes = (Math.abs(diffInMinutes) % 60).toString().padStart(2, "0")
-
-		// Create the timezone string
 		const timeZoneString = `${diffInMinutes >= 0 ? "+" : "-"}${offsetHours}:${offsetMinutes}`
-
-		// Return the formatted date string with timezone information
-		return `${localDateTime}${timeZoneString}`
+		return `${local}${timeZoneString}`
 	}
+	/** @deprecated */
+	export const fromLocalDateTime = fromLocal
 	export function now(): DateTime {
 		return create(new globalThis.Date())
 	}
@@ -155,14 +151,12 @@ export namespace DateTime {
 	export function endOfDay(value: DateTime | Date): DateTime {
 		return value.slice(0, 10) + "T23:59:59.999" + (DateTime.is(value) ? timeZoneOffset(value) || "Z" : "Z")
 	}
-	/** @deprecated Use timeZoneOffset() */
-	export function timeZone(value: DateTime): TimeZone.Offset | "" {
-		return timeZoneOffset(value)
-	}
 	export function timeZoneOffset(value: DateTime): TimeZone.Offset | "" {
 		const result = value[value.length - 1] == "Z" ? "Z" : value.substring(value.length - 6)
 		return TimeZone.Offset.is(result) ? result : ""
 	}
+	/** @deprecated Use timeZoneOffset() */
+	export const timeZone = timeZoneOffset
 	export function timeZoneShort(value: DateTime): number {
 		return parse(value).getTimezoneOffset()
 	}
