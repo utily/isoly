@@ -25,8 +25,8 @@ jobs:
         run: npm run build
       - name: Publish
         run: |
-          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc  
-          npm publish --access public
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+          npm publish --access public --tag release
         shell: bash
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
