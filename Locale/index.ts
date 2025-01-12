@@ -1,5 +1,5 @@
 import { isly } from "isly"
-import { Alpha2 } from "../CountryCode"
+import { CountryCode } from "../CountryCode"
 import { Language } from "../Language"
 export type Locale = typeof Locale.values[number]
 
@@ -224,11 +224,13 @@ export namespace Locale {
 		const result = locale.split("-").shift()
 		return Language.is(result) ? result : undefined
 	}
-	export function toAlpha2(locale: Locale): Alpha2 | undefined {
+	export function toCountry(locale: Locale): CountryCode.Alpha2 | undefined {
 		const result = locale.split("-").pop()
-		return Alpha2.is(result) ? result : undefined
+		return CountryCode.Alpha2.is(result) ? result : undefined
 	}
-	export function toLocale(language: Language, alpha2?: Alpha2): Locale | undefined {
+	/** @deprecated */
+	export const toAlpha2 = toCountry
+	export function toLocale(language: Language, alpha2?: CountryCode.Alpha2): Locale | undefined {
 		const result = alpha2
 			? language + "-" + alpha2
 			: (

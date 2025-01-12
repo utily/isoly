@@ -298,7 +298,6 @@ export namespace Alpha2 {
 		].includes(country)
 	}
 }
-
 const numericToAlpha2: Record<Numeric, Alpha2> = {
 	"4": "AF",
 	"248": "AX",

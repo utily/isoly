@@ -1,0 +1,109 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`isoly.CountryCode.Name > from(ar, "DE") 1`] = `"ألمانيا"`;
+
+exports[`isoly.CountryCode.Name > from(ar, "DE") 2`] = `"ألمانيا"`;
+
+exports[`isoly.CountryCode.Name > from(az, "DE") 1`] = `"Almaniya"`;
+
+exports[`isoly.CountryCode.Name > from(az, "DE") 2`] = `"Almaniya"`;
+
+exports[`isoly.CountryCode.Name > from(be, "DE") 1`] = `"Германія"`;
+
+exports[`isoly.CountryCode.Name > from(be, "DE") 2`] = `"Германія"`;
+
+exports[`isoly.CountryCode.Name > from(bg, "DE") 1`] = `"Германия"`;
+
+exports[`isoly.CountryCode.Name > from(bs, "DE") 1`] = `"Njemačka"`;
+
+exports[`isoly.CountryCode.Name > from(ca, "DE") 1`] = `"Alemanya"`;
+
+exports[`isoly.CountryCode.Name > from(cs, "DE") 1`] = `"Německo"`;
+
+exports[`isoly.CountryCode.Name > from(da, "DE") 1`] = `"Tyskland"`;
+
+exports[`isoly.CountryCode.Name > from(de, "DE") 1`] = `"Deutschland"`;
+
+exports[`isoly.CountryCode.Name > from(de, "DE") 2`] = `"Deutschland"`;
+
+exports[`isoly.CountryCode.Name > from(el, "DE") 1`] = `"Γερμανία"`;
+
+exports[`isoly.CountryCode.Name > from(en, "DE") 1`] = `"Germany"`;
+
+exports[`isoly.CountryCode.Name > from(en, "DE") 2`] = `"Germany"`;
+
+exports[`isoly.CountryCode.Name > from(es, "DE") 1`] = `"Alemania"`;
+
+exports[`isoly.CountryCode.Name > from(et, "DE") 1`] = `"Saksamaa"`;
+
+exports[`isoly.CountryCode.Name > from(fa, "DE") 1`] = `"آلمان"`;
+
+exports[`isoly.CountryCode.Name > from(fi, "DE") 1`] = `"Saksa"`;
+
+exports[`isoly.CountryCode.Name > from(fi, "DE") 2`] = `"Saksa"`;
+
+exports[`isoly.CountryCode.Name > from(fr, "DE") 1`] = `"Allemagne"`;
+
+exports[`isoly.CountryCode.Name > from(he, "DE") 1`] = `"גרמניה"`;
+
+exports[`isoly.CountryCode.Name > from(he, "DE") 2`] = `"גרמניה"`;
+
+exports[`isoly.CountryCode.Name > from(hr, "DE") 1`] = `"Njemačka"`;
+
+exports[`isoly.CountryCode.Name > from(hu, "DE") 1`] = `"Németország"`;
+
+exports[`isoly.CountryCode.Name > from(hy, "DE") 1`] = `"Գերմանիա"`;
+
+exports[`isoly.CountryCode.Name > from(id, "DE") 1`] = `"Jerman"`;
+
+exports[`isoly.CountryCode.Name > from(it, "DE") 1`] = `"Germania"`;
+
+exports[`isoly.CountryCode.Name > from(ja, "DE") 1`] = `"ドイツ"`;
+
+exports[`isoly.CountryCode.Name > from(ka, "DE") 1`] = `"გერმანია"`;
+
+exports[`isoly.CountryCode.Name > from(kk, "DE") 1`] = `"Германия"`;
+
+exports[`isoly.CountryCode.Name > from(ko, "DE") 1`] = `"독일"`;
+
+exports[`isoly.CountryCode.Name > from(ky, "DE") 1`] = `"Германия"`;
+
+exports[`isoly.CountryCode.Name > from(lt, "DE") 1`] = `"Vokietija"`;
+
+exports[`isoly.CountryCode.Name > from(lv, "DE") 1`] = `"Vācija"`;
+
+exports[`isoly.CountryCode.Name > from(mk, "DE") 1`] = `"Германија"`;
+
+exports[`isoly.CountryCode.Name > from(mn, "DE") 1`] = `"Герман"`;
+
+exports[`isoly.CountryCode.Name > from(nb, "DE") 1`] = `"Tyskland"`;
+
+exports[`isoly.CountryCode.Name > from(nl, "DE") 1`] = `"Duitsland"`;
+
+exports[`isoly.CountryCode.Name > from(nn, "DE") 1`] = `"Tyskland"`;
+
+exports[`isoly.CountryCode.Name > from(pl, "DE") 1`] = `"Niemcy"`;
+
+exports[`isoly.CountryCode.Name > from(pt, "DE") 1`] = `"Alemanha"`;
+
+exports[`isoly.CountryCode.Name > from(ro, "DE") 1`] = `"Germania"`;
+
+exports[`isoly.CountryCode.Name > from(ru, "DE") 1`] = `"Германия"`;
+
+exports[`isoly.CountryCode.Name > from(sk, "DE") 1`] = `"Nemecko"`;
+
+exports[`isoly.CountryCode.Name > from(sl, "DE") 1`] = `"Nemčija"`;
+
+exports[`isoly.CountryCode.Name > from(sr, "DE") 1`] = `"Немачка"`;
+
+exports[`isoly.CountryCode.Name > from(sv, "DE") 1`] = `"Tyskland"`;
+
+exports[`isoly.CountryCode.Name > from(sv, "DE") 2`] = `"Tyskland"`;
+
+exports[`isoly.CountryCode.Name > from(tr, "DE") 1`] = `"Almanya"`;
+
+exports[`isoly.CountryCode.Name > from(uk, "DE") 1`] = `"Німеччина"`;
+
+exports[`isoly.CountryCode.Name > from(uz, "DE") 1`] = `"Germaniya"`;
+
+exports[`isoly.CountryCode.Name > from(zh, "DE") 1`] = `"德国"`;

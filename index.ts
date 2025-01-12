@@ -1,6 +1,6 @@
 import { Address as isolyAddress } from "./Address"
 import { CallingCode as isolyCallingCode } from "./CallingCode"
-import * as isolyCountryCode from "./CountryCode"
+import { CountryCode as isolyCountryCode } from "./CountryCode"
 import { Currency as isolyCurrency } from "./Currency"
 import { Date as isolyDate } from "./Date"
 import { DateRange as isolyDateRange } from "./DateRange"

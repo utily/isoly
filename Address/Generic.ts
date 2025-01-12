@@ -1,5 +1,5 @@
 import { isly } from "isly"
-import * as CountryCode from "../CountryCode"
+import { CountryCode } from "../CountryCode"
 
 export type Generic = {
 	countryCode: CountryCode.Alpha2

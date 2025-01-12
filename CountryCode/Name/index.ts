@@ -2,295 +2,248 @@ import { Language } from "../../Language"
 import { Alpha2 } from "../Alpha2"
 import { Alpha3 } from "../Alpha3"
 import { Numeric } from "../Numeric"
-import * as ar from "./ar"
-import * as az from "./az"
-import * as be from "./be"
-import * as bg from "./bg"
-import * as bs from "./bs"
-import * as ca from "./ca"
-import * as cs from "./cs"
-import * as da from "./da"
-import * as de from "./de"
-import * as el from "./el"
-import * as en from "./en"
-import * as es from "./es"
-import * as et from "./et"
-import * as fa from "./fa"
-import * as fi from "./fi"
-import * as fr from "./fr"
-import * as he from "./he"
-import * as hr from "./hr"
-import * as hu from "./hu"
-import * as hy from "./hy"
-import * as id from "./id"
-import * as it from "./it"
-import * as ja from "./ja"
-import * as ka from "./ka"
-import * as kk from "./kk"
-import * as ko from "./ko"
-import * as ky from "./ky"
-import * as lt from "./lt"
-import * as lv from "./lv"
-import * as mk from "./mk"
-import * as mn from "./mn"
-import * as nb from "./nb"
-import * as nl from "./nl"
-import * as nn from "./nn"
-import * as pl from "./pl"
-import * as pt from "./pt"
-import * as ro from "./ro"
-import * as ru from "./ru"
-import * as sk from "./sk"
-import * as sl from "./sl"
-import * as sr from "./sr"
-import * as sv from "./sv"
-import * as tr from "./tr"
-import * as uk from "./uk"
-import * as uz from "./uz"
-import * as zh from "./zh"
+import { ar as NameAr } from "./ar"
+import { az as NameAz } from "./az"
+import { be as NameBe } from "./be"
+import { bg as NameBg } from "./bg"
+import { bs as NameBs } from "./bs"
+import { ca as NameCa } from "./ca"
+import { cs as NameCs } from "./cs"
+import { da as NameDa } from "./da"
+import { de as NameDe } from "./de"
+import { el as NameEl } from "./el"
+import { en as NameEn } from "./en"
+import { es as NameEs } from "./es"
+import { et as NameEt } from "./et"
+import { fa as NameFa } from "./fa"
+import { fi as NameFi } from "./fi"
+import { fr as NameFr } from "./fr"
+import { he as NameHe } from "./he"
+import { hr as NameHr } from "./hr"
+import { hu as NameHu } from "./hu"
+import { hy as NameHy } from "./hy"
+import { id as NameId } from "./id"
+import { it as NameIt } from "./it"
+import { ja as NameJa } from "./ja"
+import { ka as NameKa } from "./ka"
+import { kk as NameKk } from "./kk"
+import { ko as NameKo } from "./ko"
+import { ky as NameKy } from "./ky"
+import { lt as NameLt } from "./lt"
+import { lv as NameLv } from "./lv"
+import { mk as NameMk } from "./mk"
+import { mn as NameMn } from "./mn"
+import { nb as NameNb } from "./nb"
+import { nl as NameNl } from "./nl"
+import { nn as NameNn } from "./nn"
+import { pl as NamePl } from "./pl"
+import { pt as NamePt } from "./pt"
+import { ro as NameRo } from "./ro"
+import { ru as NameRu } from "./ru"
+import { sk as NameSk } from "./sk"
+import { sl as NameSl } from "./sl"
+import { sr as NameSr } from "./sr"
+import { sv as NameSv } from "./sv"
+import { tr as NameTr } from "./tr"
+import { uk as NameUk } from "./uk"
+import { uz as NameUz } from "./uz"
+import { zh as NameZh } from "./zh"
 
-function parse(country: string): Alpha2 | undefined {
-	return (
-		ar.parse(country) ||
-		az.parse(country) ||
-		be.parse(country) ||
-		bg.parse(country) ||
-		bs.parse(country) ||
-		ca.parse(country) ||
-		cs.parse(country) ||
-		da.parse(country) ||
-		de.parse(country) ||
-		el.parse(country) ||
-		en.parse(country) ||
-		es.parse(country) ||
-		et.parse(country) ||
-		fa.parse(country) ||
-		fi.parse(country) ||
-		fr.parse(country) ||
-		he.parse(country) ||
-		hr.parse(country) ||
-		hu.parse(country) ||
-		hy.parse(country) ||
-		id.parse(country) ||
-		it.parse(country) ||
-		ja.parse(country) ||
-		ka.parse(country) ||
-		kk.parse(country) ||
-		ko.parse(country) ||
-		ky.parse(country) ||
-		lt.parse(country) ||
-		lv.parse(country) ||
-		mk.parse(country) ||
-		mn.parse(country) ||
-		nb.parse(country) ||
-		nl.parse(country) ||
-		nn.parse(country) ||
-		pl.parse(country) ||
-		pt.parse(country) ||
-		ro.parse(country) ||
-		ru.parse(country) ||
-		sk.parse(country) ||
-		sl.parse(country) ||
-		sr.parse(country) ||
-		sv.parse(country) ||
-		tr.parse(country) ||
-		uk.parse(country) ||
-		uz.parse(country) ||
-		zh.parse(country)
-	)
-}
-function from(language: Language, country: Alpha2 | Alpha3 | Numeric): string {
-	let result: string
-	switch (language) {
-		case "ar":
-			result = ar.from(country)
-			break
-		case "az":
-			result = az.from(country)
-			break
-		case "be":
-			result = be.from(country)
-			break
-		case "bg":
-			result = bg.from(country)
-			break
-		case "bs":
-			result = bs.from(country)
-			break
-		case "ca":
-			result = ca.from(country)
-			break
-		case "cs":
-			result = cs.from(country)
-			break
-		case "da":
-			result = da.from(country)
-			break
-		case "de":
-			result = de.from(country)
-			break
-		case "el":
-			result = el.from(country)
-			break
-		default:
-		case "en":
-			result = en.from(country)
-			break
-		case "es":
-			result = es.from(country)
-			break
-		case "et":
-			result = et.from(country)
-			break
-		case "fa":
-			result = fa.from(country)
-			break
-		case "fi":
-			result = fi.from(country)
-			break
-		case "fr":
-			result = fr.from(country)
-			break
-		case "he":
-			result = he.from(country)
-			break
-		case "hr":
-			result = hr.from(country)
-			break
-		case "hu":
-			result = hu.from(country)
-			break
-		case "hy":
-			result = hy.from(country)
-			break
-		case "id":
-			result = id.from(country)
-			break
-		case "it":
-			result = it.from(country)
-			break
-		case "ja":
-			result = ja.from(country)
-			break
-		case "ka":
-			result = ka.from(country)
-			break
-		case "kk":
-			result = kk.from(country)
-			break
-		case "ko":
-			result = ko.from(country)
-			break
-		case "ky":
-			result = ky.from(country)
-			break
-		case "lt":
-			result = lt.from(country)
-			break
-		case "lv":
-			result = lv.from(country)
-			break
-		case "mk":
-			result = mk.from(country)
-			break
-		case "mn":
-			result = mn.from(country)
-			break
-		case "nb":
-			result = nb.from(country)
-			break
-		case "nl":
-			result = nl.from(country)
-			break
-		case "nn":
-			result = nn.from(country)
-			break
-		case "pl":
-			result = pl.from(country)
-			break
-		case "pt":
-			result = pt.from(country)
-			break
-		case "ro":
-			result = ro.from(country)
-			break
-		case "ru":
-			result = ru.from(country)
-			break
-		case "sk":
-			result = sk.from(country)
-			break
-		case "sl":
-			result = sl.from(country)
-			break
-		case "sr":
-			result = sr.from(country)
-			break
-		case "sv":
-			result = sv.from(country)
-			break
-		case "tr":
-			result = tr.from(country)
-			break
-		case "uk":
-			result = uk.from(country)
-			break
-		case "uz":
-			result = uz.from(country)
-			break
-		case "zh":
-			result = zh.from(country)
-			break
+export namespace Name {
+	export import ar = NameAr
+	export import az = NameAz
+	export import be = NameBe
+	export import bg = NameBg
+	export import bs = NameBs
+	export import ca = NameCa
+	export import cs = NameCs
+	export import da = NameDa
+	export import de = NameDe
+	export import el = NameEl
+	export import en = NameEn
+	export import es = NameEs
+	export import et = NameEt
+	export import fa = NameFa
+	export import fi = NameFi
+	export import fr = NameFr
+	export import he = NameHe
+	export import hr = NameHr
+	export import hu = NameHu
+	export import hy = NameHy
+	export import id = NameId
+	export import it = NameIt
+	export import ja = NameJa
+	export import ka = NameKa
+	export import kk = NameKk
+	export import ko = NameKo
+	export import ky = NameKy
+	export import lt = NameLt
+	export import lv = NameLv
+	export import mk = NameMk
+	export import mn = NameMn
+	export import nb = NameNb
+	export import nl = NameNl
+	export import nn = NameNn
+	export import pl = NamePl
+	export import pt = NamePt
+	export import ro = NameRo
+	export import ru = NameRu
+	export import sk = NameSk
+	export import sl = NameSl
+	export import sr = NameSr
+	export import sv = NameSv
+	export import tr = NameTr
+	export import uk = NameUk
+	export import uz = NameUz
+	export import zh = NameZh
+	export function parse(country: string): Alpha2 | undefined {
+		return (
+			ar.parse(country) ??
+			az.parse(country) ??
+			be.parse(country) ??
+			bg.parse(country) ??
+			bs.parse(country) ??
+			ca.parse(country) ??
+			cs.parse(country) ??
+			da.parse(country) ??
+			de.parse(country) ??
+			el.parse(country) ??
+			en.parse(country) ??
+			es.parse(country) ??
+			et.parse(country) ??
+			fa.parse(country) ??
+			fi.parse(country) ??
+			fr.parse(country) ??
+			he.parse(country) ??
+			hr.parse(country) ??
+			hu.parse(country) ??
+			hy.parse(country) ??
+			id.parse(country) ??
+			it.parse(country) ??
+			ja.parse(country) ??
+			ka.parse(country) ??
+			kk.parse(country) ??
+			ko.parse(country) ??
+			ky.parse(country) ??
+			lt.parse(country) ??
+			lv.parse(country) ??
+			mk.parse(country) ??
+			mn.parse(country) ??
+			nb.parse(country) ??
+			nl.parse(country) ??
+			nn.parse(country) ??
+			pl.parse(country) ??
+			pt.parse(country) ??
+			ro.parse(country) ??
+			ru.parse(country) ??
+			sk.parse(country) ??
+			sl.parse(country) ??
+			sr.parse(country) ??
+			sv.parse(country) ??
+			tr.parse(country) ??
+			uk.parse(country) ??
+			uz.parse(country) ??
+			zh.parse(country)
+		)
 	}
-	return result
-}
-export {
-	ar,
-	az,
-	be,
-	bg,
-	bs,
-	ca,
-	cs,
-	da,
-	de,
-	el,
-	en,
-	es,
-	et,
-	fa,
-	fi,
-	fr,
-	he,
-	hr,
-	hu,
-	hy,
-	id,
-	it,
-	ja,
-	ka,
-	kk,
-	ko,
-	ky,
-	lt,
-	lv,
-	mk,
-	mn,
-	nb,
-	nl,
-	nn,
-	pl,
-	pt,
-	ro,
-	ru,
-	sk,
-	sl,
-	sr,
-	sv,
-	tr,
-	uk,
-	uz,
-	zh,
-	from,
-	parse,
+	export function from(language: Language, country: Alpha2 | Alpha3 | Numeric): string {
+		return (
+			{
+				ar: ar.from,
+				az: az.from,
+				be: be.from,
+				bg: bg.from,
+				bs: bs.from,
+				ca: ca.from,
+				cs: cs.from,
+				da: da.from,
+				de: de.from,
+				el: el.from,
+				en: en.from,
+				es: es.from,
+				et: et.from,
+				fa: fa.from,
+				fi: fi.from,
+				fr: fr.from,
+				he: he.from,
+				hr: hr.from,
+				hu: hu.from,
+				hy: hy.from,
+				id: id.from,
+				it: it.from,
+				ja: ja.from,
+				ka: ka.from,
+				kk: kk.from,
+				ko: ko.from,
+				ky: ky.from,
+				lt: lt.from,
+				lv: lv.from,
+				mk: mk.from,
+				mn: mn.from,
+				nb: nb.from,
+				nl: nl.from,
+				nn: nn.from,
+				pl: pl.from,
+				pt: pt.from,
+				ro: ro.from,
+				ru: ru.from,
+				sk: sk.from,
+				sl: sl.from,
+				sr: sr.from,
+				sv: sv.from,
+				tr: tr.from,
+				uk: uk.from,
+				uz: uz.from,
+				zh: zh.from,
+			} as Record<Language, (country: Alpha2 | Alpha3 | Numeric) => string>
+		)[language](country)
+	}
+	export const languages = [
+		"ar",
+		"az",
+		"be",
+		"bg",
+		"bs",
+		"ca",
+		"cs",
+		"da",
+		"de",
+		"el",
+		"en",
+		"es",
+		"et",
+		"fa",
+		"fi",
+		"fr",
+		"he",
+		"hr",
+		"hu",
+		"hy",
+		"id",
+		"it",
+		"ja",
+		"ka",
+		"kk",
+		"ko",
+		"ky",
+		"lt",
+		"lv",
+		"mk",
+		"mn",
+		"nb",
+		"nl",
+		"nn",
+		"pl",
+		"pt",
+		"ro",
+		"ru",
+		"sk",
+		"sl",
+		"sr",
+		"sv",
+		"tr",
+		"uk",
+		"uz",
+		"zh",
+	] as const
 }
