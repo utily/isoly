@@ -1,0 +1,359 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Currency > name(AED) == %s 1`] = `"United Arab Emirates dirham"`;
+
+exports[`Currency > name(AFN) == %s 1`] = `"Afghan afghani"`;
+
+exports[`Currency > name(ALL) == %s 1`] = `"Albanian lek"`;
+
+exports[`Currency > name(AMD) == %s 1`] = `"Armenian dram"`;
+
+exports[`Currency > name(ANG) == %s 1`] = `"Netherlands Antillean guilder"`;
+
+exports[`Currency > name(AOA) == %s 1`] = `"Angolan kwanza"`;
+
+exports[`Currency > name(ARS) == %s 1`] = `"Argentine peso"`;
+
+exports[`Currency > name(AUD) == %s 1`] = `"Australian dollar"`;
+
+exports[`Currency > name(AWG) == %s 1`] = `"Aruban florin"`;
+
+exports[`Currency > name(AZN) == %s 1`] = `"Azerbaijani manat"`;
+
+exports[`Currency > name(BAM) == %s 1`] = `"Bosnia and Herzegovina convertible mark"`;
+
+exports[`Currency > name(BBD) == %s 1`] = `"Barbados dollar"`;
+
+exports[`Currency > name(BDT) == %s 1`] = `"Bangladeshi taka"`;
+
+exports[`Currency > name(BGN) == %s 1`] = `"Bulgarian lev"`;
+
+exports[`Currency > name(BHD) == %s 1`] = `"Bahraini dinar"`;
+
+exports[`Currency > name(BIF) == %s 1`] = `"Burundian franc"`;
+
+exports[`Currency > name(BMD) == %s 1`] = `"Bermudian dollar"`;
+
+exports[`Currency > name(BND) == %s 1`] = `"Brunei dollar"`;
+
+exports[`Currency > name(BOB) == %s 1`] = `"Boliviano"`;
+
+exports[`Currency > name(BOV) == %s 1`] = `"Bolivian Mvdol"`;
+
+exports[`Currency > name(BRL) == %s 1`] = `"Brazilian real"`;
+
+exports[`Currency > name(BSD) == %s 1`] = `"Bahamian dollar"`;
+
+exports[`Currency > name(BTN) == %s 1`] = `"Bhutanese ngultrum"`;
+
+exports[`Currency > name(BWP) == %s 1`] = `"Botswana pula"`;
+
+exports[`Currency > name(BYN) == %s 1`] = `"Belarusian ruble"`;
+
+exports[`Currency > name(BZD) == %s 1`] = `"Belize dollar"`;
+
+exports[`Currency > name(CAD) == %s 1`] = `"Canadian dollar"`;
+
+exports[`Currency > name(CDF) == %s 1`] = `"Congolese franc"`;
+
+exports[`Currency > name(CHE) == %s 1`] = `"WIR euro"`;
+
+exports[`Currency > name(CHF) == %s 1`] = `"Swiss franc"`;
+
+exports[`Currency > name(CHW) == %s 1`] = `"WIR franc"`;
+
+exports[`Currency > name(CLF) == %s 1`] = `"Unidad de Fomento"`;
+
+exports[`Currency > name(CLP) == %s 1`] = `"Chilean peso"`;
+
+exports[`Currency > name(CNY) == %s 1`] = `"Renminbi"`;
+
+exports[`Currency > name(COP) == %s 1`] = `"Colombian peso"`;
+
+exports[`Currency > name(COU) == %s 1`] = `"Unidad de Valor Real"`;
+
+exports[`Currency > name(CRC) == %s 1`] = `"Costa Rican colon"`;
+
+exports[`Currency > name(CUC) == %s 1`] = `"peso cubano convertible"`;
+
+exports[`Currency > name(CUP) == %s 1`] = `"Cuban peso"`;
+
+exports[`Currency > name(CVE) == %s 1`] = `"Cape Verdean escudo"`;
+
+exports[`Currency > name(CZK) == %s 1`] = `"Czech koruna"`;
+
+exports[`Currency > name(DJF) == %s 1`] = `"Djiboutian franc"`;
+
+exports[`Currency > name(DKK) == %s 1`] = `"Danish krone"`;
+
+exports[`Currency > name(DOP) == %s 1`] = `"Dominican peso"`;
+
+exports[`Currency > name(DZD) == %s 1`] = `"Algerian dinar"`;
+
+exports[`Currency > name(EGP) == %s 1`] = `"Egyptian pound"`;
+
+exports[`Currency > name(ERN) == %s 1`] = `"Eritrean nakfa"`;
+
+exports[`Currency > name(ETB) == %s 1`] = `"Ethiopian birr"`;
+
+exports[`Currency > name(EUR) == %s 1`] = `"Euro"`;
+
+exports[`Currency > name(FJD) == %s 1`] = `"Fiji dollar"`;
+
+exports[`Currency > name(FKP) == %s 1`] = `"Falkland Islands pound"`;
+
+exports[`Currency > name(GBP) == %s 1`] = `"Pound sterling"`;
+
+exports[`Currency > name(GEL) == %s 1`] = `"Georgian lari"`;
+
+exports[`Currency > name(GHS) == %s 1`] = `"Ghanaian cedi"`;
+
+exports[`Currency > name(GIP) == %s 1`] = `"Gibraltar pound"`;
+
+exports[`Currency > name(GMD) == %s 1`] = `"Gambian dalasi"`;
+
+exports[`Currency > name(GNF) == %s 1`] = `"Guinean franc"`;
+
+exports[`Currency > name(GTQ) == %s 1`] = `"Guatemalan quetzal"`;
+
+exports[`Currency > name(GYD) == %s 1`] = `"Guyanese dollar"`;
+
+exports[`Currency > name(HKD) == %s 1`] = `"Hong Kong dollar"`;
+
+exports[`Currency > name(HNL) == %s 1`] = `"Honduran lempira"`;
+
+exports[`Currency > name(HRK) == %s 1`] = `"Hrvatska kuna"`;
+
+exports[`Currency > name(HTG) == %s 1`] = `"Haitian gourde"`;
+
+exports[`Currency > name(HUF) == %s 1`] = `"Hungarian forint"`;
+
+exports[`Currency > name(IDR) == %s 1`] = `"Indonesian rupiah"`;
+
+exports[`Currency > name(ILS) == %s 1`] = `"Israeli new shekel"`;
+
+exports[`Currency > name(INR) == %s 1`] = `"Indian rupee"`;
+
+exports[`Currency > name(IQD) == %s 1`] = `"Iraqi dinar"`;
+
+exports[`Currency > name(IRR) == %s 1`] = `"Iranian rial"`;
+
+exports[`Currency > name(ISK) == %s 1`] = `"Icelandic króna"`;
+
+exports[`Currency > name(JMD) == %s 1`] = `"Jamaican dollar"`;
+
+exports[`Currency > name(JOD) == %s 1`] = `"Jordanian dinar"`;
+
+exports[`Currency > name(JPY) == %s 1`] = `"Japanese yen"`;
+
+exports[`Currency > name(KES) == %s 1`] = `"Kenyan shilling"`;
+
+exports[`Currency > name(KGS) == %s 1`] = `"Kyrgyzstani som"`;
+
+exports[`Currency > name(KHR) == %s 1`] = `"Cambodian riel"`;
+
+exports[`Currency > name(KMF) == %s 1`] = `"Comoro franc"`;
+
+exports[`Currency > name(KPW) == %s 1`] = `"North Korean won"`;
+
+exports[`Currency > name(KRW) == %s 1`] = `"South Korean won"`;
+
+exports[`Currency > name(KWD) == %s 1`] = `"Kuwaiti dinar"`;
+
+exports[`Currency > name(KYD) == %s 1`] = `"Cayman Islands dollar"`;
+
+exports[`Currency > name(KZT) == %s 1`] = `"Kazakhstani tenge"`;
+
+exports[`Currency > name(LAK) == %s 1`] = `"Lao kip"`;
+
+exports[`Currency > name(LBP) == %s 1`] = `"Lebanese pound"`;
+
+exports[`Currency > name(LKR) == %s 1`] = `"Sri Lankan rupee"`;
+
+exports[`Currency > name(LRD) == %s 1`] = `"Liberian dollar"`;
+
+exports[`Currency > name(LSL) == %s 1`] = `"Lesotho loti"`;
+
+exports[`Currency > name(LYD) == %s 1`] = `"Libyan dinar"`;
+
+exports[`Currency > name(MAD) == %s 1`] = `"Moroccan dirham"`;
+
+exports[`Currency > name(MDL) == %s 1`] = `"Moldovan leu"`;
+
+exports[`Currency > name(MGA) == %s 1`] = `"Malagasy ariary"`;
+
+exports[`Currency > name(MKD) == %s 1`] = `"Macedonian denar"`;
+
+exports[`Currency > name(MMK) == %s 1`] = `"Myanmar kyat"`;
+
+exports[`Currency > name(MNT) == %s 1`] = `"Mongolian tögrög"`;
+
+exports[`Currency > name(MOP) == %s 1`] = `"Macanese pataca"`;
+
+exports[`Currency > name(MRU) == %s 1`] = `"Mauritanian ouguiya"`;
+
+exports[`Currency > name(MUR) == %s 1`] = `"Mauritian rupee"`;
+
+exports[`Currency > name(MVR) == %s 1`] = `"Maldivian rufiyaa"`;
+
+exports[`Currency > name(MWK) == %s 1`] = `"Malawian kwacha"`;
+
+exports[`Currency > name(MXN) == %s 1`] = `"Mexican peso"`;
+
+exports[`Currency > name(MXV) == %s 1`] = `"Mexican Unidad de Inversion"`;
+
+exports[`Currency > name(MYR) == %s 1`] = `"Malaysian ringgit"`;
+
+exports[`Currency > name(MZN) == %s 1`] = `"Mozambican metical"`;
+
+exports[`Currency > name(NAD) == %s 1`] = `"Namibian dollar"`;
+
+exports[`Currency > name(NGN) == %s 1`] = `"Nigerian naira"`;
+
+exports[`Currency > name(NIO) == %s 1`] = `"Nicaraguan córdoba"`;
+
+exports[`Currency > name(NOK) == %s 1`] = `"Norwegian krone"`;
+
+exports[`Currency > name(NPR) == %s 1`] = `"Nepalese rupee"`;
+
+exports[`Currency > name(NZD) == %s 1`] = `"New Zealand dollar"`;
+
+exports[`Currency > name(OMR) == %s 1`] = `"Omani rial"`;
+
+exports[`Currency > name(PAB) == %s 1`] = `"Panamanian balboa"`;
+
+exports[`Currency > name(PEN) == %s 1`] = `"Peruvian sol"`;
+
+exports[`Currency > name(PGK) == %s 1`] = `"Papua New Guinean kina"`;
+
+exports[`Currency > name(PHP) == %s 1`] = `"Philippine peso"`;
+
+exports[`Currency > name(PKR) == %s 1`] = `"Pakistani rupee"`;
+
+exports[`Currency > name(PLN) == %s 1`] = `"Polish złoty"`;
+
+exports[`Currency > name(PYG) == %s 1`] = `"Paraguayan guaraní"`;
+
+exports[`Currency > name(QAR) == %s 1`] = `"Qatari riyal"`;
+
+exports[`Currency > name(RON) == %s 1`] = `"Romanian leu"`;
+
+exports[`Currency > name(RSD) == %s 1`] = `"Serbian dinar"`;
+
+exports[`Currency > name(RUB) == %s 1`] = `"Russian ruble"`;
+
+exports[`Currency > name(RWF) == %s 1`] = `"Rwandan franc"`;
+
+exports[`Currency > name(SAR) == %s 1`] = `"Saudi riyal"`;
+
+exports[`Currency > name(SBD) == %s 1`] = `"Solomon Islands dollar"`;
+
+exports[`Currency > name(SCR) == %s 1`] = `"Seychelles rupee"`;
+
+exports[`Currency > name(SDG) == %s 1`] = `"Sudanese pound"`;
+
+exports[`Currency > name(SEK) == %s 1`] = `"Swedish krona"`;
+
+exports[`Currency > name(SGD) == %s 1`] = `"Singapore dollar"`;
+
+exports[`Currency > name(SHP) == %s 1`] = `"Saint Helena pound"`;
+
+exports[`Currency > name(SLL) == %s 1`] = `"Sierra Leonean leone"`;
+
+exports[`Currency > name(SOS) == %s 1`] = `"Somalian shilling"`;
+
+exports[`Currency > name(SRD) == %s 1`] = `"Surinamese dollar"`;
+
+exports[`Currency > name(SSP) == %s 1`] = `"South Sudanese pound"`;
+
+exports[`Currency > name(STN) == %s 1`] = `"São Tomé and Príncipe dobra"`;
+
+exports[`Currency > name(SVC) == %s 1`] = `"Salvadoran colón"`;
+
+exports[`Currency > name(SYP) == %s 1`] = `"Syrian pound"`;
+
+exports[`Currency > name(SZL) == %s 1`] = `"Swazi lilangeni"`;
+
+exports[`Currency > name(THB) == %s 1`] = `"Thai baht"`;
+
+exports[`Currency > name(TJS) == %s 1`] = `"Tajikistani somoni"`;
+
+exports[`Currency > name(TMT) == %s 1`] = `"Turkmenistan manat"`;
+
+exports[`Currency > name(TND) == %s 1`] = `"Tunisian dinar"`;
+
+exports[`Currency > name(TOP) == %s 1`] = `"Tongan paʻanga"`;
+
+exports[`Currency > name(TRY) == %s 1`] = `"Turkish lira"`;
+
+exports[`Currency > name(TTD) == %s 1`] = `"Trinidad and Tobago dollar"`;
+
+exports[`Currency > name(TWD) == %s 1`] = `"New Taiwan dollar"`;
+
+exports[`Currency > name(TZS) == %s 1`] = `"Tanzanian shilling"`;
+
+exports[`Currency > name(UAH) == %s 1`] = `"Ukrainian hryvnia"`;
+
+exports[`Currency > name(UGX) == %s 1`] = `"Ugandan shilling"`;
+
+exports[`Currency > name(USD) == %s 1`] = `"United States dollar"`;
+
+exports[`Currency > name(USN) == %s 1`] = `"United States dollar"`;
+
+exports[`Currency > name(UYI) == %s 1`] = `"Uruguay Peso en Unidades Indexadas"`;
+
+exports[`Currency > name(UYU) == %s 1`] = `"Uruguayan peso"`;
+
+exports[`Currency > name(UYW) == %s 1`] = `"Unidad previsional"`;
+
+exports[`Currency > name(UZS) == %s 1`] = `"Uzbekistani sum"`;
+
+exports[`Currency > name(VES) == %s 1`] = `"Venezuelan sovereign bolívar"`;
+
+exports[`Currency > name(VND) == %s 1`] = `"Vietnamese đồng"`;
+
+exports[`Currency > name(VUV) == %s 1`] = `"Vanuatu vatu"`;
+
+exports[`Currency > name(WST) == %s 1`] = `"Samoan tala"`;
+
+exports[`Currency > name(XAF) == %s 1`] = `"CFA franc BEAC"`;
+
+exports[`Currency > name(XAG) == %s 1`] = `"Silver"`;
+
+exports[`Currency > name(XAU) == %s 1`] = `"Gold"`;
+
+exports[`Currency > name(XBA) == %s 1`] = `"European Composite Unit"`;
+
+exports[`Currency > name(XBB) == %s 1`] = `"European Monetary Unit"`;
+
+exports[`Currency > name(XBC) == %s 1`] = `"European Unit of Account 9"`;
+
+exports[`Currency > name(XBD) == %s 1`] = `"European Unit of Account 17"`;
+
+exports[`Currency > name(XCD) == %s 1`] = `"East Caribbean dollar"`;
+
+exports[`Currency > name(XDR) == %s 1`] = `"Special drawing rights"`;
+
+exports[`Currency > name(XOF) == %s 1`] = `"CFA franc BCEAO"`;
+
+exports[`Currency > name(XPD) == %s 1`] = `"Palladium"`;
+
+exports[`Currency > name(XPF) == %s 1`] = `"CFP franc"`;
+
+exports[`Currency > name(XPT) == %s 1`] = `"Platinum"`;
+
+exports[`Currency > name(XSU) == %s 1`] = `"SUCRE"`;
+
+exports[`Currency > name(XTS) == %s 1`] = `"Code reserved for testing"`;
+
+exports[`Currency > name(XUA) == %s 1`] = `"ADB Unit of Account"`;
+
+exports[`Currency > name(XXX) == %s 1`] = `"No currency"`;
+
+exports[`Currency > name(YER) == %s 1`] = `"Yemeni rial"`;
+
+exports[`Currency > name(ZAR) == %s 1`] = `"South African rand"`;
+
+exports[`Currency > name(ZMW) == %s 1`] = `"Zambian kwacha"`;
+
+exports[`Currency > name(ZWL) == %s 1`] = `"Zimbabwean dollar"`;
