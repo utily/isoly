@@ -31,6 +31,7 @@ export namespace Year {
 		return Numeric.is(value) ? (value.toString().padStart(4, "0") as Year) : undefined
 	}
 	export function isLeapYear(year: Year | Numeric): boolean {
-		return Numeric.is(year) ? year % 4 === 0 && (year % 100 != 0 || year % 400 == 0) : isLeapYear(parse(year) ?? 0)
+		const y = typeof year == "number" ? year : parse(year)
+		return !!y && y % 4 === 0 && (y % 100 != 0 || y % 400 == 0)
 	}
 }
