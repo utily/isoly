@@ -1,5 +1,5 @@
 import { isly } from "isly"
-import { Alpha2 } from "../CountryCode"
+import { CountryCode } from "../CountryCode"
 
 export type CallingCode = typeof CallingCode.values[number]
 
@@ -251,10 +251,10 @@ export namespace CallingCode {
 	export const type = isly.named("isoly.CallingCode", isly.string<CallingCode>(values))
 	export const is = type.is
 	export const flaw = type.flaw
-	export function from(country: Alpha2): CallingCode | undefined {
+	export function from(country: CountryCode.Alpha2): CallingCode | undefined {
 		return alpha2toCallingCode[country]
 	}
-	export function to(callingCode: CallingCode): Alpha2 | Alpha2[] {
+	export function to(callingCode: CallingCode): CountryCode.Alpha2 | CountryCode.Alpha2[] {
 		return callingCodeToAlpha2[callingCode]
 	}
 	export function separate(phoneNumber: string): [CallingCode | undefined, string] {
@@ -272,7 +272,7 @@ export namespace CallingCode {
 	}
 }
 
-const callingCodeToAlpha2: { [key in CallingCode]: Alpha2 | Alpha2[] } = {
+const callingCodeToAlpha2: { [key in CallingCode]: CountryCode.Alpha2 | CountryCode.Alpha2[] } = {
 	"+93": "AF",
 	"+358": ["FI", "AX"],
 	"+355": "AL",
@@ -504,7 +504,7 @@ const callingCodeToAlpha2: { [key in CallingCode]: Alpha2 | Alpha2[] } = {
 	"+263": "ZW",
 }
 
-const alpha2toCallingCode: { [country in Alpha2]?: CallingCode | undefined } = {
+const alpha2toCallingCode: { [country in CountryCode.Alpha2]?: CallingCode | undefined } = {
 	AF: "+93",
 	AX: "+358",
 	AL: "+355",
