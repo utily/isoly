@@ -11,6 +11,12 @@ export default defineConfig({
 			enabled: true,
 			all: true,
 			cleanOnRerun: true,
+			thresholds: {
+				statements: 95,
+				branches: 90,
+				functions: 95,
+				lines: 95,
+			},
 		},
 		globals: true,
 		include: ["**/*.spec.[tj]s"],
