@@ -1,8 +1,8 @@
 import { isly } from "isly"
 
-export type TimeZoneOffset = typeof TimeZoneOffset.values[number]
+export type Offset = typeof Offset.values[number]
 
-export namespace TimeZoneOffset {
+export namespace Offset {
 	export const values = [
 		"-12:00",
 		"-11:00",

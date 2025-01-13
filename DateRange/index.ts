@@ -1,6 +1,6 @@
 import { isly } from "isly"
-import { Date } from "./Date"
-import { DateSpan } from "./DateSpan"
+import { Date } from "../Date"
+import { DateSpan } from "../DateSpan"
 export interface DateRange {
 	start: Date
 	end: Date

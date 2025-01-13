@@ -149,7 +149,7 @@ export namespace Encoding {
 				break // Western Europe with amended Turkish character set
 			case "ISO-8859-10":
 				result = "ISO-8859-10"
-				break //  Western Europe with rationalised character set for Nordic languages, including complete Icelandic set
+				break //  Western Europe with rationalized character set for Nordic languages, including complete Icelandic set
 			case "ISO-8859-11":
 				result = "ISO-8859-11"
 				break // Thai
@@ -161,7 +161,7 @@ export namespace Encoding {
 				break // Celtic languages (Irish Gaelic, Scottish, Welsh)
 			case "ISO-8859-15":
 				result = "ISO-8859-15"
-				break // Added the Euro sign and other rationalisations to ISO 8859-1
+				break // Added the Euro sign and other rationalizations to ISO 8859-1
 			case "ISO-8859-16":
 				result = "ISO-8859-16"
 				break // Central, Eastern and Southern European languages (Albanian, Bosnian, Croatian, Hungarian, Polish, Romanian, Serbian and Slovenian, but also French, German, Italian and Irish Gaelic)
@@ -315,7 +315,7 @@ export namespace Encoding {
 	export function encode(encoding: "ISO-8859-1" | "UTF-8", data: string): Uint8Array {
 		return transcoders[encoding].encode(data)
 	}
-	export function decode(encoding: "ISO-8859-1" | "UTF-8", data: Uint8Array): string {
+	export function decode(encoding: "ISO-8859-1" | "UTF-8", data: Uint8Array | undefined): string {
 		return transcoders[encoding].decode(data)
 	}
 	const transcoders: { [encoding in "ISO-8859-1" | "UTF-8"]: Transcoder } = {

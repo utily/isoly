@@ -260,8 +260,10 @@ export namespace Alpha2 {
 	export const type = isly.named("isoly.CountryCode.Alpha2", isly.string<Alpha2>(values))
 	export const is = type.is
 	export const flaw = type.flaw
-	export function from(country: Numeric | Alpha3): Alpha2 {
-		return typeof country == "number" ? numericToAlpha2[country] : alpha3ToAlpha2[country]
+	export function from(country: Numeric | Alpha3): Alpha2
+	export function from(country: Numeric | number | Alpha3 | string): Alpha2 | undefined
+	export function from(country: Numeric | number | Alpha3 | string): Alpha2 | undefined {
+		return typeof country == "number" ? numericToAlpha2[country as Numeric] : alpha3ToAlpha2[country as Alpha3]
 	}
 	export function isEea(country: Alpha2): boolean {
 		return [
@@ -298,7 +300,6 @@ export namespace Alpha2 {
 		].includes(country)
 	}
 }
-
 const numericToAlpha2: Record<Numeric, Alpha2> = {
 	"4": "AF",
 	"248": "AX",

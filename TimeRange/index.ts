@@ -1,6 +1,6 @@
 import { isly } from "isly"
-import { DateTime } from "./DateTime"
-import { TimeSpan } from "./TimeSpan"
+import { DateTime } from "../DateTime"
+import { TimeSpan } from "../TimeSpan"
 
 export interface TimeRange {
 	start: DateTime

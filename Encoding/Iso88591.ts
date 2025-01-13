@@ -4,7 +4,7 @@ export class Iso88591 extends Transcoder {
 	encode(data: string): Uint8Array {
 		return Uint8Array.from(data.split(""), c => utf8ToIso88591[c])
 	}
-	decode(data: ArrayBufferView): string {
+	decode(data: ArrayBufferView | undefined): string {
 		return !data
 			? ""
 			: new Uint8Array(data.buffer, data.byteOffset, data.byteLength).reduce((r, v) => r + iso88591ToUtf8[v], "")

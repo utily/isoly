@@ -8,7 +8,15 @@ export default defineConfig({
 		},
 		coverage: {
 			reporter: ["text", "json", "html"],
-			provider: "istanbul",
+			enabled: true,
+			all: true,
+			cleanOnRerun: true,
+			thresholds: {
+				statements: 99,
+				branches: 96,
+				functions: 94,
+				lines: 99,
+			},
 		},
 		globals: true,
 		include: ["**/*.spec.[tj]s"],

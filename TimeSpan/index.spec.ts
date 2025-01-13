@@ -1,4 +1,4 @@
-import { isoly } from "./index"
+import { isoly } from "../index"
 
 describe("TimeSpan", () => {
 	it("is", () => {

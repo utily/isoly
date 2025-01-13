@@ -1,0 +1,201 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`isoly.CountryCode.Name > from(ar, "DE") 1`] = `"ألمانيا"`;
+
+exports[`isoly.CountryCode.Name > from(ar, "DE") 2`] = `"ألمانيا"`;
+
+exports[`isoly.CountryCode.Name > from(ar, "SWE") 1`] = `"السويد"`;
+
+exports[`isoly.CountryCode.Name > from(az, "DE") 1`] = `"Almaniya"`;
+
+exports[`isoly.CountryCode.Name > from(az, "DE") 2`] = `"Almaniya"`;
+
+exports[`isoly.CountryCode.Name > from(az, "SWE") 1`] = `"İsveç"`;
+
+exports[`isoly.CountryCode.Name > from(be, "DE") 1`] = `"Германія"`;
+
+exports[`isoly.CountryCode.Name > from(be, "DE") 2`] = `"Германія"`;
+
+exports[`isoly.CountryCode.Name > from(be, "SWE") 1`] = `"Швецыя"`;
+
+exports[`isoly.CountryCode.Name > from(bg, "DE") 1`] = `"Германия"`;
+
+exports[`isoly.CountryCode.Name > from(bg, "SWE") 1`] = `"Швеция"`;
+
+exports[`isoly.CountryCode.Name > from(bs, "DE") 1`] = `"Njemačka"`;
+
+exports[`isoly.CountryCode.Name > from(bs, "SWE") 1`] = `"Švedska"`;
+
+exports[`isoly.CountryCode.Name > from(ca, "DE") 1`] = `"Alemanya"`;
+
+exports[`isoly.CountryCode.Name > from(ca, "SWE") 1`] = `"Suècia"`;
+
+exports[`isoly.CountryCode.Name > from(cs, "DE") 1`] = `"Německo"`;
+
+exports[`isoly.CountryCode.Name > from(cs, "SWE") 1`] = `"Švédsko"`;
+
+exports[`isoly.CountryCode.Name > from(da, "DE") 1`] = `"Tyskland"`;
+
+exports[`isoly.CountryCode.Name > from(da, "SWE") 1`] = `"Sverige"`;
+
+exports[`isoly.CountryCode.Name > from(de, "DE") 1`] = `"Deutschland"`;
+
+exports[`isoly.CountryCode.Name > from(de, "DE") 2`] = `"Deutschland"`;
+
+exports[`isoly.CountryCode.Name > from(de, "SWE") 1`] = `"Schweden"`;
+
+exports[`isoly.CountryCode.Name > from(el, "DE") 1`] = `"Γερμανία"`;
+
+exports[`isoly.CountryCode.Name > from(el, "SWE") 1`] = `"Σουηδία"`;
+
+exports[`isoly.CountryCode.Name > from(en, "DE") 1`] = `"Germany"`;
+
+exports[`isoly.CountryCode.Name > from(en, "DE") 2`] = `"Germany"`;
+
+exports[`isoly.CountryCode.Name > from(en, "SWE") 1`] = `"Sweden"`;
+
+exports[`isoly.CountryCode.Name > from(es, "DE") 1`] = `"Alemania"`;
+
+exports[`isoly.CountryCode.Name > from(es, "SWE") 1`] = `"Suecia"`;
+
+exports[`isoly.CountryCode.Name > from(et, "DE") 1`] = `"Saksamaa"`;
+
+exports[`isoly.CountryCode.Name > from(et, "SWE") 1`] = `"Rootsi"`;
+
+exports[`isoly.CountryCode.Name > from(fa, "DE") 1`] = `"آلمان"`;
+
+exports[`isoly.CountryCode.Name > from(fa, "SWE") 1`] = `"سوئد"`;
+
+exports[`isoly.CountryCode.Name > from(fi, "DE") 1`] = `"Saksa"`;
+
+exports[`isoly.CountryCode.Name > from(fi, "DE") 2`] = `"Saksa"`;
+
+exports[`isoly.CountryCode.Name > from(fi, "SWE") 1`] = `"Ruotsi"`;
+
+exports[`isoly.CountryCode.Name > from(fr, "DE") 1`] = `"Allemagne"`;
+
+exports[`isoly.CountryCode.Name > from(fr, "SWE") 1`] = `"Suède"`;
+
+exports[`isoly.CountryCode.Name > from(he, "DE") 1`] = `"גרמניה"`;
+
+exports[`isoly.CountryCode.Name > from(he, "DE") 2`] = `"גרמניה"`;
+
+exports[`isoly.CountryCode.Name > from(he, "SWE") 1`] = `"שוודיה"`;
+
+exports[`isoly.CountryCode.Name > from(hr, "DE") 1`] = `"Njemačka"`;
+
+exports[`isoly.CountryCode.Name > from(hr, "SWE") 1`] = `"Švedska"`;
+
+exports[`isoly.CountryCode.Name > from(hu, "DE") 1`] = `"Németország"`;
+
+exports[`isoly.CountryCode.Name > from(hu, "SWE") 1`] = `"Svédország"`;
+
+exports[`isoly.CountryCode.Name > from(hy, "DE") 1`] = `"Գերմանիա"`;
+
+exports[`isoly.CountryCode.Name > from(hy, "SWE") 1`] = `"Շվեդիա"`;
+
+exports[`isoly.CountryCode.Name > from(id, "DE") 1`] = `"Jerman"`;
+
+exports[`isoly.CountryCode.Name > from(id, "SWE") 1`] = `"Sweden"`;
+
+exports[`isoly.CountryCode.Name > from(it, "DE") 1`] = `"Germania"`;
+
+exports[`isoly.CountryCode.Name > from(it, "SWE") 1`] = `"Svezia"`;
+
+exports[`isoly.CountryCode.Name > from(ja, "DE") 1`] = `"ドイツ"`;
+
+exports[`isoly.CountryCode.Name > from(ja, "SWE") 1`] = `"スウェーデン"`;
+
+exports[`isoly.CountryCode.Name > from(ka, "DE") 1`] = `"გერმანია"`;
+
+exports[`isoly.CountryCode.Name > from(ka, "SWE") 1`] = `"შვედეთი"`;
+
+exports[`isoly.CountryCode.Name > from(kk, "DE") 1`] = `"Германия"`;
+
+exports[`isoly.CountryCode.Name > from(kk, "SWE") 1`] = `"Швеция"`;
+
+exports[`isoly.CountryCode.Name > from(ko, "DE") 1`] = `"독일"`;
+
+exports[`isoly.CountryCode.Name > from(ko, "SWE") 1`] = `"스웨덴"`;
+
+exports[`isoly.CountryCode.Name > from(ky, "DE") 1`] = `"Германия"`;
+
+exports[`isoly.CountryCode.Name > from(ky, "SWE") 1`] = `"Швеция"`;
+
+exports[`isoly.CountryCode.Name > from(lt, "DE") 1`] = `"Vokietija"`;
+
+exports[`isoly.CountryCode.Name > from(lt, "SWE") 1`] = `"Švedija"`;
+
+exports[`isoly.CountryCode.Name > from(lv, "DE") 1`] = `"Vācija"`;
+
+exports[`isoly.CountryCode.Name > from(lv, "SWE") 1`] = `"Zviedrija"`;
+
+exports[`isoly.CountryCode.Name > from(mk, "DE") 1`] = `"Германија"`;
+
+exports[`isoly.CountryCode.Name > from(mk, "SWE") 1`] = `"Шведска"`;
+
+exports[`isoly.CountryCode.Name > from(mn, "DE") 1`] = `"Герман"`;
+
+exports[`isoly.CountryCode.Name > from(mn, "SWE") 1`] = `"Швед"`;
+
+exports[`isoly.CountryCode.Name > from(nb, "DE") 1`] = `"Tyskland"`;
+
+exports[`isoly.CountryCode.Name > from(nb, "SWE") 1`] = `"Sverige"`;
+
+exports[`isoly.CountryCode.Name > from(nl, "DE") 1`] = `"Duitsland"`;
+
+exports[`isoly.CountryCode.Name > from(nl, "SWE") 1`] = `"Zweden"`;
+
+exports[`isoly.CountryCode.Name > from(nn, "DE") 1`] = `"Tyskland"`;
+
+exports[`isoly.CountryCode.Name > from(nn, "SWE") 1`] = `"Sverige"`;
+
+exports[`isoly.CountryCode.Name > from(pl, "DE") 1`] = `"Niemcy"`;
+
+exports[`isoly.CountryCode.Name > from(pl, "SWE") 1`] = `"Szwecja"`;
+
+exports[`isoly.CountryCode.Name > from(pt, "DE") 1`] = `"Alemanha"`;
+
+exports[`isoly.CountryCode.Name > from(pt, "SWE") 1`] = `"Suécia"`;
+
+exports[`isoly.CountryCode.Name > from(ro, "DE") 1`] = `"Germania"`;
+
+exports[`isoly.CountryCode.Name > from(ro, "SWE") 1`] = `"Suedia"`;
+
+exports[`isoly.CountryCode.Name > from(ru, "DE") 1`] = `"Германия"`;
+
+exports[`isoly.CountryCode.Name > from(ru, "SWE") 1`] = `"Швеция"`;
+
+exports[`isoly.CountryCode.Name > from(sk, "DE") 1`] = `"Nemecko"`;
+
+exports[`isoly.CountryCode.Name > from(sk, "SWE") 1`] = `"Švédsko"`;
+
+exports[`isoly.CountryCode.Name > from(sl, "DE") 1`] = `"Nemčija"`;
+
+exports[`isoly.CountryCode.Name > from(sl, "SWE") 1`] = `"Švedska"`;
+
+exports[`isoly.CountryCode.Name > from(sr, "DE") 1`] = `"Немачка"`;
+
+exports[`isoly.CountryCode.Name > from(sr, "SWE") 1`] = `"Шведска"`;
+
+exports[`isoly.CountryCode.Name > from(sv, "DE") 1`] = `"Tyskland"`;
+
+exports[`isoly.CountryCode.Name > from(sv, "DE") 2`] = `"Tyskland"`;
+
+exports[`isoly.CountryCode.Name > from(sv, "SWE") 1`] = `"Sverige"`;
+
+exports[`isoly.CountryCode.Name > from(tr, "DE") 1`] = `"Almanya"`;
+
+exports[`isoly.CountryCode.Name > from(tr, "SWE") 1`] = `"İsveç"`;
+
+exports[`isoly.CountryCode.Name > from(uk, "DE") 1`] = `"Німеччина"`;
+
+exports[`isoly.CountryCode.Name > from(uk, "SWE") 1`] = `"Швеція"`;
+
+exports[`isoly.CountryCode.Name > from(uz, "DE") 1`] = `"Germaniya"`;
+
+exports[`isoly.CountryCode.Name > from(uz, "SWE") 1`] = `"Shvetsiya"`;
+
+exports[`isoly.CountryCode.Name > from(zh, "DE") 1`] = `"德国"`;
+
+exports[`isoly.CountryCode.Name > from(zh, "SWE") 1`] = `"瑞典"`;
