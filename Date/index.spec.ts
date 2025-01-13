@@ -67,6 +67,14 @@ describe("Date", () => {
 		["2400-02-29", true],
 	])("leap days %s", (date, exists) => expect(isoly.Date.is(date)).toBe(exists))
 	it("is not DateTime", () => expect(isoly.Date.is("2020-12-31T23:59:59.000Z")).toEqual(false))
+	it.each([
+		["1910-1-5", "1910-01-05"],
+		["81-4-8", "1981-04-08"],
+		["2400-12-31", "2400-12-31"],
+		["1234-24-12", "1235-12-12"],
+		["2000-01-370", "2001-01-04"],
+		["0-65-00", "1905-04-30"],
+	] as const)("normalize(%s) == %s", (value, expected) => expect(isoly.Date.normalize(value)).toBe(expected))
 	it("localize Date with locale", () => expect(isoly.Date.localize("2020-12-31", "en-US")).toEqual("12/31/2020"))
 	it("next day original test", () => {
 		expect(isoly.Date.next("2001-01-01")).toEqual("2001-01-02")

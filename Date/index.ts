@@ -29,7 +29,7 @@ export namespace Date {
 	export const flaw = type.flaw
 
 	export function split(value: Date): [Year, Month, Day] {
-		return [value.substring(0, 4) as Year, value.substring(5, 7) as Month, value.substring(8, 10) as Day]
+		return value.split("-", 3) as [Year, Month, Day]
 	}
 	export function parse(value: Date, time?: string): globalThis.Date {
 		return new globalThis.Date(value + (time ?? "T12:00:00.000Z"))
@@ -39,6 +39,10 @@ export namespace Date {
 	}
 	export function now(): Date {
 		return create(new globalThis.Date())
+	}
+	export function normalize(value: Date): Date {
+		const [years, months, days] = split(value).map(v => Number.parseInt(v))
+		return create(new globalThis.Date(globalThis.Date.UTC(years, months - 1, days, 12)))
 	}
 	export function localize(value: Date | globalThis.Date, locale?: Locale, timezone?: string): Date {
 		return (
