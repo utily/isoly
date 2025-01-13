@@ -1,6 +1,6 @@
 import { isoly } from "../index"
 
-describe("Time", () => {
+describe("isoly.Time", () => {
 	it.each([
 		"12:34:56.789",
 		"01:02:03.004",
@@ -12,10 +12,9 @@ describe("Time", () => {
 		"12:34",
 		"12",
 		"23:59:60",
-	])("isoly.Time.is(%s) should be true", t => expect(isoly.Time.is(t)).toBe(true))
-	it.each(["24:00:00.000", "12:60:00.000", "12:34:60.000", "12:34:56.1000", ""])(
-		"isoly.Time.is(%s) should be false",
-		t => expect(isoly.Time.is(t)).toBe(false)
+	])("is(%s) should be true", t => expect(isoly.Time.is(t)).toBe(true))
+	it.each(["24:00:00.000", "12:60:00.000", "12:34:60.000", "12:34:56.1000", ""])("is(%s) should be false", t =>
+		expect(isoly.Time.is(t)).toBe(false)
 	)
 	it.each([
 		["12:34:56.789", ["12", "34", "56", "789"]],
@@ -23,12 +22,14 @@ describe("Time", () => {
 		["23:59:59", ["23", "59", "59", undefined]],
 		["00:00", ["00", "00", undefined, undefined]],
 		["12", ["12", undefined, undefined, undefined]],
-	])("isoly.Time.split(%s) should return %j", (t, e) => expect(isoly.Time.split(t)).toEqual(e))
+	])("split(%s) == %j", (t, e) => expect(isoly.Time.split(t)).toEqual(e))
 	it.each([
+		["99:34:56", "99:34:56"],
+		["12:34:56.789123", "12:34:56.789"],
 		["12:34:56.789", "12:34:56.789"],
 		["1:2:3.4", "01:02:03.400"],
-		["23:59:59", "23:59:59.000"],
-		["00:00", "00:00:00.000"],
-		["12", "12:00:00.000"],
-	])("isoly.Time.normalize(%s) should return %s", (t, e) => expect(isoly.Time.normalize(t)).toEqual(e))
+		["23:59:59", "23:59:59"],
+		["00:00", "00:00"],
+		["12", "12"],
+	])("normalize(%s) == %s", (t, e) => expect(isoly.Time.normalize(t)).toEqual(e))
 })
