@@ -2,19 +2,13 @@
 
 exports[`isoly.CountryCode.Name > from(ar, "DE") 1`] = `"ألمانيا"`;
 
-exports[`isoly.CountryCode.Name > from(ar, "DE") 2`] = `"ألمانيا"`;
-
 exports[`isoly.CountryCode.Name > from(ar, "SWE") 1`] = `"السويد"`;
 
 exports[`isoly.CountryCode.Name > from(az, "DE") 1`] = `"Almaniya"`;
 
-exports[`isoly.CountryCode.Name > from(az, "DE") 2`] = `"Almaniya"`;
-
 exports[`isoly.CountryCode.Name > from(az, "SWE") 1`] = `"İsveç"`;
 
 exports[`isoly.CountryCode.Name > from(be, "DE") 1`] = `"Германія"`;
-
-exports[`isoly.CountryCode.Name > from(be, "DE") 2`] = `"Германія"`;
 
 exports[`isoly.CountryCode.Name > from(be, "SWE") 1`] = `"Швецыя"`;
 
@@ -40,8 +34,6 @@ exports[`isoly.CountryCode.Name > from(da, "SWE") 1`] = `"Sverige"`;
 
 exports[`isoly.CountryCode.Name > from(de, "DE") 1`] = `"Deutschland"`;
 
-exports[`isoly.CountryCode.Name > from(de, "DE") 2`] = `"Deutschland"`;
-
 exports[`isoly.CountryCode.Name > from(de, "SWE") 1`] = `"Schweden"`;
 
 exports[`isoly.CountryCode.Name > from(el, "DE") 1`] = `"Γερμανία"`;
@@ -49,8 +41,6 @@ exports[`isoly.CountryCode.Name > from(el, "DE") 1`] = `"Γερμανία"`;
 exports[`isoly.CountryCode.Name > from(el, "SWE") 1`] = `"Σουηδία"`;
 
 exports[`isoly.CountryCode.Name > from(en, "DE") 1`] = `"Germany"`;
-
-exports[`isoly.CountryCode.Name > from(en, "DE") 2`] = `"Germany"`;
 
 exports[`isoly.CountryCode.Name > from(en, "SWE") 1`] = `"Sweden"`;
 
@@ -68,8 +58,6 @@ exports[`isoly.CountryCode.Name > from(fa, "SWE") 1`] = `"سوئد"`;
 
 exports[`isoly.CountryCode.Name > from(fi, "DE") 1`] = `"Saksa"`;
 
-exports[`isoly.CountryCode.Name > from(fi, "DE") 2`] = `"Saksa"`;
-
 exports[`isoly.CountryCode.Name > from(fi, "SWE") 1`] = `"Ruotsi"`;
 
 exports[`isoly.CountryCode.Name > from(fr, "DE") 1`] = `"Allemagne"`;
@@ -77,8 +65,6 @@ exports[`isoly.CountryCode.Name > from(fr, "DE") 1`] = `"Allemagne"`;
 exports[`isoly.CountryCode.Name > from(fr, "SWE") 1`] = `"Suède"`;
 
 exports[`isoly.CountryCode.Name > from(he, "DE") 1`] = `"גרמניה"`;
-
-exports[`isoly.CountryCode.Name > from(he, "DE") 2`] = `"גרמניה"`;
 
 exports[`isoly.CountryCode.Name > from(he, "SWE") 1`] = `"שוודיה"`;
 
@@ -179,8 +165,6 @@ exports[`isoly.CountryCode.Name > from(sr, "DE") 1`] = `"Немачка"`;
 exports[`isoly.CountryCode.Name > from(sr, "SWE") 1`] = `"Шведска"`;
 
 exports[`isoly.CountryCode.Name > from(sv, "DE") 1`] = `"Tyskland"`;
-
-exports[`isoly.CountryCode.Name > from(sv, "DE") 2`] = `"Tyskland"`;
 
 exports[`isoly.CountryCode.Name > from(sv, "SWE") 1`] = `"Sverige"`;
 

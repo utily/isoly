@@ -31,7 +31,7 @@ export namespace Numeric {
 			...value,
 			...time,
 			...(time.hours != undefined ? { hours: time.hours % 24 } : {}),
-			...(days || value.day != undefined ? { day: days ? (value.day ?? 0) + days : value.day } : {}),
+			...(days || value.days != undefined ? { days: days ? (value.days ?? 0) + days : value.days } : {}),
 		}
 		return `${Date.Numeric.format(result)}T${Time.Numeric.format(result, precision)}${result.zone ?? ""}`
 	}

@@ -91,4 +91,22 @@ describe("isoly.Time.Numeric", () => {
 		[{ milliseconds: 45296789 }, "12:34:56.789"],
 		[{ milliseconds: 789 }, "00:00:00.789"],
 	] as const)("format(%s) == %s", (time, expected) => expect(isoly.Time.Numeric.format(time)).toEqual(expected))
+	it.each([
+		[{ hours: 12, minutes: 34, seconds: 56, milliseconds: 768 }, "hours", { hours: 12 }],
+		[{ hours: 12, minutes: 34, seconds: 56, milliseconds: 768 }, "minutes", { hours: 12, minutes: 34 }],
+		[{ hours: 12, minutes: 34, seconds: 56, milliseconds: 768 }, "seconds", { hours: 12, minutes: 34, seconds: 56 }],
+		[
+			{ hours: 12, minutes: 34, seconds: 56, milliseconds: 768 },
+			"milliseconds",
+			{ hours: 12, minutes: 34, seconds: 56, milliseconds: 768 },
+		],
+	] as const)("truncate(%s, %s) == %s", (value, precision, expected) =>
+		expect(isoly.Time.Numeric.truncate(value, precision)).toEqual(expected)
+	)
+	it.each([
+		[{ hours: 12 }, "hours"],
+		[{ hours: 12, minutes: 34 }, "minutes"],
+		[{ hours: 12, minutes: 34, seconds: 56 }, "seconds"],
+		[{ hours: 12, minutes: 34, seconds: 56, milliseconds: 768 }, "milliseconds"],
+	] as const)("precision(%s) == %s", (value, expected) => expect(isoly.Time.Numeric.precision(value)).toEqual(expected))
 })
