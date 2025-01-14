@@ -25,9 +25,9 @@ export namespace Numeric {
 			milliseconds,
 		}
 	}
-	export function parse(time: Time | string): Numeric {
-		const [hours, minutes, secondsMilliseconds] = time.split(":", 3)
-		const [seconds, milliseconds] = secondsMilliseconds?.split(".", 2) ?? [undefined, undefined]
+	export function parse(time: Time | string | undefined): Numeric {
+		const [hours, minutes, secondsMilliseconds] = time?.split(":", 3) ?? []
+		const [seconds, milliseconds] = secondsMilliseconds?.split(".", 2) ?? []
 		return {
 			hours: Number.parseInt(hours),
 			minutes: minutes != undefined ? Number.parseInt(minutes) : undefined,

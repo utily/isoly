@@ -3,6 +3,7 @@ import { DateSpan } from "../DateSpan"
 import { Locale } from "../Locale"
 import { Day as DateDay } from "./Day"
 import { Month as DateMonth } from "./Month"
+import { Numeric as DateNumeric } from "./Numeric"
 import { Year as DateYear } from "./Year"
 
 export type Date = string
@@ -10,6 +11,7 @@ export type Date = string
 export namespace Date {
 	export import Day = DateDay
 	export import Month = DateMonth
+	export import Numeric = DateNumeric
 	export import Year = DateYear
 
 	export const type = isly.named(
@@ -41,8 +43,7 @@ export namespace Date {
 		return create(new globalThis.Date())
 	}
 	export function normalize(value: Date): Date {
-		const [years, months, days] = split(value).map(v => Number.parseInt(v))
-		return create(new globalThis.Date(globalThis.Date.UTC(years, months - 1, days, 12)))
+		return Numeric.format(Numeric.parse(value))
 	}
 	export function localize(value: Date | globalThis.Date, locale?: Locale, timezone?: string): Date {
 		return (

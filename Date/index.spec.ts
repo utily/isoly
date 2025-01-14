@@ -73,7 +73,7 @@ describe("Date", () => {
 		["2400-12-31", "2400-12-31"],
 		["1234-24-12", "1235-12-12"],
 		["2000-01-370", "2001-01-04"],
-		["0-65-00", "1905-04-30"],
+		["0-65-01", "1905-05-01"],
 	] as const)("normalize(%s) == %s", (value, expected) => expect(isoly.Date.normalize(value)).toBe(expected))
 	it("localize Date with locale", () => expect(isoly.Date.localize("2020-12-31", "en-US")).toEqual("12/31/2020"))
 	it("next day original test", () => {

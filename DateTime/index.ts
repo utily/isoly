@@ -4,10 +4,12 @@ import { Locale } from "../Locale"
 import { Time } from "../Time"
 import { TimeSpan } from "../TimeSpan"
 import { TimeZone } from "../TimeZone"
+import { Numeric as DateTimeNumeric } from "./Numeric"
 
 export type DateTime = string
 
 export namespace DateTime {
+	export import Numeric = DateTimeNumeric
 	export const type = isly.named(
 		"isoly.DateTime",
 		isly.string<DateTime>((value: string) => {
@@ -65,6 +67,10 @@ export namespace DateTime {
 		}
 		return fix(value.toISOString())
 	}
+	export function normalize(value: DateTime | string, precision?: Precision): DateTime {
+		return Numeric.format(Numeric.parse(value), precision)
+	}
+	/** @deprecated use normalize(value, "milliseconds") instead */
 	export function fix(value: DateTime | string): DateTime {
 		if (value.length == 22 && value.match(/\.\dZ$/))
 			value = value.substring(0, 21) + "00Z"
