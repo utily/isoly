@@ -7,6 +7,7 @@ describe("isoly.Date.Numeric", () => {
 		["2510-12-01", { years: 2510, months: 11, days: 0 }],
 		["", {}],
 		["--", {}],
+		["-25-50", { days: 49, months: 24 }],
 		[undefined, {}],
 	] as const)("parse(%s) == %s", (value, expected) => expect(isoly.Date.Numeric.parse(value)).toEqual(expected))
 	it.each([

@@ -5,6 +5,7 @@ describe("isoly.Date.Year.Numeric", () => {
 		["2023", 2023],
 		["0000", 0],
 		["9999", 9999],
+		["10000", undefined],
 		["MXMVII", undefined],
 	])("parse('%s') == %s", (input, expected) => expect(isoly.Date.Year.Numeric.parse(input)).toBe(expected))
 	it.each(["-23", "abcd", "10000"])("parse('%s') == undefined", input =>
