@@ -48,4 +48,7 @@ export namespace Offset {
 	export const type = isly.string(values)
 	export const is = type.is
 	export const flaw = type.flaw
+	export function parse(value: Offset | string | undefined): Offset | undefined {
+		return type.get(value)
+	}
 }

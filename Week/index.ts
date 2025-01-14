@@ -15,7 +15,7 @@ export namespace Week {
 			const match = /^(\d{4})-W(\d{2})$/.exec(value) ?? []
 			return (
 				Date.Year.is(match[1]) &&
-				(WeekNumber.Numeric.parse(match[2]) ?? 54) <= WeekParts.lastWeek(Date.Year.parse(match[1]))
+				(WeekNumber.Numeric.parse(match[2]) ?? 54) <= WeekParts.lastWeek(Date.Year.Numeric.parse(match[1]))
 			)
 		}, "YYYY-Www")
 	)

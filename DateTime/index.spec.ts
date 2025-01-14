@@ -1,6 +1,6 @@
 import { isoly } from "../index"
 
-describe("DateTime", () => {
+describe("isoly.DateTime", () => {
 	it.each([
 		"1972-06-30T23:59:60", // leap second
 		"1972-12-31T23:59:60", // leap second
@@ -74,6 +74,14 @@ describe("DateTime", () => {
 	] as const)("create(%d, %s) == %s", (value, resolution, expected) =>
 		expect(isoly.DateTime.create(value, resolution)).toBe(expected)
 	)
+	it.each([
+		["2023-10-31T11:23:40.8Z", "2023-10-31T11:23:40.800Z"],
+		["2023-10-31T11:23:40.81Z", "2023-10-31T11:23:40.810Z"],
+		["2023-10-31T11:23:40Z", "2023-10-31T11:23:40Z"],
+		["2023-10-31T11:23:40.000Z", "2023-10-31T11:23:40.000Z"],
+		["2023-10-31T11:23:40.123678978Z", "2023-10-31T11:23:40.123Z"],
+		["2023-10-31T11:23:40.223678978", "2023-10-31T11:23:40.223"],
+	])("normalize(%s) == %s", (value, expected) => expect(isoly.DateTime.normalize(value)).toEqual(expected))
 	it.each([
 		["2019-04-01T01", new Date(2019, 3, 1, 1)],
 		["2019-04-01T01Z", new Date(Date.UTC(2019, 3, 1, 1))],
@@ -422,7 +430,7 @@ describe("DateTime", () => {
 		["2023-10-31T11:23:40.81Z", "2023-10-31T11:23:40.810Z"],
 		["2023-10-31T11:23:40Z", "2023-10-31T11:23:40Z"],
 		["2023-10-31T11:23:40.000Z", "2023-10-31T11:23:40.000Z"],
-	])("fixIncorrect(%s)", (input, expected) => expect(isoly.DateTime.fix(input)).toEqual(expected))
+	])("fix(%s)", (input, expected) => expect(isoly.DateTime.fix(input)).toEqual(expected))
 	it.each([
 		["2023-10-29", "2023-10-29T00:00:00.000Z", "2023-10-29T23:59:59.999Z"],
 		["1993-05-11T15:07:40.430Z", "1993-05-11T00:00:00.000Z", "1993-05-11T23:59:59.999Z"],
