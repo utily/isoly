@@ -23,7 +23,7 @@ export namespace Date {
 				Date.Year.type.is(splitted[0]) &&
 				Date.Month.type.is(splitted[1]) &&
 				Date.Day.type.is(splitted[2]) &&
-				Date.Month.length(splitted[1], splitted[0]) >= Date.Day.parse(splitted[2])
+				Date.Month.length(splitted[1], splitted[0]) >= Date.Day.Numeric.parse(splitted[2])
 			)
 		}, "YYYY-MM-DD")
 	)
