@@ -32,4 +32,13 @@ describe("isoly.Time", () => {
 		["00:00", "00:00"],
 		["12", "12"],
 	])("normalize(%s) == %s", (t, e) => expect(isoly.Time.normalize(t)).toEqual(e))
+	it.each([
+		[458923, "hours", "458923:00:00.000"],
+		[458923, "minutes", "7648:43:00.000"],
+		[458923, "seconds", "127:28:43.000"],
+		[458923, undefined, "127:28:43.000"],
+		[458923, "milliseconds", "00:07:38.923"],
+	] as const)("create(%d, %s) == %s", (value, precision, expected) =>
+		expect(precision ? isoly.Time.create(value, precision) : isoly.Time.create(value)).toBe(expected)
+	)
 })
