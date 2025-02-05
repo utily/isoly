@@ -257,9 +257,9 @@ export namespace Alpha3 {
 		"ZMB",
 		"ZWE",
 	] as const
-	export const type = isly.named("isoly.CountryCode.Alpha3", isly.string<Alpha3>(values))
-	export const is = type.is
-	export const flaw = type.flaw
+	export const type = isly<Alpha3>("string", "value", ...values).rename("isoly.CountryCode.Alpha3")
+	export const is = type.is.bind(type) as typeof type.is
+	export const flawed = type.flawed.bind(type) as typeof type.flawed
 	export function from(country: Alpha2 | Numeric): Alpha3 {
 		return typeof country == "number" ? from(Alpha2.from(country)) : alpha2ToAlpha3[country]
 	}

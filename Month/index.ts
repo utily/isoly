@@ -4,15 +4,18 @@ import { Date } from "../Date"
 export type Month = `${number}-${Date.Month}`
 
 export namespace Month {
-	export const type = isly.named(
-		"isoly.Month",
-		isly.string<Month>(value => {
+	export const type = isly<Month>(
+		"string",
+		value => {
 			const match = /^(\d{4})-(\d{2})$/.exec(value)
 			return !!match && Date.Year.is(match[1]) && Date.Month.is(match[2])
-		}, "YYYY-MM")
+		},
+		"YYYY-MM"
 	)
-	export const is = type.is
-	export const flaw = type.flaw
+		.rename("isoly.Month")
+		.describe("ISO 8601 month in the format YYYY-MM.")
+	export const is = type.is.bind(type) as typeof type.is
+	export const flawed = type.flawed.bind(type) as typeof type.flawed
 
 	export function now(): Month {
 		return from(Date.now())

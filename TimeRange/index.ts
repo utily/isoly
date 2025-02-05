@@ -8,9 +8,9 @@ export interface TimeRange {
 }
 
 export namespace TimeRange {
-	export const type = isly.object<TimeRange>({ start: DateTime.type, end: DateTime.type })
-	export const is = type.is
-	export const flaw = type.flaw
+	export const type = isly<TimeRange>("object", { start: DateTime.type, end: DateTime.type }, "isoly.TimeRange")
+	export const is = type.is.bind(type) as typeof type.is
+	export const flawed = type.flawed.bind(type) as typeof type.flawed
 	export function create(start: DateTime, end: DateTime): TimeRange
 	export function create(date: DateTime, length: TimeSpan): TimeRange
 	export function create(start: DateTime, end: DateTime | TimeSpan): TimeRange {

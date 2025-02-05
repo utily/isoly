@@ -7,11 +7,11 @@ export interface DateSpan {
 }
 
 export namespace DateSpan {
-	export const type = isly.object<DateSpan>({
-		years: isly.number().optional(),
-		months: isly.number().optional(),
-		days: isly.number().optional(),
+	export const type = isly<DateSpan>("object", {
+		years: isly("number").optional(),
+		months: isly("number").optional(),
+		days: isly("number").optional(),
 	})
-	export const is = type.is
-	export const flaw = type.flaw
+	export const is = type.is.bind(type) as typeof type.is
+	export const flawed = type.flawed.bind(type) as typeof type.flawed
 }

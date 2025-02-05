@@ -185,9 +185,9 @@ export namespace Code {
 		"997",
 		"999",
 	] as const
-	export const type = isly.named("isoly.CurrencyCode", isly.string<Code>(values))
-	export const is = type.is
-	export const flaw = type.flaw
+	export const type = isly<Code>("string", "value", ...values).rename("isoly.CurrencyCode")
+	export const is = type.is.bind(type) as typeof type.is
+	export const flawed = type.flawed.bind(type) as typeof type.flawed
 	export function from(currency: Currency): Code {
 		return {
 			ALL: "008",

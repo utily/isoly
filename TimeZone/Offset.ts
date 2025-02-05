@@ -45,9 +45,11 @@ export namespace Offset {
 		"+13:00",
 		"+14:00",
 	] as const
-	export const type = isly.string(values)
-	export const is = type.is
-	export const flaw = type.flaw
+	export const type = isly("string", "value", ...values)
+		.rename("isoly.TimeZone.Offset")
+		.describe("Time zone offset Z|(+|-)HH:MM")
+	export const is = type.is.bind(type) as typeof type.is
+	export const flawed = type.flawed.bind(type) as typeof type.flawed
 	export function parse(value: Offset | string | undefined): Offset | undefined {
 		return type.get(value)
 	}

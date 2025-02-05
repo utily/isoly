@@ -38,9 +38,9 @@ export namespace Day {
 		"30",
 		"31",
 	] as const
-	export const type = isly.named("isoly.Date.Day", isly.string<Day>(values))
-	export const is = type.is
-	export const flaw = type.flaw
+	export const type = isly<Day>("string", "value", ...values).rename("isoly.Date.Day")
+	export const is = type.is.bind(type) as typeof type.is
+	export const flawed = type.flawed.bind(type) as typeof type.flawed
 	export function create(value: Day.Numeric): Day
 	export function create(value: number): Day | undefined
 	export function create(value: number): string | undefined {

@@ -9,16 +9,17 @@ export type GB = {
 }
 
 export namespace GB {
-	export const type = isly.object<GB>(
+	export const type = isly<GB>(
+		"object",
 		{
-			countryCode: isly.string<"GB">("GB"),
-			street: isly.string(),
-			building: isly.string(),
-			zipCode: isly.string(),
-			city: isly.string(),
+			countryCode: isly<"GB">("string", "value", "GB"),
+			street: isly("string"),
+			building: isly("string"),
+			zipCode: isly("string"),
+			city: isly("string"),
 		},
 		"isoly.Address.GB"
 	)
-	export const is = type.is
-	export const flaw = type.flaw
+	export const is = type.is.bind(type) as typeof type.is
+	export const flawed = type.flawed.bind(type) as typeof type.flawed
 }

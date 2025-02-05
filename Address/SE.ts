@@ -8,15 +8,14 @@ export type SE = {
 }
 
 export namespace SE {
-	export const type = isly.object<SE>(
+	export const type = isly<SE>(
+		"object",
 		{
-			countryCode: isly.string<"SE">("SE"),
-			street: isly.string(),
-			zipCode: isly.string(),
-			city: isly.string(),
+			countryCode: isly<"SE">("string", "value", "SE"),
+			street: isly("string"),
+			zipCode: isly("string"),
+			city: isly("string"),
 		},
 		"isoly.Address.SE"
 	)
-	export const is = type.is
-	export const flaw = type.flaw
 }
