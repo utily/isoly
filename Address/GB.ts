@@ -9,16 +9,16 @@ export type GB = {
 }
 
 export namespace GB {
-	export const type = isly.object<GB>(
-		{
-			countryCode: isly.string<"GB">("GB"),
-			street: isly.string(),
-			building: isly.string(),
-			zipCode: isly.string(),
-			city: isly.string(),
-		},
-		"isoly.Address.GB"
-	)
-	export const is = type.is
-	export const flaw = type.flaw
+	export const { type, is, flawed } = isly
+		.object<GB>(
+			{
+				countryCode: isly.string("value", "GB"),
+				street: isly.string(),
+				building: isly.string(),
+				zipCode: isly.string(),
+				city: isly.string(),
+			},
+			"isoly.Address.GB"
+		)
+		.bind()
 }

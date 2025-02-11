@@ -216,9 +216,10 @@ export namespace Locale {
 		"zh-TW",
 		"zu-ZA",
 	] as const
-	export const type = isly.named("isoly.Locale", isly.string<Locale>(values))
-	export const is = type.is
-	export const flaw = type.flaw
+	export const { type, is, flawed } = isly
+		.string<Locale>("value", ...values)
+		.rename("isoly.Locale")
+		.bind()
 
 	export function toLanguage(locale: Locale): Language | undefined {
 		const result = locale.split("-").shift()

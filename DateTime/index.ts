@@ -10,15 +10,14 @@ export type DateTime = string
 
 export namespace DateTime {
 	export import Numeric = DateTimeNumeric
-	export const type = isly.named(
-		"isoly.DateTime",
-		isly.string<DateTime>((value: string) => {
+	export const { type, is, flawed } = isly
+		.string<DateTime>((value: string) => {
 			const { date, time, timeZoneOffset } = DateTime.split(value)
 			return Date.is(date) && Time.type.optional().is(time) && TimeZone.Offset.type.optional().is(timeZoneOffset)
-		})
-	)
-	export const is = type.is
-	export const flaw = type.flaw
+		}, "YYYY-MM-DDTHH[:mm[:ss[.fff]]][Z|(+|-)HH:MM]")
+		.rename("isoly.DateTime")
+		.describe("Valid ISO 8601 date-time formats include YYYY-MM-DDTHH[:mm[:ss[.fff]]][Z|(+|-)HH:MM].")
+		.bind()
 	export function split(value: DateTime): {
 		date: Date
 		time: Time | undefined

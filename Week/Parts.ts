@@ -9,10 +9,9 @@ export interface Parts {
 }
 
 export namespace Parts {
-	export const type = isly.object<Parts>({ year: isly.number(), week: Number.Numeric.type }, "isoly.Week.Parts")
-	export const is = type.is
-	export const flaw = type.flaw
-
+	export const { type, is, flawed } = isly
+		.object<Parts>({ year: isly.number(), week: Number.Numeric.type }, "isoly.Week.Parts")
+		.bind()
 	export function from(date: Date): Parts {
 		const parsed = new globalThis.Date(date)
 		parsed.setUTCDate(parsed.getUTCDate() + 4 - (parsed.getUTCDay() || 7))
