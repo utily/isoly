@@ -7,11 +7,11 @@ export type DayOfWeek = typeof DayOfWeek.values[number]
 export namespace DayOfWeek {
 	export import Numeric = DayOfWeekNumeric
 	export const values = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"] as const
-	export const type = isly<DayOfWeek>("string", "value", ...values)
+	export const { type, is, flawed } = isly
+		.string<DayOfWeek>("value", ...values)
 		.rename("isoly.DayOfWeek")
 		.describe("Lower case weekday name in English.")
-	export const is = type.is.bind(type) as typeof type.is
-	export const flawed = type.flawed.bind(type) as typeof type.flawed
+		.bind()
 
 	export function from(value: Numeric | Date): DayOfWeek {
 		return Numeric.is(value) ? values[value - 1] : from(Numeric.from(value))

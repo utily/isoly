@@ -185,9 +185,10 @@ export namespace Currency {
 		"ZMW",
 		"ZWL",
 	] as const
-	export const type = isly<Currency>("string", "value", ...values).rename("isoly.Currency")
-	export const is = type.is.bind(type) as typeof type.is
-	export const flawed = type.flawed.bind(type) as typeof type.flawed
+	export const { type, is, flawed } = isly
+		.string<Currency>("value", ...values)
+		.rename("isoly.Currency")
+		.bind()
 	export type Code = CurrencyCode
 	export const Code = CurrencyCode
 	export function round(value: number, currency: Currency): number {

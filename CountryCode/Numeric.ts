@@ -18,9 +18,10 @@ export namespace Numeric {
 		740, 744, 748, 752, 756, 760, 762, 764, 768, 772, 776, 780, 784, 788, 792, 795, 796, 798, 800, 804, 807, 818, 826,
 		831, 832, 833, 834, 840, 850, 854, 858, 860, 862, 876, 882, 887, 894, 926,
 	] as const
-	export const type = isly<Numeric>("number", "value", ...values).rename("isoly.CountryCode.Numeric")
-	export const is = type.is.bind(type) as typeof type.is
-	export const flawed = type.flawed.bind(type) as typeof type.flawed
+	export const { type, is, flawed } = isly
+		.number<Numeric>("value", ...values)
+		.rename("isoly.CountryCode.Numeric")
+		.bind()
 	export function from(country: Alpha2 | Alpha3): Numeric {
 		return Alpha2.is(country) ? alpha2ToNumeric[country] : from(Alpha2.from(country))
 	}

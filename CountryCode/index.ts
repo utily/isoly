@@ -11,7 +11,8 @@ export namespace CountryCode {
 	export import Alpha3 = CountryCodeAlpha3
 	export import Name = CountryCodeName
 	export import Numeric = CountryCodeNumeric
-	export const type = isly<CountryCode>("union", Alpha2.type, Alpha3.type, Numeric.type).rename("isoly.CountryCode")
-	export const is = type.is.bind(type) as typeof type.is
-	export const flawed = type.flawed.bind(type) as typeof type.flawed
+	export const { type, is, flawed } = isly
+		.union<CountryCode>(Alpha2.type, Alpha3.type, Numeric.type)
+		.rename("isoly.CountryCode")
+		.bind()
 }

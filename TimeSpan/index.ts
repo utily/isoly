@@ -9,17 +9,17 @@ export interface TimeSpan extends DateSpan {
 }
 
 export namespace TimeSpan {
-	export const type = DateSpan.type.extend<TimeSpan>(
-		{
-			hours: isly("number").optional(),
-			minutes: isly("number").optional(),
-			seconds: isly("number").optional(),
-			milliseconds: isly("number").optional(),
-		},
-		"isoly.TimeSpan"
-	)
-	export const is = type.is.bind(type) as typeof type.is
-	export const flawed = type.flawed.bind(type) as typeof type.flawed
+	export const { type, is, flawed } = DateSpan.type
+		.extend<TimeSpan>(
+			{
+				hours: isly.number().optional(),
+				minutes: isly.number().optional(),
+				seconds: isly.number().optional(),
+				milliseconds: isly.number().optional(),
+			},
+			"isoly.TimeSpan"
+		)
+		.bind()
 	export function toHours(value: TimeSpan, round?: Round): number {
 		const result =
 			(dateToMilliseconds(value) + (value.milliseconds ?? 0)) / (60 * 60 * 1000) +

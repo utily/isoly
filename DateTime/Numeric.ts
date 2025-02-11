@@ -8,14 +8,14 @@ import { DateTime } from "./index"
 export type Numeric = Date.Numeric & Time.Numeric & { zone?: TimeZone.Offset }
 
 export namespace Numeric {
-	export const type = isly<Numeric>(
-		"union",
-		Date.Numeric.type,
-		Time.Numeric.type,
-		isly<{ zone?: TimeZone.Offset }>("object", { zone: TimeZone.Offset.type.optional() })
-	).rename("isoly.DateTime.Numeric")
-	export const is = type.is.bind(type) as typeof type.is
-	export const flawed = type.flawed.bind(type) as typeof type.flawed
+	export const { type, is, flawed } = isly
+		.union<Numeric>(
+			Date.Numeric.type,
+			Time.Numeric.type,
+			isly.object<{ zone?: TimeZone.Offset }>({ zone: TimeZone.Offset.type.optional() })
+		)
+		.rename("isoly.DateTime.Numeric")
+		.bind()
 	export function parse(value: DateTime | string): Numeric {
 		const [date, splitted]: (string | undefined)[] = value.split("T", 2)
 		const [time, zone]: (string | undefined)[] = splitted?.split(/(Z|[+-].{5})?$/, 2) ?? []

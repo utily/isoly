@@ -6,11 +6,11 @@ export type Year = `${Digit}${Digit}${Digit}${Digit}`
 
 export namespace Year {
 	export import Numeric = YearNumeric
-	export const type = isly<Year>("string", "value", /^[0-9]{4}$/)
+	export const { type, is, flawed } = isly
+		.string<Year>("value", /^[0-9]{4}$/)
 		.rename("isoly.Date.Year")
 		.describe("Year in a 4-digit form (YYYY).")
-	export const is = type.is.bind(type)
-	export const flawed = type.flawed.bind(type)
+		.bind()
 	export function create(value: Numeric): Year
 	export function create(value: number): Year | undefined
 	export function create(value: number | Numeric): Year | undefined {

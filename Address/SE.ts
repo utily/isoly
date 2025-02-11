@@ -8,14 +8,15 @@ export type SE = {
 }
 
 export namespace SE {
-	export const type = isly<SE>(
-		"object",
-		{
-			countryCode: isly<"SE">("string", "value", "SE"),
-			street: isly("string"),
-			zipCode: isly("string"),
-			city: isly("string"),
-		},
-		"isoly.Address.SE"
-	)
+	export const { type, is, flawed } = isly
+		.object<SE>(
+			{
+				countryCode: isly.string<"SE">("value", "SE"),
+				street: isly.string(),
+				zipCode: isly.string(),
+				city: isly.string(),
+			},
+			"isoly.Address.SE"
+		)
+		.bind()
 }

@@ -5,18 +5,17 @@ import { Precision } from "./Precision"
 export type Numeric = Partial<Record<Precision, number>>
 
 export namespace Numeric {
-	export const type = isly<Numeric>(
-		"object",
-		{
-			hours: isly("number").optional(),
-			minutes: isly("number").optional(),
-			seconds: isly("number").optional(),
-			milliseconds: isly("number").optional(),
-		},
-		"isoly.Time.Numeric"
-	)
-	export const is = type.is.bind(type) as typeof type.is
-	export const flawed = type.flawed.bind(type) as typeof type.flawed
+	export const { type, is, flawed } = isly
+		.object<Numeric>(
+			{
+				hours: isly.number().optional(),
+				minutes: isly.number().optional(),
+				seconds: isly.number().optional(),
+				milliseconds: isly.number().optional(),
+			},
+			"isoly.Time.Numeric"
+		)
+		.bind()
 	export function create(epoch: number, precision: Precision = "seconds"): Required<Numeric> {
 		const integerDivision = (dividend: number, divisor: number) => [Math.trunc(dividend / divisor), dividend % divisor]
 		const [s, milliseconds] = integerDivision(epoch * Precision.factor[precision], 1000)

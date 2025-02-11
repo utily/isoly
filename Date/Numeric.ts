@@ -8,13 +8,12 @@ export interface Numeric {
 }
 
 export namespace Numeric {
-	export const type = isly<Numeric>(
-		"object",
-		{ years: isly("number").optional(), months: isly("number").optional(), days: isly("number").optional() },
-		"isoly.Date.Numeric"
-	)
-	export const is = type.is as typeof type.is
-	export const flawed = type.flawed as typeof type.flawed
+	export const { type, is, flawed } = isly
+		.object<Numeric>(
+			{ years: isly.number().optional(), months: isly.number().optional(), days: isly.number().optional() },
+			"isoly.Date.Numeric"
+		)
+		.bind()
 	export function parse(value: Date | string | undefined): Numeric {
 		const [year, month, day] =
 			value

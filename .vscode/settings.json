@@ -50,6 +50,7 @@
 		"isly",
 		"isoly",
 		"langly",
+		"måndag",
 		"paramly",
 		"persistly",
 		"selectivly",
@@ -58,10 +59,10 @@
 		"smoothly",
 		"tidily",
 		"transactly",
+		"transcoders",
 		"typedly",
 		"uply",
-		"måndag",
-		"transcoders"
+		"Utily"
 	],
 	"typescript.tsdk": "node_modules/typescript/lib"
 }

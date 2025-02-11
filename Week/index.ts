@@ -9,23 +9,19 @@ export type Week = `${number}-W${Week.Number}`
 export namespace Week {
 	export import Number = WeekNumber
 	export import Parts = WeekParts
-	export const type = isly<Week>(
-		"string",
-		value => {
+	export const { type, is, flawed } = isly
+		.string<Week>(value => {
 			const match = /^(\d{4})-W(\d{2})$/.exec(value) ?? []
 			return (
 				Date.Year.is(match[1]) &&
 				(WeekNumber.Numeric.parse(match[2]) ?? 54) <= WeekParts.lastWeek(Date.Year.Numeric.parse(match[1])!)
 			)
-		},
-		"YYYY-Www"
-	)
+		}, "YYYY-Www")
 		.rename("isoly.Week")
 		.describe(
 			"ISO 8601 week number in the format YYYY-Www (ex: 2025-W04). Week starts on Monday and the week containing the first Wednesday of the year is week 1 of that year."
 		)
-	export const is = type.is.bind(type) as typeof type.is
-	export const flawed = type.flawed.bind(type) as typeof type.flawed
+		.bind()
 
 	export function split(week: Week): [number, Week.Number.Numeric] {
 		return week.split("-W").map(globalThis.Number) as [number, Week.Number.Numeric]

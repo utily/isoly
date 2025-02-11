@@ -60,7 +60,8 @@ export namespace Number {
 		"52",
 		"53",
 	] as const
-	export const type = isly<Number>("string", "value", ...values).rename("isoly.Week.Number")
-	export const is = type.is.bind(type) as typeof type.is
-	export const flawed = type.flawed.bind(type) as typeof type.flawed
+	export const { type, is, flawed } = isly
+		.string<Number>("value", ...values)
+		.rename("isoly.Week.Number")
+		.bind()
 }

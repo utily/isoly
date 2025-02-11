@@ -66,9 +66,10 @@ export namespace Second {
 		"59",
 		"60", // Added leap second
 	] as const
-	export const type = isly<Second>("string", "value", ...values).rename("isoly.Time.Second")
-	export const is = type.is.bind(type) as typeof type.is
-	export const flawed = type.flawed.bind(type) as typeof type.flawed
+	export const { type, is, flawed } = isly
+		.string<Second>("value", ...values)
+		.rename("isoly.Time.Second")
+		.bind()
 	export type Numeric = typeof Numeric.values[number]
 	export namespace Numeric {
 		export const values = [
@@ -134,9 +135,10 @@ export namespace Second {
 			59,
 			60, // Added leap second
 		] as const
-		export const type = isly<Numeric>("number", "value", ...values).rename("isoly.Time.Second.Numeric")
-		export const is = type.is.bind(type) as typeof type.is
-		export const flawed = type.flawed.bind(type) as typeof type.flawed
+		export const { type, is, flawed } = isly
+			.number<Numeric>("value", ...values)
+			.rename("isoly.Time.Second.Numeric")
+			.bind()
 	}
 	export function parse(value: Second): Second.Numeric
 	export function parse(value: string): Second.Numeric | undefined

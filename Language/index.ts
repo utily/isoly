@@ -189,9 +189,10 @@ export namespace Language {
 		"za",
 		"zu",
 	] as const
-	export const type = isly<Language>("string", "value", ...values).rename("isoly.Language")
-	export const is = type.is.bind(type) as typeof type.is
-	export const flawed = type.flawed.bind(type) as typeof type.flawed
+	export const { type, is, flawed } = isly
+		.string<Language>("value", ...values)
+		.rename("isoly.Language")
+		.bind()
 	export function toName(language: Language): string {
 		const names: Record<Language, string> = {
 			ab: "Abkhazian",
