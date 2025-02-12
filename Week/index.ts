@@ -19,7 +19,7 @@ export namespace Week {
 		}, "YYYY-Www")
 		.rename("isoly.Week")
 		.describe(
-			"ISO 8601 week number in the format YYYY-Www (ex: 2025-W04). Week starts on Monday and the week containing the first Wednesday of the year is week 1 of that year."
+			"ISO 8601 week number in the format YYYY-Www (ex: 2025-W04). Week starts on Monday and the week containing the first Thursday of the year is week 1 of that year."
 		)
 		.bind()
 
