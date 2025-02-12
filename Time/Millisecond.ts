@@ -4,17 +4,17 @@ type Digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
 export type Millisecond = `${Digit}${Digit}${Digit}`
 
 export namespace Millisecond {
-	export const type = isly.named("isoly.Time.Millisecond", isly.string<Millisecond>(/^[0-9]{3}$/))
-	export const is = type.is
-	export const flaw = type.flaw
+	export const { type, is, flawed } = isly
+		.string<Millisecond>("value", /^[0-9]{3}$/)
+		.rename("isoly.Time.Millisecond")
+		.describe("Milliseconds expressed as 3 digits left padded with zeros when required.")
+		.bind()
 	export type Numeric = number
 	export namespace Numeric {
-		export const type = isly.named(
-			"isoly.Time.Millisecond.Numeric",
-			isly.number<Numeric>(value => value >= 0 && value <= 999)
-		)
-		export const is = type.is
-		export const flaw = type.flaw
+		export const { type, is, flawed } = isly
+			.number<Numeric>("range", 0, 999)
+			.rename("isoly.Time.Millisecond.Numeric")
+			.bind()
 	}
 	export function parse(value: Millisecond): Millisecond.Numeric
 	export function parse(value: string): Millisecond.Numeric | undefined

@@ -477,7 +477,8 @@ export namespace TimeZone {
 		"UTC",
 		"WET",
 	] as const
-	export const type = isly.named("isoly.TimeZone", isly.string(values))
-	export const is = type.is
-	export const flaw = type.flaw
+	export const { type, is, flawed } = isly
+		.string("value", ...values)
+		.rename("isoly.TimeZone")
+		.bind()
 }

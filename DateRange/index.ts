@@ -7,9 +7,9 @@ export interface DateRange {
 }
 
 export namespace DateRange {
-	export const type = isly.object<DateRange>({ start: Date.type, end: Date.type }, "isoly.DateRange")
-	export const is = type.is
-	export const flaw = type.flaw
+	export const { type, is, flawed } = isly
+		.object<DateRange>({ start: Date.type, end: Date.type }, "isoly.DateRange")
+		.bind()
 	export function create(start: Date, end: Date): DateRange
 	export function create(date: Date, length: DateSpan): DateRange
 	export function create(start: Date, end: Date | DateSpan): DateRange {

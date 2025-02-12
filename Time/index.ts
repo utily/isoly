@@ -16,9 +16,8 @@ export namespace Time {
 	export import Precision = TimePrecision
 	export import Second = TimeSecond
 
-	export const type = isly.named(
-		"isoly.Time",
-		isly.string<Time>((value: string) => {
+	export const { type, is, flawed } = isly
+		.string<Time>((value: string) => {
 			const splitted = /^\d{2}(?::\d{2}(?::\d{2}(?:\.\d{3})?)?)?$/.test(value) && Time.split(value)
 			return (
 				splitted &&
@@ -28,10 +27,10 @@ export namespace Time {
 				Time.Millisecond.type.optional().is(splitted[3]) &&
 				(splitted[2] != "60" || (splitted[0] == "23" && splitted[1] == "59")) // only allow leap second at 23:59
 			)
-		}, "HH:mm:ss.fff")
-	)
-	export const is = type.is
-	export const flaw = type.flaw
+		}, "HH[:mm[:ss[.fff]]]")
+		.rename("isoly.Time")
+		.describe("ISO 8601 time in the format HH[:mm[:ss[.fff]]].")
+		.bind()
 	export function create(epoch: number): Time
 	export function create(epoch: number, precision: Precision): Time
 	export function create(numeric: Numeric): Time
