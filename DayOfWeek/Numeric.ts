@@ -10,6 +10,6 @@ export namespace Numeric {
 		.rename("isoly.DayOfWeek.Numeric")
 		.bind()
 	export function from(date: Date): Numeric {
-		return (((Date.getWeekDay(date) + 7 - 1) % 7) + 1) as Numeric
+		return (((Date.getDayOfWeek(date) + 7 - 1) % 7) + 1) as Numeric
 	}
 }

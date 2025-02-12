@@ -3,7 +3,7 @@ name: "Bump Alpha"
 on:
   push:
     branches:
-      - "master-alpha"
+      - "master-4"
 jobs:
   bump-version:
     name: "Bump Alpha Version"

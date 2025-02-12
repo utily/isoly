@@ -1,5 +1,6 @@
 import { isly } from "isly"
 import { DateSpan } from "../DateSpan"
+import { DayOfWeek } from "../DayOfWeek"
 import { Locale } from "../Locale"
 import { Day as DateDay } from "./Day"
 import { Month as DateMonth } from "./Month"
@@ -16,7 +17,7 @@ export namespace Date {
 
 	export const { type, is, flawed } = isly
 		.string<Date>((value: string) => {
-			const splitted = /^\d{4}-\d{2}-\d{2}$/.test(value) && Date.split(value)
+			const splitted = /^\d{4}-\d{2}-\d{2}$/.test(value) && (value.split("-", 3) as [Year, Month, Day])
 			return (
 				splitted &&
 				Date.Year.type.is(splitted[0]) &&
@@ -28,183 +29,82 @@ export namespace Date {
 		.rename("isoly.Date")
 		.describe("Date string in format YYYY-MM-DD.")
 		.bind()
-	export function split(value: Date): [Year, Month, Day] {
-		return value.split("-", 3) as [Year, Month, Day]
+	export function normalize(date: Date): Date {
+		return Numeric.parse(date).normalize().format()
 	}
-	export function parse(value: Date, time?: string): globalThis.Date {
-		return new globalThis.Date(value + (time ?? "T12:00:00.000Z"))
+	export function to(date: Date, type: "number"): number
+	export function to(date: Date, type: "system"): globalThis.Date
+	export function to(date: Date, type: "number" | "system"): number | globalThis.Date
+	export function to(date: Date, type: "number" | "system"): number | globalThis.Date {
+		return Numeric.parse(date).to(type)
 	}
-	export function create(value: globalThis.Date): Date {
-		return value.toISOString().substring(0, 10)
+	export function localize(date: Date, locale?: Locale, timeZone?: string): Date {
+		return Numeric.parse(date).localize(locale, timeZone)
 	}
-	export function now(): Date {
-		return create(new globalThis.Date())
-	}
-	export function normalize(value: Date): Date {
-		return Numeric.format(Numeric.parse(value))
-	}
-	export function localize(value: Date | globalThis.Date, locale?: Locale, timezone?: string): Date {
-		return (
-			(is(value) ? parse(value) : value)
-				.toLocaleString(locale ? locale : Intl.DateTimeFormat().resolvedOptions().locale, {
-					year: "numeric",
-					month: "2-digit",
-					day: "2-digit",
-					timeZone: timezone ?? Intl.DateTimeFormat().resolvedOptions().timeZone,
-				})
-				.substring(0, 10)
-				// See DateTime:localize for note.
-				.replaceAll(" ", " ")
-		)
+	export function invert(date: Date): Date {
+		return Numeric.parse(date).invert().format()
 	}
 	export function next(date: Date, days: number | DateSpan = 1): Date {
-		let result: Date
-		if (typeof days == "number") {
-			const r = parse(date)
-			r.setDate(r.getDate() + days)
-			result = Date.create(r)
-		} else {
-			result = date
-			if (days.years)
-				result = nextYear(result, days.years)
-			if (days.months)
-				result = nextMonth(result, days.months)
-			if (days.days)
-				result = next(result, days.days)
-		}
-		return result
+		return Numeric.parse(date).next(days).format()
 	}
 	export function previous(date: Date, days: number | DateSpan = 1): Date {
-		let result: Date
-		if (typeof days == "number") {
-			const r = parse(date)
-			r.setDate(r.getDate() - days)
-			result = Date.create(r)
-		} else {
-			result = date
-			if (days.years)
-				result = previousYear(result, days.years)
-			if (days.months)
-				result = previousMonth(result, days.months)
-			if (days.days)
-				result = previous(result, days.days)
-		}
-		return result
+		return Numeric.parse(date).previous(days).format()
 	}
 	export function nextMonth(date: Date, months = 1): Date {
-		const result = parse(date)
-		result.setMonth(result.getMonth() + months)
-		return Date.create(result)
+		return Numeric.parse(date).nextMonth(months).format()
 	}
 	export function previousMonth(date: Date, months = 1): Date {
-		return nextMonth(date, -months)
+		return Numeric.parse(date).previousMonth(months).format()
 	}
 	export function nextYear(date: Date, years = 1): Date {
-		const result = parse(date)
-		result.setFullYear(result.getFullYear() + years)
-		return Date.create(result)
+		return Numeric.parse(date).nextYear(years).format()
 	}
 	export function previousYear(date: Date, years = 1): Date {
-		return nextYear(date, -years)
+		return Numeric.parse(date).previousYear(years).format()
 	}
 	export function firstOfYear(date: Date): Date {
-		const result = parse(date)
-		result.setMonth(0)
-		result.setDate(1)
-		return Date.create(result)
+		return Numeric.parse(date).firstOfYear().format()
 	}
 	export function lastOfYear(date: Date): Date {
-		const result = parse(date)
-		result.setFullYear(result.getFullYear() + 1)
-		result.setMonth(0)
-		result.setDate(0)
-		return Date.create(result)
+		return Numeric.parse(date).lastOfYear().format()
 	}
 	export function firstOfMonth(date: Date): Date {
-		const result = parse(date)
-		result.setDate(1)
-		return Date.create(result)
+		return Numeric.parse(date).firstOfMonth().format()
 	}
 	export function lastOfMonth(date: Date): Date {
-		const result = parse(date)
-		result.setMonth(result.getMonth() + 1)
-		result.setDate(0)
-		return Date.create(result)
+		return Numeric.parse(date).lastOfMonth().format()
 	}
 	export function firstOfWeek(date: Date): Date {
-		const result = parse(date)
-		const relativeDay = result.getDate() - (result.getDay() || 7) + 1
-		result.setDate(relativeDay)
-		return Date.create(result)
+		return Numeric.parse(date).firstOfWeek().format()
 	}
 	export function lastOfWeek(date: Date): Date {
-		const result = parse(date)
-		const relativeDay = result.getDate() - result.getDay() + 7
-		result.setDate(relativeDay)
-		return Date.create(result)
-	}
-	export function getYear(date: Date, options?: { digits?: 2 | 4 }): number {
-		return options?.digits != 2 ? Number.parseInt(date.substring(0, 4)) : +getYear(date).toString().slice(-2)
-	}
-	export function getMonth(date: Date): number {
-		return Number.parseInt(date.substring(5, 7))
+		return Numeric.parse(date).lastOfWeek().format()
 	}
 	export function getWeek(date: Date): number {
-		const parsed = new globalThis.Date(date)
-		parsed.setHours(0, 0, 0, 0)
-		parsed.setDate(parsed.getDate() + 3 - ((parsed.getDay() + 6) % 7))
-		const week1 = new globalThis.Date(parsed.getFullYear(), 0, 4)
-		return 1 + Math.round(((parsed.getTime() - week1.getTime()) / 86_400_000 - 3 + ((week1.getDay() + 6) % 7)) / 7)
+		return Numeric.parse(date).getWeek()
 	}
-	export function getDay(date: Date): number {
-		return Number.parseInt(date.substring(8, 10))
+	export function getDayOfWeek(date: Date): DayOfWeek {
+		return Numeric.parse(date).getDayOfWeek()
 	}
-	export function getWeekDay(date: Date): number
-	export function getWeekDay(date: Date, locale: Locale, options?: { format?: "long" | "short" | "narrow" }): string
-	export function getWeekDay(
+	export function nextBusinessDay(
 		date: Date,
-		locale?: Locale,
-		options?: { format?: "long" | "short" | "narrow" }
-	): number | string {
-		const format = options?.format ?? "long"
-		return locale
-			? new globalThis.Date(date).toLocaleDateString(locale, { weekday: format })
-			: new globalThis.Date(date).getDay()
+		businessDays = 1,
+		holidays: Set<Date> = new Set(),
+		weekend: DayOfWeek[] = ["saturday", "sunday"]
+	): Date {
+		return Numeric.parse(date).nextBusinessDay(businessDays, holidays, weekend).format()
 	}
-	export function nextWeekday(date: Date, days: number | DateSpan = 1, holidays: Date[] = []): Date {
-		const holidaySet = new Set(holidays)
-		let result = next(date, days)
-		let weekday = getWeekDay(result)
-		while (weekday == 6 || weekday == 0 || holidaySet.has(result)) {
-			result = next(result, weekday == 6 ? 2 : 1)
-			weekday = getWeekDay(result)
-		}
-		return result
+	export function isBusinessDay(date: Date): boolean {
+		return Numeric.parse(date).isBusinessDay()
 	}
-	export function nextBusinessDay(date: Date, bankingDays = 1, bankingHolidays: Date[] | Set<Date> = []): Date {
-		const holidaySet = new Set(bankingHolidays)
-		if (bankingDays <= 0 && isBusinessDay(date, holidaySet))
-			return date
-		const tomorrow = next(date)
-		const tomorrowIsBusinessDay = isBusinessDay(tomorrow, holidaySet)
-		return nextBusinessDay(tomorrow, tomorrowIsBusinessDay ? bankingDays - 1 : bankingDays, holidaySet)
+	export function create(value: globalThis.Date): Date {
+		return Numeric.create(value).format()
 	}
-	function isBusinessDay(date: Date, holidaySet: Set<Date> = new Set()) {
-		const weekday = getWeekDay(date)
-		return !(weekday == 6 || weekday == 0 || holidaySet.has(date))
+	export function now(): Date {
+		return Numeric.now().format()
 	}
-	export function span(date: Date, relative: Date): DateSpan {
-		return {
-			years: getYear(date) - getYear(relative),
-			months: getMonth(date) - getMonth(relative),
-			days: getDay(date) - getDay(relative),
-		}
+	export function parse(value: Date | string | undefined): Date {
+		return Numeric.parse(value).format()
 	}
-	export const epochStart = "0000-01-01" as const
-	export const epochEnd = "9999-12-31" as const
-	export function invert(date: Date): Date {
-		return `${(9999 - getYear(date)).toFixed(0).padStart(4, "0")}-${(13 - getMonth(date))
-			.toFixed(0)
-			.padStart(2, "0")}-${(32 - getDay(date)).toFixed(0).padStart(2, "0")}`
-	}
+	export const epoch = ["0000-01-01", "9999-12-31"] as const
 }

@@ -14,7 +14,7 @@ export namespace DayOfWeek {
 		.bind()
 
 	export function from(value: Numeric | Date): DayOfWeek {
-		return Numeric.is(value) ? values[value - 1] : from(Numeric.from(value))
+		return Numeric.is(value) ? values[value - 1] : from(Date.getDayOfWeek(value))
 	}
 	export function toNumeric(value: DayOfWeek): Numeric {
 		return (values.indexOf(value) + 1) as Numeric
