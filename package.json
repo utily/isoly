@@ -5,7 +5,10 @@
 	"author": "Utily Contributors",
 	"license": "MIT",
 	"private": false,
-	"repository": "https://github.com/utily/isoly",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/utily/isoly"
+	},
 	"bugs": {
 		"url": "https://github.com/utily/isoly/issues"
 	},
