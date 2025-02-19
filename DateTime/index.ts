@@ -4,7 +4,9 @@ import { Locale } from "../Locale"
 import { Time } from "../Time"
 import { TimeSpan } from "../TimeSpan"
 import { TimeZone } from "../TimeZone"
+import { Format } from "./Format"
 import { Numeric as DateTimeNumeric } from "./Numeric"
+import { Precision } from "./Precision"
 
 export type DateTime = string
 
@@ -37,48 +39,14 @@ export namespace DateTime {
 	export function parse(value: DateTime): globalThis.Date {
 		return new globalThis.Date(DateTime.truncate(value, "milliseconds"))
 	}
-	export function create(
-		value: number,
-		resolution?: "days" | "hours" | "minutes" | "seconds" | "milliseconds"
-	): DateTime
+	export function create(value: number, resolution?: Precision): DateTime
 	export function create(value: globalThis.Date): DateTime
-	export function create(
-		value: number | globalThis.Date,
-		resolution: "days" | "hours" | "minutes" | "seconds" | "milliseconds" = "seconds"
-	): DateTime {
-		if (typeof value == "number") {
-			switch (resolution) {
-				case "days":
-					value = value * 24
-				// fallthrough...
-				case "hours":
-					value = value * 60
-				// fallthrough...
-				case "minutes":
-					value = value * 60
-				// fallthrough...
-				case "seconds":
-					value = value * 1000
-				// fallthrough...
-				case "milliseconds":
-			}
-			value = new globalThis.Date(value)
-		}
-		return fix(value.toISOString())
+	export function create(value: number | globalThis.Date, precision: Precision = "seconds"): DateTime {
+		return Numeric.create(value).format(precision)
 	}
 	export function normalize(value: DateTime | string, precision?: Precision): DateTime {
-		return Numeric.format(Numeric.parse(value), precision)
+		return Numeric.parse(value).format(precision)
 	}
-	/** @deprecated use normalize(value, "milliseconds") instead */
-	export function fix(value: DateTime | string): DateTime {
-		if (value.length == 22 && value.match(/\.\dZ$/))
-			value = value.substring(0, 21) + "00Z"
-		else if (value.length == 23 && value.match(/\.\d\dZ$/))
-			value = value.substring(0, 22) + "0Z"
-		return value
-	}
-	/** @deprecated */
-	export const fixIncorrect = fix
 	/**
 	 * Return local time with offset.
 	 * Note: During DST-change, this might be wrong.
@@ -102,12 +70,9 @@ export namespace DateTime {
 		const timeZoneString = `${diffInMinutes >= 0 ? "+" : "-"}${offsetHours}:${offsetMinutes}`
 		return `${local}${timeZoneString}`
 	}
-	/** @deprecated */
-	export const fromLocalDateTime = fromLocal
 	export function now(): DateTime {
 		return create(new globalThis.Date())
 	}
-	export type Format = Intl.DateTimeFormatOptions
 
 	export function localize(value: DateTime | globalThis.Date, format: Format, locale?: Locale): string
 	export function localize(value: DateTime | globalThis.Date, locale?: Locale, timeZone?: TimeZone): string
@@ -116,56 +81,17 @@ export namespace DateTime {
 		formatOrLocale?: Locale | Format,
 		localeOrTimeZone?: string | Locale
 	): string {
-		let result: string
-		if (typeof formatOrLocale == "object") {
-			// formatOrLocale is Format
-			// localeOrTimeZone is Locale | undefined
-			const localeString = localeOrTimeZone ? localeOrTimeZone : Intl.DateTimeFormat().resolvedOptions().locale
-			result = (is(value) ? parse(value) : value)
-				.toLocaleString(localeString, formatOrLocale)
-				// For consistency, replace NNBSP with space:
-				// Unicode has decided to use `Narrow No-Break Space (NNBSP)` (U+202F) instead of space in some cases.
-				// It breaks tests, when running in different environments.
-				// https://icu.unicode.org/download/72#:~:text=In%20many%20formatting%20patterns%2C%20ASCII%20spaces%20are%20replaced%20with%20Unicode%20spaces%20(e.g.%2C%20a%20%22thin%20space%22)
-				// This can be removed, with a breaking change and updated tests, when all systems use updated versions of ICU.
-				.replaceAll(" ", " ")
-		} else {
-			// formatOrLocale is Locale | undefined
-			// localeOrTimeZone is timeZone | undefined
-			const precision = is(value) ? DateTime.precision(value) : "milliseconds"
-			result = localize(
-				value,
-				{
-					year: "numeric",
-					month: "2-digit",
-					day: "2-digit",
-					hour: "2-digit",
-					minute:
-						precision == "minutes" || precision == "seconds" || precision == "milliseconds" ? "2-digit" : undefined,
-					second: precision == "seconds" || precision == "milliseconds" ? "2-digit" : undefined,
-					timeZone: localeOrTimeZone,
-				} as Format,
-				formatOrLocale
-			)
-		}
-		return result
+		return Numeric.create(value).localize(formatOrLocale, localeOrTimeZone)
 	}
 	export function startOfDay(value: DateTime | Date): DateTime {
-		return value.slice(0, 10) + "T00:00:00.000" + (DateTime.is(value) ? timeZoneOffset(value) || "Z" : "Z")
+		return Numeric.create(value).startOfDay.format()
 	}
 	export function endOfDay(value: DateTime | Date): DateTime {
-		return value.slice(0, 10) + "T23:59:59.999" + (DateTime.is(value) ? timeZoneOffset(value) || "Z" : "Z")
+		return Numeric.create(value).endOfDay.format()
 	}
-	export function timeZoneOffset(value: DateTime): TimeZone.Offset | "" {
-		const result = value[value.length - 1] == "Z" ? "Z" : value.substring(value.length - 6)
-		return TimeZone.Offset.is(result) ? result : ""
-	}
-	/** @deprecated Use timeZoneOffset() */
-	export const timeZone = timeZoneOffset
 	export function timeZoneShort(value: DateTime): number {
-		return parse(value).getTimezoneOffset()
+		return Numeric.create(value).to("system").getTimezoneOffset()
 	}
-	export type Precision = "hours" | "minutes" | "seconds" | "milliseconds"
 	export function precision(value: DateTime): Precision {
 		const zone = timeZoneOffset(value)
 		const time = value.substring(0, value.length - zone.length).split("T", 2)[1]
@@ -188,60 +114,17 @@ export namespace DateTime {
 		return result
 	}
 
-	export function truncate(value: DateTime, precision: Precision): DateTime {
-		const zone = timeZoneOffset(value)
-		// eslint-disable-next-line prefer-const
-		let [date, time] = value.split("T", 2)
-		time = time.substring(0, time.length - zone.length)
-		switch (time.length) {
-			case 2:
-				time += ":00:00.000"
-				break
-			case 5:
-				time += ":00.000"
-				break
-			case 8:
-				time += ".000"
-				break
-		}
-		let result: string
-		switch (precision) {
-			case "hours":
-				result = time.substring(0, 2)
-				break
-			case "minutes":
-				result = time.substring(0, 5)
-				break
-			case "seconds":
-				result = time.substring(0, 8)
-				break
-			case "milliseconds":
-				result = time.substring(0, 12)
-				break
-		}
-		return date + "T" + result + zone
+	export function truncate(
+		value: globalThis.Date | Numeric.Values | number | DateTime,
+		precision: Precision
+	): DateTime {
+		return Numeric.create(value).truncate(precision).format()
 	}
 	export function epoch(
-		value: DateTime | globalThis.Date,
-		resolution: "days" | "hours" | "minutes" | "seconds" | "milliseconds" = "seconds"
+		value: globalThis.Date | Numeric.Values | number | DateTime,
+		precision: Time.Precision | "days" = "seconds"
 	): number {
-		let result = (typeof value == "string" ? parse(value) : value).getTime()
-		switch (resolution) {
-			case "days":
-				result = Math.round(result / 24)
-			// fallthrough...
-			case "hours":
-				result = Math.round(result / 60)
-			// fallthrough...
-			case "minutes":
-				result = Math.round(result / 60)
-			// fallthrough...
-			case "seconds":
-				result = Math.round(result / 1000)
-			// fallthrough...
-			case "milliseconds":
-		}
-		return result
+		return Numeric.create(value).epoch(precision)
 	}
 	export function next(time: DateTime, span: number | TimeSpan = 1): DateTime {
 		let result: DateTime

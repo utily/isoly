@@ -176,9 +176,6 @@ export class Numeric {
 			? Numeric.create({ years: value.getFullYear(), months: value.getUTCMonth() - 1, days: value.getUTCDate() - 1 })
 			: new Numeric(value.years, value.months, value.days)
 	}
-	static now(): Numeric {
-		return Numeric.create(new globalThis.Date())
-	}
 	static parse(value: Date | string | undefined): Numeric {
 		const [year, month, day] =
 			value
@@ -186,6 +183,9 @@ export class Numeric {
 				.map(v => Number.parseInt(v))
 				.map(v => (Number.isSafeInteger(v) ? v : undefined)) ?? []
 		return new Numeric(year, month != undefined ? month - 1 : undefined, day ? day - 1 : undefined)
+	}
+	static get now(): Numeric {
+		return Numeric.create(new globalThis.Date())
 	}
 	static get epoch(): [Numeric, Numeric] {
 		return [new Numeric(0, 0, 0), new Numeric(9999, 12, 31)]
