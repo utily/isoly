@@ -6,23 +6,22 @@ on:
       - "master-alpha"
 jobs:
   bump-version:
-    name: "Bump alpha version"
+    name: "Bump Alpha Version"
     timeout-minutes: 60
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, 'ci: version bump to ')"
 
     steps:
       - name: "Checkout source code"
-        uses: "actions/checkout@v3"
+        uses: "actions/checkout@v4"
         with:
+          ref: ${{ github.ref }}
           token: ${{ secrets.ADMIN_TOKEN }}
       - name: "Setup Node"
         uses: "actions/setup-node@v3"
         with:
           node-version: current
           cache: "npm"
-      - name: Update NPM
-        run: npm install -g npm
       - name: "Version Bump"
         id: version-bump
         uses: "phips28/gh-action-bump-version@master"
