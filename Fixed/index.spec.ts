@@ -21,7 +21,7 @@ describe("isoly.Fixed", () => {
 		[42.13377, 4, 42.1338],
 		[42.13377, 2, 42.13],
 		[42.13377, 0, 42],
-		[42.13377, undefined, 42.13],
+		[42.13377, undefined, 42], // default precision is 0
 	] as const)("create(%f, %i) == %f", (value, precision, expected) =>
 		expect(isoly.Fixed.create(value, precision).value).toEqual(expected)
 	)

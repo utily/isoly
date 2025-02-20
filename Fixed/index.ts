@@ -1,7 +1,7 @@
 import { Precision as _Precision } from "./Precision"
 
 export class Fixed {
-	private constructor(readonly value: number, readonly precision: Fixed.Precision = 2) {}
+	private constructor(readonly value: number, readonly precision: Fixed.Precision = 0) {}
 	create(value: number, precision: Fixed.Precision = this.precision): Fixed {
 		return new Fixed(value, precision).round()
 	}
@@ -32,27 +32,19 @@ export class Fixed {
 	toString(): string {
 		return this.value.toFixed(this.precision)
 	}
-	static create(value: number, precision: Fixed.Precision = 2): Fixed {
+	static create(value: number, precision: Fixed.Precision = 0): Fixed {
 		return new Fixed(value, precision).round()
 	}
-	static round(value: number, precision: Fixed.Precision = 2): Fixed {
-		const factor = Math.pow(10, precision)
-		const decimals = (value.toString().split(".")?.[1]?.length ?? 0) - 1
-		return new Fixed(
-			Math.round((value + (decimals <= precision + 5 ? Number.EPSILON : Math.pow(10, -decimals))) * factor) / factor,
-			precision
-		)
-	}
-	static add(value: number, term: number | Fixed, precision: Fixed.Precision = 2): Fixed {
+	static add(value: number, term: number | Fixed, precision: Fixed.Precision = 0): Fixed {
 		return this.create(value, precision).add(term)
 	}
-	static subtract(value: number, minuend: number | Fixed, precision: Fixed.Precision = 2): Fixed {
+	static subtract(value: number, minuend: number | Fixed, precision: Fixed.Precision = 0): Fixed {
 		return this.create(value, precision).subtract(minuend)
 	}
-	static multiply(value: number, multiplicand: number | Fixed, precision: Fixed.Precision = 2): Fixed {
+	static multiply(value: number, multiplicand: number | Fixed, precision: Fixed.Precision = 0): Fixed {
 		return this.create(value, precision).multiply(multiplicand)
 	}
-	static divide(value: number, denominator: number | Fixed, precision: Fixed.Precision = 2): Fixed {
+	static divide(value: number, denominator: number | Fixed, precision: Fixed.Precision = 0): Fixed {
 		return this.create(value, precision).divide(denominator)
 	}
 }

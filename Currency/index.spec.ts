@@ -101,7 +101,7 @@ describe("Currency", () => {
 		["SEK", 0.1, 1.5, "ISK", 0],
 		["SEK", 0.1, 1.5, "SEK", 0.15],
 		["SEK", 0.1, 1.5, "BHD", 0.15],
-	] as const)("multiply %s, %f, %f, %f == %f", (currencyLeft, left, right, currencyRight, expected) =>
+	] as const)("multiply %s, %f, %f, %s == %f", (currencyLeft, left, right, currencyRight, expected) =>
 		expect(isoly.Currency.multiply(currencyLeft, left, right, currencyRight)).toEqual(expected)
 	)
 	it.each([
@@ -171,5 +171,5 @@ describe("Currency", () => {
 	] as const)("fromMinor %f, %s == %f", (value, currency, expected) =>
 		expect(isoly.Currency.fromMinor(value, currency)).toEqual(expected)
 	)
-	it.each(isoly.Currency.values)("name(%s) == %s", currency => expect(isoly.Currency.name(currency)).toMatchSnapshot())
+	it.each(isoly.Currency.values)("name(%s)", currency => expect(isoly.Currency.name(currency)).toMatchSnapshot())
 })
