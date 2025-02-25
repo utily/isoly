@@ -20,9 +20,6 @@ export class Amount<C extends Currency = Currency> {
 	create(value: number): Amount<C> {
 		return Amount.create<C>(this.currency, value)
 	}
-	round(): Amount<C> {
-		return this.create(this.backend.round().value)
-	}
 	add(term: number | Amount<C>): Amount<C> {
 		return this.create(this.backend.add(typeof term == "number" ? term : term.backend).value)
 	}

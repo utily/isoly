@@ -124,4 +124,7 @@ describe("isoly.Fixed", () => {
 	])("sum %j == %f", (term0, term1, term2, term3, expected) =>
 		expect(isoly.Fixed.add(term0, term1, 2).add(term2).add(term3).value).toEqual(expected)
 	)
+	it.each([[13.37, 1, 13.4]] as const)("create(%s, %s).toJSON() == %s", (value, precision, expected) =>
+		expect(isoly.Fixed.create(value, precision).toJSON()).toBe(expected)
+	)
 })
