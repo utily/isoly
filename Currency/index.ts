@@ -16,7 +16,7 @@ export namespace Currency {
 		.rename("isoly.Currency")
 		.bind()
 	export function round(value: number, currency: Currency): number {
-		return Amount.create(currency, value).round().value
+		return Amount.create(currency, value).value
 	}
 	export function add(currency: Currency, left: number, right: number): number {
 		return Amount.add(currency, left, right).value

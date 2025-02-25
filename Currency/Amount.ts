@@ -30,8 +30,12 @@ export class Amount {
 		return this.create(this.backend.subtract(typeof minuend == "number" ? minuend : minuend.backend).value)
 	}
 	multiply(multiplicand: number | Amount, output?: Currency): Amount {
-		const result = this.backend.multiply(typeof multiplicand == "number" ? multiplicand : multiplicand.backend).value
-		return output ? Amount.create(output, result) : this.create(result)
+		return this.create(
+			this.backend.multiply(typeof multiplicand == "number" ? multiplicand : multiplicand.backend).value
+		)
+	}
+	convert(factor: number, to: Currency): Amount {
+		return Amount.create(to, this.value * factor)
 	}
 	divide(denominator: number | Amount): Amount {
 		return this.create(this.backend.divide(typeof denominator == "number" ? denominator : denominator.backend).value)
