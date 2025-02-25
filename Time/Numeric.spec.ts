@@ -13,6 +13,7 @@ describe("isoly.Time.Numeric", () => {
 		["12", { hours: 12 }],
 		["23:59:60", { hours: 23, minutes: 59, seconds: 60 }],
 		["100:100:100.123456789", { hours: 100, minutes: 100, seconds: 100, milliseconds: 123 }],
+		[undefined, {}],
 	] as const)("parse(%s) == %s", (time, expected) => expect(isoly.Time.Numeric.parse(time)).toEqual(expected))
 	it.each([
 		[{ hours: 12, minutes: 34, seconds: 56, milliseconds: 789 }, 45296789],

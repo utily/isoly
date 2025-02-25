@@ -32,7 +32,7 @@ export namespace Numeric {
 		const [hours, minutes, secondsMilliseconds] = time?.split(":", 3) ?? []
 		const [seconds, milliseconds] = secondsMilliseconds?.split(".", 2) ?? []
 		return {
-			hours: Number.parseInt(hours),
+			hours: hours != undefined ? Number.parseInt(hours) : undefined,
 			minutes: minutes != undefined ? Number.parseInt(minutes) : undefined,
 			seconds: seconds != undefined ? Number.parseInt(seconds) : undefined,
 			milliseconds: milliseconds != undefined ? Number.parseInt(milliseconds.slice(0, 3).padEnd(3, "0")) : undefined,
