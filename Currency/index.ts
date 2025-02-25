@@ -24,8 +24,11 @@ export namespace Currency {
 	export function subtract(currency: Currency, minuend: number, subtrahend: number): number {
 		return Amount.subtract(currency, minuend, subtrahend).value
 	}
-	export function multiply(currency: Currency, amount: number, multiplicand: number, output?: Currency): number {
-		return Amount.multiply(currency, amount, multiplicand, output).value
+	export function multiply(currency: Currency, amount: number, multiplicand: number): number {
+		return Amount.multiply(currency, amount, multiplicand).value
+	}
+	export function convert(currency: Currency, amount: number, factor: number, output: Currency): number {
+		return Amount.convert(currency, amount, factor, output).value
 	}
 	export function divide(currency: Currency, amount: number, denominator: number): number {
 		return Amount.divide(currency, amount, denominator).value

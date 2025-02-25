@@ -357,3 +357,361 @@ exports[`Currency > name(ZAR) 1`] = `"South African rand"`;
 exports[`Currency > name(ZMW) 1`] = `"Zambian kwacha"`;
 
 exports[`Currency > name(ZWL) 1`] = `"Zimbabwean dollar"`;
+
+exports[`isoly.Currency > name(AED) 1`] = `"United Arab Emirates dirham"`;
+
+exports[`isoly.Currency > name(AFN) 1`] = `"Afghan afghani"`;
+
+exports[`isoly.Currency > name(ALL) 1`] = `"Albanian lek"`;
+
+exports[`isoly.Currency > name(AMD) 1`] = `"Armenian dram"`;
+
+exports[`isoly.Currency > name(ANG) 1`] = `"Netherlands Antillean guilder"`;
+
+exports[`isoly.Currency > name(AOA) 1`] = `"Angolan kwanza"`;
+
+exports[`isoly.Currency > name(ARS) 1`] = `"Argentine peso"`;
+
+exports[`isoly.Currency > name(AUD) 1`] = `"Australian dollar"`;
+
+exports[`isoly.Currency > name(AWG) 1`] = `"Aruban florin"`;
+
+exports[`isoly.Currency > name(AZN) 1`] = `"Azerbaijani manat"`;
+
+exports[`isoly.Currency > name(BAM) 1`] = `"Bosnia and Herzegovina convertible mark"`;
+
+exports[`isoly.Currency > name(BBD) 1`] = `"Barbados dollar"`;
+
+exports[`isoly.Currency > name(BDT) 1`] = `"Bangladeshi taka"`;
+
+exports[`isoly.Currency > name(BGN) 1`] = `"Bulgarian lev"`;
+
+exports[`isoly.Currency > name(BHD) 1`] = `"Bahraini dinar"`;
+
+exports[`isoly.Currency > name(BIF) 1`] = `"Burundian franc"`;
+
+exports[`isoly.Currency > name(BMD) 1`] = `"Bermudian dollar"`;
+
+exports[`isoly.Currency > name(BND) 1`] = `"Brunei dollar"`;
+
+exports[`isoly.Currency > name(BOB) 1`] = `"Boliviano"`;
+
+exports[`isoly.Currency > name(BOV) 1`] = `"Bolivian Mvdol"`;
+
+exports[`isoly.Currency > name(BRL) 1`] = `"Brazilian real"`;
+
+exports[`isoly.Currency > name(BSD) 1`] = `"Bahamian dollar"`;
+
+exports[`isoly.Currency > name(BTN) 1`] = `"Bhutanese ngultrum"`;
+
+exports[`isoly.Currency > name(BWP) 1`] = `"Botswana pula"`;
+
+exports[`isoly.Currency > name(BYN) 1`] = `"Belarusian ruble"`;
+
+exports[`isoly.Currency > name(BZD) 1`] = `"Belize dollar"`;
+
+exports[`isoly.Currency > name(CAD) 1`] = `"Canadian dollar"`;
+
+exports[`isoly.Currency > name(CDF) 1`] = `"Congolese franc"`;
+
+exports[`isoly.Currency > name(CHE) 1`] = `"WIR euro"`;
+
+exports[`isoly.Currency > name(CHF) 1`] = `"Swiss franc"`;
+
+exports[`isoly.Currency > name(CHW) 1`] = `"WIR franc"`;
+
+exports[`isoly.Currency > name(CLF) 1`] = `"Unidad de Fomento"`;
+
+exports[`isoly.Currency > name(CLP) 1`] = `"Chilean peso"`;
+
+exports[`isoly.Currency > name(CNY) 1`] = `"Renminbi"`;
+
+exports[`isoly.Currency > name(COP) 1`] = `"Colombian peso"`;
+
+exports[`isoly.Currency > name(COU) 1`] = `"Unidad de Valor Real"`;
+
+exports[`isoly.Currency > name(CRC) 1`] = `"Costa Rican colon"`;
+
+exports[`isoly.Currency > name(CUC) 1`] = `"peso cubano convertible"`;
+
+exports[`isoly.Currency > name(CUP) 1`] = `"Cuban peso"`;
+
+exports[`isoly.Currency > name(CVE) 1`] = `"Cape Verdean escudo"`;
+
+exports[`isoly.Currency > name(CZK) 1`] = `"Czech koruna"`;
+
+exports[`isoly.Currency > name(DJF) 1`] = `"Djiboutian franc"`;
+
+exports[`isoly.Currency > name(DKK) 1`] = `"Danish krone"`;
+
+exports[`isoly.Currency > name(DOP) 1`] = `"Dominican peso"`;
+
+exports[`isoly.Currency > name(DZD) 1`] = `"Algerian dinar"`;
+
+exports[`isoly.Currency > name(EGP) 1`] = `"Egyptian pound"`;
+
+exports[`isoly.Currency > name(ERN) 1`] = `"Eritrean nakfa"`;
+
+exports[`isoly.Currency > name(ETB) 1`] = `"Ethiopian birr"`;
+
+exports[`isoly.Currency > name(EUR) 1`] = `"Euro"`;
+
+exports[`isoly.Currency > name(FJD) 1`] = `"Fiji dollar"`;
+
+exports[`isoly.Currency > name(FKP) 1`] = `"Falkland Islands pound"`;
+
+exports[`isoly.Currency > name(GBP) 1`] = `"Pound sterling"`;
+
+exports[`isoly.Currency > name(GEL) 1`] = `"Georgian lari"`;
+
+exports[`isoly.Currency > name(GHS) 1`] = `"Ghanaian cedi"`;
+
+exports[`isoly.Currency > name(GIP) 1`] = `"Gibraltar pound"`;
+
+exports[`isoly.Currency > name(GMD) 1`] = `"Gambian dalasi"`;
+
+exports[`isoly.Currency > name(GNF) 1`] = `"Guinean franc"`;
+
+exports[`isoly.Currency > name(GTQ) 1`] = `"Guatemalan quetzal"`;
+
+exports[`isoly.Currency > name(GYD) 1`] = `"Guyanese dollar"`;
+
+exports[`isoly.Currency > name(HKD) 1`] = `"Hong Kong dollar"`;
+
+exports[`isoly.Currency > name(HNL) 1`] = `"Honduran lempira"`;
+
+exports[`isoly.Currency > name(HRK) 1`] = `"Hrvatska kuna"`;
+
+exports[`isoly.Currency > name(HTG) 1`] = `"Haitian gourde"`;
+
+exports[`isoly.Currency > name(HUF) 1`] = `"Hungarian forint"`;
+
+exports[`isoly.Currency > name(IDR) 1`] = `"Indonesian rupiah"`;
+
+exports[`isoly.Currency > name(ILS) 1`] = `"Israeli new shekel"`;
+
+exports[`isoly.Currency > name(INR) 1`] = `"Indian rupee"`;
+
+exports[`isoly.Currency > name(IQD) 1`] = `"Iraqi dinar"`;
+
+exports[`isoly.Currency > name(IRR) 1`] = `"Iranian rial"`;
+
+exports[`isoly.Currency > name(ISK) 1`] = `"Icelandic króna"`;
+
+exports[`isoly.Currency > name(JMD) 1`] = `"Jamaican dollar"`;
+
+exports[`isoly.Currency > name(JOD) 1`] = `"Jordanian dinar"`;
+
+exports[`isoly.Currency > name(JPY) 1`] = `"Japanese yen"`;
+
+exports[`isoly.Currency > name(KES) 1`] = `"Kenyan shilling"`;
+
+exports[`isoly.Currency > name(KGS) 1`] = `"Kyrgyzstani som"`;
+
+exports[`isoly.Currency > name(KHR) 1`] = `"Cambodian riel"`;
+
+exports[`isoly.Currency > name(KMF) 1`] = `"Comoro franc"`;
+
+exports[`isoly.Currency > name(KPW) 1`] = `"North Korean won"`;
+
+exports[`isoly.Currency > name(KRW) 1`] = `"South Korean won"`;
+
+exports[`isoly.Currency > name(KWD) 1`] = `"Kuwaiti dinar"`;
+
+exports[`isoly.Currency > name(KYD) 1`] = `"Cayman Islands dollar"`;
+
+exports[`isoly.Currency > name(KZT) 1`] = `"Kazakhstani tenge"`;
+
+exports[`isoly.Currency > name(LAK) 1`] = `"Lao kip"`;
+
+exports[`isoly.Currency > name(LBP) 1`] = `"Lebanese pound"`;
+
+exports[`isoly.Currency > name(LKR) 1`] = `"Sri Lankan rupee"`;
+
+exports[`isoly.Currency > name(LRD) 1`] = `"Liberian dollar"`;
+
+exports[`isoly.Currency > name(LSL) 1`] = `"Lesotho loti"`;
+
+exports[`isoly.Currency > name(LYD) 1`] = `"Libyan dinar"`;
+
+exports[`isoly.Currency > name(MAD) 1`] = `"Moroccan dirham"`;
+
+exports[`isoly.Currency > name(MDL) 1`] = `"Moldovan leu"`;
+
+exports[`isoly.Currency > name(MGA) 1`] = `"Malagasy ariary"`;
+
+exports[`isoly.Currency > name(MKD) 1`] = `"Macedonian denar"`;
+
+exports[`isoly.Currency > name(MMK) 1`] = `"Myanmar kyat"`;
+
+exports[`isoly.Currency > name(MNT) 1`] = `"Mongolian tögrög"`;
+
+exports[`isoly.Currency > name(MOP) 1`] = `"Macanese pataca"`;
+
+exports[`isoly.Currency > name(MRU) 1`] = `"Mauritanian ouguiya"`;
+
+exports[`isoly.Currency > name(MUR) 1`] = `"Mauritian rupee"`;
+
+exports[`isoly.Currency > name(MVR) 1`] = `"Maldivian rufiyaa"`;
+
+exports[`isoly.Currency > name(MWK) 1`] = `"Malawian kwacha"`;
+
+exports[`isoly.Currency > name(MXN) 1`] = `"Mexican peso"`;
+
+exports[`isoly.Currency > name(MXV) 1`] = `"Mexican Unidad de Inversion"`;
+
+exports[`isoly.Currency > name(MYR) 1`] = `"Malaysian ringgit"`;
+
+exports[`isoly.Currency > name(MZN) 1`] = `"Mozambican metical"`;
+
+exports[`isoly.Currency > name(NAD) 1`] = `"Namibian dollar"`;
+
+exports[`isoly.Currency > name(NGN) 1`] = `"Nigerian naira"`;
+
+exports[`isoly.Currency > name(NIO) 1`] = `"Nicaraguan córdoba"`;
+
+exports[`isoly.Currency > name(NOK) 1`] = `"Norwegian krone"`;
+
+exports[`isoly.Currency > name(NPR) 1`] = `"Nepalese rupee"`;
+
+exports[`isoly.Currency > name(NZD) 1`] = `"New Zealand dollar"`;
+
+exports[`isoly.Currency > name(OMR) 1`] = `"Omani rial"`;
+
+exports[`isoly.Currency > name(PAB) 1`] = `"Panamanian balboa"`;
+
+exports[`isoly.Currency > name(PEN) 1`] = `"Peruvian sol"`;
+
+exports[`isoly.Currency > name(PGK) 1`] = `"Papua New Guinean kina"`;
+
+exports[`isoly.Currency > name(PHP) 1`] = `"Philippine peso"`;
+
+exports[`isoly.Currency > name(PKR) 1`] = `"Pakistani rupee"`;
+
+exports[`isoly.Currency > name(PLN) 1`] = `"Polish złoty"`;
+
+exports[`isoly.Currency > name(PYG) 1`] = `"Paraguayan guaraní"`;
+
+exports[`isoly.Currency > name(QAR) 1`] = `"Qatari riyal"`;
+
+exports[`isoly.Currency > name(RON) 1`] = `"Romanian leu"`;
+
+exports[`isoly.Currency > name(RSD) 1`] = `"Serbian dinar"`;
+
+exports[`isoly.Currency > name(RUB) 1`] = `"Russian ruble"`;
+
+exports[`isoly.Currency > name(RWF) 1`] = `"Rwandan franc"`;
+
+exports[`isoly.Currency > name(SAR) 1`] = `"Saudi riyal"`;
+
+exports[`isoly.Currency > name(SBD) 1`] = `"Solomon Islands dollar"`;
+
+exports[`isoly.Currency > name(SCR) 1`] = `"Seychelles rupee"`;
+
+exports[`isoly.Currency > name(SDG) 1`] = `"Sudanese pound"`;
+
+exports[`isoly.Currency > name(SEK) 1`] = `"Swedish krona"`;
+
+exports[`isoly.Currency > name(SGD) 1`] = `"Singapore dollar"`;
+
+exports[`isoly.Currency > name(SHP) 1`] = `"Saint Helena pound"`;
+
+exports[`isoly.Currency > name(SLL) 1`] = `"Sierra Leonean leone"`;
+
+exports[`isoly.Currency > name(SOS) 1`] = `"Somalian shilling"`;
+
+exports[`isoly.Currency > name(SRD) 1`] = `"Surinamese dollar"`;
+
+exports[`isoly.Currency > name(SSP) 1`] = `"South Sudanese pound"`;
+
+exports[`isoly.Currency > name(STN) 1`] = `"São Tomé and Príncipe dobra"`;
+
+exports[`isoly.Currency > name(SVC) 1`] = `"Salvadoran colón"`;
+
+exports[`isoly.Currency > name(SYP) 1`] = `"Syrian pound"`;
+
+exports[`isoly.Currency > name(SZL) 1`] = `"Swazi lilangeni"`;
+
+exports[`isoly.Currency > name(THB) 1`] = `"Thai baht"`;
+
+exports[`isoly.Currency > name(TJS) 1`] = `"Tajikistani somoni"`;
+
+exports[`isoly.Currency > name(TMT) 1`] = `"Turkmenistan manat"`;
+
+exports[`isoly.Currency > name(TND) 1`] = `"Tunisian dinar"`;
+
+exports[`isoly.Currency > name(TOP) 1`] = `"Tongan paʻanga"`;
+
+exports[`isoly.Currency > name(TRY) 1`] = `"Turkish lira"`;
+
+exports[`isoly.Currency > name(TTD) 1`] = `"Trinidad and Tobago dollar"`;
+
+exports[`isoly.Currency > name(TWD) 1`] = `"New Taiwan dollar"`;
+
+exports[`isoly.Currency > name(TZS) 1`] = `"Tanzanian shilling"`;
+
+exports[`isoly.Currency > name(UAH) 1`] = `"Ukrainian hryvnia"`;
+
+exports[`isoly.Currency > name(UGX) 1`] = `"Ugandan shilling"`;
+
+exports[`isoly.Currency > name(USD) 1`] = `"United States dollar"`;
+
+exports[`isoly.Currency > name(USN) 1`] = `"United States dollar"`;
+
+exports[`isoly.Currency > name(UYI) 1`] = `"Uruguay Peso en Unidades Indexadas"`;
+
+exports[`isoly.Currency > name(UYU) 1`] = `"Uruguayan peso"`;
+
+exports[`isoly.Currency > name(UYW) 1`] = `"Unidad previsional"`;
+
+exports[`isoly.Currency > name(UZS) 1`] = `"Uzbekistani sum"`;
+
+exports[`isoly.Currency > name(VES) 1`] = `"Venezuelan sovereign bolívar"`;
+
+exports[`isoly.Currency > name(VND) 1`] = `"Vietnamese đồng"`;
+
+exports[`isoly.Currency > name(VUV) 1`] = `"Vanuatu vatu"`;
+
+exports[`isoly.Currency > name(WST) 1`] = `"Samoan tala"`;
+
+exports[`isoly.Currency > name(XAF) 1`] = `"CFA franc BEAC"`;
+
+exports[`isoly.Currency > name(XAG) 1`] = `"Silver"`;
+
+exports[`isoly.Currency > name(XAU) 1`] = `"Gold"`;
+
+exports[`isoly.Currency > name(XBA) 1`] = `"European Composite Unit"`;
+
+exports[`isoly.Currency > name(XBB) 1`] = `"European Monetary Unit"`;
+
+exports[`isoly.Currency > name(XBC) 1`] = `"European Unit of Account 9"`;
+
+exports[`isoly.Currency > name(XBD) 1`] = `"European Unit of Account 17"`;
+
+exports[`isoly.Currency > name(XCD) 1`] = `"East Caribbean dollar"`;
+
+exports[`isoly.Currency > name(XDR) 1`] = `"Special drawing rights"`;
+
+exports[`isoly.Currency > name(XOF) 1`] = `"CFA franc BCEAO"`;
+
+exports[`isoly.Currency > name(XPD) 1`] = `"Palladium"`;
+
+exports[`isoly.Currency > name(XPF) 1`] = `"CFP franc"`;
+
+exports[`isoly.Currency > name(XPT) 1`] = `"Platinum"`;
+
+exports[`isoly.Currency > name(XSU) 1`] = `"SUCRE"`;
+
+exports[`isoly.Currency > name(XTS) 1`] = `"Code reserved for testing"`;
+
+exports[`isoly.Currency > name(XUA) 1`] = `"ADB Unit of Account"`;
+
+exports[`isoly.Currency > name(XXX) 1`] = `"No currency"`;
+
+exports[`isoly.Currency > name(YER) 1`] = `"Yemeni rial"`;
+
+exports[`isoly.Currency > name(ZAR) 1`] = `"South African rand"`;
+
+exports[`isoly.Currency > name(ZMW) 1`] = `"Zambian kwacha"`;
+
+exports[`isoly.Currency > name(ZWL) 1`] = `"Zimbabwean dollar"`;

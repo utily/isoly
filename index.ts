@@ -7,6 +7,7 @@ import { DateRange as _DateRange } from "./DateRange"
 import { DateSpan as _DateSpan } from "./DateSpan"
 import { DateTime as _DateTime } from "./DateTime"
 import { DayOfWeek as _DayOfWeek } from "./DayOfWeek"
+import { Digit as _Digit } from "./Digit"
 import { Encoding as _Encoding } from "./Encoding"
 import { Fixed as _Fixed } from "./Fixed"
 import { Language as _Language } from "./Language"
@@ -24,6 +25,7 @@ export namespace isoly {
 	export import CountryCode = _CountryCode
 	export import DateSpan = _DateSpan
 	export import DateRange = _DateRange
+	export import Digit = _Digit
 	export import Currency = _Currency
 	/// @deprecated
 	export import CurrencyCode = Currency.Code
