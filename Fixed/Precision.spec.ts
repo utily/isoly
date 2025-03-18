@@ -21,7 +21,7 @@ describe("isoly.Fixed.Precision", () => {
 			[1.5, false],
 			["3", false],
 			[null, false],
-			[undefined, false]
+			[undefined, false],
 		] as const)("is(%s) == %s", (value, expected) => expect(isoly.Fixed.Precision.is(value)).toBe(expected))
 	})
 })
