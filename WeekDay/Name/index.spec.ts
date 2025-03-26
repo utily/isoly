@@ -1,6 +1,6 @@
-import { isoly } from "../index"
+import { isoly } from "../../index"
 
-describe("isoly.DayOfWeek", () => {
+describe("isoly.WeekDay.Name", () => {
 	it.each([
 		["2024-12-29", "sunday"],
 		["2024-12-30", "monday"],
