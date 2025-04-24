@@ -20,7 +20,7 @@ export namespace Numeric {
 	] as const
 	export const { type, is, flawed } = isly
 		.number<Numeric>("value", ...values)
-		.rename("isoly.CountryCode.Numeric")
+		.rename("isoly.Country.Numeric")
 		.bind()
 	export function from(country: Alpha2 | Alpha3): Numeric {
 		return Alpha2.is(country) ? alpha2ToNumeric[country] : from(Alpha2.from(country))

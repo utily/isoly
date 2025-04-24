@@ -259,7 +259,7 @@ export namespace Alpha2 {
 	] as const
 	export const { type, is, flawed } = isly
 		.string<Alpha2>("value", ...values)
-		.rename("isoly.CountryCode.Alpha2")
+		.rename("isoly.Country.Alpha2")
 		.bind()
 	export function from(country: Numeric | Alpha3): Alpha2
 	export function from(country: Numeric | number | Alpha3 | string): Alpha2 | undefined
