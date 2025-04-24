@@ -1,29 +1,34 @@
 import { isly } from "isly"
+import { Year } from "Year"
 import { Date } from "../Date"
+import { Digits as _Digits } from "./Digits"
+import { Numeric as _Numeric } from "./Numeric"
 
-export type Month = `${number}-${Date.Month}`
+export type Month = `${string}-${Month.Digits}`
 
 export namespace Month {
+	export import Digits = _Digits
+	export import Numeric = _Numeric
 	export const { type, is, flawed } = isly
 		.string<Month>(value => {
 			const match = /^(\d{4})-(\d{2})$/.exec(value)
-			return !!match && Date.Year.is(match[1]) && Date.Month.is(match[2])
+			return !!match && Year.is(match[1]) && Digits.is(match[2])
 		}, "YYYY-MM")
 		.rename("isoly.Month")
 		.describe("ISO 8601 month in the format YYYY-MM.")
 		.bind()
 
 	export function now(): Month {
-		return from(Date.now())
+		return Numeric.now().format()
 	}
 	export function from(date: Date): Month {
 		return date.substring(0, 7) as Month
 	}
 	export function next(month: Month, months = 1): Month {
-		return from(Date.nextMonth(getDay(month, 1), months))
+		return Numeric.parse(month).next(months).format()
 	}
 	export function previous(week: Month, months = 1): Month {
-		return next(week, -months)
+		return Numeric.parse(week).previous(months).format()
 	}
 	export function first(month: Month): Date {
 		return getDay(month, 0)
@@ -38,7 +43,7 @@ export namespace Month {
 		return Number.parseInt(month.substring(5, 7))
 	}
 	export function length(month: Month): 28 | 29 | 30 | 31 {
-		return Date.getDay(Date.lastOfMonth(getDay(month, 0))) as 28 | 29 | 30 | 31
+		return Numeric.parse(month).length
 	}
 	export function getDay(month: Month, day: number): Date {
 		return `${month}-${(day + 1).toString().padStart(2, "0")}`

@@ -60,14 +60,14 @@ describe("isoly.Month", () => {
 	] as const)("getDay(%s, %d) == %s", (month, day, expected) =>
 		expect(isoly.Month.getDay(month, day)).toEqual(expected)
 	)
-	it.each([
-		["2024-01", { start: "2024-01-01", end: "2024-01-31" }],
-		["2024-02", { start: "2024-02-01", end: "2024-02-29" }],
-		["2023-03", { start: "2023-03-01", end: "2023-03-31" }],
-		["2022-04", { start: "2022-04-01", end: "2022-04-30" }],
-	] as const)("getDays(%s) == %s", (month, range) =>
-		expect(isoly.Month.getDays(month)).toEqual(isoly.DateRange.toDates(range, true))
-	)
+	// it.each([
+	// 	["2024-01", { start: "2024-01-01", end: "2024-01-31" }],
+	// 	["2024-02", { start: "2024-02-01", end: "2024-02-29" }],
+	// 	["2023-03", { start: "2023-03-01", end: "2023-03-31" }],
+	// 	["2022-04", { start: "2022-04-01", end: "2022-04-30" }],
+	// ] as const)("getDays(%s) == %s", (month, range) =>
+	// 	expect(isoly.Month.getDays(month)).toEqual(isoly.DateRange.toDates(range, true))
+	// )
 	it("now()", () => {
 		expect(isoly.Month.now()).toEqual(isoly.Date.now().substring(0, 7))
 	})

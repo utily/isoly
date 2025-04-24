@@ -27,9 +27,18 @@ export class Numeric {
 				new Date(this.years ?? 0, 0, 1).getDay() == (this.leapYear ? 3 : 4) ? 53 : 52,
 		}[precision]()
 	}
-	static parse(value: Numeric | number | Year | undefined): Numeric {
+	static now(): Numeric {
+		return Numeric.parse(new globalThis.Date())
+	}
+	static parse(value: globalThis.Date | Numeric | number | Year | string | undefined): Numeric {
 		return new Numeric(
-			typeof value == "number" ? value : typeof value == "string" ? Number.parseInt(value) : value?.years
+			typeof value == "number"
+				? value
+				: typeof value == "string"
+				? Number.parseInt(value)
+				: value instanceof globalThis.Date
+				? value.getFullYear()
+				: value?.years
 		)
 	}
 }
