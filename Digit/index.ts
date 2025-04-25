@@ -7,7 +7,7 @@ export namespace Digit {
 		.string<Digit>("value", ...values)
 		.rename("isoly.Digit")
 		.bind()
-	export type Double = `${Digit}${Digit}`
+	export type Double = typeof Double.values[number]
 	export namespace Double {
 		export const values = [
 			"00",

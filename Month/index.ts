@@ -4,14 +4,16 @@ import { Date } from "../Date"
 import { Digits as _Digits } from "./Digits"
 import { Numeric as _Numeric } from "./Numeric"
 
-export type Month = `${string}-${Month.Digits}`
+export type Month =
+	| `${Year}-${"01" | "02" | "03" | "04" | "05" | "06"}`
+	| `${Year}-${"07" | "08" | "09" | "10" | "11" | "12"}`
 
 export namespace Month {
 	export import Digits = _Digits
 	export import Numeric = _Numeric
 	export const { type, is, flawed } = isly
 		.string<Month>(value => {
-			const match = /^(\d{4})-(\d{2})$/.exec(value)
+			const match = /^(\d{4})-(0[1-9]|1[0-2])$/.exec(value)
 			return !!match && Year.is(match[1]) && Digits.is(match[2])
 		}, "YYYY-MM")
 		.rename("isoly.Month")
@@ -27,8 +29,8 @@ export namespace Month {
 	export function next(month: Month, months = 1): Month {
 		return Numeric.parse(month).next(months).format()
 	}
-	export function previous(week: Month, months = 1): Month {
-		return Numeric.parse(week).previous(months).format()
+	export function previous(month: Month, months = 1): Month {
+		return Numeric.parse(month).previous(months).format()
 	}
 	export function first(month: Month): Date {
 		return getDay(month, 0)
