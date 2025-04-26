@@ -27,6 +27,12 @@ export class Numeric {
 				new Date(this.years ?? 0, 0, 1).getDay() == (this.leapYear ? 3 : 4) ? 53 : 52,
 		}[precision]()
 	}
+	next(years = 1): Numeric {
+		return new Numeric((this.years ?? 0) + years)
+	}
+	previous(years = 1): Numeric {
+		return this.next(-years)
+	}
 	static now(): Numeric {
 		return Numeric.parse(new globalThis.Date())
 	}
