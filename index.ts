@@ -12,7 +12,7 @@ import { Fixed as _Fixed } from "./Fixed"
 import { Language as _Language } from "./Language"
 import { Locale as _Locale } from "./Locale"
 import { Month as _Month } from "./Month"
-// import { Time as _Time } from "./Time"
+import { Time as _Time } from "./Time"
 // import { TimeRange as _TimeRange } from "./TimeRange"
 // import { TimeSpan as _TimeSpan } from "./TimeSpan"
 import { TimeZone as _TimeZone } from "./TimeZone"
@@ -28,14 +28,13 @@ export namespace isoly {
 	// export import DateRange = _DateRange
 	// export import DateSpan = _DateSpan
 	// export import DateTime = _DateTime
-	// export import DayOfWeek = _DayOfWeek
 	export import Digit = _Digit
 	export import Encoding = _Encoding
 	export import Fixed = _Fixed
 	export import Language = _Language
 	export import Locale = _Locale
 	export import Month = _Month
-	// export import Time = _Time
+	export import Time = _Time
 	// export import TimeRange = _TimeRange
 	// export import TimeSpan = _TimeSpan
 	export import TimeZone = _TimeZone
