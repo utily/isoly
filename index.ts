@@ -17,7 +17,7 @@ import { Month as _Month } from "./Month"
 // import { TimeRange as _TimeRange } from "./TimeRange"
 // import { TimeSpan as _TimeSpan } from "./TimeSpan"
 import { TimeZone as _TimeZone } from "./TimeZone"
-// import { Week as _Week } from "./Week"
+import { Week as _Week } from "./Week"
 // import { WeekDay as _WeekDay } from "./WeekDay"
 
 export namespace isoly {
@@ -42,6 +42,6 @@ export namespace isoly {
 	// export import TimeRange = _TimeRange
 	// export import TimeSpan = _TimeSpan
 	export import TimeZone = _TimeZone
-	// export import Week = _Week
+	export import Week = _Week
 	// export import WeekDay = _WeekDay
 }
