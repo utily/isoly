@@ -1,60 +1,37 @@
 import { isly } from "isly"
 import type { Time } from "../index"
 import { Precision } from "../Precision"
+import { Value as _Value } from "./Value"
 
-export type Numeric = Partial<Record<Precision, number>>
-
-export namespace Numeric {
-	export const { type, is, flawed } = isly
-		.object<Numeric>(
-			{
-				hours: isly.number().optional(),
-				minutes: isly.number().optional(),
-				seconds: isly.number().optional(),
-				milliseconds: isly.number().optional(),
-			},
-			"isoly.Time.Numeric"
-		)
-		.bind()
-	export function create(epoch: number, precision: Precision = "seconds"): Required<Numeric> {
-		const integerDivision = (dividend: number, divisor: number) => [Math.trunc(dividend / divisor), dividend % divisor]
-		const [s, milliseconds] = integerDivision(epoch * Precision.factor[precision], 1000)
-		const [m, seconds] = integerDivision(s, 60)
-		const [hours, minutes] = integerDivision(m, 60)
+export class Numeric {
+	get precision(): Precision {
+		return this.milliseconds != undefined
+			? "milliseconds"
+			: this.seconds != undefined
+			? "seconds"
+			: this.minutes != undefined
+			? "minutes"
+			: "hours"
+	}
+	get value(): Numeric.Value {
 		return {
-			hours,
-			minutes,
-			seconds,
-			milliseconds,
+			...(this.hours != undefined ? { hours: this.hours } : {}),
+			...(this.minutes != undefined ? { minutes: this.minutes } : {}),
+			...(this.seconds != undefined ? { seconds: this.seconds } : {}),
+			...(this.milliseconds != undefined ? { milliseconds: this.milliseconds } : {}),
 		}
 	}
-	export function parse(time: Time | string | undefined): Numeric {
-		const [hours, minutes, secondsMilliseconds] = time?.split(":", 3) ?? []
-		const [seconds, milliseconds] = secondsMilliseconds?.split(".", 2) ?? []
-		return {
-			hours: hours != undefined ? Number.parseInt(hours) : undefined,
-			minutes: minutes != undefined ? Number.parseInt(minutes) : undefined,
-			seconds: seconds != undefined ? Number.parseInt(seconds) : undefined,
-			milliseconds: milliseconds != undefined ? Number.parseInt(milliseconds.slice(0, 3).padEnd(3, "0")) : undefined,
-		}
+	constructor(
+		readonly hours?: number,
+		readonly minutes?: number,
+		readonly seconds?: number,
+		readonly milliseconds?: number
+	) {}
+	normalize(precision?: Precision): Numeric {
+		return Numeric.create(this.toEpoch(precision ?? this.precision), precision ?? this.precision)
 	}
-	export function epoch(time: Numeric, precision: Precision = "seconds"): number {
-		const result =
-			(((time.hours ?? 0) * 60 + (time.minutes ?? 0)) * 60 + (time.seconds ?? 0)) * 1000 + (time.milliseconds ?? 0)
-		return Math.trunc(result / Precision.factor[precision])
-	}
-	export function truncate(time: Required<Numeric>, precision: "hours"): Pick<Required<Numeric>, "hours">
-	export function truncate(time: Numeric, precision: "hours"): Pick<Numeric, "hours">
-	export function truncate(time: Required<Numeric>, precision: "minutes"): Pick<Required<Numeric>, "hours" | "minutes">
-	export function truncate(time: Numeric, precision: "minutes"): Pick<Numeric, "hours" | "minutes">
-	export function truncate(time: Required<Numeric>, precision: "seconds"): Exclude<Required<Numeric>, "milliseconds">
-	export function truncate(time: Numeric, precision: "seconds"): Exclude<Numeric, "milliseconds">
-	export function truncate(time: Required<Numeric>, precision: "milliseconds"): Required<Numeric>
-	export function truncate(time: Numeric, precision: "milliseconds"): Numeric
-	export function truncate(time: Required<Numeric>, precision: Precision): Required<Numeric>
-	export function truncate(time: Numeric, precision: Precision): Numeric
-	export function truncate(time: Numeric, precision: Precision): Numeric {
-		const result = { ...time }
+	truncate(precision: Precision): Numeric {
+		const result = this.value
 		switch (precision) {
 			case "hours":
 				delete result.minutes
@@ -65,19 +42,12 @@ export namespace Numeric {
 			case "seconds":
 				delete result.milliseconds
 		}
-		return result
+		return Numeric.from(result)
 	}
-	export function normalize(time: Numeric, precision: "hours"): Pick<Required<Numeric>, "hours">
-	export function normalize(time: Numeric, precision: "minutes"): Pick<Required<Numeric>, "hours" | "minutes">
-	export function normalize(time: Numeric, precision: "seconds"): Exclude<Required<Numeric>, "milliseconds">
-	export function normalize(time: Numeric, precision: "milliseconds"): Required<Numeric>
-	export function normalize(time: Numeric, precision?: Precision): Numeric
-	export function normalize(time: Numeric, precision?: Precision): Numeric {
-		return truncate(create(epoch(time, "milliseconds"), "milliseconds"), precision ?? Numeric.precision(time))
-	}
-	export function format(time: Numeric, precision?: Precision): Time {
-		if (!precision) precision = Numeric.precision(time)
-		const normalized = normalize(time, precision)
+	format(precision?: Precision): Time {
+		if (!precision)
+			precision = this.precision
+		const normalized = this.normalize(precision)
 		let result = ""
 		switch (precision) {
 			case "milliseconds":
@@ -94,13 +64,34 @@ export namespace Numeric {
 		}
 		return result
 	}
-	export function precision(time: Numeric): Precision {
-		return time.milliseconds != undefined
-			? "milliseconds"
-			: time.seconds != undefined
-			? "seconds"
-			: time.minutes != undefined
-			? "minutes"
-			: "hours"
+	toEpoch(precision: Precision = "seconds"): number {
+		const result =
+			(((this.hours ?? 0) * 60 + (this.minutes ?? 0)) * 60 + (this.seconds ?? 0)) * 1000 + (this.milliseconds ?? 0)
+		return Math.trunc(result / Precision.factor[precision])
 	}
+	static create(epoch: number, precision: Precision = "seconds"): Numeric {
+		const integerDivision = (dividend: number, divisor: number) => [Math.trunc(dividend / divisor), dividend % divisor]
+		const [s, milliseconds] = integerDivision(epoch * Precision.factor[precision], 1000)
+		const [m, seconds] = integerDivision(s, 60)
+		const [hours, minutes] = integerDivision(m, 60)
+		return new Numeric(hours, minutes, seconds, milliseconds).truncate(precision)
+	}
+	static from(value: Numeric.Value): Numeric {
+		return new Numeric(value.hours, value.minutes, value.seconds, value.milliseconds)
+	}
+	static parse(time: Time | string | undefined): Numeric {
+		const [hours, minutes, secondsMilliseconds] = time?.split(":", 3) ?? []
+		const [seconds, milliseconds] = secondsMilliseconds?.split(".", 2) ?? []
+		return new Numeric(
+			hours != undefined ? Number.parseInt(hours) : undefined,
+			minutes != undefined ? Number.parseInt(minutes) : undefined,
+			seconds != undefined ? Number.parseInt(seconds) : undefined,
+			milliseconds != undefined ? Number.parseInt(milliseconds.slice(0, 3).padEnd(3, "0")) : undefined
+		)
+	}
+}
+
+export namespace Numeric {
+	export import Value = _Value
+	export const { type, is, flawed } = isly.instance<Numeric>(Numeric, "isoly.Time.Numeric").bind()
 }

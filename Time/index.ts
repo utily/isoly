@@ -36,7 +36,7 @@ export namespace Time {
 	export function create(epoch: number, precision: Precision): Time
 	export function create(numeric: Numeric): Time
 	export function create(time: number | Numeric, precision: Precision = "seconds"): Time {
-		return typeof time == "number" ? create(Numeric.create(time, precision)) : Numeric.format(time)
+		return typeof time == "number" ? create(Numeric.create(time, precision)) : time.format(precision)
 	}
 	export function split(value: Time): [Hour, Minute | undefined, Second | undefined, Millisecond | undefined] {
 		const [hours, minutes, secondsMilliseconds] = value.split(":", 3) as [Hour, Minute | undefined, string | undefined]
@@ -50,6 +50,6 @@ export namespace Time {
 		]
 	}
 	export function normalize(time: Time, precision?: Precision): Time {
-		return Numeric.format(Numeric.parse(time), precision)
+		return Numeric.parse(time).format(precision)
 	}
 }
