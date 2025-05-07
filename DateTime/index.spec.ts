@@ -57,7 +57,7 @@ describe("isoly.DateTime", () => {
 	it.each([
 		// [new Date(Date.UTC(2016, 12, 31, 23, 59, 60)), "2016-12-31T23:59:60Z"],
 		[new Date(Date.UTC(2020, 11, 31, 23, 59, 59)), "2020-12-31T23:59:59.000Z"],
-	])("create(%s) == %s", (value, expected) => expect(isoly.DateTime.create(value)).toBe(expected))
+	])("create(%s) == %s", (value, expected) => expect(isoly.DateTime.from(value)).toBe(expected))
 	it.each([
 		[123, "seconds", "1970-01-01T00:02:03Z"],
 		[43200, "seconds", "1970-01-01T12:00:00Z"],
@@ -74,7 +74,7 @@ describe("isoly.DateTime", () => {
 		[1697809020, "seconds", "2023-10-20T13:37:00Z"],
 		[1697809020123, "milliseconds", "2023-10-20T13:37:00.123Z"],
 	] as const)("create(%d, %s) == %s", (value, resolution, expected) =>
-		expect(isoly.DateTime.create(value, resolution)).toBe(expected)
+		expect(isoly.DateTime.from(value, resolution)).toBe(expected)
 	)
 	it.each([
 		["2023-10-31T11:23:40.8Z", "2023-10-31T11:23:40.800Z"],
@@ -83,7 +83,7 @@ describe("isoly.DateTime", () => {
 		["2023-10-31T11:23:40.000Z", "2023-10-31T11:23:40.000Z"],
 		["2023-10-31T11:23:40.123678978Z", "2023-10-31T11:23:40.123Z"],
 		["2023-10-31T11:23:40.223678978", "2023-10-31T11:23:40.223"],
-	])("normalize(%s) == %s", (value, expected) => expect(isoly.DateTime.normalize(value)).toEqual(expected))
+	])("from(%s) == %s", (value, expected) => expect(isoly.DateTime.from(value)).toEqual(expected))
 	it.each([
 		["2019-04-01T01", new Date(2019, 3, 1, 1)],
 		["2019-04-01T01Z", new Date(Date.UTC(2019, 3, 1, 1))],
@@ -406,7 +406,7 @@ describe("isoly.DateTime", () => {
 		["2023-10-31T11:23:40.81Z", "2023-10-31T11:23:40.810Z"],
 		["2023-10-31T11:23:40Z", "2023-10-31T11:23:40Z"],
 		["2023-10-31T11:23:40.000Z", "2023-10-31T11:23:40.000Z"],
-	])("normalize(%s)", (input, expected) => expect(isoly.DateTime.normalize(input)).toEqual(expected))
+	])("from(%s) == %s", (input, expected) => expect(isoly.DateTime.from(input)).toEqual(expected))
 	it.each([
 		["2023-10-29", "2023-10-29T00:00:00.000Z", "2023-10-29T23:59:59.999Z"],
 		["1993-05-11T15:07:40.430Z", "1993-05-11T00:00:00.000Z", "1993-05-11T23:59:59.999Z"],

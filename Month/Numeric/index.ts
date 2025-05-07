@@ -49,17 +49,6 @@ export class Numeric {
 			? new Numeric(value.years, value.months)
 			: new Numeric(undefined, value)
 	}
-	static parse(value: Month): Numeric
-	static parse(value: Month | string | undefined): Numeric | undefined
-	static parse(value: Month | string | undefined): Numeric | undefined {
-		const parsed =
-			typeof value == "string"
-				? ([Number.parseInt(value.substring(0, 4)), Number.parseInt(value.substring(5, 7)) - 1] as const)
-				: value == undefined
-				? ([undefined, undefined] as const)
-				: undefined
-		return parsed && new Numeric(parsed[0], parsed[1])
-	}
 }
 export namespace Numeric {
 	export import Value = _Value

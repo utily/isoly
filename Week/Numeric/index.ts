@@ -46,18 +46,14 @@ export class Numeric {
 		return this.next(-weeks)
 	}
 	static now(): Numeric {
-		return Numeric.parse(new globalThis.Date())
+		return Numeric.create(new globalThis.Date())
 	}
-	static parse(value: globalThis.Date | Numeric.Value | number | Week | string | undefined): Numeric {
+	static create(value: globalThis.Date | Numeric.Value | number): Numeric {
 		const parsed =
 			typeof value == "number"
 				? ([undefined, value] as const)
-				: typeof value == "string"
-				? ([Number.parseInt(value.substring(0, 4)), Number.parseInt(value.substring(6, 8)) - 1] as const)
 				: Numeric.Value.is(value)
 				? ([value?.years, value?.weeks] as const)
-				: value == undefined
-				? ([undefined, undefined] as const)
 				: Numeric.fromDate(value)
 		return new Numeric(parsed[0], parsed[1])
 	}

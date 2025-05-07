@@ -4,7 +4,7 @@ import type { Date } from "../Date/Date"
 import { Digits as _Digits } from "./Digits"
 import { Numeric as _Numeric } from "./Numeric"
 
-export type Month = string // `${number}-${Month.Digits}`
+export type Month = `${number}-${number}` // `${number}-${Month.Digits}`
 
 export namespace Month {
 	export import Digits = _Digits
@@ -17,18 +17,28 @@ export namespace Month {
 		.rename("isoly.Month")
 		.describe("ISO 8601 month in the format YYYY-MM.")
 		.bind()
-
+	export function parse(value: Month): Numeric
+	export function parse(value: Month | string | undefined): Numeric | undefined
+	export function parse(value: Month | string | undefined): Numeric | undefined {
+		const parsed =
+			typeof value == "string"
+				? ([Number.parseInt(value.substring(0, 4)), Number.parseInt(value.substring(5, 7)) - 1] as const)
+				: value == undefined
+				? ([undefined, undefined] as const)
+				: undefined
+		return parsed && new Numeric(parsed[0], parsed[1])
+	}
+	export function from(value: Date | Numeric | Month | string | undefined): Month | undefined {
+		return value == undefined ? undefined : (typeof value == "string" ? parse(value) : Numeric.create(value))?.format()
+	}
 	export function now(): Month {
 		return Numeric.now().format()
 	}
-	export function from(date: Date): Month {
-		return date.substring(0, 7) as Month
-	}
 	export function next(month: Month, months = 1): Month {
-		return Numeric.parse(month).next(months).format()
+		return parse(month).next(months).format()
 	}
 	export function previous(month: Month, months = 1): Month {
-		return Numeric.parse(month).previous(months).format()
+		return parse(month).previous(months).format()
 	}
 	export function first(month: Month): Date {
 		return getDay(month, 0)
@@ -43,7 +53,7 @@ export namespace Month {
 		return Number.parseInt(month.substring(5, 7))
 	}
 	export function length(month: Month): 28 | 29 | 30 | 31 {
-		return Numeric.parse(month).length
+		return parse(month).length
 	}
 	export function getDay(month: Month, day: number): Date {
 		return `${month}-${(day + 1).toString().padStart(2, "0")}` as Date

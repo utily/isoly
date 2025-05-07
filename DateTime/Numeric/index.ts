@@ -3,7 +3,6 @@ import { Date } from "../../Date/Date"
 import { Time } from "../../Time"
 import { TimeZone } from "../../TimeZone"
 import { DateTime } from "../index"
-import { Like } from "../Like"
 import { Precision } from "../Precision"
 import { Value as _Value } from "./Value"
 
@@ -22,6 +21,9 @@ export class Numeric {
 			...(this.milliseconds != undefined ? { milliseconds: this.milliseconds } : {}),
 			...(this.zone != undefined ? { zone: this.zone } : {}),
 		}
+	}
+	get utc(): Numeric {
+		return this.adjust("Z")
 	}
 	get date(): Date.Numeric | undefined {
 		return this.years == undefined && this.months == undefined && this.days == undefined
@@ -236,26 +238,6 @@ export class Numeric {
 				? new Numeric(1970, undefined, argument[0], undefined, undefined, undefined, undefined, "Z")
 				: new Numeric(1970, undefined, undefined, undefined, undefined, argument[0], undefined, "Z")
 			: new Numeric()
-	}
-	static parse(value: DateTime | Like): Numeric
-	static parse(value: string): Numeric | undefined
-	static parse(value: DateTime | Like | string): Numeric | undefined {
-		const matched =
-			/^(\d{4})-(\d{2})-(\d{2})T(?:(\d{2})(?::(\d{2})(?::(\d{2})(?:\.(\d{3}))?)?)?)?(Z|[+-]\d{2}:\d{2})?$/.exec(
-				value
-			) ?? /^(\d+)-(\d+)-(\d+)(?:(?:T| )(?:(\d+)(?::(\d+)(?::(\d+)(?:\.(\d+))?)?)?)?)?(Z|[+-]\d+:\d+)?$/.exec(value)
-		return matched
-			? new Numeric(
-					matched[1] ? parseInt(matched[1]) : undefined, // years
-					matched[2] ? parseInt(matched[2]) - 1 : undefined, // months
-					matched[3] ? parseInt(matched[3]) - 1 : undefined, // days
-					matched[4] ? parseInt(matched[4]) : undefined, // hours
-					matched[5] ? parseInt(matched[5]) : undefined, // minutes
-					matched[6] ? parseInt(matched[6]) : undefined, // seconds
-					matched[7] ? parseInt(matched[7].substring(0, 3).padEnd(3, "0")) : undefined, // milliseconds
-					matched[8] ? TimeZone.Offset.parse(matched[8]) : undefined // zone
-			  )
-			: undefined
 	}
 }
 

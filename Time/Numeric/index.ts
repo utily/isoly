@@ -130,16 +130,6 @@ export class Numeric {
 			? new Numeric(value.getUTCHours(), value.getUTCMinutes(), value.getUTCSeconds(), value.getUTCMilliseconds())
 			: new Numeric(value.hours, value.minutes, value.seconds, value.milliseconds)
 	}
-	static parse(time: Time | string | undefined): Numeric {
-		const [hours, minutes, secondsMilliseconds] = time?.split(":", 3) ?? []
-		const [seconds, milliseconds] = secondsMilliseconds?.split(".", 2) ?? []
-		return new Numeric(
-			hours != undefined ? Number.parseInt(hours) : undefined,
-			minutes != undefined ? Number.parseInt(minutes) : undefined,
-			seconds != undefined ? Number.parseInt(seconds) : undefined,
-			milliseconds != undefined ? Number.parseInt(milliseconds.slice(0, 3).padEnd(3, "0")) : undefined
-		)
-	}
 }
 
 export namespace Numeric {

@@ -40,18 +40,14 @@ export class Numeric {
 		return this.next(-quarters)
 	}
 	static now(): Numeric {
-		return Numeric.parse(new globalThis.Date())
+		return Numeric.create(new globalThis.Date())
 	}
-	static parse(value: globalThis.Date | Numeric.Value | number | Quarter | string | undefined): Numeric {
+	static create(value: globalThis.Date | Numeric.Value | number): Numeric {
 		const parsed =
 			typeof value == "number"
 				? ([undefined, value] as const)
-				: typeof value == "string"
-				? ([Number.parseInt(value.substring(0, 4)), Number.parseInt(value.substring(6, 7)) - 1] as const)
 				: Numeric.Value.is(value)
 				? ([value?.years, value?.quarters] as const)
-				: value == undefined
-				? ([undefined, undefined] as const)
 				: ([value.getFullYear(), value.getMonth() % 3] as const)
 		return new Numeric(parsed[0], parsed[1])
 	}

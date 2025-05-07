@@ -12,17 +12,26 @@ export namespace Week {
 		.rename("isoly.Week")
 		.describe("An ISO 8601 week date, formatted as YYYY-Www, where YYYY is the year and ww is the week number (01-53).")
 		.bind()
+	export function parse(value: Week): Numeric
+	export function parse(value: Week | string | undefined): Numeric | undefined
+	export function parse(value: Week | string | undefined): Numeric | undefined {
+		const result =
+			typeof value == "string"
+				? ([Number.parseInt(value.substring(0, 4)), Number.parseInt(value.substring(6, 8)) - 1] as const)
+				: undefined
+		return result && new Numeric(result[0], result[1])
+	}
+	export function from(value: globalThis.Date | Numeric.Value | number | Week | string | undefined): Week | undefined {
+		return value == undefined ? undefined : (typeof value == "string" ? parse(value) : Numeric.create(value))?.format()
+	}
 	export function now(): Week {
 		return Numeric.now().format()
 	}
-	export function parse(value: globalThis.Date | Numeric.Value | number | Week | string | undefined): Week {
-		return Numeric.parse(value).format()
-	}
 	export function next(week: Week, weeks = 1): Week {
-		return Numeric.parse(week).next(weeks).format()
+		return parse(week).next(weeks).format()
 	}
 	export function previous(week: Week, weeks = 1): Week {
-		return Numeric.parse(week).previous(weeks).format()
+		return parse(week).previous(weeks).format()
 	}
 	export function getYear(week: Week): number {
 		return Number.parseInt(week.substring(0, 4))

@@ -33,13 +33,4 @@ export namespace Date {
 	export function last(date: Date): Date {
 		return `${date.substring(0, 8)}${parse(date).month.length}` as Date
 	}
-	export function getYear(date: Date): number {
-		return Number.parseInt(date.substring(0, 4))
-	}
-	export function getMonth(date: Date): number {
-		return Number.parseInt(date.substring(5, 7))
-	}
-	export function getDay(date: Date): number {
-		return Number.parseInt(date.substring(8, 10))
-	}
 }

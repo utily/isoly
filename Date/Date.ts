@@ -22,7 +22,7 @@ export namespace Date {
 				Year.type.is(matched[1]) &&
 				Month.Digits.type.is(matched[2]) &&
 				Digits.type.is(matched[3]) &&
-				Number.parseInt(matched[3]) <= Month.Numeric.parse(`${matched[1]}-${matched[2]}`).length
+				Number.parseInt(matched[3]) <= Month.parse(`${matched[1]}-${matched[2]}` as any as Month)?.length
 			)
 		}, "YYYY-MM-DD")
 		.rename("isoly.Date")

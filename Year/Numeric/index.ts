@@ -1,5 +1,5 @@
 import { isly } from "isly"
-import type { Year } from ".."
+import type { Year } from "Year"
 import { Value as _Value } from "./Value"
 
 export class Numeric {
@@ -12,8 +12,8 @@ export class Numeric {
 		return this.years != undefined ? this.years % 4 == 0 && (this.years % 100 != 0 || this.years % 400 == 0) : false
 	}
 	constructor(readonly years: number | undefined) {}
-	format(): string {
-		return (this.years ?? 0).toFixed(0).padStart(4, "0")
+	format(): Year {
+		return (this.years ?? 0).toFixed(0).padStart(4, "0") as Year
 	}
 	length(precision: "weeks"): 52 | 53
 	length(precision: "days"): 365 | 366
@@ -34,17 +34,11 @@ export class Numeric {
 		return this.next(-years)
 	}
 	static now(): Numeric {
-		return Numeric.parse(new globalThis.Date())
+		return Numeric.create(new globalThis.Date())
 	}
-	static parse(value: globalThis.Date | Numeric | number | Year | string | undefined): Numeric {
+	static create(value: globalThis.Date | Numeric | number): Numeric {
 		return new Numeric(
-			typeof value == "number"
-				? value
-				: typeof value == "string"
-				? Number.parseInt(value)
-				: value instanceof globalThis.Date
-				? value.getFullYear()
-				: value?.years
+			typeof value == "number" ? value : value instanceof globalThis.Date ? value.getFullYear() : value?.years
 		)
 	}
 }
