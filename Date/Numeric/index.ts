@@ -2,9 +2,13 @@ import { isly } from "isly"
 import { Month } from "Month"
 import { Year } from "../../Year"
 import type { Date } from ".."
+import type { Duration } from "../Duration"
 import { Value as _Value } from "./Value"
 
 export class Numeric {
+	get system(): globalThis.Date {
+		return new globalThis.Date(this.format())
+	}
 	get value(): Numeric.Value {
 		return {
 			...(this.years != undefined ? { years: this.years } : {}),
@@ -12,46 +16,115 @@ export class Numeric {
 			...(this.days != undefined ? { days: this.days } : {}),
 		}
 	}
-	get length(): 28 | 29 | 30 | 31 {
-		const result = this.normalize()
-		return ([31, result.year.leapYear ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31] as const)[result.months ?? 0]
-	}
 	get month(): Month.Numeric {
 		return new Month.Numeric(this.years, this.months)
 	}
 	get year(): Year.Numeric {
 		return new Year.Numeric(this.years)
 	}
-	constructor(
-		readonly years: number | undefined,
-		readonly months: number | undefined,
-		readonly days: number | undefined
-	) {}
+	get normalized(): boolean {
+		return Numeric.Value.Normalized.is(this) && this.days < this.month.length
+	}
+	constructor(readonly years?: number, readonly months?: number, readonly days?: number) {}
 	normalize(): Numeric {
-		return this.months == undefined || (this.months >= 0 && this.months < 12)
-			? this
-			: new Numeric(this.years ?? 0 + (this.months ?? 0) / 12, (((this.months ?? 0) % 12) + 12) % 12, this.days)
+		// eslint-disable-next-line @typescript-eslint/no-this-alias
+		let result: Numeric = this
+		while ((result.days ?? 0) < 0)
+			result = result.next({ months: -1, days: result.month.length })
+		while ((result.days ?? 0) >= result.month.length)
+			result = result.next({ months: 1, days: -result.month.length })
+		const years = result.months == undefined ? 0 : Math.floor(result.months / 12)
+		return years
+			? result.next({
+					years,
+					months: -years * 12,
+			  })
+			: result
 	}
-	format(): string {
+	invert(): Numeric {
 		const result = this.normalize()
-		return `${(result.years ?? 0).toFixed(0).padStart(4, "0")}-${((result.months ?? 0) + 1)
-			.toFixed(0)
-			.padStart(2, "0")}`
+		return new Numeric(
+			result.years ? 9999 - result.years : undefined,
+			result.months ? 11 - result.months : undefined,
+			result.days ? 30 - result.days : undefined
+		)
 	}
-	next(days = 1): Numeric {
-		const result = new Numeric(this.years, this.months, (this.days ?? 0) + days)
-		return result.normalize()
+	ordinal(): Numeric {
+		// eslint-disable-next-line @typescript-eslint/no-this-alias
+		let result: Numeric = this
+		while ((result.months ?? 0) >= 12)
+			result = result.next({ years: 1, months: -12 })
+		while ((result.months ?? 0) > 0)
+			result = result.next({ months: -1, days: result.month.length })
+		while ((result.days ?? 0) < 0)
+			result = result.next({ years: -1, days: result.year.length("days") })
+		while ((result.days ?? 0) >= result.year.length("days"))
+			result = result.next({ years: 1, days: -result.year.length("days") })
+		return new Numeric(result.years, undefined, result.days)
 	}
-	previous(days = 1): Numeric {
-		return this.next(-days)
+	format(format?: "calendar"): Date
+	format(format: "ordinal"): Date.Ordinal
+	format(format: "duration"): Date.Duration
+	format(format: "calendar" | "ordinal" | "duration" = "calendar"): Date | Date.Ordinal | Date.Duration {
+		let result: Date | Date.Ordinal | Date.Duration
+		switch (format) {
+			case "calendar":
+				const normalized = this.normalize()
+				result = `${(normalized.years ?? 0).toFixed(0).padStart(4, "0")}-${((normalized.months ?? 0) + 1)
+					.toFixed(0)
+					.padStart(2, "0")}-${((normalized.days ?? 0) + 1).toFixed(0).padStart(2, "0")}` as Date
+				break
+			case "ordinal":
+				const ordinal = this.ordinal()
+				result = `${(ordinal.years ?? 0).toFixed(0).padStart(4, "0")}-${((ordinal.days ?? 0) + 1)
+					.toFixed(0)
+					.padStart(3, "0")}` as Date.Ordinal
+				break
+			case "duration":
+				result = `D${this.years ? `${this.years}Y ` : ""}${this.months ? `${this.months}M ` : ""}${
+					this.days ? `${this.days}D ` : ""
+				}` as Date.Duration
+				break
+		}
+		return result
+	}
+	next(increment: Numeric.Value): Numeric {
+		return new Numeric(
+			this.years == undefined && increment.years == undefined ? undefined : (this.years ?? 0) + (increment.years ?? 0),
+			this.months == undefined && increment.months == undefined
+				? undefined
+				: (this.months ?? 0) + (increment.months ?? 0),
+			this.days == undefined && increment.days == undefined ? undefined : (this.days ?? 0) + (increment.days ?? 0)
+		)
+	}
+	previous(increment: Numeric.Value): Numeric {
+		return new Numeric(
+			this.years == undefined && increment.years == undefined ? undefined : (this.years ?? 0) - (increment.years ?? 0),
+			this.months == undefined && increment.months == undefined
+				? undefined
+				: (this.months ?? 0) - (increment.months ?? 0),
+			this.days == undefined && increment.days == undefined ? undefined : (this.days ?? 0) - (increment.days ?? 0)
+		)
+	}
+	set(changes: Numeric.Value): Numeric {
+		return new Numeric(changes.years ?? this.years, changes.months ?? this.months, changes.days ?? this.days)
 	}
 	static now(): Numeric {
 		return Numeric.parse(new globalThis.Date())
 	}
-	static parse(value: globalThis.Date | Numeric.Value | number | Date | string | undefined): Numeric {
+	static parse(value: globalThis.Date | Numeric.Value | number | Date | Duration | string | undefined): Numeric {
 		const parsed =
 			typeof value == "number"
 				? ([undefined, undefined, value] as const)
+				: typeof value == "string" && value[0] == "P"
+				? (v => {
+						const matches = /^P(?<years>-?\d+)(?:Y(?<months>-?\d+)(?:M(?<days>-?\d+)D)?)?$/u.exec(v)?.groups
+						return [
+							matches?.years ? Number.parseInt(matches.years) : undefined,
+							matches?.months ? Number.parseInt(matches.months) : undefined,
+							matches?.days ? Number.parseInt(matches.days) : undefined,
+						] as const
+				  })(value)
 				: typeof value == "string"
 				? ([
 						Number.parseInt(value.substring(0, 4)),
@@ -59,7 +132,7 @@ export class Numeric {
 						Number.parseInt(value.substring(8, 10)) - 1,
 				  ] as const)
 				: value instanceof globalThis.Date
-				? ([value.getFullYear(), value.getMonth(), value.getDate()] as const)
+				? ([value.getFullYear(), value.getMonth() - 1, value.getDate() - 1] as const)
 				: ([value?.years, value?.months, value?.days] as const)
 		return new Numeric(parsed[0], parsed[1], parsed[2])
 	}

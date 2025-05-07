@@ -29,7 +29,7 @@ describe("isoly.Time.Numeric", () => {
 		[{ hours: 100, minutes: 100, seconds: 100, milliseconds: 123456789 }, 489556789],
 		[{ hours: 100, minutes: -100, seconds: -100, milliseconds: -123456789 }, 230443211],
 	])('epoch("milliseconds") == %d', (time, expected) =>
-		expect(isoly.Time.Numeric.from(time).toEpoch("milliseconds")).toEqual(expected)
+		expect(isoly.Time.Numeric.from(time).epoch("milliseconds")).toEqual(expected)
 	)
 	it.each([
 		[45296789, { hours: 12, minutes: 34, seconds: 56, milliseconds: 789 }],

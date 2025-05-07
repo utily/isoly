@@ -5,6 +5,7 @@ export interface Value {
 }
 export namespace Value {
 	export const { type, is, flawed } = isly
-		.object<Value>({ years: isly.number("integer").restrict("positive").rename("isoly.Year.Numeric.Value") })
+		.object<Value>({ years: isly.number("integer").optional() })
+		.rename("isoly.Year.Numeric.Value")
 		.bind()
 }

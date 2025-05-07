@@ -5,7 +5,7 @@ import { Currency as _Currency } from "./Currency"
 import { Date as _Date } from "./Date"
 // import { DateRange as _DateRange } from "./DateRange"
 // import { DateSpan as _DateSpan } from "./DateSpan"
-// import { DateTime as _DateTime } from "./DateTime"
+import { DateTime as _DateTime } from "./DateTime"
 import { Digit as _Digit } from "./Digit"
 import { Encoding as _Encoding } from "./Encoding"
 import { Fixed as _Fixed } from "./Fixed"
@@ -27,7 +27,7 @@ export namespace isoly {
 	export import Date = _Date
 	// export import DateRange = _DateRange
 	// export import DateSpan = _DateSpan
-	// export import DateTime = _DateTime
+	export import DateTime = _DateTime
 	export import Digit = _Digit
 	export import Encoding = _Encoding
 	export import Fixed = _Fixed

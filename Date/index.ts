@@ -1,23 +1,26 @@
 import { isly } from "isly"
-import { Month } from "Month"
-import { Year } from "Year"
+import { Month } from "../Month"
+import { Year } from "../Year"
 import { Digits as _Digits } from "./Digits"
+import { Duration as _Duration } from "./Duration"
 import { Numeric as _Numeric } from "./Numeric"
+import { Ordinal as _Ordinal } from "./Ordinal"
 
-export type Date = string
-
+export type Date = `${number}-${Month.Digits}-${number}`
 export namespace Date {
 	export import Digits = _Digits
+	export import Duration = _Duration
 	export import Numeric = _Numeric
+	export import Ordinal = _Ordinal
 	export const { type, is, flawed } = isly
-		.string<Date>((value: string) => {
-			const splitted = /^\d{4}-\d{2}-\d{2}$/.test(value) && value.split("-", 3)
+		.string<Date>(value => {
+			const matched = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value)
 			return (
-				splitted &&
-				Year.type.is(splitted[0]) &&
-				Month.type.is(splitted[1]) &&
-				Digits.type.is(splitted[2]) &&
-				Month.Numeric.parse(`${splitted[0]}-${splitted[1]}`).length >= Number.parseInt(splitted[2])
+				!!matched &&
+				Year.type.is(matched[1]) &&
+				Month.Digits.type.is(matched[2]) &&
+				Digits.type.is(matched[3]) &&
+				Number.parseInt(matched[3]) <= Month.Numeric.parse(`${matched[1]}-${matched[2]}`).length
 			)
 		}, "YYYY-MM-DD")
 		.rename("isoly.Date")
@@ -29,17 +32,17 @@ export namespace Date {
 	export function from(value: globalThis.Date | Date | Numeric | string | number | undefined): Date {
 		return Numeric.parse(value).format()
 	}
-	export function next(date: Date, days = 1): Date {
-		return Numeric.parse(date).next(days).format()
+	export function next(date: Date, increment: Numeric.Value = { days: 1 }): Date {
+		return Numeric.parse(date).next(increment).format()
 	}
-	export function previous(date: Date, days = 1): Date {
-		return Numeric.parse(date).previous(days).format()
+	export function previous(date: Date, decrement: Numeric.Value = { days: 1 }): Date {
+		return Numeric.parse(date).previous(decrement).format()
 	}
 	export function first(date: Date): Date {
 		return `${date.substring(0, 8)}01` as Date
 	}
 	export function last(date: Date): Date {
-		return `${date.substring(0, 8)}${Numeric.parse(date).length}` as Date
+		return `${date.substring(0, 8)}${Numeric.parse(date).month.length}` as Date
 	}
 	export function getYear(date: Date): number {
 		return Number.parseInt(date.substring(0, 4))
@@ -49,10 +52,5 @@ export namespace Date {
 	}
 	export function getDay(date: Date): number {
 		return Number.parseInt(date.substring(8, 10))
-	}
-	export function getDays(date: Date): Date[] {
-		return [...Array(Numeric.parse(date).length).keys()].map(
-			day => `${date.substring(0, 8)}${(day + 1).toString().padStart(2, "0")}` as Date
-		)
 	}
 }

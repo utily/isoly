@@ -69,6 +69,6 @@ describe("isoly.Month", () => {
 	// 	expect(isoly.Month.getDays(month)).toEqual(isoly.DateRange.toDates(range, true))
 	// )
 	it("now()", () => {
-		expect(isoly.Month.now()).toEqual(isoly.Date.now().substring(0, 7))
+		expect(isoly.Month.now()).toEqual(new globalThis.Date(globalThis.Date.now()).toISOString().substring(0, 7))
 	})
 })

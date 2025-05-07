@@ -40,20 +40,25 @@ export class Numeric {
 		return this.next(-months)
 	}
 	static now(): Numeric {
-		return Numeric.parse(new Date())
+		return Numeric.create(new globalThis.Date(Date.now()))
 	}
-	static parse(value: globalThis.Date | Numeric.Value | number | Month | string | undefined): Numeric {
+	static create(value: globalThis.Date | Numeric.Value | number): Numeric {
+		return value instanceof globalThis.Date
+			? new Numeric(value.getFullYear(), value.getMonth())
+			: Numeric.Value.is(value)
+			? new Numeric(value.years, value.months)
+			: new Numeric(undefined, value)
+	}
+	static parse(value: Month): Numeric
+	static parse(value: Month | string | undefined): Numeric | undefined
+	static parse(value: Month | string | undefined): Numeric | undefined {
 		const parsed =
-			typeof value == "number"
-				? ([undefined, value] as const)
-				: typeof value == "string"
+			typeof value == "string"
 				? ([Number.parseInt(value.substring(0, 4)), Number.parseInt(value.substring(5, 7)) - 1] as const)
-				: Numeric.Value.is(value)
-				? ([value?.years, value?.months] as const)
 				: value == undefined
 				? ([undefined, undefined] as const)
-				: ([value.getFullYear(), value.getMonth()] as const)
-		return new Numeric(parsed[0], parsed[1])
+				: undefined
+		return parsed && new Numeric(parsed[0], parsed[1])
 	}
 }
 export namespace Numeric {

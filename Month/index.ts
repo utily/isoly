@@ -1,12 +1,10 @@
 import { isly } from "isly"
 import { Year } from "Year"
-import { Date } from "../Date"
+import type { Date } from "../Date"
 import { Digits as _Digits } from "./Digits"
 import { Numeric as _Numeric } from "./Numeric"
 
-export type Month =
-	| `${Year}-${"01" | "02" | "03" | "04" | "05" | "06"}`
-	| `${Year}-${"07" | "08" | "09" | "10" | "11" | "12"}`
+export type Month = string // `${number}-${Month.Digits}`
 
 export namespace Month {
 	export import Digits = _Digits
@@ -48,7 +46,7 @@ export namespace Month {
 		return Numeric.parse(month).length
 	}
 	export function getDay(month: Month, day: number): Date {
-		return `${month}-${(day + 1).toString().padStart(2, "0")}`
+		return `${month}-${(day + 1).toString().padStart(2, "0")}` as Date
 	}
 	export function getDays(month: Month): Date[] {
 		return [...Array(length(month)).keys()].map(day => getDay(month, day))

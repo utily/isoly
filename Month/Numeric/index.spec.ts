@@ -9,7 +9,7 @@ describe("isoly.Month.Numeric", () => {
 		[{ years: 2024, months: -1 }, true],
 		[{ years: 2024, months: 24 }, true],
 	] as const)("is(%s) == %s", (value, expected) =>
-		expect(isoly.Month.Numeric.is(isoly.Month.Numeric.parse(value))).toEqual(expected)
+		expect(isoly.Month.Numeric.is(isoly.Month.Numeric.create(value))).toEqual(expected)
 	)
 
 	it.each([
@@ -38,6 +38,6 @@ describe("isoly.Month.Numeric", () => {
 			{ years: 2026, months: 0 },
 		],
 	] as const)("normalize(%o) == %s", (value, expected) =>
-		expect(isoly.Month.Numeric.parse(value).normalize()).toEqual(expected)
+		expect(isoly.Month.Numeric.create(value).normalize()).toEqual(expected)
 	)
 })
