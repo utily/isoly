@@ -1,7 +1,7 @@
 import { isly } from "isly"
 import { Month } from "Month"
 import { Year } from "../../Year"
-import type { Date } from ".."
+import type { Date } from "../Date"
 import type { Duration } from "../Duration"
 import { Value as _Value } from "./Value"
 
@@ -29,10 +29,8 @@ export class Numeric {
 	normalize(): Numeric {
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		let result: Numeric = this
-		while ((result.days ?? 0) < 0)
-			result = result.next({ months: -1, days: result.month.length })
-		while ((result.days ?? 0) >= result.month.length)
-			result = result.next({ months: 1, days: -result.month.length })
+		while ((result.days ?? 0) < 0) result = result.next({ months: -1, days: result.month.length })
+		while ((result.days ?? 0) >= result.month.length) result = result.next({ months: 1, days: -result.month.length })
 		const years = result.months == undefined ? 0 : Math.floor(result.months / 12)
 		return years
 			? result.next({
@@ -52,12 +50,9 @@ export class Numeric {
 	ordinal(): Numeric {
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		let result: Numeric = this
-		while ((result.months ?? 0) >= 12)
-			result = result.next({ years: 1, months: -12 })
-		while ((result.months ?? 0) > 0)
-			result = result.next({ months: -1, days: result.month.length })
-		while ((result.days ?? 0) < 0)
-			result = result.next({ years: -1, days: result.year.length("days") })
+		while ((result.months ?? 0) >= 12) result = result.next({ years: 1, months: -12 })
+		while ((result.months ?? 0) > 0) result = result.next({ months: -1, days: result.month.length })
+		while ((result.days ?? 0) < 0) result = result.next({ years: -1, days: result.year.length("days") })
 		while ((result.days ?? 0) >= result.year.length("days"))
 			result = result.next({ years: 1, days: -result.year.length("days") })
 		return new Numeric(result.years, undefined, result.days)

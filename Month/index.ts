@@ -1,6 +1,6 @@
 import { isly } from "isly"
 import { Year } from "Year"
-import type { Date } from "../Date"
+import type { Date } from "../Date/Date"
 import { Digits as _Digits } from "./Digits"
 import { Numeric as _Numeric } from "./Numeric"
 

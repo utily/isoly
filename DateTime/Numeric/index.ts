@@ -1,5 +1,5 @@
 import { isly } from "isly"
-import { Date } from "../../Date"
+import { Date } from "../../Date/Date"
 import { Time } from "../../Time"
 import { TimeZone } from "../../TimeZone"
 import { DateTime } from "../index"
