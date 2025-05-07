@@ -2,7 +2,6 @@ import { isly } from "isly"
 import { Month } from "Month"
 import { Year } from "../../Year"
 import type { Date } from "../Date"
-import type { Duration } from "../Duration"
 import { Value as _Value } from "./Value"
 
 export class Numeric {
@@ -29,8 +28,10 @@ export class Numeric {
 	normalize(): Numeric {
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		let result: Numeric = this
-		while ((result.days ?? 0) < 0) result = result.next({ months: -1, days: result.month.length })
-		while ((result.days ?? 0) >= result.month.length) result = result.next({ months: 1, days: -result.month.length })
+		while ((result.days ?? 0) < 0)
+			result = result.next({ months: -1, days: result.month.length })
+		while ((result.days ?? 0) >= result.month.length)
+			result = result.next({ months: 1, days: -result.month.length })
 		const years = result.months == undefined ? 0 : Math.floor(result.months / 12)
 		return years
 			? result.next({
@@ -50,9 +51,12 @@ export class Numeric {
 	ordinal(): Numeric {
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
 		let result: Numeric = this
-		while ((result.months ?? 0) >= 12) result = result.next({ years: 1, months: -12 })
-		while ((result.months ?? 0) > 0) result = result.next({ months: -1, days: result.month.length })
-		while ((result.days ?? 0) < 0) result = result.next({ years: -1, days: result.year.length("days") })
+		while ((result.months ?? 0) >= 12)
+			result = result.next({ years: 1, months: -12 })
+		while ((result.months ?? 0) > 0)
+			result = result.next({ months: -1, days: result.month.length })
+		while ((result.days ?? 0) < 0)
+			result = result.next({ years: -1, days: result.year.length("days") })
 		while ((result.days ?? 0) >= result.year.length("days"))
 			result = result.next({ years: 1, days: -result.year.length("days") })
 		return new Numeric(result.years, undefined, result.days)
@@ -104,32 +108,35 @@ export class Numeric {
 	set(changes: Numeric.Value): Numeric {
 		return new Numeric(changes.years ?? this.years, changes.months ?? this.months, changes.days ?? this.days)
 	}
-	static now(): Numeric {
-		return Numeric.parse(new globalThis.Date())
+	before(date: Numeric): boolean {
+		return this.format() < date.format()
 	}
-	static parse(value: globalThis.Date | Numeric.Value | number | Date | Duration | string | undefined): Numeric {
-		const parsed =
+	after(date: Numeric): boolean {
+		return this.format() > date.format()
+	}
+	equals(date: Numeric): boolean {
+		return this.format() == date.format()
+	}
+	compare(date: Numeric): number {
+		return this.format() < date.format() ? -1 : this.format() > date.format() ? 1 : 0
+	}
+	toString(): string {
+		return this.format()
+	}
+	toJSON(): string {
+		return this.format()
+	}
+	static now(): Numeric {
+		return Numeric.create(new globalThis.Date())
+	}
+	static create(value: globalThis.Date | Numeric.Value | number): Numeric {
+		const result =
 			typeof value == "number"
 				? ([undefined, undefined, value] as const)
-				: typeof value == "string" && value[0] == "P"
-				? (v => {
-						const matches = /^P(?<years>-?\d+)(?:Y(?<months>-?\d+)(?:M(?<days>-?\d+)D)?)?$/u.exec(v)?.groups
-						return [
-							matches?.years ? Number.parseInt(matches.years) : undefined,
-							matches?.months ? Number.parseInt(matches.months) : undefined,
-							matches?.days ? Number.parseInt(matches.days) : undefined,
-						] as const
-				  })(value)
-				: typeof value == "string"
-				? ([
-						Number.parseInt(value.substring(0, 4)),
-						Number.parseInt(value.substring(5, 7)) - 1,
-						Number.parseInt(value.substring(8, 10)) - 1,
-				  ] as const)
 				: value instanceof globalThis.Date
 				? ([value.getFullYear(), value.getMonth() - 1, value.getDate() - 1] as const)
 				: ([value?.years, value?.months, value?.days] as const)
-		return new Numeric(parsed[0], parsed[1], parsed[2])
+		return new Numeric(result[0], result[1], result[2])
 	}
 }
 export namespace Numeric {

@@ -28,4 +28,17 @@ export namespace Date {
 		.rename("isoly.Date")
 		.describe("Date string in format YYYY-MM-DD.")
 		.bind()
+	export function parse(value: Date): Numeric
+	export function parse(value: Date | string | undefined): Numeric | undefined
+	export function parse(value: Date | string | undefined): Numeric | undefined {
+		const result =
+			typeof value == "string"
+				? ([
+						Number.parseInt(value.substring(0, 4)),
+						Number.parseInt(value.substring(5, 7)) - 1,
+						Number.parseInt(value.substring(8, 10)) - 1,
+				  ] as const)
+				: undefined
+		return result && new Numeric(result[0], result[1], result[2])
+	}
 }
