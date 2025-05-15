@@ -2,7 +2,7 @@ import { isly } from "isly"
 import { Date } from "../../Date/Date"
 import { Time } from "../../Time"
 import { TimeZone } from "../../TimeZone"
-import { DateTime } from "../index"
+import type { DateTime } from ".."
 import { Precision } from "../Precision"
 import { Value as _Value } from "./Value"
 
@@ -98,11 +98,27 @@ export class Numeric {
 		}
 		return Numeric.create(result)
 	}
-	format(): DateTime {
-		const result = this.normalize()
-		return `${(result.date ?? new Date.Numeric()).format()}T${result.time?.format() ?? ""}${
-			result.zone ?? ""
-		}` as DateTime
+	format(format?: "calendar"): DateTime
+	format(format: "duration"): DateTime.Duration
+	format(format?: "calendar" | "duration"): DateTime | DateTime.Duration {
+		let result: DateTime | DateTime.Duration
+		switch (format) {
+			case undefined:
+			case "calendar":
+				const normalized = this.normalize()
+				result = `${(normalized.date ?? new Date.Numeric()).format()}T${normalized.time?.format() ?? ""}${
+					normalized.zone ?? ""
+				}` as DateTime
+				break
+			case "duration":
+				result = `D${this.years ? `${this.years}Y ` : ""}${this.months ? `${this.months}M ` : ""}${
+					this.days ? `${this.days}D ` : ""
+				}T${this.hours ? `${this.hours}H ` : ""}${this.minutes ? `${this.minutes}M ` : ""}${
+					this.seconds ? `${this.seconds}S ` : ""
+				}` as DateTime.Duration
+				break
+		}
+		return result
 	}
 	next(increment: Numeric.Value): Numeric {
 		return new Numeric(
