@@ -1,5 +1,6 @@
 import { isly } from "isly"
 import { Month } from "Month"
+import { Precision } from "../../DateTime/Precision"
 import { Year } from "../../Year"
 import type { Date } from "../Date"
 import { Value as _Value } from "./Value"
@@ -60,6 +61,12 @@ export class Numeric {
 		while ((result.days ?? 0) >= result.year.length("days"))
 			result = result.next({ years: 1, days: -result.year.length("days") })
 		return new Numeric(result.years, undefined, result.days)
+	}
+	epoch(precision: Precision = "seconds"): number {
+		return Math.round(
+			this.system.getTime() /
+				{ milliseconds: 1, seconds: 1000, minutes: 60000, hours: 3600000, days: 86400000 }[precision]
+		)
 	}
 	format(format?: "calendar"): Date
 	format(format: "ordinal"): Date.Ordinal
