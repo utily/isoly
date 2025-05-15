@@ -51,6 +51,9 @@ export namespace Interval {
 	export function duration(value: Interval): Duration {
 		return parse(value).duration.format("duration")
 	}
+	export function contains(value: Interval, date: Date): boolean {
+		return parse(value).contains(Date.parse(date))
+	}
 	export function increase(value: Interval, duration: DateNumeric): Interval {
 		return parse(value).increase(duration).format()
 	}

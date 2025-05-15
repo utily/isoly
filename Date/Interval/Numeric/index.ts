@@ -37,6 +37,9 @@ export class Numeric {
 	length(precision: Precision = "days"): number {
 		return Math.ceil(this.end.epoch(precision) - this.start.epoch(precision))
 	}
+	contains(date: DateNumeric): boolean {
+		return date >= this.start && date <= this.end
+	}
 	increase(duration: DateNumeric.Value): Numeric {
 		return new Numeric(this.start, this.end.next(duration))
 	}
