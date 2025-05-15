@@ -1,0 +1,15 @@
+import { isly } from "isly"
+import { Date } from "../Date"
+
+export type Interval = `${Date}--${Date}`
+
+export namespace Interval {
+	export const { type, is, flawed } = isly
+		.string<Interval>(value => {
+			const match = /^(\d{4}-\d{2}-\d{2})--(\d{4}-\d{2}-\d{2})$/.exec(value)
+			return !!match && Date.is(match[1]) && Date.is(match[2]) && match[1] < match[2]
+		}, "YYYY-MM-DD--YYYY-MM-DD")
+		.rename("isoly.Date.Interval")
+		.describe("Interval string in format YYYY-MM-DD--YYYY-MM-DD.")
+		.bind()
+}

@@ -55,6 +55,9 @@ export class Numeric {
 	toString(): Interval {
 		return this.format()
 	}
+	static create(start: DateNumeric.Value, end: DateNumeric.Value): Numeric {
+		return new Numeric(DateNumeric.create(start), DateNumeric.create(end))
+	}
 }
 export namespace Numeric {
 	export import Value = _Value

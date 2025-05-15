@@ -58,11 +58,11 @@ export class Numeric {
 		return new Numeric(parsed[0], parsed[1])
 	}
 	private static fromDate(date: globalThis.Date): [number, number] {
-		const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()))
+		const d = new globalThis.Date(globalThis.Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()))
 		// Set to nearest Thursday: current date + 4 - current day number
 		const weekday = d.getUTCDay() || 7 // Sunday is 0 in getUTCDay, but should be 7
 		d.setUTCDate(d.getUTCDate() + 4 - weekday)
-		const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1))
+		const yearStart = new globalThis.Date(globalThis.Date.UTC(d.getUTCFullYear(), 0, 1))
 		const week = Math.ceil(((d.getTime() - yearStart.getTime()) / 86_400_000 + 1) / 7)
 		return [d.getUTCFullYear(), week - 1]
 	}

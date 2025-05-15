@@ -7,7 +7,7 @@ export type Year = `${Digit.Double}${Digit.Double}`
 export namespace Year {
 	export import Numeric = _Numeric
 	export const { type, is, flawed } = isly
-		.string<Year>("value", /^[0-9]{4}$/)
+		.string<Year>("value", /^\d{4}$/)
 		.rename("isoly.Year")
 		.describe("Year in a 4-digit form (YYYY).")
 		.bind()

@@ -1,25 +1,26 @@
-import { isly } from "isly"
+import { HalfYear } from "HalfYear"
+import { Month } from "Month"
+import { Quarter } from "Quarter"
+import { Week } from "Week"
+import { Year } from "Year"
 import { Precision } from "../../DateTime/Precision"
 import { Date } from "../Date"
 import { Duration } from "../Duration"
 import { Numeric as DateNumeric } from "../Numeric"
+import { Interval as _Interval } from "./Interval"
+import { Like as _Like } from "./Like"
 import { Numeric as _Numeric } from "./Numeric"
 
-export type Interval = `${Date}--${Date}`
+export type Interval = _Interval
 
 export namespace Interval {
+	export import Like = _Like
 	export import Numeric = _Numeric
-	export const { type, is, flawed } = isly
-		.string<Interval>(value => {
-			const match = /^(\d{4}-\d{2}-\d{2})--(\d{4}-\d{2}-\d{2})$/.exec(value)
-			return !!match && Date.is(match[1]) && Date.is(match[2]) && match[1] < match[2]
-		}, "YYYY-MM-DD--YYYY-MM-DD")
-		.rename("isoly.Date.Interval")
-		.describe("Interval string in format YYYY-MM-DD--YYYY-MM-DD.")
-		.bind()
-	export function parse(value: Interval): Numeric
-	export function parse(value: Interval | string | undefined): Numeric | undefined
-	export function parse(value: Interval | string | undefined): Numeric | undefined {
+	export const { type, is, flawed } = _Interval.type.bind()
+	export function parse(value: Interval.Like): Numeric
+	export function parse(value: Interval.Like | string | undefined): Numeric | undefined
+	export function parse(value: Interval.Like | string | undefined): Numeric | undefined {
+		let result: Numeric | undefined
 		const match =
 			value == undefined
 				? undefined
@@ -27,7 +28,62 @@ export namespace Interval {
 						.exec(value)
 						?.slice(1)
 						?.map(v => Date.parse(v))
-		return !(match && match[0] && match[1]) ? undefined : new Numeric(match[0], match[1])
+		result = !(match && match[0] && match[1]) ? undefined : new Numeric(match[0], match[1])
+		if (!result) {
+			const numeric = Year.parse(value)
+			result =
+				numeric &&
+				Numeric.create({ years: numeric.years, months: 0, days: 0 }, { years: numeric.years, months: 11, days: 30 })
+		}
+		if (!result) {
+			const numeric = HalfYear.parse(value)?.normalize()
+			result =
+				numeric &&
+				Numeric.create(
+					{ years: numeric.years, months: (numeric.halfYears ?? 0) * 5, days: 0 },
+					{ years: numeric.years, months: (numeric.halfYears ?? 0) * 5 + 6, days: 30 }
+				)
+		}
+		if (!result) {
+			const numeric = Quarter.parse(value)?.normalize()
+			result =
+				numeric &&
+				Numeric.create(
+					{ years: numeric.years, months: (numeric.quarters ?? 0) * 3, days: 0 },
+					{
+						years: numeric.years,
+						months: (numeric.quarters ?? 0) * 3 + 3,
+						days: [30, 29, 29, 30][numeric.quarters ?? 0],
+					}
+				)
+		}
+		if (!result) {
+			const numeric = Month.parse(value)?.normalize()
+			result =
+				numeric &&
+				Numeric.create(
+					{ years: numeric.years, months: numeric.months, days: 0 },
+					{
+						years: numeric.years,
+						months: numeric.months,
+						days: numeric.length - 1,
+					}
+				)
+		}
+		if (!result) {
+			const numeric = Week.parse(value)?.normalize()
+			const years = numeric?.years
+			const days = numeric?.weeks != undefined ? (numeric?.weeks ?? 0) * 7 : undefined
+			result =
+				years != undefined && days != undefined
+					? Numeric.create(new DateNumeric(years, days).normalize(), new DateNumeric(years, days + 6).normalize())
+					: undefined
+		}
+		if (!result) {
+			const numeric = Date.parse(value)?.normalize()
+			result = numeric ? Numeric.create(numeric, numeric) : undefined
+		}
+		return result
 	}
 	export function from(value: Interval | string | undefined): Interval | undefined
 	export function from(start: Date, duration: Duration | DateNumeric.Value): Interval
