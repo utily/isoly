@@ -4,9 +4,7 @@ import { Value as _Value } from "./Value"
 
 export class Numeric {
 	get value(): Numeric.Value {
-		return {
-			...(this.years != undefined ? { years: this.years } : {}),
-		}
+		return this.years != undefined ? { years: this.years } : {}
 	}
 	get leapYear(): boolean {
 		return this.years != undefined ? this.years % 4 == 0 && (this.years % 100 != 0 || this.years % 400 == 0) : false

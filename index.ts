@@ -20,6 +20,7 @@ import { Time as _Time } from "./Time"
 import { TimeZone as _TimeZone } from "./TimeZone"
 import { Week as _Week } from "./Week"
 import { Weekday as _Weekday } from "./Weekday"
+import { Year as _Year } from "./Year"
 
 export namespace isoly {
 	export import Address = _Address
@@ -44,4 +45,5 @@ export namespace isoly {
 	export import TimeZone = _TimeZone
 	export import Week = _Week
 	export import Weekday = _Weekday
+	export import Year = _Year
 }
