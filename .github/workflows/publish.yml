@@ -28,10 +28,11 @@ jobs:
       - name: Publish
         run: |
           echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
-          if [[ $TAG == "" ]]; then
-            npm publish --access public
+          VERSION=$(node -p "require('./package.json').version")
+          if [[ "$VERSION" == *-* ]]; then
+            npm publish --access public --tag prerelease
           else
-            npm publish --access public --tag $TAG
+            npm publish --access public
           fi
         shell: bash
         env:
