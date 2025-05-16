@@ -1,7 +1,7 @@
 import { isly } from "isly"
 import { Precision } from "../../../DateTime/Precision"
 import { Numeric as DateNumeric } from "../../Numeric"
-import type { Interval } from ".."
+import type { Interval } from "../"
 import { Value as _Value } from "./Value"
 
 export class Numeric {
@@ -31,8 +31,40 @@ export class Numeric {
 		)
 	}
 	constructor(readonly start: DateNumeric, readonly end: DateNumeric) {}
-	format(): Interval {
-		return `${this.start.format()}--${this.end.format()}` as Interval
+	normalize(): Numeric {
+		return new Numeric(this.start.normalize(), this.end.normalize())
+	}
+	format(format?: "strict"): Interval
+	format(format: "short"): Interval.Like
+	format(format?: "strict" | "short"): Interval | Interval.Like {
+		const normalized = this.normalize()
+		let result: Interval.Like
+		switch (format) {
+			case undefined:
+			case "strict":
+				result = `${normalized.start.format()}--${normalized.end.format()}` as Interval
+				break
+			case "short":
+				result =
+					normalized.start.years == normalized.end.years &&
+					normalized.start.months == 0 &&
+					normalized.end.months == 11 &&
+					normalized.start.days == 0 &&
+					normalized.end.days == 30
+						? normalized.start.year.format()
+						: normalized.start.years == normalized.end.years &&
+						  normalized.start.months == normalized.end.months &&
+						  normalized.start.days == 0 &&
+						  normalized.end.days == normalized.end.month.length - 1
+						? normalized.start.month.format()
+						: normalized.length() == 7 && normalized.start.weekday == 0
+						? normalized.start.week.format()
+						: normalized.length() == 1
+						? normalized.start.format()
+						: normalized.format("strict")
+				break
+		}
+		return result
 	}
 	length(precision: Precision = "days"): number {
 		return Math.ceil(this.end.epoch(precision) - this.start.epoch(precision))

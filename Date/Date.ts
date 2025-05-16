@@ -7,7 +7,7 @@ import { Interval as _Interval } from "./Interval"
 import { Numeric as _Numeric } from "./Numeric"
 import { Ordinal as _Ordinal } from "./Ordinal"
 
-export type Date = `${number}-${Month.Digits}-${number}`
+export type Date = `${number}-${number}-${number}`
 export namespace Date {
 	export import Digits = _Digits
 	export import Duration = _Duration

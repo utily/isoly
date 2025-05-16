@@ -1,6 +1,10 @@
+import { HalfYear } from "HalfYear"
 import { isly } from "isly"
-import { Month } from "Month"
+import { Quarter } from "Quarter"
 import { Precision } from "../../DateTime/Precision"
+import { Month } from "../../Month"
+import { Week } from "../../Week"
+import { Weekday } from "../../Weekday"
 import { Year } from "../../Year"
 import type { Date } from "../Date"
 import { Value as _Value } from "./Value"
@@ -21,6 +25,22 @@ export class Numeric {
 	}
 	get year(): Year.Numeric {
 		return new Year.Numeric(this.years)
+	}
+	get halfYear(): HalfYear.Numeric {
+		return new HalfYear.Numeric(this.years, Math.floor((this.months ?? 0) / 6))
+	}
+	get quarter(): Quarter.Numeric {
+		return new Quarter.Numeric(this.years, Math.floor((this.months ?? 0) / 3))
+	}
+	get week(): Week.Numeric {
+		const ordinal = this.ordinal()
+		return new Week.Numeric(
+			ordinal.years,
+			Math.floor(((ordinal.days ?? 0) - new Numeric(ordinal.years, 0, 0).weekday) / 7)
+		)
+	}
+	get weekday(): Weekday.Index {
+		return ((this.system.getDay() + 6) % 7) as Weekday.Index
 	}
 	get normalized(): boolean {
 		return Numeric.Value.Normalized.is(this) && this.days < this.month.length

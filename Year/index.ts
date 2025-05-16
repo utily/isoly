@@ -2,7 +2,7 @@ import { isly } from "isly"
 import { Digit } from "../Digit"
 import { Numeric as _Numeric } from "./Numeric"
 
-export type Year = `${Digit.Double}${Digit.Double}`
+export type Year = `${number}` // `${Digit.Double}${Digit.Double}`
 
 export namespace Year {
 	export import Numeric = _Numeric
