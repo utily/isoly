@@ -9,9 +9,11 @@ import { DateTime as _DateTime } from "./DateTime"
 import { Digit as _Digit } from "./Digit"
 import { Encoding as _Encoding } from "./Encoding"
 import { Fixed as _Fixed } from "./Fixed"
+import { HalfYear as _HalfYear } from "./HalfYear"
 import { Language as _Language } from "./Language"
 import { Locale as _Locale } from "./Locale"
 import { Month as _Month } from "./Month"
+import { Quarter as _Quarter } from "./Quarter"
 import { Time as _Time } from "./Time"
 // import { TimeRange as _TimeRange } from "./TimeRange"
 // import { TimeSpan as _TimeSpan } from "./TimeSpan"
@@ -31,9 +33,11 @@ export namespace isoly {
 	export import Digit = _Digit
 	export import Encoding = _Encoding
 	export import Fixed = _Fixed
+	export import HalfYear = _HalfYear
 	export import Language = _Language
 	export import Locale = _Locale
 	export import Month = _Month
+	export import Quarter = _Quarter
 	export import Time = _Time
 	// export import TimeRange = _TimeRange
 	// export import TimeSpan = _TimeSpan

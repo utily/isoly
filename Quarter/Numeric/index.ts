@@ -46,7 +46,7 @@ export class Numeric {
 				? ([undefined, value] as const)
 				: Numeric.Value.is(value)
 				? ([value?.years, value?.quarters] as const)
-				: ([value.getFullYear(), value.getMonth() % 3] as const)
+				: ([value.getFullYear(), Math.floor(value.getMonth() / 3)] as const)
 		return new Numeric(parsed[0], parsed[1])
 	}
 }
