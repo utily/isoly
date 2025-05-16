@@ -13,7 +13,9 @@ export namespace Quarter {
 			typeof value == "string"
 				? ([Number.parseInt(value.substring(0, 4)), Number.parseInt(value.substring(6, 7)) - 1] as const)
 				: undefined
-		return result && new Numeric(result[0], result[1])
+		return result && Number.isSafeInteger(result[0]) && Number.isSafeInteger(result[1])
+			? new Numeric(result[0], result[1])
+			: undefined
 	}
 	export function from(date: globalThis.Date | Numeric.Value | number): Quarter {
 		return Numeric.create(date).format()
