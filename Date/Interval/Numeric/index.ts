@@ -57,9 +57,21 @@ export class Numeric {
 						  normalized.start.days == 0 &&
 						  normalized.end.days == normalized.end.month.length - 1
 						? normalized.start.month.format()
+						: normalized.start.years == normalized.end.years &&
+						  (normalized.start.months ?? 0) % 3 == 0 &&
+						  normalized.start.days == 0 &&
+						  (normalized.start.months ?? 0) + 2 == normalized.end.months &&
+						  normalized.end.days == normalized.end.month.length - 1
+						? normalized.start.quarter.format()
+						: normalized.start.years == normalized.end.years &&
+						  (normalized.start.months ?? 0) % 6 == 0 &&
+						  normalized.start.days == 0 &&
+						  (normalized.start.months ?? 0) + 5 == normalized.end.months &&
+						  normalized.end.days == normalized.end.month.length - 1
+						? normalized.start.halfYear.format()
 						: normalized.length() == 7 && normalized.start.weekday == 0
 						? normalized.start.week.format()
-						: normalized.length() == 1
+						: normalized.length() == 0
 						? normalized.start.format()
 						: normalized.format("strict")
 				break
@@ -68,6 +80,9 @@ export class Numeric {
 	}
 	length(precision: Precision = "days"): number {
 		return Math.ceil(this.end.epoch(precision) - this.start.epoch(precision))
+	}
+	equals(value: Numeric): boolean {
+		return this.start.equals(value.start) && this.end.equals(value.end)
 	}
 	contains(date: DateNumeric): boolean {
 		return date >= this.start && date <= this.end

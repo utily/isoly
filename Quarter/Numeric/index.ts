@@ -28,9 +28,7 @@ export class Numeric {
 	}
 	format(): Quarter {
 		const result = this.normalize()
-		return `${(result.years ?? 0).toFixed(0).padStart(4, "0")}-Q${((result.quarters ?? 0) + 1)
-			.toFixed(0)
-			.padStart(2, "0")}` as Quarter
+		return `${(result.years ?? 0).toFixed(0).padStart(4, "0")}-Q${((result.quarters ?? 0) + 1).toFixed(0)}` as Quarter
 	}
 	next(quarters = 1): Numeric {
 		const result = new Numeric(this.years, (this.quarters ?? 0) + quarters)

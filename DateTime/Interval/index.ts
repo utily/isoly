@@ -45,9 +45,6 @@ export namespace Interval {
 			? undefined
 			: parse(argument[0])?.format()
 	}
-	export function format(value: Interval): string {
-		return parse(value).format()
-	}
 	export function length(value: Interval, precision: Precision = "days"): number {
 		return parse(value).length(precision)
 	}

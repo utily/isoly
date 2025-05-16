@@ -28,9 +28,7 @@ export class Numeric {
 	}
 	format(): HalfYear {
 		const result = this.normalize()
-		return `${(result.years ?? 0).toFixed(0).padStart(4, "0")}-H${((result.halfYears ?? 0) + 1)
-			.toFixed(0)
-			.padStart(2, "0")}` as HalfYear
+		return `${(result.years ?? 0).toFixed(0).padStart(4, "0")}-H${((result.halfYears ?? 0) + 1).toFixed(0)}` as HalfYear
 	}
 	next(halfYears = 1): Numeric {
 		const result = new Numeric(this.years, (this.halfYears ?? 0) + halfYears)

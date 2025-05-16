@@ -98,8 +98,8 @@ export namespace Interval {
 			? undefined
 			: parse(argument[0])?.format()
 	}
-	export function format(value: Interval): string {
-		return parse(value).format()
+	export function shorten(value: Interval): Like {
+		return parse(value).format("short")
 	}
 	export function length(value: Interval, precision: Precision = "days"): number {
 		return parse(value).length(precision)
