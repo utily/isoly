@@ -28,7 +28,11 @@ jobs:
       - name: Publish
         run: |
           echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
-          npm publish --access public
+          if [[ $TAG == "" ]]; then
+            npm publish --access public
+          else
+            npm publish --access public --tag $TAG
+          fi
         shell: bash
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
