@@ -1,5 +1,4 @@
 import { isly } from "isly"
-import { Digit } from "../Digit"
 import { Numeric as _Numeric } from "./Numeric"
 
 export type Year = `${number}` // `${Digit.Double}${Digit.Double}`
@@ -17,7 +16,7 @@ export namespace Year {
 		const result = value == undefined ? undefined : Number.parseInt(value)
 		return Number.isSafeInteger(result) ? new Numeric(result) : undefined
 	}
-	export function from(value: globalThis.Date | Numeric | number | Year | string | undefined): Year | undefined {
+	export function from(value: globalThis.Date | Numeric | number | Numeric | string | undefined): Year | undefined {
 		return value == undefined ? undefined : (typeof value == "string" ? parse(value) : Numeric.create(value))?.format()
 	}
 	export function isLeapYear(year: Year | Numeric | number): boolean {
@@ -25,6 +24,7 @@ export namespace Year {
 	}
 	export function length(year: Year | Numeric | number, precision: "weeks"): 52 | 53
 	export function length(year: Year | Numeric | number, precision: "days"): 365 | 366
+	export function length(year: Year | Numeric | number, precision: "weeks" | "days"): 52 | 53 | 365 | 366
 	export function length(year: Year | Numeric | number, precision: "weeks" | "days"): 52 | 53 | 365 | 366 {
 		return (typeof year == "string" ? parse(year) : Numeric.create(year))?.length(precision)
 	}
