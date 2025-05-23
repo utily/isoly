@@ -24,11 +24,11 @@ export namespace Interval {
 		const match =
 			value == undefined
 				? undefined
-				: /^(\d{4}-\d{2}-\d{2})--(\d{4}-\d{2}-\d{2})$/
+				: /^(\d{4}(?:-\d{2}(?:-\d{2})?|Q[1-4]|H[12]|-W\d{2})?)--(\d{4}(?:-\d{2}(?:-\d{2})?|Q[1-4]|H[12]|-W\d{2})?)$/
 						.exec(value)
 						?.slice(1)
-						?.map(v => Date.parse(v))
-		result = !(match && match[0] && match[1]) ? undefined : new Numeric(match[0], match[1])
+						?.map(v => Date.parse(v) ?? Month.parse(v) ?? Quarter.parse(v) ?? HalfYear.parse(v) ?? Year.parse(v))
+		result = !(match && match[0] && match[1]) ? undefined : Numeric.create(match[0], match[1])
 		if (!result) {
 			const numeric = Year.parse(value)
 			result =

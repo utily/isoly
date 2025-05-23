@@ -1,4 +1,9 @@
+import { HalfYear } from "HalfYear"
 import { isly } from "isly"
+import { Month } from "Month"
+import { Quarter } from "Quarter"
+import { Week } from "Week"
+import { Year } from "Year"
 import { Precision } from "../../../DateTime/Precision"
 import { Numeric as DateNumeric } from "../../Numeric"
 import type { Interval } from "../"
@@ -81,7 +86,7 @@ export class Numeric {
 	length(precision: Precision = "days"): number {
 		return Math.ceil(this.end.epoch(precision) - this.start.epoch(precision))
 	}
-	equals(value: Numeric): boolean {
+	equals(value: Numeric.Value): boolean {
 		return this.start.equals(value.start) && this.end.equals(value.end)
 	}
 	contains(date: DateNumeric): boolean {
@@ -94,7 +99,7 @@ export class Numeric {
 		return new Numeric(this.start, this.end.previous(duration))
 	}
 	move(duration: DateNumeric.Value): Numeric {
-		return new Numeric(this.start.next(duration), this.end)
+		return new Numeric(this.start.next(duration), this.end.next(duration))
 	}
 	toJson(): Interval {
 		return this.format()
@@ -102,8 +107,68 @@ export class Numeric {
 	toString(): Interval {
 		return this.format()
 	}
-	static create(start: DateNumeric.Value, end: DateNumeric.Value): Numeric {
-		return new Numeric(DateNumeric.create(start), DateNumeric.create(end))
+	static create(
+		...[start, end]:
+			| [
+					value:
+						| Numeric.Value
+						| DateNumeric.Value
+						| Month.Numeric.Value
+						| Week.Numeric.Value
+						| Quarter.Numeric.Value
+						| HalfYear.Numeric.Value
+						| Year.Numeric.Value
+			  ]
+			| [
+					start:
+						| DateNumeric.Value
+						| Month.Numeric.Value
+						| Week.Numeric.Value
+						| Quarter.Numeric.Value
+						| HalfYear.Numeric.Value
+						| Year.Numeric.Value,
+					end:
+						| DateNumeric.Value
+						| Month.Numeric.Value
+						| Week.Numeric.Value
+						| Quarter.Numeric.Value
+						| HalfYear.Numeric.Value
+						| Year.Numeric.Value
+			  ]
+	): Numeric {
+		return DateNumeric.Value.is(start) && DateNumeric.Value.is(end)
+			? new Numeric(DateNumeric.create(start), DateNumeric.create(end))
+			: end
+			? new Numeric(Numeric.create(start).start, Numeric.create(end).end)
+			: Numeric.Value.is(start)
+			? new Numeric(DateNumeric.create(start.start), DateNumeric.create(start.end))
+			: DateNumeric.Value.is(start) && start.days !== undefined
+			? Numeric.create(start, start)
+			: Month.Numeric.Value.is(start) && start.months !== undefined
+			? Numeric.create(
+					{ years: start.years, months: start.months, days: 0 },
+					{ years: start.years, months: start.months, days: Month.Numeric.create(start).length - 1 }
+			  )
+			: HalfYear.Numeric.Value.is(start) && start.halfYears !== undefined
+			? Numeric.create(
+					{ years: start.years, months: (start.halfYears ?? 0) * 5, days: 0 },
+					{ years: start.years, months: (start.halfYears ?? 0) * 5 + 6, days: 30 }
+			  )
+			: Quarter.Numeric.Value.is(start) && start.quarters !== undefined
+			? Numeric.create(
+					{ years: start.years, months: (start.quarters ?? 0) * 3, days: 0 },
+					{
+						years: start.years,
+						months: (start.quarters ?? 0) * 3 + 3,
+						days: [30, 29, 29, 30][start.quarters ?? 0],
+					}
+			  )
+			: Week.Numeric.Value.is(start) && start.weeks !== undefined
+			? Numeric.create(
+					new DateNumeric(start.years, start.weeks * 7).normalize(),
+					new DateNumeric(start.years, start.weeks * 7 + 6).normalize()
+			  )
+			: Numeric.create({ years: start.years, months: 0, days: 0 }, { years: start.years, months: 11, days: 30 })
 	}
 }
 export namespace Numeric {

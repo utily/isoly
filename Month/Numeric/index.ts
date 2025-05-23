@@ -17,7 +17,7 @@ export class Numeric {
 	get year(): Year.Numeric {
 		return new Year.Numeric(this.years)
 	}
-	get normal(): boolean {
+	get normalized(): boolean {
 		return this.months == undefined || (this.months >= 0 && this.months < 12)
 	}
 	constructor(readonly years: number | undefined, readonly months: number | undefined) {}

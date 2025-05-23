@@ -9,6 +9,7 @@ export namespace Value {
 		.extend<Value>({ days: isly.number().optional() }, "isoly.Date.Numeric.Value")
 		.describe("Value of years, months, and days.")
 		.bind()
+	export const zero = { years: 0, months: 0, days: 0 } as const
 	export interface Normalized extends Month.Numeric.Value.Normalized {
 		days:
 			| 0

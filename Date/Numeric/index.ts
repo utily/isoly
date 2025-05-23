@@ -83,7 +83,7 @@ export class Numeric {
 		return new Numeric(result.years, undefined, result.days)
 	}
 	epoch(precision: Precision = "seconds"): number {
-		return Math.round(
+		return Math.trunc(
 			this.system.getTime() /
 				{ milliseconds: 1, seconds: 1000, minutes: 60000, hours: 3600000, days: 86400000 }[precision]
 		)
@@ -135,17 +135,45 @@ export class Numeric {
 	set(changes: Numeric.Value): Numeric {
 		return new Numeric(changes.years ?? this.years, changes.months ?? this.months, changes.days ?? this.days)
 	}
-	before(date: Numeric): boolean {
-		return this.format() < date.format()
+	before(date: Numeric.Value): boolean {
+		const left = { ...Numeric.Value.zero, ...this.normalize().value }
+		const right = { ...Numeric.Value.zero, ...Numeric.create(date).normalize().value }
+		return (
+			left.years < right.years ||
+			(left.years == right.years &&
+				(left.months < right.months || (left.months == right.months && left.days < right.days)))
+		)
 	}
-	after(date: Numeric): boolean {
-		return this.format() > date.format()
+	after(date: Numeric.Value): boolean {
+		const left = { ...Numeric.Value.zero, ...this.normalize().value }
+		const right = { ...Numeric.Value.zero, ...Numeric.create(date).normalize().value }
+		return (
+			left.years > right.years ||
+			(left.years == right.years &&
+				(left.months > right.months || (left.months == right.months && left.days > right.days)))
+		)
 	}
-	equals(date: Numeric): boolean {
-		return this.format() == date.format()
+	equals(date: Numeric.Value): boolean {
+		const left = this.normalize()
+		const right = Numeric.create(date).normalize()
+		return left.years == right.years && left.months == right.months && left.days == right.days
 	}
-	compare(date: Numeric): number {
-		return this.format() < date.format() ? -1 : this.format() > date.format() ? 1 : 0
+	compare(date: Numeric.Value): number {
+		const left = { ...Numeric.Value.zero, ...this.normalize().value }
+		const right = { ...Numeric.Value.zero, ...Numeric.create(date).normalize().value }
+		return left.years < right.years
+			? -1
+			: left.years > right.years
+			? 1
+			: left.months < right.months
+			? -1
+			: left.months > right.months
+			? 1
+			: left.days < right.days
+			? -1
+			: left.days > right.days
+			? 1
+			: 0
 	}
 	toString(): string {
 		return this.format()
@@ -156,14 +184,17 @@ export class Numeric {
 	static now(): Numeric {
 		return Numeric.create(new globalThis.Date())
 	}
-	static create(value: globalThis.Date | Numeric.Value | number): Numeric {
-		const result =
-			typeof value == "number"
-				? ([undefined, undefined, value] as const)
-				: value instanceof globalThis.Date
-				? ([value.getFullYear(), value.getMonth() - 1, value.getDate() - 1] as const)
-				: ([value?.years, value?.months, value?.days] as const)
-		return new Numeric(result[0], result[1], result[2])
+	static create(value: globalThis.Date | Numeric | Numeric.Value | number): Numeric {
+		return Numeric.is(value)
+			? value
+			: typeof value == "number"
+			? new Numeric(0, 0, value)
+			: value instanceof globalThis.Date
+			? new Numeric(value.getFullYear(), value.getMonth() - 1, value.getDate() - 1)
+			: new Numeric(value?.years, value?.months, value?.days)
+	}
+	static get zero(): Numeric {
+		return new Numeric(0, 0, 0)
 	}
 }
 export namespace Numeric {
