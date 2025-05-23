@@ -17,9 +17,15 @@ export namespace Week {
 	export function parse(value: Week | string | undefined): Numeric | undefined {
 		const result =
 			typeof value == "string"
-				? ([Number.parseInt(value.substring(0, 4)), Number.parseInt(value.substring(6, 8)) - 1] as const)
+				? value &&
+				  /^(\d{4})-W(\d{2})$/
+						.exec(value)
+						?.slice(1)
+						.map(part => Number.parseInt(part))
 				: undefined
-		return result && new Numeric(result[0], result[1])
+		return result && Number.isSafeInteger(result[0]) && Number.isSafeInteger(result[1])
+			? new Numeric(result[0], result[1] - 1)
+			: undefined
 	}
 	export function from(value: globalThis.Date | Numeric.Value | number | Week | string | undefined): Week | undefined {
 		return value == undefined ? undefined : (typeof value == "string" ? parse(value) : Numeric.create(value))?.format()

@@ -142,28 +142,28 @@ export class Numeric {
 			? new Numeric(Numeric.create(start).start, Numeric.create(end).end)
 			: Numeric.Value.is(start)
 			? new Numeric(DateNumeric.create(start.start), DateNumeric.create(start.end))
-			: DateNumeric.Value.is(start) && start.days !== undefined
+			: DateNumeric.Value.is(start) && start.days != undefined
 			? Numeric.create(start, start)
-			: Month.Numeric.Value.is(start) && start.months !== undefined
+			: Month.Numeric.Value.is(start) && start.months != undefined
 			? Numeric.create(
 					{ years: start.years, months: start.months, days: 0 },
 					{ years: start.years, months: start.months, days: Month.Numeric.create(start).length - 1 }
 			  )
-			: HalfYear.Numeric.Value.is(start) && start.halfYears !== undefined
+			: HalfYear.Numeric.Value.is(start) && start.halfYears != undefined
 			? Numeric.create(
-					{ years: start.years, months: (start.halfYears ?? 0) * 5, days: 0 },
-					{ years: start.years, months: (start.halfYears ?? 0) * 5 + 6, days: 30 }
+					{ years: start.years, months: start.halfYears * 5, days: 0 },
+					{ years: start.years, months: start.halfYears * 5 + 6, days: 30 }
 			  )
-			: Quarter.Numeric.Value.is(start) && start.quarters !== undefined
+			: Quarter.Numeric.Value.is(start) && start.quarters != undefined
 			? Numeric.create(
-					{ years: start.years, months: (start.quarters ?? 0) * 3, days: 0 },
+					{ years: start.years, months: start.quarters * 3, days: 0 },
 					{
 						years: start.years,
-						months: (start.quarters ?? 0) * 3 + 3,
-						days: [30, 29, 29, 30][start.quarters ?? 0],
+						months: start.quarters * 3 + 2,
+						days: [30, 29, 29, 30][start.quarters],
 					}
 			  )
-			: Week.Numeric.Value.is(start) && start.weeks !== undefined
+			: Week.Numeric.Value.is(start) && start.weeks != undefined
 			? Numeric.create(
 					new DateNumeric(start.years, start.weeks * 7).normalize(),
 					new DateNumeric(start.years, start.weeks * 7 + 6).normalize()

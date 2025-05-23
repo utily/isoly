@@ -20,70 +20,26 @@ export namespace Interval {
 	export function parse(value: Interval.Like): Numeric
 	export function parse(value: Interval.Like | string | undefined): Numeric | undefined
 	export function parse(value: Interval.Like | string | undefined): Numeric | undefined {
-		let result: Numeric | undefined
 		const match =
 			value == undefined
 				? undefined
 				: /^(\d{4}(?:-\d{2}(?:-\d{2})?|Q[1-4]|H[12]|-W\d{2})?)--(\d{4}(?:-\d{2}(?:-\d{2})?|Q[1-4]|H[12]|-W\d{2})?)$/
 						.exec(value)
 						?.slice(1)
-						?.map(v => Date.parse(v) ?? Month.parse(v) ?? Quarter.parse(v) ?? HalfYear.parse(v) ?? Year.parse(v))
-		result = !(match && match[0] && match[1]) ? undefined : Numeric.create(match[0], match[1])
-		if (!result) {
-			const numeric = Year.parse(value)
-			result =
-				numeric &&
-				Numeric.create({ years: numeric.years, months: 0, days: 0 }, { years: numeric.years, months: 11, days: 30 })
-		}
-		if (!result) {
-			const numeric = HalfYear.parse(value)?.normalize()
-			result =
-				numeric &&
-				Numeric.create(
-					{ years: numeric.years, months: (numeric.halfYears ?? 0) * 5, days: 0 },
-					{ years: numeric.years, months: (numeric.halfYears ?? 0) * 5 + 6, days: 30 }
-				)
-		}
-		if (!result) {
-			const numeric = Quarter.parse(value)?.normalize()
-			result =
-				numeric &&
-				Numeric.create(
-					{ years: numeric.years, months: (numeric.quarters ?? 0) * 3, days: 0 },
-					{
-						years: numeric.years,
-						months: (numeric.quarters ?? 0) * 3 + 3,
-						days: [30, 29, 29, 30][numeric.quarters ?? 0],
-					}
-				)
-		}
-		if (!result) {
-			const numeric = Month.parse(value)?.normalize()
-			result =
-				numeric &&
-				Numeric.create(
-					{ years: numeric.years, months: numeric.months, days: 0 },
-					{
-						years: numeric.years,
-						months: numeric.months,
-						days: numeric.length - 1,
-					}
-				)
-		}
-		if (!result) {
-			const numeric = Week.parse(value)?.normalize()
-			const years = numeric?.years
-			const days = numeric?.weeks != undefined ? (numeric?.weeks ?? 0) * 7 : undefined
-			result =
-				years != undefined && days != undefined
-					? Numeric.create(new DateNumeric(years, days).normalize(), new DateNumeric(years, days + 6).normalize())
-					: undefined
-		}
-		if (!result) {
-			const numeric = Date.parse(value)?.normalize()
-			result = numeric ? Numeric.create(numeric, numeric) : undefined
-		}
-		return result
+						?.map(v => Date.parse(v) ?? Month.parse(v) ?? Quarter.parse(v) ?? HalfYear.parse(v) ?? Year.parse(v)) ??
+				  Quarter.parse(value) ??
+				  Week.parse(value) ??
+				  Date.parse(value) ??
+				  Month.parse(value) ??
+				  HalfYear.parse(value) ??
+				  Year.parse(value)
+		return !Array.isArray(match)
+			? match
+				? Numeric.create(match)
+				: undefined
+			: match.length == 2 && match[0] && match[1]
+			? Numeric.create(match[0], match[1])
+			: undefined
 	}
 	export function from(value: Interval | string | undefined): Interval | undefined
 	export function from(start: Date, duration: Duration | DateNumeric.Value): Interval

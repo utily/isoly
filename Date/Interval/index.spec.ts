@@ -11,6 +11,38 @@ describe("isoly.Date.Interval", () => {
 			"2020-01-01--2021-01-01",
 			{ start: { years: 2020, months: 0, days: 0 }, end: { years: 2021, months: 0, days: 0 } },
 		],
+		[
+			"1999-12-31--2000-01-01",
+			{ start: { years: 1999, months: 11, days: 30 }, end: { years: 2000, months: 0, days: 0 } },
+		],
+		[
+			"2022-02-28--2022-03-01",
+			{ start: { years: 2022, months: 1, days: 27 }, end: { years: 2022, months: 2, days: 0 } },
+		],
+		[
+			"2024-02-29--2024-03-01",
+			{ start: { years: 2024, months: 1, days: 28 }, end: { years: 2024, months: 2, days: 0 } },
+		],
+		[
+			"2022-01-01--2022-01-01",
+			{ start: { years: 2022, months: 0, days: 0 }, end: { years: 2022, months: 0, days: 0 } },
+		],
+		[
+			"2022-05-20--2022-04-30",
+			{ start: { years: 2022, months: 4, days: 19 }, end: { years: 2022, months: 3, days: 29 } },
+		],
+		[
+			"2022-01-01--2022-12-31",
+			{ start: { years: 2022, months: 0, days: 0 }, end: { years: 2022, months: 11, days: 30 } },
+		],
+		[
+			"2022-04-30--2022-05-10",
+			{ start: { years: 2022, months: 3, days: 29 }, end: { years: 2022, months: 4, days: 9 } },
+		],
+		["2022-04-30", { start: { years: 2022, months: 3, days: 29 }, end: { years: 2022, months: 3, days: 29 } }],
+		["2022-04", { start: { years: 2022, months: 3, days: 0 }, end: { years: 2022, months: 3, days: 29 } }],
+		["2022-Q2", { start: { years: 2022, months: 3, days: 0 }, end: { years: 2022, months: 5, days: 29 } }],
+		["2022", { start: { years: 2022, months: 0, days: 0 }, end: { years: 2022, months: 11, days: 30 } }],
 	])("parse(%s) == %s", (value, expected) => expect(isoly.Date.Interval.parse(value)?.value).toEqual(expected))
 	it.each([
 		["2001-01-01", { years: 1, months: 2, days: 3 }, "2001-01-01--2002-03-04"],
