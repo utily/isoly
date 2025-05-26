@@ -23,3 +23,20 @@
 - Prefer single word identifier names.
 - Only use single letter identifiers if usage is kept within a maximum of 3 lines.
 - Make test descriptions short, use function names and single words describing test.
+- No blank lines between test cases in test files.
+
+# Test File Structure Example
+
+```typescript
+describe("isoly.Something", () => {
+	it.each([
+		["input1", "output1"],
+		["input2", "output2"],
+	])("test description %s", (input, output) => expect(something(input)).toBe(output))
+	it.each([
+		["input3", "output3"],
+		["input4", "output4"],
+	])("another test %s", (input, output) => expect(something(input)).toBe(output))
+	it("single test", () => expect(something()).toBe(true))
+})
+```
