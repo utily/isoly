@@ -1,3 +1,9 @@
+import { Weekday } from "Weekday"
+import { HalfYear } from "../HalfYear"
+import { Month } from "../Month"
+import { Quarter } from "../Quarter"
+import { Week } from "../Week"
+import { Year } from "../Year"
 import { Date as _Date } from "./Date"
 import { Digits as _Digits } from "./Digits"
 import { Duration as _Duration } from "./Duration"
@@ -33,5 +39,26 @@ export namespace Date {
 	}
 	export function last(date: Date): Date {
 		return `${date.substring(0, 8)}${parse(date).month.length}` as Date
+	}
+	export function week(date: Date): Week {
+		return parse(date).week.format()
+	}
+	export function month(date: Date): Month {
+		return parse(date).month.format()
+	}
+	export function year(date: Date): Year {
+		return parse(date).year.format()
+	}
+	export function quarter(date: Date): Quarter {
+		return parse(date).quarter.format()
+	}
+	export function halfYear(date: Date): HalfYear {
+		return parse(date).halfYear.format()
+	}
+	export function ordinal(date: Date): Ordinal {
+		return parse(date).format("ordinal")
+	}
+	export function weekday(date: Date): Weekday {
+		return Weekday.from(parse(date).weekday)
 	}
 }

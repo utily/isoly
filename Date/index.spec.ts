@@ -1,4 +1,5 @@
 import { isoly } from "../index"
+import { data } from "./index.spec.data"
 
 describe("isoly.Date", () => {
 	it.each([
@@ -46,4 +47,19 @@ describe("isoly.Date", () => {
 		["2023-00-15", { years: 2023, months: -1, days: 14 }],
 		["2023-04-31", { years: 2023, months: 3, days: 30 }],
 	])("parse(%s)?.value == %j", (value, expected) => expect(isoly.Date.parse(value as any)?.value).toEqual(expected))
+	it.each(data.week)("week(%s) == %s", (value, expected) => expect(isoly.Date.week(value)).toBe(expected))
+	it.each(data.month)("month(%s) == %s", (value, expected) => expect(isoly.Date.month(value as any)).toBe(expected))
+	it.each(data.year)("year(%s) == %s", (value, expected) => expect(isoly.Date.year(value as any)).toBe(expected))
+	it.each(data.quarter)("quarter(%s) == %s", (value, expected) =>
+		expect(isoly.Date.quarter(value as any)).toBe(expected)
+	)
+	it.each(data.halfYear)("halfYear(%s) == %s", (value, expected) =>
+		expect(isoly.Date.halfYear(value as any)).toBe(expected)
+	)
+	it.each(data.ordinal)("ordinal(%s) == %s", (value, expected) =>
+		expect(isoly.Date.ordinal(value as any)).toBe(expected)
+	)
+	it.each(data.weekday)("weekday(%s) == %s", (value, expected) =>
+		expect(isoly.Date.weekday(value as any)).toBe(expected)
+	)
 })

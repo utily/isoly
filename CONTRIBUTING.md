@@ -171,7 +171,7 @@ The project uses ESLint and Prettier with the following configuration:
    npm run coverage
    ```
 
-   Coverage thresholds are set to 60% for:
+   Coverage thresholds are set to 70% for:
 
    - Statements
    - Branches
