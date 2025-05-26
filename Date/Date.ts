@@ -32,13 +32,13 @@ export namespace Date {
 	export function parse(value: Date | string | undefined): Numeric | undefined
 	export function parse(value: Date | string | undefined): Numeric | undefined {
 		const result =
-			typeof value == "string"
-				? ([
-						Number.parseInt(value.substring(0, 4)),
-						Number.parseInt(value.substring(5, 7)) - 1,
-						Number.parseInt(value.substring(8, 10)) - 1,
-				  ] as const)
-				: undefined
-		return result && new Numeric(result[0], result[1], result[2])
+			value == undefined
+				? undefined
+				: (/^(\d{4})-(\d{2})-(\d{2})$/.exec(value) ?? /^(\d+)-(\d+)-(\d+)$/.exec(value))
+						?.slice(1)
+						.map(n => Number.parseInt(n))
+		return result?.length == 3 && result.every(Number.isSafeInteger)
+			? new Numeric(result[0], result[1] - 1, result[2] - 1)
+			: undefined
 	}
 }

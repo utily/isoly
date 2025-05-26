@@ -20,13 +20,13 @@ export namespace Month {
 	export function parse(value: Month): Numeric
 	export function parse(value: Month | string | undefined): Numeric | undefined
 	export function parse(value: Month | string | undefined): Numeric | undefined {
-		const parsed =
-			typeof value == "string"
-				? ([Number.parseInt(value.substring(0, 4)), Number.parseInt(value.substring(5, 7)) - 1] as const)
-				: value == undefined
-				? ([undefined, undefined] as const)
-				: undefined
-		return parsed && new Numeric(parsed[0], parsed[1])
+		const result = value
+			? /^(\d{4})-(\d{2})$/
+					.exec(value)
+					?.slice(1)
+					.map(part => Number.parseInt(part))
+			: undefined
+		return result?.length == 2 && result.every(Number.isSafeInteger) ? new Numeric(result[0], result[1] - 1) : undefined
 	}
 	export function from(value: Date | Numeric | Month | string | undefined): Month | undefined {
 		return value == undefined ? undefined : (typeof value == "string" ? parse(value) : Numeric.create(value))?.format()
@@ -34,31 +34,13 @@ export namespace Month {
 	export function now(): Month {
 		return Numeric.now().format()
 	}
-	export function next(month: Month, months = 1): Month {
+	export function next(month: Month, months?: Numeric.Value | number): Month {
 		return parse(month).next(months).format()
 	}
-	export function previous(month: Month, months = 1): Month {
+	export function previous(month: Month, months?: Numeric.Value | number): Month {
 		return parse(month).previous(months).format()
-	}
-	export function first(month: Month): Date {
-		return getDay(month, 0)
-	}
-	export function last(month: Month): Date {
-		return getDay(month, length(month) - 1)
-	}
-	export function getYear(month: Month): number {
-		return Number.parseInt(month.substring(0, 4))
-	}
-	export function getMonth(month: Month): number {
-		return Number.parseInt(month.substring(5, 7))
 	}
 	export function length(month: Month): 28 | 29 | 30 | 31 {
 		return parse(month).length
-	}
-	export function getDay(month: Month, day: number): Date {
-		return `${month}-${(day + 1).toString().padStart(2, "0")}` as Date
-	}
-	export function getDays(month: Month): Date[] {
-		return [...Array(length(month)).keys()].map(day => getDay(month, day))
 	}
 }

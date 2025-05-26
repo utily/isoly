@@ -1,4 +1,5 @@
 import { isly } from "isly"
+import { typedly } from "typedly"
 import { Year } from "../../Year"
 import type { Week } from "../"
 import { Value as _Value } from "./Value"
@@ -13,7 +14,7 @@ export class Numeric {
 	get year(): Year.Numeric {
 		return new Year.Numeric(this.years)
 	}
-	get normal(): boolean {
+	get normalized(): boolean {
 		return this.weeks == undefined || (this.weeks >= 0 && this.weeks < this.year.length("weeks"))
 	}
 	constructor(readonly years: number | undefined, readonly weeks: number | undefined) {}
@@ -25,7 +26,7 @@ export class Numeric {
 				weeks += year.length("weeks")
 				year = year.previous()
 			}
-			while (weeks > year.length("weeks")) {
+			while (weeks >= year.length("weeks")) {
 				weeks -= year.length("weeks")
 				year = year.next()
 			}
@@ -38,12 +39,30 @@ export class Numeric {
 			.toFixed(0)
 			.padStart(2, "0")}` as Week
 	}
-	next(weeks = 1): Numeric {
-		const result = new Numeric(this.years, (this.weeks ?? 0) + weeks)
-		return result.normalize()
+	next(changes: Numeric.Value | number = { weeks: 1 }): Numeric {
+		return this.set(
+			typedly.Object.map<Numeric.Value, Numeric.Value>(
+				typeof changes == "number" ? { weeks: changes } : changes,
+				([key, value]) => [
+					key,
+					this[key] == undefined && value == undefined ? undefined : (this[key] ?? 0) + (value ?? 0),
+				]
+			)
+		)
 	}
-	previous(weeks = 1): Numeric {
-		return this.next(-weeks)
+	previous(changes: Numeric.Value | number = { weeks: 1 }): Numeric {
+		return this.set(
+			typedly.Object.map<Numeric.Value, Numeric.Value>(
+				typeof changes == "number" ? { weeks: changes } : changes,
+				([key, value]) => [
+					key,
+					this[key] == undefined && value == undefined ? undefined : (this[key] ?? 0) - (value ?? 0),
+				]
+			)
+		)
+	}
+	set(changes: Numeric.Value | number | undefined): Numeric {
+		return Numeric.create({ ...this.value, ...(typeof changes == "number" ? { weeks: changes } : changes) })
 	}
 	static now(): Numeric {
 		return Numeric.create(new globalThis.Date())

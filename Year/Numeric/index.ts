@@ -1,4 +1,5 @@
 import { isly } from "isly"
+import { typedly } from "typedly"
 import type { Year } from "Year"
 import { Value as _Value } from "./Value"
 
@@ -10,9 +11,6 @@ export class Numeric {
 		return this.years != undefined ? this.years % 4 == 0 && (this.years % 100 != 0 || this.years % 400 == 0) : false
 	}
 	constructor(readonly years: number | undefined) {}
-	format(): Year {
-		return (this.years ?? 0).toFixed(0).padStart(4, "0") as Year
-	}
 	length(precision: "weeks"): 52 | 53
 	length(precision: "days"): 365 | 366
 	length(precision: "weeks" | "days"): 52 | 53 | 365 | 366
@@ -25,19 +23,43 @@ export class Numeric {
 				new Date(this.years ?? 0, 0, 1).getDay() == (this.leapYear ? 3 : 4) ? 53 : 52,
 		}[precision]()
 	}
-	next(years = 1): Numeric {
-		return new Numeric((this.years ?? 0) + years)
+	format(): Year {
+		return (this.years ?? 0).toFixed(0).padStart(4, "0") as Year
 	}
-	previous(years = 1): Numeric {
-		return this.next(-years)
+	next(changes: Numeric.Value | number = { years: 1 }): Numeric {
+		return this.set(
+			typedly.Object.map<Numeric.Value, Numeric.Value>(
+				typeof changes == "number" ? { years: changes } : changes,
+				([key, value]) => [
+					key,
+					this[key] == undefined && value == undefined ? undefined : (this[key] ?? 0) + (value ?? 0),
+				]
+			)
+		)
+	}
+	previous(changes: Numeric.Value | number = { years: 1 }): Numeric {
+		return this.set(
+			typedly.Object.map<Numeric.Value, Numeric.Value>(
+				typeof changes == "number" ? { years: changes } : changes,
+				([key, value]) => [
+					key,
+					this[key] == undefined && value == undefined ? undefined : (this[key] ?? 0) - (value ?? 0),
+				]
+			)
+		)
+	}
+	set(changes: Numeric.Value | number | undefined): Numeric {
+		return Numeric.create({ ...this.value, ...(typeof changes == "number" ? { years: changes } : changes) })
 	}
 	static now(): Numeric {
 		return Numeric.create(new globalThis.Date())
 	}
-	static create(value: globalThis.Date | Numeric | number): Numeric {
-		return new Numeric(
-			typeof value == "number" ? value : value instanceof globalThis.Date ? value.getFullYear() : value?.years
-		)
+	static create(value: Numeric | globalThis.Date | Numeric.Value | number): Numeric {
+		return Numeric.is(value)
+			? value
+			: new Numeric(
+					typeof value == "number" ? value : value instanceof globalThis.Date ? value.getFullYear() : value?.years
+			  )
 	}
 }
 export namespace Numeric {

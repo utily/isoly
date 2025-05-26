@@ -1,4 +1,5 @@
 import { isly } from "isly"
+import { typedly } from "typedly"
 import { Year } from "../../Year"
 import type { Month } from ".."
 import { Value as _Value } from "./Value"
@@ -32,12 +33,33 @@ export class Numeric {
 			.toFixed(0)
 			.padStart(2, "0")}` as Month
 	}
-	next(months = 1): Numeric {
-		const result = new Numeric(this.years, (this.months ?? 0) + months)
-		return result.normalize()
+	next(changes: Numeric.Value | number = { months: 1 }): Numeric {
+		return this.set(
+			typedly.Object.map<Numeric.Value, Numeric.Value>(
+				typeof changes == "number" ? { months: changes } : changes,
+				([key, value]) => [
+					key,
+					this[key] == undefined && value == undefined ? undefined : (this[key] ?? 0) + (value ?? 0),
+				]
+			)
+		)
 	}
-	previous(months = 1): Numeric {
-		return this.next(-months)
+	previous(changes: Numeric.Value | number = { months: 1 }): Numeric {
+		return this.set(
+			typedly.Object.map<Numeric.Value, Numeric.Value>(
+				typeof changes == "number" ? { months: changes } : changes,
+				([key, value]) => [
+					key,
+					this[key] == undefined && value == undefined ? undefined : (this[key] ?? 0) - (value ?? 0),
+				]
+			)
+		)
+	}
+	set(changes: Numeric.Value | number | undefined): Numeric {
+		return Numeric.create({
+			...this.value,
+			...(typeof changes == "number" ? { months: changes } : changes),
+		})
 	}
 	static now(): Numeric {
 		return Numeric.create(new globalThis.Date(Date.now()))

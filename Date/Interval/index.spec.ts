@@ -43,6 +43,30 @@ describe("isoly.Date.Interval", () => {
 		["2022-04", { start: { years: 2022, months: 3, days: 0 }, end: { years: 2022, months: 3, days: 29 } }],
 		["2022-Q2", { start: { years: 2022, months: 3, days: 0 }, end: { years: 2022, months: 5, days: 29 } }],
 		["2022", { start: { years: 2022, months: 0, days: 0 }, end: { years: 2022, months: 11, days: 30 } }],
+		["2022-W01", { start: { years: 2022, months: 0, days: 2 }, end: { years: 2022, months: 0, days: 8 } }],
+		["2022-W02", { start: { years: 2022, months: 0, days: 9 }, end: { years: 2022, months: 0, days: 15 } }],
+		["2022-H1", { start: { years: 2022, months: 0, days: 0 }, end: { years: 2022, months: 5, days: 29 } }],
+		["2022-H2", { start: { years: 2022, months: 6, days: 0 }, end: { years: 2022, months: 11, days: 30 } }],
+		["2022-04--2022-05", { start: { years: 2022, months: 3, days: 0 }, end: { years: 2022, months: 4, days: 30 } }],
+		["2022-04--2022-04", { start: { years: 2022, months: 3, days: 0 }, end: { years: 2022, months: 3, days: 29 } }],
+		["2022--2023", { start: { years: 2022, months: 0, days: 0 }, end: { years: 2023, months: 11, days: 30 } }],
+		["2022-Q1--2022-Q2", { start: { years: 2022, months: 0, days: 0 }, end: { years: 2022, months: 5, days: 29 } }],
+		["2022-Q2--2022-Q2", { start: { years: 2022, months: 3, days: 0 }, end: { years: 2022, months: 5, days: 29 } }],
+		["2022-H1--2022-H2", { start: { years: 2022, months: 0, days: 0 }, end: { years: 2022, months: 11, days: 30 } }],
+		["2022-H2--2023-H1", { start: { years: 2022, months: 6, days: 0 }, end: { years: 2023, months: 5, days: 29 } }],
+		["2022-W01--2022-W02", { start: { years: 2022, months: 0, days: 2 }, end: { years: 2022, months: 0, days: 15 } }],
+		["2022-W52--2023-W01", { start: { years: 2022, months: 11, days: 25 }, end: { years: 2023, months: 0, days: 7 } }],
+		["2022-04--2022-04-15", { start: { years: 2022, months: 3, days: 0 }, end: { years: 2022, months: 3, days: 14 } }],
+		["2022-04-15--2022-04", { start: { years: 2022, months: 3, days: 14 }, end: { years: 2022, months: 3, days: 29 } }],
+		["2022-Q2--2022-07-15", { start: { years: 2022, months: 3, days: 0 }, end: { years: 2022, months: 6, days: 14 } }],
+		["2022-07-15--2022-Q3", { start: { years: 2022, months: 6, days: 14 }, end: { years: 2022, months: 8, days: 29 } }],
+		["2022-H1--2022-12-31", { start: { years: 2022, months: 0, days: 0 }, end: { years: 2022, months: 11, days: 30 } }],
+		["2022-01-01--2022-H2", { start: { years: 2022, months: 0, days: 0 }, end: { years: 2022, months: 11, days: 30 } }],
+		["2022-W10--2022-03-15", { start: { years: 2022, months: 2, days: 6 }, end: { years: 2022, months: 2, days: 14 } }],
+		[
+			"2022-03-15--2022-W11",
+			{ start: { years: 2022, months: 2, days: 14 }, end: { years: 2022, months: 2, days: 19 } },
+		],
 	])("parse(%s) == %s", (value, expected) => expect(isoly.Date.Interval.parse(value)?.value).toEqual(expected))
 	it.each([
 		["2001-01-01", { years: 1, months: 2, days: 3 }, "2001-01-01--2002-03-04"],
@@ -74,7 +98,7 @@ describe("isoly.Date.Interval", () => {
 		],
 		["2022-04-30--2022-04-30", ["2022-04-30"]],
 		["2022-05-20--2022-04-30", []],
-	] as const)("dates", () => {})
+	] as const)("dates(%s)", (interval, expected) => expect(isoly.Date.Interval.dates(interval)).toEqual(expected))
 	it.each([
 		[
 			"2022-04-30--2022-05-10",

@@ -13,8 +13,32 @@ describe("isoly.Date.Interval.Numeric", () => {
 			value: [{ years: 2023, months: 5, days: 15 }] as const,
 			expected: { start: { years: 2023, months: 5, days: 15 }, end: { years: 2023, months: 5, days: 15 } },
 		},
+		{
+			value: [{ years: 2023, weeks: 10 }] as const,
+			expected: {
+				start: { years: 2023, months: 2, days: 12 },
+				end: { years: 2023, months: 2, days: 18 },
+			},
+		},
+		{
+			value: [{ years: 2022, weeks: 0 }] as const,
+			expected: {
+				start: { years: 2022, months: 0, days: 2 },
+				end: { years: 2022, months: 0, days: 8 },
+			},
+		},
+		{
+			value: [
+				{ years: 2023, weeks: 10 },
+				{ years: 2023, weeks: 11 },
+			] as const,
+			expected: {
+				start: { years: 2023, months: 2, days: 12 },
+				end: { years: 2023, months: 2, days: 25 },
+			},
+		},
 	])("create(%s) == %s", ({ value, expected }) =>
-		expect(isoly.Date.Interval.Numeric.create(...value)).toEqual(expected)
+		expect(isoly.Date.Interval.Numeric.create(...value).value).toEqual(expected)
 	)
 	it.each([
 		{

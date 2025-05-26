@@ -19,7 +19,8 @@ export namespace Date {
 		return Numeric.now().format()
 	}
 	export function from(value: globalThis.Date | Date | Numeric | string | number | undefined): Date | undefined {
-		return value == undefined ? undefined : (typeof value == "string" ? parse(value) : Numeric.create(value))?.format()
+		const result = value == undefined ? undefined : typeof value == "string" ? parse(value) : Numeric.create(value)
+		return result?.normalized ? result?.format() : undefined
 	}
 	export function next(date: Date, increment: Numeric.Value = { days: 1 }): Date {
 		return parse(date).next(increment).format()

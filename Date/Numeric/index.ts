@@ -1,6 +1,7 @@
 import { HalfYear } from "HalfYear"
 import { isly } from "isly"
 import { Quarter } from "Quarter"
+import { typedly } from "typedly"
 import { Precision } from "../../DateTime/Precision"
 import { Month } from "../../Month"
 import { Week } from "../../Week"
@@ -36,7 +37,7 @@ export class Numeric {
 		const ordinal = this.ordinal()
 		return new Week.Numeric(
 			ordinal.years,
-			Math.floor(((ordinal.days ?? 0) - new Numeric(ordinal.years, 0, 0).weekday) / 7)
+			Math.floor(((ordinal.days ?? 0) - 3 + new Numeric(ordinal.years, 0, 3).weekday) / 7)
 		)
 	}
 	get weekday(): Weekday.Index {
@@ -48,7 +49,7 @@ export class Numeric {
 	constructor(readonly years?: number, readonly months?: number, readonly days?: number) {}
 	normalize(): Numeric {
 		// eslint-disable-next-line @typescript-eslint/no-this-alias
-		let result: Numeric = this
+		let result: Numeric = this.next(Numeric.Value.zero)
 		while ((result.days ?? 0) < 0)
 			result = result.next({ months: -1, days: result.month.length })
 		while ((result.days ?? 0) >= result.month.length)
@@ -75,9 +76,9 @@ export class Numeric {
 		while ((result.months ?? 0) >= 12)
 			result = result.next({ years: 1, months: -12 })
 		while ((result.months ?? 0) > 0)
-			result = result.next({ months: -1, days: result.month.length })
+			result = result.next({ months: -1, days: result.month.previous().length })
 		while ((result.days ?? 0) < 0)
-			result = result.next({ years: -1, days: result.year.length("days") })
+			result = result.next({ years: -1, days: result.year.previous().length("days") })
 		while ((result.days ?? 0) >= result.year.length("days"))
 			result = result.next({ years: 1, days: -result.year.length("days") })
 		return new Numeric(result.years, undefined, result.days)
@@ -107,33 +108,37 @@ export class Numeric {
 					.padStart(3, "0")}` as Date.Ordinal
 				break
 			case "duration":
-				result = `D${this.years ? `${this.years}Y ` : ""}${this.months ? `${this.months}M ` : ""}${
-					this.days ? `${this.days}D ` : ""
+				result = `D${this.years ? `${this.years}Y` : ""}${this.months ? `${this.months}M` : ""}${
+					this.days ? `${this.days}D` : ""
 				}` as Date.Duration
 				break
 		}
 		return result
 	}
-	next(increment: Numeric.Value): Numeric {
-		return new Numeric(
-			this.years == undefined && increment.years == undefined ? undefined : (this.years ?? 0) + (increment.years ?? 0),
-			this.months == undefined && increment.months == undefined
-				? undefined
-				: (this.months ?? 0) + (increment.months ?? 0),
-			this.days == undefined && increment.days == undefined ? undefined : (this.days ?? 0) + (increment.days ?? 0)
+	next(changes: Numeric.Value | number = { days: 1 }): Numeric {
+		return this.set(
+			typedly.Object.map<Numeric.Value, Numeric.Value>(
+				typeof changes == "number" ? { days: changes } : changes,
+				([key, value]) => [
+					key,
+					this[key] == undefined && value == undefined ? undefined : (this[key] ?? 0) + (value ?? 0),
+				]
+			)
 		)
 	}
-	previous(increment: Numeric.Value): Numeric {
-		return new Numeric(
-			this.years == undefined && increment.years == undefined ? undefined : (this.years ?? 0) - (increment.years ?? 0),
-			this.months == undefined && increment.months == undefined
-				? undefined
-				: (this.months ?? 0) - (increment.months ?? 0),
-			this.days == undefined && increment.days == undefined ? undefined : (this.days ?? 0) - (increment.days ?? 0)
+	previous(changes: Numeric.Value | number = { days: 1 }): Numeric {
+		return this.set(
+			typedly.Object.map<Numeric.Value, Numeric.Value>(
+				typeof changes == "number" ? { days: changes } : changes,
+				([key, value]) => [
+					key,
+					this[key] == undefined && value == undefined ? undefined : (this[key] ?? 0) - (value ?? 0),
+				]
+			)
 		)
 	}
-	set(changes: Numeric.Value): Numeric {
-		return new Numeric(changes.years ?? this.years, changes.months ?? this.months, changes.days ?? this.days)
+	set(changes: Numeric.Value | number | undefined): Numeric {
+		return Numeric.create({ ...this.value, ...(typeof changes == "number" ? { days: changes } : changes) })
 	}
 	before(date: Numeric.Value): boolean {
 		const left = { ...Numeric.Value.zero, ...this.normalize().value }
@@ -190,7 +195,7 @@ export class Numeric {
 			: typeof value == "number"
 			? new Numeric(0, 0, value)
 			: value instanceof globalThis.Date
-			? new Numeric(value.getFullYear(), value.getMonth() - 1, value.getDate() - 1)
+			? new Numeric(value.getFullYear(), value.getMonth(), value.getDate() - 1)
 			: new Numeric(value?.years, value?.months, value?.days)
 	}
 	static get zero(): Numeric {

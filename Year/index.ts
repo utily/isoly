@@ -13,9 +13,12 @@ export namespace Year {
 	export function parse(value: Year): Numeric
 	export function parse(value: Year | string | undefined): Numeric | undefined
 	export function parse(value: Year | string | undefined): Numeric | undefined {
-		const result = value == undefined ? undefined : Number.parseInt(value)
-		return Number.isSafeInteger(result) ? new Numeric(result) : undefined
+		const result = value
+			? (/^(\d{4})$/.exec(value) ?? /^(\d+)$/.exec(value))?.slice(1).map(part => Number.parseInt(part))
+			: undefined
+		return result?.length == 1 && result.every(Number.isSafeInteger) ? new Numeric(result[0]) : undefined
 	}
+
 	export function from(value: globalThis.Date | Numeric | number | Numeric | string | undefined): Year | undefined {
 		return value == undefined ? undefined : (typeof value == "string" ? parse(value) : Numeric.create(value))?.format()
 	}

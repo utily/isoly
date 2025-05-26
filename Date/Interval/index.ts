@@ -20,25 +20,23 @@ export namespace Interval {
 	export function parse(value: Interval.Like): Numeric
 	export function parse(value: Interval.Like | string | undefined): Numeric | undefined
 	export function parse(value: Interval.Like | string | undefined): Numeric | undefined {
-		const match =
+		const p = (
+			v: string
+		): Date.Numeric | Month.Numeric | Week.Numeric | Year.Numeric | HalfYear.Numeric | Quarter.Numeric | undefined =>
+			Date.parse(v) ?? Week.parse(v) ?? Month.parse(v) ?? Quarter.parse(v) ?? HalfYear.parse(v) ?? Year.parse(v)
+		const result =
 			value == undefined
 				? undefined
-				: /^(\d{4}(?:-\d{2}(?:-\d{2})?|Q[1-4]|H[12]|-W\d{2})?)--(\d{4}(?:-\d{2}(?:-\d{2})?|Q[1-4]|H[12]|-W\d{2})?)$/
+				: /^(\d{4}(?:-\d{2}(?:-\d{2})?|-Q[1-4]|-H[12]|-W\d{2})?)--(\d{4}(?:-\d{2}(?:-\d{2})?|-Q[1-4]|-H[12]|-W\d{2})?)$/
 						.exec(value)
 						?.slice(1)
-						?.map(v => Date.parse(v) ?? Month.parse(v) ?? Quarter.parse(v) ?? HalfYear.parse(v) ?? Year.parse(v)) ??
-				  Quarter.parse(value) ??
-				  Week.parse(value) ??
-				  Date.parse(value) ??
-				  Month.parse(value) ??
-				  HalfYear.parse(value) ??
-				  Year.parse(value)
-		return !Array.isArray(match)
-			? match
-				? Numeric.create(match)
+						?.map(p) ?? p(value)
+		return !Array.isArray(result)
+			? result
+				? Numeric.create(result)
 				: undefined
-			: match.length == 2 && match[0] && match[1]
-			? Numeric.create(match[0], match[1])
+			: result.length == 2 && result[0] && result[1]
+			? Numeric.create(result[0], result[1])
 			: undefined
 	}
 	export function from(value: Interval | string | undefined): Interval | undefined

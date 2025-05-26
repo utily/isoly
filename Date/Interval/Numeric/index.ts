@@ -1,10 +1,10 @@
-import { HalfYear } from "HalfYear"
 import { isly } from "isly"
 import { Month } from "Month"
 import { Quarter } from "Quarter"
 import { Week } from "Week"
 import { Year } from "Year"
 import { Precision } from "../../../DateTime/Precision"
+import { HalfYear } from "../../../HalfYear"
 import { Numeric as DateNumeric } from "../../Numeric"
 import type { Interval } from "../"
 import { Value as _Value } from "./Value"
@@ -136,39 +136,49 @@ export class Numeric {
 						| Year.Numeric.Value
 			  ]
 	): Numeric {
-		return DateNumeric.Value.is(start) && DateNumeric.Value.is(end)
-			? new Numeric(DateNumeric.create(start), DateNumeric.create(end))
-			: end
-			? new Numeric(Numeric.create(start).start, Numeric.create(end).end)
-			: Numeric.Value.is(start)
-			? new Numeric(DateNumeric.create(start.start), DateNumeric.create(start.end))
-			: DateNumeric.Value.is(start) && start.days != undefined
-			? Numeric.create(start, start)
-			: Month.Numeric.Value.is(start) && start.months != undefined
-			? Numeric.create(
-					{ years: start.years, months: start.months, days: 0 },
-					{ years: start.years, months: start.months, days: Month.Numeric.create(start).length - 1 }
-			  )
-			: HalfYear.Numeric.Value.is(start) && start.halfYears != undefined
-			? Numeric.create(
-					{ years: start.years, months: start.halfYears * 5, days: 0 },
-					{ years: start.years, months: start.halfYears * 5 + 6, days: 30 }
-			  )
-			: Quarter.Numeric.Value.is(start) && start.quarters != undefined
-			? Numeric.create(
-					{ years: start.years, months: start.quarters * 3, days: 0 },
-					{
-						years: start.years,
-						months: start.quarters * 3 + 2,
-						days: [30, 29, 29, 30][start.quarters],
-					}
-			  )
-			: Week.Numeric.Value.is(start) && start.weeks != undefined
-			? Numeric.create(
-					new DateNumeric(start.years, start.weeks * 7).normalize(),
-					new DateNumeric(start.years, start.weeks * 7 + 6).normalize()
-			  )
-			: Numeric.create({ years: start.years, months: 0, days: 0 }, { years: start.years, months: 11, days: 30 })
+		let result: [DateNumeric.Value, DateNumeric.Value]
+		if (DateNumeric.Value.is(start) && DateNumeric.Value.is(end) && start.days != undefined && end.days != undefined)
+			result = [start, end]
+		else if (end)
+			result = [Numeric.create(start).start, Numeric.create(end).end]
+		else if (Numeric.Value.is(start))
+			result = [start.start, start.end]
+		else if (DateNumeric.Value.is(start) && start.days != undefined)
+			result = [start, start]
+		else if (Month.Numeric.Value.is(start) && start.months != undefined)
+			result = [
+				{ years: start.years, months: start.months, days: 0 },
+				{ years: start.years, months: start.months, days: Month.Numeric.create(start).length - 1 },
+			]
+		else if (HalfYear.Numeric.Value.is(start) && start.halfYears != undefined)
+			result = [
+				{ years: start.years, months: start.halfYears * 6, days: 0 },
+				{ years: start.years, months: start.halfYears * 6 + 5, days: 29 + (start.halfYears % 2) },
+			]
+		else if (Quarter.Numeric.Value.is(start) && start.quarters != undefined)
+			result = [
+				{ years: start.years, months: start.quarters * 3, days: 0 },
+				{
+					years: start.years,
+					months: start.quarters * 3 + 2,
+					days: [30, 29, 29, 30][start.quarters % 4],
+				},
+			]
+		else if (Week.Numeric.Value.is(start) && start.weeks != undefined) {
+			const s = new DateNumeric(
+				start.years,
+				undefined,
+				3 - new DateNumeric(start.years, 0, 3).weekday + start.weeks * 7
+			)
+			result = [s.normalize(), s.next({ days: 6 }).normalize()]
+		} else if (Year.Numeric.Value.is(start) && start.years != undefined)
+			result = [
+				{ years: start.years, months: 0, days: 0 },
+				{ years: start.years, months: 11, days: 30 },
+			]
+		else
+			result = [{}, {}]
+		return new Numeric(DateNumeric.create(result[0]), DateNumeric.create(result[1]))
 	}
 }
 export namespace Numeric {
