@@ -1,7 +1,7 @@
 import { isly } from "isly"
-import { Precision } from "Time/Precision"
 import { Date } from "../Date"
 import { Time } from "../Time"
+import { Precision } from "../Time/Precision"
 import { TimeZone } from "../TimeZone"
 import { DateTime } from "./index"
 
