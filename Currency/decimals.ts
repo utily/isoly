@@ -37,6 +37,7 @@ export function decimals(currency: Currency): 0 | 2 | 3 | 4 | undefined {
 			CLF: 4,
 			CLP: 0,
 			CNY: 2,
+			CNH: 2,
 			COP: 2,
 			COU: 2,
 			CRC: 2,

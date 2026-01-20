@@ -38,6 +38,7 @@ export function name(currency: Currency): string {
 		CLF: "Unidad de Fomento",
 		CLP: "Chilean peso",
 		CNY: "Renminbi",
+		CNH: "Renminbi (Offshore)",
 		COP: "Colombian peso",
 		COU: "Unidad de Valor Real",
 		CRC: "Costa Rican colon",

@@ -33,6 +33,7 @@ export const values = [
 	"CLF",
 	"CLP",
 	"CNY",
+	"CNH",
 	"COP",
 	"COU",
 	"CRC",

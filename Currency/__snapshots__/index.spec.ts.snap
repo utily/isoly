@@ -424,6 +424,8 @@ exports[`isoly.Currency > name(CLF) 1`] = `"Unidad de Fomento"`;
 
 exports[`isoly.Currency > name(CLP) 1`] = `"Chilean peso"`;
 
+exports[`isoly.Currency > name(CNH) 1`] = `"Renminbi (Offshore)"`;
+
 exports[`isoly.Currency > name(CNY) 1`] = `"Renminbi"`;
 
 exports[`isoly.Currency > name(COP) 1`] = `"Colombian peso"`;
