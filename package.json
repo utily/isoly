@@ -60,6 +60,6 @@
 		"vitest": "4.0.15"
 	},
 	"dependencies": {
-		"isly": "1.4.0"
+		"isly": "1.5.0"
 	}
 }
