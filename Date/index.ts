@@ -1,6 +1,7 @@
 import { isly } from "isly"
 import { DateSpan } from "../DateSpan"
 import { Locale } from "../Locale"
+import { system } from "../system"
 import { Day as DateDay } from "./Day"
 import { Month as DateMonth } from "./Month"
 import { Numeric as DateNumeric } from "./Numeric"
@@ -32,13 +33,13 @@ export namespace Date {
 		return value.split("-", 3) as [Year, Month, Day]
 	}
 	export function parse(value: Date, time?: string): globalThis.Date {
-		return new globalThis.Date(value + (time ?? "T12:00:00.000Z"))
+		return new system.Date(value + (time ?? "T12:00:00.000Z"))
 	}
 	export function create(value: globalThis.Date): Date {
 		return value.toISOString().substring(0, 10)
 	}
 	export function now(): Date {
-		return create(new globalThis.Date())
+		return create(new system.Date())
 	}
 	export function normalize(value: Date): Date {
 		return Numeric.format(Numeric.parse(value))
@@ -150,10 +151,10 @@ export namespace Date {
 		return Number.parseInt(date.substring(5, 7))
 	}
 	export function getWeek(date: Date): number {
-		const parsed = new globalThis.Date(date)
+		const parsed = new system.Date(date)
 		parsed.setHours(0, 0, 0, 0)
 		parsed.setDate(parsed.getDate() + 3 - ((parsed.getDay() + 6) % 7))
-		const week1 = new globalThis.Date(parsed.getFullYear(), 0, 4)
+		const week1 = new system.Date(parsed.getFullYear(), 0, 4)
 		return 1 + Math.round(((parsed.getTime() - week1.getTime()) / 86_400_000 - 3 + ((week1.getDay() + 6) % 7)) / 7)
 	}
 	export function getDay(date: Date): number {
@@ -168,8 +169,8 @@ export namespace Date {
 	): number | string {
 		const format = options?.format ?? "long"
 		return locale
-			? new globalThis.Date(date).toLocaleDateString(locale, { weekday: format })
-			: new globalThis.Date(date).getDay()
+			? new system.Date(date).toLocaleDateString(locale, { weekday: format })
+			: new system.Date(date).getDay()
 	}
 	export function nextWeekday(date: Date, days: number | DateSpan = 1, holidays: Date[] = []): Date {
 		const holidaySet = new Set(holidays)

@@ -2,7 +2,7 @@ name: CI
 
 on:
   pull_request:
-  
+
 jobs:
   build:
     name: Build
@@ -12,7 +12,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 20.10.0
-          cache: 'npm'
+          cache: "npm"
       - run: npm install
       - run: npm run build
   test:
@@ -23,7 +23,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 20.10.0
-          cache: 'npm'
+          cache: "npm"
       - run: npm install
       - run: npm run test
   lint:
@@ -34,7 +34,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 20.10.0
-          cache: 'npm'
+          cache: "npm"
       - run: npm install
       - run: npm run lint
   audit:
@@ -45,5 +45,5 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: current
-          cache: 'npm'
-      - run: npm audit
+          cache: "npm"
+      - run: npm audit --omit dev

@@ -1,6 +1,7 @@
 import { isly } from "isly"
 import { Date } from "../Date"
 import { DayOfWeek } from "../DayOfWeek"
+import { system } from "../system"
 import { Number as WeekNumber } from "./Number"
 import { Parts as WeekParts } from "./Parts"
 
@@ -24,7 +25,7 @@ export namespace Week {
 		.bind()
 
 	export function split(week: Week): [number, Week.Number.Numeric] {
-		return week.split("-W").map(globalThis.Number) as [number, Week.Number.Numeric]
+		return week.split("-W").map(system.Number) as [number, Week.Number.Numeric]
 	}
 	export function parts(week: Week): Parts {
 		const [y, w] = split(week)

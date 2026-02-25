@@ -1,4 +1,5 @@
 import { isly } from "isly"
+import { system } from "../../system"
 
 export type Numeric = typeof Numeric.values[number]
 export namespace Numeric {
@@ -12,6 +13,6 @@ export namespace Numeric {
 		.bind()
 
 	export function parse(value: string): number | undefined {
-		return type.get(globalThis.Number.parseInt(value))
+		return type.get(system.Number.parseInt(value))
 	}
 }

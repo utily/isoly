@@ -48,18 +48,18 @@
 		"verify": "npm run build && npm run test && npm run lint && npm --omit=dev audit"
 	},
 	"devDependencies": {
-		"@typescript-eslint/eslint-plugin": "8.48.1",
-		"@typescript-eslint/parser": "8.48.1",
-		"@vitest/coverage-v8": "4.0.15",
+		"@typescript-eslint/eslint-plugin": "8.56.1",
+		"@typescript-eslint/parser": "8.56.1",
+		"@vitest/coverage-v8": "4.0.18",
 		"eslint": "^8.57.0",
 		"eslint-plugin-prettierx": "github:utily/eslint-plugin-prettierx#utily-20231004",
 		"eslint-plugin-simple-import-sort": "^12.1.1",
 		"prettierx": "github:utily/prettierx#utily-20231004",
-		"rimraf": "^6.1.2",
+		"rimraf": "^6.1.3",
 		"typescript": "^5.9.3",
-		"vitest": "4.0.15"
+		"vitest": "4.0.18"
 	},
 	"dependencies": {
-		"isly": "1.5.0"
+		"isly": "1.7.0"
 	}
 }

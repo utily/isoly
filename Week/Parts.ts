@@ -1,6 +1,7 @@
 import { isly } from "isly"
 import { Date } from "../Date"
 import { DayOfWeek } from "../DayOfWeek"
+import { system } from "../system"
 import { Number } from "./Number"
 
 export interface Parts {
@@ -13,9 +14,9 @@ export namespace Parts {
 		.object<Parts>({ year: isly.number(), week: Number.Numeric.type }, "isoly.Week.Parts")
 		.bind()
 	export function from(date: Date): Parts {
-		const parsed = new globalThis.Date(date)
+		const parsed = new system.Date(date)
 		parsed.setUTCDate(parsed.getUTCDate() + 4 - (parsed.getUTCDay() || 7))
-		const start = new globalThis.Date(globalThis.Date.UTC(parsed.getUTCFullYear(), 0, 1))
+		const start = new system.Date(system.Date.UTC(parsed.getUTCFullYear(), 0, 1))
 		const week = Math.ceil(((parsed.getTime() - start.getTime()) / 86400000 + 1) / 7) as Number.Numeric
 		return { year: parsed.getUTCFullYear(), week }
 	}
@@ -30,8 +31,8 @@ export namespace Parts {
 	}
 	export function first(week: Parts): Date {
 		const year = week.year.toString().padStart(4, "0")
-		const result = new globalThis.Date(`${year}-01-01`)
-		const jan4th = new globalThis.Date(`${year}-01-04`)
+		const result = new system.Date(`${year}-01-01`)
+		const jan4th = new system.Date(`${year}-01-04`)
 		const jan4thDay = (jan4th.getUTCDay() + 6) % 7
 		const ordinalDate = 1 + (week.week - 1) * 7 - jan4thDay + 3
 		result.setUTCDate(ordinalDate)

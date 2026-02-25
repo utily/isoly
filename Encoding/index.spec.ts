@@ -37,3 +37,17 @@ describe("Encoding", () => {
 		...isoly.Encoding.values.map(v => [v, v]),
 	])("parse(%s)", (input, expected) => expect(isoly.Encoding.parse(input)).toEqual(expected))
 })
+it.each([
+	["+1234567890", ["+1", "234567890"] as const],
+	["+358501234567", ["+358", "501234567"] as const],
+	["+44207946000", ["+44", "207946000"] as const],
+	["+91987654321", ["+91", "987654321"] as const],
+	["+886212345678", ["+886", "212345678"] as const],
+	["1234567890", [undefined, "1234567890"] as const],
+	["+9999999", [undefined, "+9999999"] as const],
+	["+", [undefined, "+"] as const],
+	["", [undefined, ""] as const],
+	["+123", ["+1", "23"] as const],
+	["+1", ["+1", ""] as const],
+	["+35850999", ["+358", "50999"] as const],
+])("separate(%s)", (input, expected) => expect(isoly.CallingCode.separate(input)).toEqual(expected))

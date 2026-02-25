@@ -1,6 +1,8 @@
 import { isly } from "isly"
 import { Date } from "../Date"
 import { DateSpan } from "../DateSpan"
+import { system } from "../system"
+
 export interface DateRange {
 	start: Date
 	end: Date
@@ -33,7 +35,7 @@ export namespace DateRange {
 		const result =
 			value.start <= value.end
 				? Math.ceil(
-						(new globalThis.Date(value.end).getTime() - new globalThis.Date(value.start).getTime()) / (1000 * 3600 * 24)
+						(new system.Date(value.end).getTime() - new system.Date(value.start).getTime()) / (1000 * 3600 * 24)
 				  )
 				: -getDays({ start: value.end, end: value.start })
 
