@@ -1,4 +1,5 @@
 import { isly } from "isly"
+import { system } from "../system"
 import type { Date } from "./index"
 
 export interface Numeric {
@@ -27,7 +28,7 @@ export namespace Numeric {
 		}
 	}
 	export function format(value: Numeric): Date {
-		return new globalThis.Date(globalThis.Date.UTC(value.years ?? 0, value.months ?? 0, (value.days ?? 0) + 1, 12))
+		return new system.Date(system.Date.UTC(value.years ?? 0, value.months ?? 0, (value.days ?? 0) + 1, 12))
 			.toISOString()
 			.substring(0, 10)
 	}

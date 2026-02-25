@@ -1,6 +1,7 @@
 import { isly } from "isly"
 import { Date } from "../Date"
 import { Locale } from "../Locale"
+import { system } from "../system"
 import { Time } from "../Time"
 import { TimeSpan } from "../TimeSpan"
 import { TimeZone } from "../TimeZone"
@@ -35,7 +36,7 @@ export namespace DateTime {
 		}
 	}
 	export function parse(value: DateTime): globalThis.Date {
-		return new globalThis.Date(DateTime.truncate(value, "milliseconds"))
+		return new system.Date(DateTime.truncate(value, "milliseconds"))
 	}
 	export function create(
 		value: number,
@@ -62,7 +63,7 @@ export namespace DateTime {
 				// fallthrough...
 				case "milliseconds":
 			}
-			value = new globalThis.Date(value)
+			value = new system.Date(value)
 		}
 		return fix(value.toISOString())
 	}
@@ -88,8 +89,8 @@ export namespace DateTime {
 		// TODO: Use the information, and just change offset.
 		local = local.replace(/(Z|([+-].{5}))?$/, "")
 		// Create a Date object with the specified time as UTC
-		const utcDateTime = new globalThis.Date(`${local}Z`)
-		const localDate = new globalThis.Date(
+		const utcDateTime = new system.Date(`${local}Z`)
+		const localDate = new system.Date(
 			utcDateTime.toLocaleString("sv-SE", { timeZone: timeZone }).replace(" ", "T") + "Z"
 		)
 		// Calculate the time difference in minutes
@@ -105,7 +106,7 @@ export namespace DateTime {
 	/** @deprecated */
 	export const fromLocalDateTime = fromLocal
 	export function now(): DateTime {
-		return create(new globalThis.Date())
+		return create(new system.Date())
 	}
 	export type Format = Intl.DateTimeFormatOptions
 
