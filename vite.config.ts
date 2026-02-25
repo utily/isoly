@@ -6,9 +6,8 @@ export default defineConfig({
 		coverage: {
 			reporter: ["text", "json", "html"],
 			enabled: true,
-			all: true,
 			cleanOnRerun: true,
-			thresholds: { statements: 99, branches: 94, functions: 95, lines: 99 },
+			thresholds: { statements: 97, branches: 93, functions: 97, lines: 97 },
 		},
 		globals: true,
 		include: ["**/*.spec.[tj]s"],

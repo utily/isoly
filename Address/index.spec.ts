@@ -26,6 +26,14 @@ describe("Address", () => {
 		zipCode: "",
 		city: "",
 	}
+	const genericWithRegion: isoly.Address.Generic = {
+		countryCode: "US",
+		street: "525 Market St",
+		zipCode: "94105",
+		city: "San Francisco",
+		state: "CA",
+		county: "San Francisco",
+	}
 	it.each([
 		[defaultAddress, true],
 		[britishAddress, true],
@@ -37,8 +45,11 @@ describe("Address", () => {
 		[badAddress, false],
 	])("British %s", (address, expected) => expect(isoly.Address.GB.is(address)).toBe(expected))
 	it.each([
-		[defaultAddress, false],
-		[britishAddress, false],
+		[swedishAddress, true],
 		[badAddress, false],
 	])("Swedish %s", (address, expected) => expect(isoly.Address.SE.is(address)).toBe(expected))
+	it.each([
+		[genericWithRegion, true],
+		[britishAddress, true],
+	])("Generic with region %s", (address, expected) => expect(isoly.Address.Generic.is(address)).toBe(expected))
 })
