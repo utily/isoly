@@ -38,6 +38,14 @@ export namespace Week {
 	export function now(): Week {
 		return from(Week.Parts.now())
 	}
+	/**
+	 * next - Returns the ISO week string for the week that is `weeks` after the given `week`.
+	 * pre:
+	 *   week: valid ISO 8601 week string (YYYY-Www), Week.is(week) === true
+	 *   weeks: integer (default 1)
+	 * post:
+	 *   - Returns a valid ISO 8601 week string (YYYY-Www) that is `weeks` after `week`
+	 */
 	export function next(week: Week, weeks = 1): Week {
 		return from(Week.Parts.next(parts(week), weeks))
 	}
