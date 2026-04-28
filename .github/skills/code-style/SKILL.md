@@ -1,13 +1,13 @@
 ---
-name: coding-style
+name: code-style
 user-invocable: true
 description: "Use when: writing, reviewing, or generating TypeScript code for this repository. Provides repository-specific naming, function, operator, and statement guidance."
 ---
+
 Usage:
 
 - **Discovery:** The agent will surface this skill when the user's query mentions writing, reviewing, or formatting TypeScript code. Keep `description` keywords aligned with common prompts ("TypeScript", "style", "naming", "functions", "statements").
-- **How to invoke:** Ask the assistant to "follow the repository coding-style" or use the slash command `/coding-style` in chat.
-- **When to apply:** This skill is scoped to TypeScript files via `applyTo`. Avoid broad `applyTo: "**"` to prevent loading the skill for unrelated files.
+- **How to invoke:** Ask the assistant to "follow the repository code-style" or use the slash command `/code-style` in chat.
 
 Quick Checklist (quality criteria):
 
