@@ -1,4 +1,5 @@
 import { isly } from "isly"
+import { Numeric as NumericClass } from "./Numeric"
 import type { Date } from "../Date"
 
 export type Year = Date.Year
@@ -9,15 +10,15 @@ export namespace Year {
 		.rename("isoly.Year")
 		.describe("ISO 8601 year in the format YYYY.")
 		.bind()
-
+	export const Numeric = NumericClass
 	export function now(): Year {
-		return new globalThis.Date().getFullYear().toString().padStart(4, "0") as Year
+		return Numeric.now().toString() as Year
 	}
 	export function from(date: Date): Year {
 		return date.substring(0, 4) as Year
 	}
 	export function next(year: Year, years = 1): Year {
-		return (Number.parseInt(year) + years).toString().padStart(4, "0") as Year
+		return (Numeric.from(year).valueOf() + years).toString().padStart(4, "0") as Year
 	}
 	export function previous(year: Year, years = 1): Year {
 		return next(year, -years)
@@ -29,11 +30,10 @@ export namespace Year {
 		return `${year}-12-31` as Date
 	}
 	export function getYear(year: Year): number {
-		return Number.parseInt(year)
+		return Numeric.from(year).valueOf()
 	}
 	export function isLeapYear(year: Year | number): boolean {
-		const y = typeof year == "number" ? year : Number.parseInt(year)
-		return !!y && y % 4 == 0 && (y % 100 != 0 || y % 400 == 0)
+		return Numeric.isLeapYear(year)
 	}
 	export function length(year: Year): 365 | 366 {
 		return isLeapYear(year) ? 366 : 365
