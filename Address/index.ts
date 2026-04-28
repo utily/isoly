@@ -9,5 +9,12 @@ export namespace Address {
 	export import Generic = AddressGeneric
 	export import GB = AddressGB
 	export import SE = AddressSE
-	export const { type, is, flawed } = isly.union<Address>(Generic.type, GB.type, SE.type).rename("isoly.Address").bind()
+	export const {
+		type,
+		is,
+		flawed
+	}: isly.BindResult<Address, isly.Union<Address>> = isly
+		.union<Address>(Generic.type, GB.type, SE.type)
+		.rename("isoly.Address")
+		.bind()
 }

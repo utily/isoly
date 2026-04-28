@@ -1,6 +1,6 @@
 import { isly } from "isly"
 
-export type Language = typeof Language.values[number]
+export type Language = (typeof Language.values)[number]
 
 export namespace Language {
 	export const values = [
@@ -187,7 +187,7 @@ export namespace Language {
 		"yi",
 		"yo",
 		"za",
-		"zu",
+		"zu"
 	] as const
 	export const { type, is, flawed } = isly
 		.string<Language>("value", ...values)
@@ -378,7 +378,7 @@ export namespace Language {
 			yi: "Yiddish",
 			yo: "Yoruba",
 			za: "Zhuang, Chuang",
-			zu: "Zulu",
+			zu: "Zulu"
 		} as const
 		return names[language]
 	}
@@ -567,7 +567,7 @@ export namespace Language {
 			yi: "ייִדיש",
 			yo: "Yorùbá",
 			za: "Saɯ cueŋƅ, Saw cuengh",
-			zu: "isiZu",
+			zu: "isiZu"
 		} as const
 		return names[language]
 	}

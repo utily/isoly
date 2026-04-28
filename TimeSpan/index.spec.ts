@@ -49,12 +49,12 @@ describe("TimeSpan", () => {
 		expect(isoly.TimeSpan.add({ hours: 8, minutes: 15 }, { minutes: -10, seconds: -17 })).toEqual({
 			hours: 8,
 			minutes: 4,
-			seconds: 43,
+			seconds: 43
 		})
 		expect(isoly.TimeSpan.add({ minutes: -10, seconds: -17 }, { hours: 8, minutes: 15 })).toEqual({
 			hours: 8,
 			minutes: 4,
-			seconds: 43,
+			seconds: 43
 		})
 	})
 	it("subtract", () => {
@@ -66,17 +66,11 @@ describe("TimeSpan", () => {
 	})
 	it("fromMilliseconds", () => {
 		const milliseconds = 1_234_560
-		expect(isoly.TimeSpan.fromMilliseconds(milliseconds)).toEqual({
-			minutes: 20,
-			seconds: 34,
-			milliseconds: 560,
-		})
+		expect(isoly.TimeSpan.fromMilliseconds(milliseconds)).toEqual({ minutes: 20, seconds: 34, milliseconds: 560 })
 		const time = isoly.TimeSpan.toMilliseconds({ hours: 0.1 + 0.2 })
 		expect(time).not.toEqual(1_080_000)
 		expect(time).toBeCloseTo(1_080_000)
-		expect(isoly.TimeSpan.fromMilliseconds(time)).toEqual({
-			minutes: 18,
-		})
+		expect(isoly.TimeSpan.fromMilliseconds(time)).toEqual({ minutes: 18 })
 		expect(isoly.TimeSpan.fromMilliseconds(-60_001)).toEqual({ minutes: -1, milliseconds: -1 })
 	})
 	it("fromSeconds", () => {
@@ -84,27 +78,19 @@ describe("TimeSpan", () => {
 		expect(isoly.TimeSpan.fromSeconds(seconds, { precision: "milliseconds" })).toEqual({
 			minutes: 20,
 			seconds: 34,
-			milliseconds: 560,
+			milliseconds: 560
 		})
 		expect(isoly.TimeSpan.fromSeconds(seconds * 2, { precision: "milliseconds" })).toEqual({
 			minutes: 41,
 			seconds: 9,
-			milliseconds: 120,
+			milliseconds: 120
 		})
-		expect(isoly.TimeSpan.fromSeconds(seconds, { precision: "seconds" })).toEqual({
-			minutes: 20,
-			seconds: 35,
-		})
-		expect(isoly.TimeSpan.fromSeconds(seconds * 2, { precision: "seconds" })).toEqual({
-			minutes: 41,
-			seconds: 9,
-		})
+		expect(isoly.TimeSpan.fromSeconds(seconds, { precision: "seconds" })).toEqual({ minutes: 20, seconds: 35 })
+		expect(isoly.TimeSpan.fromSeconds(seconds * 2, { precision: "seconds" })).toEqual({ minutes: 41, seconds: 9 })
 		const time = isoly.TimeSpan.toSeconds({ hours: 0.1 + 0.2 })
 		expect(time).not.toEqual(1_080)
 		expect(time).toBeCloseTo(1_080)
-		expect(isoly.TimeSpan.fromSeconds(time)).toEqual({
-			minutes: 18,
-		})
+		expect(isoly.TimeSpan.fromSeconds(time)).toEqual({ minutes: 18 })
 		expect(isoly.TimeSpan.fromSeconds(-61)).toEqual({ minutes: -1, seconds: -1 })
 		expect(isoly.TimeSpan.fromSeconds(-1.5)).toEqual({ seconds: -1, milliseconds: -500 })
 	})
@@ -113,12 +99,12 @@ describe("TimeSpan", () => {
 		expect(isoly.TimeSpan.fromMinutes(minutes, { precision: "milliseconds" })).toEqual({
 			minutes: 20,
 			seconds: 34,
-			milliseconds: 560,
+			milliseconds: 560
 		})
 		expect(isoly.TimeSpan.fromMinutes(minutes * 2, { precision: "milliseconds" })).toEqual({
 			minutes: 41,
 			seconds: 9,
-			milliseconds: 120,
+			milliseconds: 120
 		})
 		expect(isoly.TimeSpan.fromMinutes(minutes, { precision: "seconds" })).toEqual({ minutes: 20, seconds: 35 })
 		expect(isoly.TimeSpan.fromMinutes(minutes * 2, { precision: "seconds" })).toEqual({ minutes: 41, seconds: 9 })
@@ -127,9 +113,7 @@ describe("TimeSpan", () => {
 		const time = isoly.TimeSpan.toMinutes({ hours: 0.1 + 0.2 })
 		expect(time).not.toEqual(18)
 		expect(time).toBeCloseTo(18)
-		expect(isoly.TimeSpan.fromMinutes(time)).toEqual({
-			minutes: 18,
-		})
+		expect(isoly.TimeSpan.fromMinutes(time)).toEqual({ minutes: 18 })
 		expect(isoly.TimeSpan.fromMinutes(-61)).toEqual({ hours: -1, minutes: -1 })
 		expect(isoly.TimeSpan.fromMinutes(-1.5)).toEqual({ minutes: -1, seconds: -30 })
 	})
@@ -140,12 +124,12 @@ describe("TimeSpan", () => {
 		expect(isoly.TimeSpan.fromHours(hours, { precision: "milliseconds" })).toEqual({
 			minutes: 20,
 			seconds: 34,
-			milliseconds: 560,
+			milliseconds: 560
 		})
 		expect(isoly.TimeSpan.fromHours(hours * 2, { precision: "milliseconds" })).toEqual({
 			minutes: 41,
 			seconds: 9,
-			milliseconds: 120,
+			milliseconds: 120
 		})
 		expect(isoly.TimeSpan.fromHours(hours, { precision: "seconds" })).toEqual({ minutes: 20, seconds: 35 })
 		expect(isoly.TimeSpan.fromHours(hours * 2, { precision: "seconds" })).toEqual({ minutes: 41, seconds: 9 })
@@ -156,9 +140,7 @@ describe("TimeSpan", () => {
 		const time = isoly.TimeSpan.toHours({ hours: 0.1 + 0.2 })
 		expect(time).not.toEqual(0.3)
 		expect(time).toBeCloseTo(0.3)
-		expect(isoly.TimeSpan.fromHours(time)).toEqual({
-			minutes: 18,
-		})
+		expect(isoly.TimeSpan.fromHours(time)).toEqual({ minutes: 18 })
 		expect(isoly.TimeSpan.fromHours(-25)).toEqual({ hours: -25 })
 		expect(isoly.TimeSpan.fromHours(-1.5)).toEqual({ hours: -1, minutes: -30 })
 		// handle bad floating point math

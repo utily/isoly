@@ -2,7 +2,7 @@ import { isly } from "isly"
 import { Alpha2 } from "./Alpha2"
 import { Numeric } from "./Numeric"
 
-export type Alpha3 = typeof Alpha3.values[number]
+export type Alpha3 = (typeof Alpha3.values)[number]
 
 export namespace Alpha3 {
 	export const values = [
@@ -255,7 +255,7 @@ export namespace Alpha3 {
 		"YEM",
 		"ZAF",
 		"ZMB",
-		"ZWE",
+		"ZWE"
 	] as const
 	export const { type, is, flawed } = isly
 		.string<Alpha3>("value", ...values)
@@ -516,5 +516,5 @@ const alpha2ToAlpha3: Record<Alpha2, Alpha3> = {
 	YE: "YEM",
 	ZM: "ZMB",
 	ZW: "ZWE",
-	XK: "XKX",
+	XK: "XKX"
 }

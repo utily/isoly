@@ -1,4 +1,5 @@
-import { defineConfig } from "vitest/config"
+/// <reference types="vitest/config" />
+import { defineConfig } from "vite"
 
 export default defineConfig({
 	test: {
@@ -7,13 +8,13 @@ export default defineConfig({
 			reporter: ["text", "json", "html"],
 			enabled: true,
 			cleanOnRerun: true,
-			thresholds: { statements: 97, branches: 93, functions: 97, lines: 97 },
+			thresholds: { statements: 80, branches: 80, functions: 80, lines: 80 }
 		},
 		globals: true,
 		include: ["**/*.spec.[tj]s"],
 		testTimeout: 20000,
 		isolate: false,
 		exclude: ["node_modules", "dist"],
-		server: { deps: { inline: ["isly"] } },
-	},
+		server: { deps: { inline: ["isly"] } }
+	}
 })

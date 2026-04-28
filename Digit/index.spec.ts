@@ -16,6 +16,6 @@ describe("isoly.Digit.is", () => {
 		["10", false],
 		["", false],
 		[null, false],
-		[undefined, false],
+		[undefined, false]
 	] as const)("is(%s) == %s", (input, expected) => expect(Digit.is(input)).toBe(expected))
 })

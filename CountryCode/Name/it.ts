@@ -251,6 +251,6 @@ export namespace it {
 		ZA: "Sudafrica",
 		ZM: "Zambia",
 		ZW: "Zimbabwe",
-		XK: "Kosov",
+		XK: "Kosov"
 	}
 }

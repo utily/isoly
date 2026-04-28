@@ -1,7 +1,3 @@
 {
-	"recommendations": [
-		"orta.vscode-jest",
-		"dbaeumer.vscode-eslint",
-		"streetsidesoftware.code-spell-checker"
-	]
+	"recommendations": ["orta.vscode-jest", "biomejs.biome", "streetsidesoftware.code-spell-checker"]
 }

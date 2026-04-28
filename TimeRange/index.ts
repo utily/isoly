@@ -8,7 +8,11 @@ export interface TimeRange {
 }
 
 export namespace TimeRange {
-	export const { type, is, flawed } = isly
+	export const {
+		type,
+		is,
+		flawed
+	}: isly.BindResult<TimeRange, isly.Object<TimeRange>> = isly
 		.object<TimeRange>({ start: DateTime.type, end: DateTime.type }, "isoly.TimeRange")
 		.bind()
 	export function create(start: DateTime, end: DateTime): TimeRange
@@ -17,7 +21,7 @@ export namespace TimeRange {
 		return !DateTime.is(end)
 			? create(start, DateTime.next(start, end))
 			: start <= end
-			? { start, end }
-			: { start: end, end: start }
+				? { start, end }
+				: { start: end, end: start }
 	}
 }

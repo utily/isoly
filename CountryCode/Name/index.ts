@@ -68,7 +68,7 @@ export namespace Name {
 				return (Object.entries(names) as [Alpha2, string][]).find(
 					entry => entry[1].toLowerCase() == country.toLowerCase()
 				)?.[0]
-			},
+			}
 		} as LanguageObject
 	}
 	export const ar = generate(NameAr.names)
@@ -119,52 +119,52 @@ export namespace Name {
 	export const zh = generate(NameZh.names)
 	export function parse(country: string): Alpha2 | undefined {
 		return (
-			ar.parse(country) ??
-			az.parse(country) ??
-			be.parse(country) ??
-			bg.parse(country) ??
-			bs.parse(country) ??
-			ca.parse(country) ??
-			cs.parse(country) ??
-			da.parse(country) ??
-			de.parse(country) ??
-			el.parse(country) ??
-			en.parse(country) ??
-			es.parse(country) ??
-			et.parse(country) ??
-			fa.parse(country) ??
-			fi.parse(country) ??
-			fr.parse(country) ??
-			he.parse(country) ??
-			hr.parse(country) ??
-			hu.parse(country) ??
-			hy.parse(country) ??
-			id.parse(country) ??
-			it.parse(country) ??
-			ja.parse(country) ??
-			ka.parse(country) ??
-			kk.parse(country) ??
-			ko.parse(country) ??
-			ky.parse(country) ??
-			lt.parse(country) ??
-			lv.parse(country) ??
-			mk.parse(country) ??
-			mn.parse(country) ??
-			nb.parse(country) ??
-			nl.parse(country) ??
-			nn.parse(country) ??
-			pl.parse(country) ??
-			pt.parse(country) ??
-			ro.parse(country) ??
-			ru.parse(country) ??
-			sk.parse(country) ??
-			sl.parse(country) ??
-			sr.parse(country) ??
-			sv.parse(country) ??
-			tr.parse(country) ??
-			uk.parse(country) ??
-			uz.parse(country) ??
-			zh.parse(country)
+			ar.parse(country)
+			?? az.parse(country)
+			?? be.parse(country)
+			?? bg.parse(country)
+			?? bs.parse(country)
+			?? ca.parse(country)
+			?? cs.parse(country)
+			?? da.parse(country)
+			?? de.parse(country)
+			?? el.parse(country)
+			?? en.parse(country)
+			?? es.parse(country)
+			?? et.parse(country)
+			?? fa.parse(country)
+			?? fi.parse(country)
+			?? fr.parse(country)
+			?? he.parse(country)
+			?? hr.parse(country)
+			?? hu.parse(country)
+			?? hy.parse(country)
+			?? id.parse(country)
+			?? it.parse(country)
+			?? ja.parse(country)
+			?? ka.parse(country)
+			?? kk.parse(country)
+			?? ko.parse(country)
+			?? ky.parse(country)
+			?? lt.parse(country)
+			?? lv.parse(country)
+			?? mk.parse(country)
+			?? mn.parse(country)
+			?? nb.parse(country)
+			?? nl.parse(country)
+			?? nn.parse(country)
+			?? pl.parse(country)
+			?? pt.parse(country)
+			?? ro.parse(country)
+			?? ru.parse(country)
+			?? sk.parse(country)
+			?? sl.parse(country)
+			?? sr.parse(country)
+			?? sv.parse(country)
+			?? tr.parse(country)
+			?? uk.parse(country)
+			?? uz.parse(country)
+			?? zh.parse(country)
 		)
 	}
 	export function from(language: Language, country: Alpha2 | Alpha3 | Numeric): string
@@ -217,7 +217,7 @@ export namespace Name {
 				tr: tr.from,
 				uk: uk.from,
 				uz: uz.from,
-				zh: zh.from,
+				zh: zh.from
 			} as Record<Language, (country: string | number) => string | undefined>
 		)[language](country)
 	}
@@ -267,6 +267,6 @@ export namespace Name {
 		"tr",
 		"uk",
 		"uz",
-		"zh",
+		"zh"
 	] as const
 }

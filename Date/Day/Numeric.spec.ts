@@ -6,7 +6,7 @@ describe("isoly.Date.Day.Numeric", () => {
 	it.each([
 		["01", 1],
 		["15", 15],
-		["31", 31],
+		["31", 31]
 	])("parse(%s) == %d", (day, expected) => expect(isoly.Date.Day.Numeric.parse(day)).toBe(expected))
 	it.each(["00", "32", "abc"])("parse(%s) == undefined", d => expect(isoly.Date.Day.Numeric.parse(d)).toBeUndefined())
 })

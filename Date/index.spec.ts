@@ -8,11 +8,9 @@ describe("Date", () => {
 		expect(d).toBe("2020-12-31")
 	})
 	it.each(["1999-02-29", "1900-02-29", "2000-02-30", "2000-12-32"])("is not %s", invalid =>
-		expect(isoly.Date.is(invalid)).toEqual(false)
-	)
+		expect(isoly.Date.is(invalid)).toEqual(false))
 	it.each(["1999-12-31", "2000-01-29", "2000-02-29", "2000-01-30"])("is %s", valid =>
-		expect(isoly.Date.is(valid)).toEqual(true)
-	)
+		expect(isoly.Date.is(valid)).toEqual(true))
 	it.each([
 		["1998-02-29", false],
 		["1999-02-29", false],
@@ -64,7 +62,7 @@ describe("Date", () => {
 		["2200-02-29", false],
 		["2296-02-29", true],
 		["2300-02-29", false],
-		["2400-02-29", true],
+		["2400-02-29", true]
 	])("leap days %s", (date, exists) => expect(isoly.Date.is(date)).toBe(exists))
 	it("is not DateTime", () => expect(isoly.Date.is("2020-12-31T23:59:59.000Z")).toEqual(false))
 	it.each([
@@ -73,7 +71,7 @@ describe("Date", () => {
 		["2400-12-31", "2400-12-31"],
 		["1234-24-12", "1235-12-12"],
 		["2000-01-370", "2001-01-04"],
-		["0-65-01", "1905-05-01"],
+		["0-65-01", "1905-05-01"]
 	] as const)("normalize(%s) == %s", (value, expected) => expect(isoly.Date.normalize(value)).toBe(expected))
 	it("localize Date with locale", () => expect(isoly.Date.localize("2020-12-31", "en-US")).toEqual("12/31/2020"))
 	it("next day original test", () => {
@@ -83,15 +81,14 @@ describe("Date", () => {
 	})
 	it("next day bug check", () => {
 		const result: isoly.Date[] = []
-		for (let i = 1; i <= 90; i++)
-			result.push(isoly.Date.next("2001-01-01", i))
+		for (let i = 1; i <= 90; i++) result.push(isoly.Date.next("2001-01-01", i))
 		const nonUniqueDay: string | undefined = result.reduce<string | undefined>(
 			(nonUnique, current, index, original) =>
 				nonUnique != undefined
 					? nonUnique
 					: [...original.slice(0, index), ...original.slice(index + 1, original.length)].find(
 							other => other == current
-					  ),
+						),
 			undefined
 		)
 		expect(nonUniqueDay).not.toEqual("2001-03-35")
@@ -102,13 +99,7 @@ describe("Date", () => {
 		expect(isoly.Date.next("2001-01-01")).toEqual("2001-01-02")
 		expect(isoly.Date.next("2001-01-01", 10)).toEqual("2001-01-11")
 		expect(isoly.Date.next("2012-12-10", { years: 10, months: 12, days: 1 })).toEqual("2023-12-11")
-		expect(
-			isoly.Date.next("2022-03-10", {
-				days: 18,
-				months: -1,
-				years: 0,
-			})
-		).toEqual("2022-02-28")
+		expect(isoly.Date.next("2022-03-10", { days: 18, months: -1, years: 0 })).toEqual("2022-02-28")
 	})
 	it("previous", () => {
 		expect(isoly.Date.previous("2001-01-01")).toEqual("2000-12-31")
@@ -178,7 +169,7 @@ describe("Date", () => {
 		})
 		const data = [
 			["20 Jul 2019 10:30:40 GMT+2", "2019-07-20"],
-			["21 Jul 2019 10:30:50 GMT", "2019-07-21"],
+			["21 Jul 2019 10:30:50 GMT", "2019-07-21"]
 		]
 		for (const date of data)
 			it("localize with locale " + date[0], () =>
@@ -244,12 +235,7 @@ describe("Date", () => {
 	it("invalid date", () => expect(isoly.Date.is("2020-13-31")).toEqual(false))
 	it("valid date", () => expect(isoly.Date.is("2020-02-29")).toEqual(true))
 	it("invalid date", () => expect(isoly.Date.is("2022-02-29")).toEqual(false))
-	it("span", () =>
-		expect(isoly.Date.span("2022-02-28", "2022-03-10")).toEqual({
-			days: 18,
-			months: -1,
-			years: 0,
-		}))
+	it("span", () => expect(isoly.Date.span("2022-02-28", "2022-03-10")).toEqual({ days: 18, months: -1, years: 0 }))
 	it("nextBusinessDay", () => {
 		expect(isoly.Date.nextBusinessDay("2022-05-04", 0)).toEqual("2022-05-04") // Wednesday -> Wednesday
 		expect(isoly.Date.nextBusinessDay("2022-05-04", 1)).toEqual("2022-05-05") // Wednesday -> Thursday

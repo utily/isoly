@@ -183,7 +183,7 @@ export namespace Code {
 		"990",
 		"994",
 		"997",
-		"999",
+		"999"
 	] as const
 	export const { type, is, flawed } = isly
 		.string<Code>("value", ...values)
@@ -369,7 +369,7 @@ export namespace Code {
 			CLF: "990",
 			XSU: "994",
 			USN: "997",
-			XXX: "999",
+			XXX: "999"
 		}[currency] as Code
 	}
 	export function to(code: Code): Currency {
@@ -552,7 +552,7 @@ export namespace Code {
 			"886": "YER",
 			"710": "ZAR",
 			"967": "ZMW",
-			"932": "ZWL",
+			"932": "ZWL"
 		}[code] as Currency
 	}
 }

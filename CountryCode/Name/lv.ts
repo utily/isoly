@@ -251,6 +251,6 @@ export namespace lv {
 		YT: "Majota",
 		ZA: "Dienvidāfrikas Republika",
 		ZM: "Zambija",
-		ZW: "Zimbabv",
+		ZW: "Zimbabv"
 	}
 }

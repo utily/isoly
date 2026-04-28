@@ -180,7 +180,7 @@ export function name(currency: Currency): string {
 		YER: "Yemeni rial",
 		ZAR: "South African rand",
 		ZMW: "Zambian kwacha",
-		ZWL: "Zimbabwean dollar",
+		ZWL: "Zimbabwean dollar"
 	}
 	return names[currency]
 }

@@ -5,28 +5,30 @@ import { Precision } from "./Precision"
 export type Numeric = Partial<Record<Precision, number>>
 
 export namespace Numeric {
-	export const { type, is, flawed } = isly
+	export const {
+		type,
+		is,
+		flawed
+	}: isly.BindResult<Numeric, isly.Object<Numeric>> = isly
 		.object<Numeric>(
 			{
 				hours: isly.number().optional(),
 				minutes: isly.number().optional(),
 				seconds: isly.number().optional(),
-				milliseconds: isly.number().optional(),
+				milliseconds: isly.number().optional()
 			},
 			"isoly.Time.Numeric"
 		)
 		.bind()
 	export function create(epoch: number, precision: Precision = "seconds"): Required<Numeric> {
-		const integerDivision = (dividend: number, divisor: number) => [Math.trunc(dividend / divisor), dividend % divisor]
+		const integerDivision = (dividend: number, divisor: number): [number, number] => [
+			Math.trunc(dividend / divisor),
+			dividend % divisor
+		]
 		const [s, milliseconds] = integerDivision(epoch * Precision.factor[precision], 1000)
 		const [m, seconds] = integerDivision(s, 60)
 		const [hours, minutes] = integerDivision(m, 60)
-		return {
-			hours,
-			minutes,
-			seconds,
-			milliseconds,
-		}
+		return { hours: hours ?? 0, minutes: minutes ?? 0, seconds: seconds ?? 0, milliseconds: milliseconds ?? 0 }
 	}
 	export function parse(time: Time | string | undefined): Numeric {
 		const [hours, minutes, secondsMilliseconds] = time?.split(":", 3) ?? []
@@ -35,7 +37,7 @@ export namespace Numeric {
 			hours: hours != undefined ? Number.parseInt(hours) : undefined,
 			minutes: minutes != undefined ? Number.parseInt(minutes) : undefined,
 			seconds: seconds != undefined ? Number.parseInt(seconds) : undefined,
-			milliseconds: milliseconds != undefined ? Number.parseInt(milliseconds.slice(0, 3).padEnd(3, "0")) : undefined,
+			milliseconds: milliseconds != undefined ? Number.parseInt(milliseconds.slice(0, 3).padEnd(3, "0")) : undefined
 		}
 	}
 	export function epoch(time: Numeric, precision: Precision = "seconds"): number {
@@ -76,8 +78,7 @@ export namespace Numeric {
 		return truncate(create(epoch(time, "milliseconds"), "milliseconds"), precision ?? Numeric.precision(time))
 	}
 	export function format(time: Numeric, precision?: Precision): Time {
-		if (!precision)
-			precision = Numeric.precision(time)
+		if (!precision) precision = Numeric.precision(time)
 		const normalized = normalize(time, precision)
 		let result = ""
 		switch (precision) {
@@ -99,9 +100,9 @@ export namespace Numeric {
 		return time.milliseconds != undefined
 			? "milliseconds"
 			: time.seconds != undefined
-			? "seconds"
-			: time.minutes != undefined
-			? "minutes"
-			: "hours"
+				? "seconds"
+				: time.minutes != undefined
+					? "minutes"
+					: "hours"
 	}
 }

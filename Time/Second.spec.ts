@@ -12,7 +12,7 @@ describe("isoly.Time.Second", () => {
 		["59", 59],
 		["60", 60],
 		["5", 5],
-		["abc", undefined],
+		["abc", undefined]
 	])("parse(%s) == %d", (input, expected) => expect(isoly.Time.Second.parse(input)).toBe(expected))
 	it.each([
 		[0, "00"],
@@ -21,6 +21,6 @@ describe("isoly.Time.Second", () => {
 		[61, undefined],
 		[-1, undefined],
 		[9, "09"],
-		[10, "10"],
+		[10, "10"]
 	])("create(%d) == %s", (input, expected) => expect(isoly.Time.Second.create(input)).toBe(expected))
 })

@@ -44,6 +44,6 @@ for (const name of [
 	"URIError",
 	"WeakMap",
 	"WeakRef",
-	"WeakSet",
+	"WeakSet"
 ] as const)
 	(system as any)[name] ??= globalThis[name]

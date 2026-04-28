@@ -1,7 +1,7 @@
 import { isly } from "isly"
 import type { Month } from "./index"
 
-export type Numeric = typeof Numeric.values[number]
+export type Numeric = (typeof Numeric.values)[number]
 
 export namespace Numeric {
 	export const values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12] as const

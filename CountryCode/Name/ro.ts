@@ -251,6 +251,6 @@ export namespace ro {
 		YT: "Mayotte",
 		ZA: "Africa de Sud",
 		ZM: "Zambia",
-		ZW: "Zimbabw",
+		ZW: "Zimbabw"
 	}
 }

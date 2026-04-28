@@ -1,7 +1,10 @@
 import { Precision as _Precision } from "./Precision"
 
 export class Fixed {
-	private constructor(readonly value: number, readonly precision: Fixed.Precision = 0) {}
+	private constructor(
+		readonly value: number,
+		readonly precision: Fixed.Precision = 0
+	) {}
 	create(value: number, precision: Fixed.Precision = this.precision): Fixed {
 		return new Fixed(value, precision).round()
 	}
@@ -9,8 +12,8 @@ export class Fixed {
 		const factor = Math.pow(10, precision)
 		const decimals = (this.value.toString().split(".")?.[1]?.length ?? 0) - 1
 		return new Fixed(
-			Math.round((this.value + (decimals <= precision + 5 ? Number.EPSILON : Math.pow(10, -decimals))) * factor) /
-				factor,
+			Math.round((this.value + (decimals <= precision + 5 ? Number.EPSILON : Math.pow(10, -decimals))) * factor)
+				/ factor,
 			precision
 		)
 	}

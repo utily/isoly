@@ -6,7 +6,7 @@ describe("isoly.Date.Day", () => {
 	it.each([
 		[1, "01"],
 		[15, "15"],
-		[31, "31"],
+		[31, "31"]
 	])("create(%d) == %s", (n, d) => expect(isoly.Date.Day.create(n)).toBe(d))
 	it.each([0, 32, -1])("create(%d) == undefined", n => expect(isoly.Date.Day.create(n)).toBeUndefined())
 })

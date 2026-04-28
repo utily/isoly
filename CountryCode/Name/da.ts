@@ -251,6 +251,6 @@ export namespace da {
 		RS: "Serbien",
 		SX: "Saint Martin (hollandsk side)",
 		SS: "Sydsudan",
-		XK: "Kosov",
+		XK: "Kosov"
 	}
 }

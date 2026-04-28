@@ -251,6 +251,6 @@ export namespace ca {
 		CY: "Xipre",
 		ZM: "Zàmbia",
 		ZW: "Zimbabwe",
-		XK: "Kosov",
+		XK: "Kosov"
 	}
 }

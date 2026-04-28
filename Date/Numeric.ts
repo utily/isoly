@@ -7,9 +7,12 @@ export interface Numeric {
 	months?: number
 	days?: number
 }
-
 export namespace Numeric {
-	export const { type, is, flawed } = isly
+	export const {
+		type,
+		is,
+		flawed
+	}: isly.BindResult<Numeric, isly.Object<Numeric>> = isly
 		.object<Numeric>(
 			{ years: isly.number().optional(), months: isly.number().optional(), days: isly.number().optional() },
 			"isoly.Date.Numeric"
@@ -24,7 +27,7 @@ export namespace Numeric {
 		return {
 			...(year ? { years: year } : {}),
 			...(month ? { months: month - 1 } : {}),
-			...(day ? { days: day - 1 } : {}),
+			...(day ? { days: day - 1 } : {})
 		}
 	}
 	export function format(value: Numeric): Date {

@@ -9,7 +9,11 @@ export interface DateRange {
 }
 
 export namespace DateRange {
-	export const { type, is, flawed } = isly
+	export const {
+		type,
+		is,
+		flawed
+	}: isly.BindResult<DateRange, isly.Object<DateRange>> = isly
 		.object<DateRange>({ start: Date.type, end: Date.type }, "isoly.DateRange")
 		.bind()
 	export function create(start: Date, end: Date): DateRange
@@ -18,8 +22,8 @@ export namespace DateRange {
 		return !Date.is(end)
 			? create(start, Date.next(start, end))
 			: start <= end
-			? { start, end }
-			: { start: end, end: start }
+				? { start, end }
+				: { start: end, end: start }
 	}
 	export function toDates(value: DateRange, includeLast = true): Date[] {
 		const result: string[] = []
@@ -36,7 +40,7 @@ export namespace DateRange {
 			value.start <= value.end
 				? Math.ceil(
 						(new system.Date(value.end).getTime() - new system.Date(value.start).getTime()) / (1000 * 3600 * 24)
-				  )
+					)
 				: -getDays({ start: value.end, end: value.start })
 
 		return result

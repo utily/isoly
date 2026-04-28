@@ -251,6 +251,6 @@ export namespace nl {
 		RS: "Servië",
 		SX: "Sint Maarten (Nederlands deel)",
 		SS: "Zuid-Soedan",
-		XK: "Kosov",
+		XK: "Kosov"
 	}
 }

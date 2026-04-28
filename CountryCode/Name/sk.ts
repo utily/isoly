@@ -251,6 +251,6 @@ export namespace sk {
 		YT: "Mayotte",
 		ZA: "Južná Afrika",
 		ZM: "Zambia",
-		ZW: "Zimbabw",
+		ZW: "Zimbabw"
 	}
 }

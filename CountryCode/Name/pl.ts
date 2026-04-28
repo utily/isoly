@@ -251,6 +251,6 @@ export namespace pl {
 		RS: "Serbia",
 		SX: "Sint Maarten",
 		SS: "Sudan Południowy",
-		XK: "Kosow",
+		XK: "Kosow"
 	}
 }

@@ -251,6 +251,6 @@ export namespace hu {
 		RS: "Szerbia",
 		SX: "Szent Márton-sziget (holland rész)",
 		SS: "Dél-Szudán",
-		XK: "Koszov",
+		XK: "Koszov"
 	}
 }

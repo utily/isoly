@@ -8,11 +8,11 @@ describe("isoly.Date.Numeric", () => {
 		["", {}],
 		["--", {}],
 		["-25-50", { days: 49, months: 24 }],
-		[undefined, {}],
+		[undefined, {}]
 	] as const)("parse(%s) == %s", (value, expected) => expect(isoly.Date.Numeric.parse(value)).toEqual(expected))
 	it.each([
 		[{ years: 10, months: 1, days: 0 }, "1910-02-01"],
 		[{}, "1900-01-01"],
-		[{ days: 36 }, "1900-02-06"],
+		[{ days: 36 }, "1900-02-06"]
 	] as const)("format(%s) == %s", (value, expected) => expect(isoly.Date.Numeric.format(value)).toBe(expected))
 })

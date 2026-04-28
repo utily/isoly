@@ -251,6 +251,6 @@ export namespace nb {
 		ZA: "Sør-Afrika",
 		ZM: "Zambia",
 		ZW: "Zimbabwe",
-		XK: "Kosov",
+		XK: "Kosov"
 	}
 }

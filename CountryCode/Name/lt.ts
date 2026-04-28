@@ -251,6 +251,6 @@ export namespace lt {
 		YT: "Majotas",
 		ZA: "Pietų Afrika",
 		ZM: "Zambija",
-		ZW: "Zimbabv",
+		ZW: "Zimbabv"
 	}
 }

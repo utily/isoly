@@ -251,6 +251,6 @@ export namespace hr {
 		YT: "Mayotte",
 		ZA: "Južnoafrička Republika",
 		ZM: "Zambija",
-		ZW: "Zimbabv",
+		ZW: "Zimbabv"
 	}
 }

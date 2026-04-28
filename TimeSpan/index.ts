@@ -9,48 +9,52 @@ export interface TimeSpan extends DateSpan {
 }
 
 export namespace TimeSpan {
-	export const { type, is, flawed } = DateSpan.type
+	export const {
+		type,
+		is,
+		flawed
+	}: isly.BindResult<TimeSpan, isly.Object<TimeSpan>> = DateSpan.type
 		.extend<TimeSpan>(
 			{
 				hours: isly.number().optional(),
 				minutes: isly.number().optional(),
 				seconds: isly.number().optional(),
-				milliseconds: isly.number().optional(),
+				milliseconds: isly.number().optional()
 			},
 			"isoly.TimeSpan"
 		)
 		.bind()
 	export function toHours(value: TimeSpan, round?: Round): number {
 		const result =
-			(dateToMilliseconds(value) + (value.milliseconds ?? 0)) / (60 * 60 * 1000) +
-			(value.seconds ?? 0) / (60 * 60) +
-			(value.minutes ?? 0) / 60 +
-			(value.hours ?? 0)
+			(dateToMilliseconds(value) + (value.milliseconds ?? 0)) / (60 * 60 * 1000)
+			+ (value.seconds ?? 0) / (60 * 60)
+			+ (value.minutes ?? 0) / 60
+			+ (value.hours ?? 0)
 		return performRound(result, round)
 	}
 	export function toMinutes(value: TimeSpan, round?: Round): number {
 		const result =
-			(dateToMilliseconds(value) + (value.milliseconds ?? 0)) / (60 * 1000) +
-			(value.seconds ?? 0) / 60 +
-			(value.minutes ?? 0) +
-			(value.hours ?? 0) * 60
+			(dateToMilliseconds(value) + (value.milliseconds ?? 0)) / (60 * 1000)
+			+ (value.seconds ?? 0) / 60
+			+ (value.minutes ?? 0)
+			+ (value.hours ?? 0) * 60
 		return performRound(result, round)
 	}
 	export function toSeconds(value: TimeSpan, round?: Round): number {
 		const result =
-			(dateToMilliseconds(value) + (value.milliseconds ?? 0)) / 1000 +
-			(value.seconds ?? 0) +
-			(value.minutes ?? 0) * 60 +
-			(value.hours ?? 0) * 60 * 60
+			(dateToMilliseconds(value) + (value.milliseconds ?? 0)) / 1000
+			+ (value.seconds ?? 0)
+			+ (value.minutes ?? 0) * 60
+			+ (value.hours ?? 0) * 60 * 60
 		return performRound(result, round)
 	}
 	export function toMilliseconds(value: TimeSpan, round?: Round): number {
 		const result =
-			dateToMilliseconds(value) +
-			(value.milliseconds ?? 0) +
-			(value.seconds ?? 0) * 1000 +
-			(value.minutes ?? 0) * 60 * 1000 +
-			(value.hours ?? 0) * 60 * 60 * 1000
+			dateToMilliseconds(value)
+			+ (value.milliseconds ?? 0)
+			+ (value.seconds ?? 0) * 1000
+			+ (value.minutes ?? 0) * 60 * 1000
+			+ (value.hours ?? 0) * 60 * 60 * 1000
 		return performRound(result, round)
 	}
 	function unitByUnit(
@@ -60,8 +64,8 @@ export namespace TimeSpan {
 	): TimeSpan {
 		return rights.reduce(
 			(result, span) =>
-				Object.entries<number | undefined>(span).reduce(
-					(result, [key, right]: [keyof TimeSpan, number | undefined]) =>
+				(Object.entries(span) as Array<[keyof TimeSpan, number | undefined]>).reduce(
+					(result, [key, right]) =>
 						(({ [key]: left, ...result }) =>
 							Object.assign(result, { [key]: +operation(left ?? 0, right ?? 0).toFixed(9) }))(result),
 					result
@@ -85,8 +89,7 @@ export namespace TimeSpan {
 		const remainder = +(value % 1).toFixed(9)
 		if (precision != "hours") {
 			result = { hours: hours, ...fromMinutes(remainder * 60, { precision, normalize: false }) }
-		} else
-			result = { hours: hours + Math.round(remainder) }
+		} else result = { hours: hours + Math.round(remainder) }
 		return options?.normalize == false ? result : normalize(result)
 	}
 	export function fromMinutes(
@@ -142,7 +145,7 @@ export namespace TimeSpan {
 			milliseconds: Math.round(toMilliseconds(value) % 1000),
 			seconds: Math.trunc(toSeconds(value) % 60),
 			minutes: Math.trunc(toMinutes(value) % 60),
-			hours: Math.trunc(toHours(value)),
+			hours: Math.trunc(toHours(value))
 		}
 		if (!(-1000 < result.milliseconds && result.milliseconds < 1000)) {
 			result.seconds += Math.trunc(result.milliseconds / 1000)
@@ -180,8 +183,8 @@ function performRound(value: number, round?: Round): number {
 	return !round
 		? value
 		: round == "ceiling"
-		? Math.ceil(value)
-		: round == "floor"
-		? Math.floor(value)
-		: Math.round(value)
+			? Math.ceil(value)
+			: round == "floor"
+				? Math.floor(value)
+				: Math.round(value)
 }

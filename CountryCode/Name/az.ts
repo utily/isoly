@@ -251,6 +251,6 @@ export namespace az {
 		YT: "Mayot",
 		ZA: "Cənub Afrika",
 		ZM: "Zambiya",
-		ZW: "Zimbabv",
+		ZW: "Zimbabv"
 	}
 }

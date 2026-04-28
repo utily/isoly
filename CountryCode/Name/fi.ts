@@ -251,6 +251,6 @@ export namespace fi {
 		VI: "Yhdysvaltain Neitsytsaaret",
 		UM: "Yhdysvaltain pienet erillissaaret",
 		ZW: "Zimbabwe",
-		XK: "Kosov",
+		XK: "Kosov"
 	}
 }

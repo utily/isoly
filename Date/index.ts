@@ -19,11 +19,11 @@ export namespace Date {
 		.string<Date>((value: string) => {
 			const splitted = /^\d{4}-\d{2}-\d{2}$/.test(value) && Date.split(value)
 			return (
-				splitted &&
-				Date.Year.type.is(splitted[0]) &&
-				Date.Month.type.is(splitted[1]) &&
-				Date.Day.type.is(splitted[2]) &&
-				Date.Month.length(splitted[1], splitted[0]) >= Date.Day.Numeric.parse(splitted[2])
+				splitted
+				&& Date.Year.type.is(splitted[0])
+				&& Date.Month.type.is(splitted[1])
+				&& Date.Day.type.is(splitted[2])
+				&& Date.Month.length(splitted[1], splitted[0]) >= Date.Day.Numeric.parse(splitted[2])
 			)
 		}, "YYYY-MM-DD")
 		.rename("isoly.Date")
@@ -51,7 +51,7 @@ export namespace Date {
 					year: "numeric",
 					month: "2-digit",
 					day: "2-digit",
-					timeZone: timezone ?? Intl.DateTimeFormat().resolvedOptions().timeZone,
+					timeZone: timezone ?? Intl.DateTimeFormat().resolvedOptions().timeZone
 				})
 				.substring(0, 10)
 				// See DateTime:localize for note.
@@ -66,12 +66,9 @@ export namespace Date {
 			result = Date.create(r)
 		} else {
 			result = date
-			if (days.years)
-				result = nextYear(result, days.years)
-			if (days.months)
-				result = nextMonth(result, days.months)
-			if (days.days)
-				result = next(result, days.days)
+			if (days.years) result = nextYear(result, days.years)
+			if (days.months) result = nextMonth(result, days.months)
+			if (days.days) result = next(result, days.days)
 		}
 		return result
 	}
@@ -83,12 +80,9 @@ export namespace Date {
 			result = Date.create(r)
 		} else {
 			result = date
-			if (days.years)
-				result = previousYear(result, days.years)
-			if (days.months)
-				result = previousMonth(result, days.months)
-			if (days.days)
-				result = previous(result, days.days)
+			if (days.years) result = previousYear(result, days.years)
+			if (days.months) result = previousMonth(result, days.months)
+			if (days.days) result = previous(result, days.days)
 		}
 		return result
 	}
@@ -184,8 +178,7 @@ export namespace Date {
 	}
 	export function nextBusinessDay(date: Date, bankingDays = 1, bankingHolidays: Date[] | Set<Date> = []): Date {
 		const holidaySet = new Set(bankingHolidays)
-		if (bankingDays <= 0 && isBusinessDay(date, holidaySet))
-			return date
+		if (bankingDays <= 0 && isBusinessDay(date, holidaySet)) return date
 		const tomorrow = next(date)
 		const tomorrowIsBusinessDay = isBusinessDay(tomorrow, holidaySet)
 		return nextBusinessDay(tomorrow, tomorrowIsBusinessDay ? bankingDays - 1 : bankingDays, holidaySet)
@@ -198,7 +191,7 @@ export namespace Date {
 		return {
 			years: getYear(date) - getYear(relative),
 			months: getMonth(date) - getMonth(relative),
-			days: getDay(date) - getDay(relative),
+			days: getDay(date) - getDay(relative)
 		}
 	}
 	export const epochStart = "0000-01-01" as const

@@ -251,6 +251,6 @@ export namespace de {
 		EH: "Westsahara",
 		CF: "Zentralafrikanische Republik",
 		CY: "Zypern",
-		XK: "Kosov",
+		XK: "Kosov"
 	}
 }

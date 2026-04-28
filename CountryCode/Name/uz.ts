@@ -251,6 +251,6 @@ export namespace uz {
 		YT: "Mayotta",
 		ZA: "Janubiy Afrika Respublikasi",
 		ZM: "Zambiya",
-		ZW: "Zimbabv",
+		ZW: "Zimbabv"
 	}
 }

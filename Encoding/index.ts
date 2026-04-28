@@ -3,7 +3,7 @@ import { Iso88591 } from "./Iso88591"
 import { Transcoder } from "./Transcoder"
 import { Utf8 } from "./Utf8"
 
-export type Encoding = typeof Encoding.values[number]
+export type Encoding = (typeof Encoding.values)[number]
 export namespace Encoding {
 	export const values = [
 		"UTF-8",
@@ -75,7 +75,7 @@ export namespace Encoding {
 		"KS X 1001",
 		"EUC-KR",
 		"ISO-2022-KR",
-		"T.51",
+		"T.51"
 	] as const
 	export const { type, is, flawed } = isly
 		.string<Encoding>("value", ...values)
@@ -321,6 +321,6 @@ export namespace Encoding {
 	}
 	const transcoders: { [encoding in "ISO-8859-1" | "UTF-8"]: Transcoder } = {
 		"ISO-8859-1": new Iso88591(),
-		"UTF-8": new Utf8(),
+		"UTF-8": new Utf8()
 	}
 }

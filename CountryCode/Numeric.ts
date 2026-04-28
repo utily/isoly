@@ -2,7 +2,7 @@ import { isly } from "isly"
 import { Alpha2 } from "./Alpha2"
 import { Alpha3 } from "./Alpha3"
 
-export type Numeric = typeof Numeric.values[number]
+export type Numeric = (typeof Numeric.values)[number]
 
 export namespace Numeric {
 	export const values = [
@@ -16,7 +16,7 @@ export namespace Numeric {
 		583, 584, 585, 586, 591, 598, 600, 604, 608, 612, 616, 620, 624, 626, 630, 634, 638, 642, 643, 646, 652, 654, 659,
 		660, 662, 663, 666, 670, 674, 678, 682, 686, 688, 690, 694, 702, 703, 704, 705, 706, 710, 716, 724, 728, 729, 732,
 		740, 744, 748, 752, 756, 760, 762, 764, 768, 772, 776, 780, 784, 788, 792, 795, 796, 798, 800, 804, 807, 818, 826,
-		831, 832, 833, 834, 840, 850, 854, 858, 860, 862, 876, 882, 887, 894, 926,
+		831, 832, 833, 834, 840, 850, 854, 858, 860, 862, 876, 882, 887, 894, 926
 	] as const
 	export const { type, is, flawed } = isly
 		.number<Numeric>("value", ...values)
@@ -277,5 +277,5 @@ const alpha2ToNumeric: Record<Alpha2, Numeric> = {
 	YE: 887,
 	ZM: 894,
 	ZW: 716,
-	XK: 926,
+	XK: 926
 }

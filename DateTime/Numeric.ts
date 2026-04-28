@@ -8,7 +8,11 @@ import { DateTime } from "./index"
 export type Numeric = Date.Numeric & Time.Numeric & { zone?: TimeZone.Offset }
 
 export namespace Numeric {
-	export const { type, is, flawed } = isly
+	export const {
+		type,
+		is,
+		flawed
+	}: isly.BindResult<Numeric, isly.Union<Numeric>> = isly
 		.union<Numeric>(
 			Date.Numeric.type,
 			Time.Numeric.type,
@@ -22,7 +26,7 @@ export namespace Numeric {
 		return {
 			...(date ? Date.Numeric.parse(date) : {}),
 			...(time ? Time.Numeric.parse(time) : {}),
-			...(zone ? { zone: TimeZone.Offset.parse(zone) } : {}),
+			...(zone ? { zone: TimeZone.Offset.parse(zone) } : {})
 		}
 	}
 	export function format(value: Numeric, precision?: Precision): DateTime {
@@ -32,7 +36,7 @@ export namespace Numeric {
 			...value,
 			...time,
 			...(time.hours != undefined ? { hours: time.hours % 24 } : {}),
-			...(days || value.days != undefined ? { days: days ? (value.days ?? 0) + days : value.days } : {}),
+			...(days || value.days != undefined ? { days: days ? (value.days ?? 0) + days : value.days } : {})
 		}
 		return `${Date.Numeric.format(result)}T${Time.Numeric.format(result, precision)}${result.zone ?? ""}`
 	}

@@ -5,7 +5,7 @@ import { decimals as _decimals } from "./decimals"
 import { name as _name } from "./name"
 import { values as _values } from "./values"
 
-export type Currency = typeof Currency.values[number]
+export type Currency = (typeof Currency.values)[number]
 
 export namespace Currency {
 	export import Amount = _Amount
@@ -46,8 +46,8 @@ export namespace Currency {
 		return decimals == undefined
 			? true
 			: isNaN(amount)
-			? false
-			: (amount.toString().split(".")[1]?.length ?? 0) <= decimals
+				? false
+				: (amount.toString().split(".")[1]?.length ?? 0) <= decimals
 	}
 	export const decimalDigits = _decimals
 	export const name = _name

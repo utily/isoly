@@ -1,20 +1,19 @@
 import { isly } from "isly"
 
-export type SE = {
-	countryCode: "SE"
-	street: string
-	zipCode: string
-	city: string
-}
+export type SE = { countryCode: "SE"; street: string; zipCode: string; city: string }
 
 export namespace SE {
-	export const { type, is, flawed } = isly
+	export const {
+		type,
+		is,
+		flawed
+	}: isly.BindResult<SE, isly.Object<SE>> = isly
 		.object<SE>(
 			{
 				countryCode: isly.string<"SE">("value", "SE"),
 				street: isly.string(),
 				zipCode: isly.string(),
-				city: isly.string(),
+				city: isly.string()
 			},
 			"isoly.Address.SE"
 		)

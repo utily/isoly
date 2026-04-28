@@ -251,6 +251,6 @@ export namespace sl {
 		YT: "Mayotte",
 		ZA: "Južnoafriška republika",
 		ZM: "Zambija",
-		ZW: "Zimbabv",
+		ZW: "Zimbabv"
 	}
 }

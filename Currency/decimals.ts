@@ -181,7 +181,7 @@ export function decimals(currency: Currency): 0 | 2 | 3 | 4 | undefined {
 			YER: 2,
 			ZAR: 2,
 			ZMW: 2,
-			ZWL: 2,
+			ZWL: 2
 		} as const
 	)[currency]
 }

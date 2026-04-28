@@ -251,6 +251,6 @@ export namespace tr {
 		ZA: "Güney Afrika",
 		ZM: "Zambiya",
 		ZW: "Zimbabve",
-		XK: "Kosov",
+		XK: "Kosov"
 	}
 }

@@ -22,7 +22,7 @@ describe("isoly.DateTime", () => {
 		"2020-12-31T23:59:59.000Z",
 		"2020-12-31T23:59:59.999Z",
 		"2019-04-01T01:11:29.000+01:00",
-		isoly.DateTime.now(),
+		isoly.DateTime.now()
 	])("is(%s)", dateTime => expect(isoly.DateTime.is(dateTime)).toBe(true))
 	it.each([
 		undefined,
@@ -53,11 +53,11 @@ describe("isoly.DateTime", () => {
 		"2020-04-31",
 		"2020-04-01T24:00",
 		"2020-04-01T23:60",
-		"2020-04-01T23:59:63",
+		"2020-04-01T23:59:63"
 	])("is not %s", dateTime => expect(isoly.DateTime.is(dateTime)).toBe(false))
 	it.each([
 		// [new Date(Date.UTC(2016, 12, 31, 23, 59, 60)), "2016-12-31T23:59:60Z"],
-		[new Date(Date.UTC(2020, 11, 31, 23, 59, 59)), "2020-12-31T23:59:59.000Z"],
+		[new Date(Date.UTC(2020, 11, 31, 23, 59, 59)), "2020-12-31T23:59:59.000Z"]
 	])("create(%s) == %s", (value, expected) => expect(isoly.DateTime.create(value)).toBe(expected))
 	it.each([
 		[123, "seconds", "1970-01-01T00:02:03.000Z"],
@@ -70,17 +70,16 @@ describe("isoly.DateTime", () => {
 		[1697809020, "seconds", "2023-10-20T13:37:00.000Z"],
 		[1697809020, undefined, "2023-10-20T13:37:00.000Z"],
 		[1697809020, "seconds", "2023-10-20T13:37:00.000Z"],
-		[1697809020123, "milliseconds", "2023-10-20T13:37:00.123Z"],
+		[1697809020123, "milliseconds", "2023-10-20T13:37:00.123Z"]
 	] as const)("create(%d, %s) == %s", (value, resolution, expected) =>
-		expect(isoly.DateTime.create(value, resolution)).toBe(expected)
-	)
+		expect(isoly.DateTime.create(value, resolution)).toBe(expected))
 	it.each([
 		["2023-10-31T11:23:40.8Z", "2023-10-31T11:23:40.800Z"],
 		["2023-10-31T11:23:40.81Z", "2023-10-31T11:23:40.810Z"],
 		["2023-10-31T11:23:40Z", "2023-10-31T11:23:40Z"],
 		["2023-10-31T11:23:40.000Z", "2023-10-31T11:23:40.000Z"],
 		["2023-10-31T11:23:40.123678978Z", "2023-10-31T11:23:40.123Z"],
-		["2023-10-31T11:23:40.223678978", "2023-10-31T11:23:40.223"],
+		["2023-10-31T11:23:40.223678978", "2023-10-31T11:23:40.223"]
 	])("normalize(%s) == %s", (value, expected) => expect(isoly.DateTime.normalize(value)).toEqual(expected))
 	it.each([
 		["2019-04-01T01", new Date(2019, 3, 1, 1)],
@@ -95,13 +94,13 @@ describe("isoly.DateTime", () => {
 		["2019-04-01T01:11:29.123", new Date(2019, 3, 1, 1, 11, 29, 123)],
 		["2019-04-01T01:11:29.123Z", new Date(Date.UTC(2019, 3, 1, 1, 11, 29, 123))],
 		["2020-12-31T23:59:59.999Z", new Date(Date.UTC(2020, 11, 31, 23, 59, 59, 999))],
-		["2019-04-01T01:11:29.123+01:00", new Date(Date.UTC(2019, 3, 1, 0, 11, 29, 123))],
+		["2019-04-01T01:11:29.123+01:00", new Date(Date.UTC(2019, 3, 1, 0, 11, 29, 123))]
 	])("parse %s", (dateTime, date) => expect(isoly.DateTime.parse(dateTime)).toEqual(date))
 	it.each([
 		["milliseconds", "2019-04-01T01:11:29.123+01:00", "2019-04-01T01:11:29.123+01:00"],
 		["seconds", "2019-04-01T01:11:29+01:00", "2019-04-01T01:11:29.000+01:00"],
 		["minutes", "2019-04-01T01:11+01:00", "2019-04-01T01:11:00.000+01:00"],
-		["hours", "2019-04-01T01+01:00", "2019-04-01T01:00:00.000+01:00"],
+		["hours", "2019-04-01T01+01:00", "2019-04-01T01:00:00.000+01:00"]
 	] as const)("truncate %s", (precision, expected, padded) => {
 		const dateTime = "2019-04-01T01:11:29.123+01:00"
 		const truncated = isoly.DateTime.truncate(dateTime, precision)
@@ -120,16 +119,15 @@ describe("isoly.DateTime", () => {
 		["2023-10-20T13:37:00.123Z", "seconds", 1697809020],
 		["2023-10-20T13:37:00.123Z", "milliseconds", 1697809020123],
 		["2023-10-20T13:37:00.123456Z", "milliseconds", 1697809020123],
-		[new Date(Date.UTC(2023, 9, 20, 13, 37, 0, 123)), "milliseconds", 1697809020123],
+		[new Date(Date.UTC(2023, 9, 20, 13, 37, 0, 123)), "milliseconds", 1697809020123]
 	] as const)("epoch(%s, %s) == %f", (value, resolution, expected) =>
-		expect(isoly.DateTime.epoch(value, resolution)).toBe(expected)
-	)
+		expect(isoly.DateTime.epoch(value, resolution)).toBe(expected))
 	if (new Date(Date.UTC(2020, 11, 31, 23, 59, 59)).getTimezoneOffset() == -60) {
 		it("zero-pads localized", () =>
 			expect(isoly.DateTime.localize(new Date("4 Jul 2020 10:20:30 GMT"), "sv-SE")).toEqual("2020-07-04 12:20:30"))
 		const data = [
 			["20 Jul 2019 10:30:40 GMT+2", "10:30:40"],
-			["21 Jul 2019 10:30:50 GMT", "12:30:50"],
+			["21 Jul 2019 10:30:50 GMT", "12:30:50"]
 		]
 		for (const date of data)
 			it("localize with locale " + date[0], () =>
@@ -186,10 +184,9 @@ describe("isoly.DateTime", () => {
 		it.each([
 			[undefined, 2020],
 			[{ digits: 4 }, 2020],
-			[{ digits: 2 }, 20],
+			[{ digits: 2 }, 20]
 		] as const)('getYear("2020-12-31T23:59:59.000Z", %o) == %d', (options, expected) =>
-			expect(isoly.DateTime.getYear("2020-12-31T23:59:59.000Z", options)).toEqual(expected)
-		)
+			expect(isoly.DateTime.getYear("2020-12-31T23:59:59.000Z", options)).toEqual(expected))
 		it("getMonth", () => expect(isoly.DateTime.getMonth("2020-12-31T23:59:59.000Z")).toEqual(12))
 		it("getDay", () => expect(isoly.DateTime.getDay("2020-12-31T23:59:59.000Z")).toEqual(31))
 		it("getHour", () => expect(isoly.DateTime.getHour("2020-12-31T23:59:59.000Z")).toEqual(23))
@@ -200,16 +197,15 @@ describe("isoly.DateTime", () => {
 			["1337-04-20T13Z", "hours"],
 			["1337-04-20T13:37Z", "minutes"],
 			["1337-04-20T13:37:42Z", "seconds"],
-			["1337-04-20T13:37:42.137Z", "milliseconds"],
+			["1337-04-20T13:37:42.137Z", "milliseconds"]
 		])("precision(%s) == %s", (value, expected) => expect(isoly.DateTime.precision(value)).toBe(expected))
 		it.each([
 			["hours", "2020-12-31T23Z"],
 			["minutes", "2020-12-31T23:59Z"],
 			["seconds", "2020-12-31T23:59:59Z"],
-			["milliseconds", "2020-12-31T23:59:59.123Z"],
+			["milliseconds", "2020-12-31T23:59:59.123Z"]
 		] as const)("truncate(%s) == %s", (precision, expected) =>
-			expect(isoly.DateTime.truncate("2020-12-31T23:59:59.123Z", precision)).toBe(expected)
-		)
+			expect(isoly.DateTime.truncate("2020-12-31T23:59:59.123Z", precision)).toBe(expected))
 		it("previousMillisecond", () =>
 			expect(isoly.DateTime.previousMillisecond("2020-01-01T00:00:00.100Z", 200)).toEqual("2019-12-31T23:59:59.900Z"))
 		it("span", () =>
@@ -220,7 +216,7 @@ describe("isoly.DateTime", () => {
 				hours: 22,
 				minutes: 1,
 				seconds: 20,
-				milliseconds: -3,
+				milliseconds: -3
 			}))
 		it("invert leap second", () => {
 			expect(isoly.DateTime.invert("2013-01-19T22:01:61.070Z")).toEqual("7986-12-13T02:59:-1.929Z")
@@ -250,17 +246,15 @@ describe("isoly.DateTime", () => {
 	it.each([
 		["2023-10-20T13:37:00.000Z", 10, "2023-10-20T13:37:00.010Z"],
 		["2023-03-26T01:30:00.000Z", 24 * 60 * 60 * 1000, "2023-03-27T01:30:00.000Z"],
-		["2023-03-26T02:30:00.000Z", 24 * 60 * 60 * 1000, "2023-03-27T02:30:00.000Z"],
+		["2023-03-26T02:30:00.000Z", 24 * 60 * 60 * 1000, "2023-03-27T02:30:00.000Z"]
 	])("nextMillisecond(%s, %d) == %s", (value, increment, expected) =>
-		expect(isoly.DateTime.nextMillisecond(value, increment)).toEqual(expected)
-	)
+		expect(isoly.DateTime.nextMillisecond(value, increment)).toEqual(expected))
 	it.each([
 		["2023-10-20T13:37:00.000Z", 10, "2023-10-20T13:37:10.000Z"],
 		["2023-03-26T01:30:00.000Z", 24 * 60 * 60, "2023-03-27T01:30:00.000Z"],
-		["2023-03-26T02:30:00.000Z", 24 * 60 * 60, "2023-03-27T02:30:00.000Z"],
+		["2023-03-26T02:30:00.000Z", 24 * 60 * 60, "2023-03-27T02:30:00.000Z"]
 	])("nextSecond(%s, %d) == %s", (value, increment, expected) =>
-		expect(isoly.DateTime.nextSecond(value, increment)).toEqual(expected)
-	)
+		expect(isoly.DateTime.nextSecond(value, increment)).toEqual(expected))
 	it("next day", () =>
 		expect(isoly.DateTime.nextDay("2023-10-20T13:37:00.000Z", 10)).toEqual("2023-10-30T13:37:00.000Z"))
 	it("next hour", () =>
@@ -270,132 +264,70 @@ describe("isoly.DateTime", () => {
 			"2023-05-15T23:03:23.004Z",
 			"2023-05-13T22:01:20.000Z",
 			"years",
-			{
-				years: 0,
-				months: 0,
-				days: 2,
-				hours: 1,
-				minutes: 2,
-				seconds: 3,
-				milliseconds: 4,
-			},
+			{ years: 0, months: 0, days: 2, hours: 1, minutes: 2, seconds: 3, milliseconds: 4 }
 		],
 		[
 			"2023-05-15T23:03:23.004Z",
 			"2023-05-15T22:01:20.000Z",
 			"hours",
-			{
-				hours: 1,
-				minutes: 2,
-				seconds: 3,
-				milliseconds: 4,
-			},
+			{ hours: 1, minutes: 2, seconds: 3, milliseconds: 4 }
 		],
-		[
-			"2023-05-15T23:03:23.004Z",
-			"2023-05-15T22:01:20.000Z",
-			"minutes",
-			{
-				minutes: 62,
-				seconds: 3,
-				milliseconds: 4,
-			},
-		],
-		[
-			"2023-05-15T23:03:23.004Z",
-			"2023-05-15T22:01:20.000Z",
-			"seconds",
-			{
-				seconds: 3723,
-				milliseconds: 4,
-			},
-		],
-		[
-			"2023-05-15T23:03:23.004Z",
-			"2023-05-15T22:01:20.000Z",
-			"milliseconds",
-			{
-				milliseconds: 3723004,
-			},
-		],
+		["2023-05-15T23:03:23.004Z", "2023-05-15T22:01:20.000Z", "minutes", { minutes: 62, seconds: 3, milliseconds: 4 }],
+		["2023-05-15T23:03:23.004Z", "2023-05-15T22:01:20.000Z", "seconds", { seconds: 3723, milliseconds: 4 }],
+		["2023-05-15T23:03:23.004Z", "2023-05-15T22:01:20.000Z", "milliseconds", { milliseconds: 3723004 }],
 		[
 			"2023-05-15T23:03:23.004-01:00",
 			"2023-05-15T22:01:20.000+01:00",
 			"hours",
-			{
-				hours: 3,
-				minutes: 2,
-				seconds: 3,
-				milliseconds: 4,
-			},
+			{ hours: 3, minutes: 2, seconds: 3, milliseconds: 4 }
 		],
 		[
 			"2023-05-15T22:01:20.000+01:00",
 			"2023-05-15T23:03:23.004-01:00",
 			"hours",
-			{
-				hours: -3,
-				minutes: -2,
-				seconds: -3,
-				milliseconds: -4,
-			},
+			{ hours: -3, minutes: -2, seconds: -3, milliseconds: -4 }
 		],
 		[
 			"2023-05-15T09:50:00.004Z",
 			"2023-05-15T11:50:00.004+02:00",
 			"hours",
-			{
-				hours: 0,
-				minutes: 0,
-				seconds: 0,
-				milliseconds: 0,
-			},
+			{ hours: 0, minutes: 0, seconds: 0, milliseconds: 0 }
 		],
 		[
 			"2023-05-15T09:50:00.004Z",
 			"2023-05-15T09:50:00.004+00:00",
 			"hours",
-			{
-				hours: 0,
-				minutes: 0,
-				seconds: 0,
-				milliseconds: 0,
-			},
-		],
+			{ hours: 0, minutes: 0, seconds: 0, milliseconds: 0 }
+		]
 	] as const)("span(%s, %s, %s) == %o", (start, end, unit, expected) =>
-		expect(isoly.DateTime.span(start, end, unit)).toEqual(expected)
-	)
+		expect(isoly.DateTime.span(start, end, unit)).toEqual(expected))
 	it.each([
 		["2023-05-16T12:00:00", "Europe/Stockholm", "2023-05-16T12:00:00+02:00"],
 		["2023-01-16T12:00:00", "Europe/Stockholm", "2023-01-16T12:00:00+01:00"],
 		["2023-05-16T14:00:00", "Europe/London", "2023-05-16T14:00:00+01:00"],
 		["2023-01-16T14:00:00", "Europe/London", "2023-01-16T14:00:00+00:00"],
 		["2023-01-16T14:00:00", "Asia/Kolkata", "2023-01-16T14:00:00+05:30"],
-		["2023-01-16T14:00:00", "America/New_York", "2023-01-16T14:00:00-05:00"],
+		["2023-01-16T14:00:00", "America/New_York", "2023-01-16T14:00:00-05:00"]
 	] as const)("fromLocal(%s, %s) == %s", (localDateTime, timeZone, expected) =>
-		expect(isoly.DateTime.fromLocal(localDateTime, timeZone)).toEqual(expected)
-	)
+		expect(isoly.DateTime.fromLocal(localDateTime, timeZone)).toEqual(expected))
 	it.each([
 		["2023-03-25T01:30:00.000Z", 1, "2023-03-26T01:30:00.000Z"],
 		["2023-03-25T02:30:00.000Z", 1, "2023-03-26T02:30:00.000Z"],
-		["2023-03-25T02:30:00.000+01:00", 1, "2023-03-26T01:30:00.000Z"],
+		["2023-03-25T02:30:00.000+01:00", 1, "2023-03-26T01:30:00.000Z"]
 	])("nextDay(%s, %d) == %s", (value, increment, expected) =>
-		expect(isoly.DateTime.nextDay(value, increment)).toEqual(expected)
-	)
+		expect(isoly.DateTime.nextDay(value, increment)).toEqual(expected))
 	it.each([
 		["2023-03-26T00:30:00.000Z", 24 * 60, "2023-03-27T00:30:00.000Z"],
 		["2023-03-25T02:30:00.000Z", 24 * 60, "2023-03-26T02:30:00.000Z"],
-		["2023-03-26T00:30:00.000+01:00", 24 * 60, "2023-03-26T23:30:00.000Z"],
+		["2023-03-26T00:30:00.000+01:00", 24 * 60, "2023-03-26T23:30:00.000Z"]
 	])("nextMinute(%s, %d) == %s", (value, increment, expected) =>
-		expect(isoly.DateTime.nextMinute(value, increment)).toEqual(expected)
-	)
+		expect(isoly.DateTime.nextMinute(value, increment)).toEqual(expected))
 	it.each([
 		["2023-03-26T00:30:00.000Z", 24, "2023-03-27T00:30:00.000Z"],
 		["2023-03-25T02:30:00.000Z", 24, "2023-03-26T02:30:00.000Z"],
-		["2023-03-26T00:30:00.000+01:00", 24, "2023-03-26T23:30:00.000Z"],
+		["2023-03-26T00:30:00.000+01:00", 24, "2023-03-26T23:30:00.000Z"]
 	])("nextHour(%s, %d) == %s", (value, increment, expected) =>
-		expect(isoly.DateTime.nextHour(value, increment)).toEqual(expected)
-	)
+		expect(isoly.DateTime.nextHour(value, increment)).toEqual(expected))
 	it.each([
 		["2023-03-26T01:30:00.000Z", { years: 1 }, "2024-03-26T01:30:00.000Z"],
 		["2023-03-26T01:30:00.000Z", { months: 1 }, "2023-04-26T01:30:00.000Z"],
@@ -407,10 +339,9 @@ describe("isoly.DateTime", () => {
 		["2023-03-26T00:30:00.000+01:00", { hours: 24 }, "2023-03-26T23:30:00.000Z"],
 		["2023-03-26T00:30:00.000Z", { minutes: 24 * 60 }, "2023-03-27T00:30:00.000Z"],
 		["2023-03-25T02:30:00.000Z", { minutes: 24 * 60 }, "2023-03-26T02:30:00.000Z"],
-		["2023-03-26T00:30:00.000+01:00", { minutes: 24 * 60 }, "2023-03-26T23:30:00.000Z"],
+		["2023-03-26T00:30:00.000+01:00", { minutes: 24 * 60 }, "2023-03-26T23:30:00.000Z"]
 	])("next(%s, %s) == %s", (value, increment, expected) =>
-		expect(isoly.DateTime.next(value, increment)).toEqual(expected)
-	)
+		expect(isoly.DateTime.next(value, increment)).toEqual(expected))
 	it.each([
 		["2023-03-26T01:30:00.000Z", { years: 1 }, "2022-03-26T01:30:00.000Z"],
 		["2023-03-26T01:30:00.000Z", { months: 1 }, "2023-02-26T01:30:00.000Z"],
@@ -421,22 +352,21 @@ describe("isoly.DateTime", () => {
 		["2023-03-27T00:30:00.000+01:00", { hours: 24 }, "2023-03-25T23:30:00.000Z"],
 		["2023-03-27T00:30:00.000Z", { minutes: 24 * 60 }, "2023-03-26T00:30:00.000Z"],
 		["2023-03-26T02:30:00.000Z", { minutes: 24 * 60 }, "2023-03-25T02:30:00.000Z"],
-		["2023-03-25T02:30:00.000+01:00", { minutes: 24 * 60 }, "2023-03-24T01:30:00.000Z"],
+		["2023-03-25T02:30:00.000+01:00", { minutes: 24 * 60 }, "2023-03-24T01:30:00.000Z"]
 	])("previous(%s, %s) == %s", (value, increment, expected) =>
-		expect(isoly.DateTime.previous(value, increment)).toEqual(expected)
-	)
+		expect(isoly.DateTime.previous(value, increment)).toEqual(expected))
 	it.each([
 		["2023-10-31T11:23:40.8Z", "2023-10-31T11:23:40.800Z"],
 		["2023-10-31T11:23:40.81Z", "2023-10-31T11:23:40.810Z"],
 		["2023-10-31T11:23:40Z", "2023-10-31T11:23:40Z"],
-		["2023-10-31T11:23:40.000Z", "2023-10-31T11:23:40.000Z"],
+		["2023-10-31T11:23:40.000Z", "2023-10-31T11:23:40.000Z"]
 	])("fix(%s)", (input, expected) => expect(isoly.DateTime.fix(input)).toEqual(expected))
 	it.each([
 		["2023-10-29", "2023-10-29T00:00:00.000Z", "2023-10-29T23:59:59.999Z"],
 		["1993-05-11T15:07:40.430Z", "1993-05-11T00:00:00.000Z", "1993-05-11T23:59:59.999Z"],
 		["2023-10-29T15:07:40.430+00:00", "2023-10-29T00:00:00.000+00:00", "2023-10-29T23:59:59.999+00:00"],
 		["2023-10-29T15:07:40.430+01:00", "2023-10-29T00:00:00.000+01:00", "2023-10-29T23:59:59.999+01:00"],
-		["2023-10-29T15:07:40.430+05:30", "2023-10-29T00:00:00.000+05:30", "2023-10-29T23:59:59.999+05:30"],
+		["2023-10-29T15:07:40.430+05:30", "2023-10-29T00:00:00.000+05:30", "2023-10-29T23:59:59.999+05:30"]
 	])("startOfDay and endOfDay", (date: isoly.DateTime | isoly.Date, start: isoly.DateTime, end: isoly.DateTime) => {
 		expect(isoly.DateTime.startOfDay(date)).toEqual(start)
 		expect(isoly.DateTime.is(isoly.DateTime.startOfDay(date))).toBeTruthy()

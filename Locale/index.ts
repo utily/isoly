@@ -1,7 +1,7 @@
 import { isly } from "isly"
 import { CountryCode } from "../CountryCode"
 import { Language } from "../Language"
-export type Locale = typeof Locale.values[number]
+export type Locale = (typeof Locale.values)[number]
 
 export namespace Locale {
 	export const values = [
@@ -214,7 +214,7 @@ export namespace Locale {
 		"zh-MO",
 		"zh-SG",
 		"zh-TW",
-		"zu-ZA",
+		"zu-ZA"
 	] as const
 	export const { type, is, flawed } = isly
 		.string<Locale>("value", ...values)
@@ -256,9 +256,9 @@ export namespace Locale {
 						pl: "pl-PL",
 						pt: "pt-PT",
 						ru: "ru-RU",
-						sv: "sv-SE",
+						sv: "sv-SE"
 					} as Partial<Record<Language, Locale>>
-			  )[language]
+				)[language]
 		return is(result) ? result : undefined
 	}
 }

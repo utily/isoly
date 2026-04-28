@@ -251,6 +251,6 @@ export namespace zh {
 		ZA: "南非",
 		ZM: "尚比亚",
 		ZW: "辛巴威",
-		XK: "科索",
+		XK: "科索"
 	}
 }

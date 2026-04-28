@@ -11,7 +11,11 @@ export type Generic = {
 }
 
 export namespace Generic {
-	export const { type, is, flawed } = isly
+	export const {
+		type,
+		is,
+		flawed
+	}: isly.BindResult<Generic, isly.Object<Generic>> = isly
 		.object<Generic>(
 			{
 				countryCode: CountryCode.Alpha2.type,
@@ -19,7 +23,7 @@ export namespace Generic {
 				zipCode: isly.string(),
 				city: isly.string(),
 				county: isly.string().optional(),
-				state: isly.string().optional(),
+				state: isly.string().optional()
 			},
 			"isoly.Address.Generic"
 		)

@@ -20,12 +20,12 @@ export namespace Time {
 		.string<Time>((value: string) => {
 			const splitted = /^\d{2}(?::\d{2}(?::\d{2}(?:\.\d{3})?)?)?$/.test(value) && Time.split(value)
 			return (
-				splitted &&
-				Time.Hour.type.is(splitted[0]) &&
-				Time.Minute.type.optional().is(splitted[1]) &&
-				Time.Second.type.optional().is(splitted[2]) &&
-				Time.Millisecond.type.optional().is(splitted[3]) &&
-				(splitted[2] != "60" || (splitted[0] == "23" && splitted[1] == "59")) // only allow leap second at 23:59
+				splitted
+				&& Time.Hour.type.is(splitted[0])
+				&& Time.Minute.type.optional().is(splitted[1])
+				&& Time.Second.type.optional().is(splitted[2])
+				&& Time.Millisecond.type.optional().is(splitted[3])
+				&& (splitted[2] != "60" || (splitted[0] == "23" && splitted[1] == "59")) // only allow leap second at 23:59
 			)
 		}, "HH[:mm[:ss[.fff]]]")
 		.rename("isoly.Time")
@@ -45,7 +45,7 @@ export namespace Time {
 			hours.padStart(2, "0") as Hour,
 			minutes?.padStart(2, "0") as Minute | undefined,
 			seconds?.padStart(2, "0") as Second | undefined,
-			milliseconds?.slice(0, 3)?.padEnd(3, "0") as Millisecond | undefined,
+			milliseconds?.slice(0, 3)?.padEnd(3, "0") as Millisecond | undefined
 		]
 	}
 	export function normalize(time: Time, precision?: Precision): Time {

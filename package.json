@@ -7,59 +7,50 @@
 	"private": false,
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/utily/isoly"
+		"url": "git+https://github.com/utily/isoly.git"
 	},
 	"bugs": {
 		"url": "https://github.com/utily/isoly/issues"
 	},
 	"homepage": "https://github.com/utily",
 	"type": "module",
-	"module": "./dist/mjs/index.js",
 	"types": "./dist/types/index.d.ts",
 	"exports": {
 		".": {
-			"import": {
-				"types": "./dist/types/index.d.ts",
-				"default": "./dist/mjs/index.js"
-			},
-			"require": {
-				"types": "./dist/types/index.d.ts",
-				"default": "./dist/cjs/index.js"
-			}
+			"types": "./dist/types/index.d.ts",
+			"import": "./dist/index.js",
+			"default": "./dist/index.js"
 		}
 	},
+	"files": [
+		"dist",
+		"LICENSE",
+		"README.md"
+	],
 	"git": {
-		"tagName": "v${version}"
+		"tagName": "release-${version}"
 	},
 	"github": {
 		"release": true
 	},
 	"scripts": {
-		"lint": "eslint --max-warnings=0 '**/*.{ts,tsx}'",
-		"fix": "eslint '**/*.{ts,tsx}' --fix",
-		"prebuild": "rimraf dist/*",
-		"build:mjs": "tsc -p tsconfig.mjs.json",
-		"build:cjs": "tsc -p tsconfig.cjs.json",
-		"build": "npm run build:mjs",
+		"lint": "biome format .",
+		"format": "biome format --write .",
+		"build": "tsc -p tsconfig.build.json",
 		"test": "vitest --run",
 		"coverage": "vitest --coverage",
-		"prepare": "npm run build",
 		"clean": "rimraf dist node_modules coverage",
-		"verify": "npm run build && npm run test && npm run lint && npm --omit=dev audit"
+		"verify": "npm run build && npm run test && npm run lint && npm audit --omit=dev"
 	},
 	"devDependencies": {
-		"@typescript-eslint/eslint-plugin": "8.56.1",
-		"@typescript-eslint/parser": "8.56.1",
-		"@vitest/coverage-v8": "4.0.18",
-		"eslint": "^8.57.0",
-		"eslint-plugin-prettierx": "github:utily/eslint-plugin-prettierx#utily-20231004",
-		"eslint-plugin-simple-import-sort": "^12.1.1",
-		"prettierx": "github:utily/prettierx#utily-20231004",
+		"@biomejs/biome": "^2.4.13",
+		"@vitest/coverage-v8": "^4.1.5",
 		"rimraf": "^6.1.3",
-		"typescript": "^5.9.3",
-		"vitest": "4.0.18"
+		"typescript": "6.0.3",
+		"vite": "^8.0.10",
+		"vitest": "^4.1.5"
 	},
 	"dependencies": {
-		"isly": "1.7.0"
+		"isly": "1.9.0"
 	}
 }

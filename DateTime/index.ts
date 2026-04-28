@@ -29,11 +29,7 @@ export namespace DateTime {
 			Time | undefined,
 			TimeZone.Offset | undefined
 		]
-		return {
-			date,
-			time,
-			timeZoneOffset,
-		}
+		return { date, time, timeZoneOffset }
 	}
 	export function parse(value: DateTime): globalThis.Date {
 		return new system.Date(DateTime.truncate(value, "milliseconds"))
@@ -72,10 +68,8 @@ export namespace DateTime {
 	}
 	/** @deprecated use normalize(value, "milliseconds") instead */
 	export function fix(value: DateTime | string): DateTime {
-		if (value.length == 22 && value.match(/\.\dZ$/))
-			value = value.substring(0, 21) + "00Z"
-		else if (value.length == 23 && value.match(/\.\d\dZ$/))
-			value = value.substring(0, 22) + "0Z"
+		if (value.length == 22 && value.match(/\.\dZ$/)) value = value.substring(0, 21) + "00Z"
+		else if (value.length == 23 && value.match(/\.\d\dZ$/)) value = value.substring(0, 22) + "0Z"
 		return value
 	}
 	/** @deprecated */
@@ -144,7 +138,7 @@ export namespace DateTime {
 					minute:
 						precision == "minutes" || precision == "seconds" || precision == "milliseconds" ? "2-digit" : undefined,
 					second: precision == "seconds" || precision == "milliseconds" ? "2-digit" : undefined,
-					timeZone: localeOrTimeZone,
+					timeZone: localeOrTimeZone
 				} as Format,
 				formatOrLocale
 			)
@@ -171,7 +165,7 @@ export namespace DateTime {
 		const zone = timeZoneOffset(value)
 		const time = value.substring(0, value.length - zone.length).split("T", 2)[1]
 		let result: Precision
-		switch (time.length) {
+		switch (time?.length) {
 			case 2:
 				result = "hours"
 				break
@@ -193,7 +187,7 @@ export namespace DateTime {
 		const zone = timeZoneOffset(value)
 		// eslint-disable-next-line prefer-const
 		let [date, time] = value.split("T", 2)
-		time = time.substring(0, time.length - zone.length)
+		time = time?.substring(0, time.length - zone.length) ?? "00:00:00.000"
 		switch (time.length) {
 			case 2:
 				time += ":00:00.000"
@@ -246,47 +240,31 @@ export namespace DateTime {
 	}
 	export function next(time: DateTime, span: number | TimeSpan = 1): DateTime {
 		let result: DateTime
-		if (typeof span == "number")
-			result = nextSecond(time, span)
+		if (typeof span == "number") result = nextSecond(time, span)
 		else {
 			result = time
-			if (span.years)
-				result = nextYear(result, span.years)
-			if (span.months)
-				result = nextMonth(result, span.months)
-			if (span.days)
-				result = nextDay(result, span.days)
-			if (span.hours)
-				result = nextHour(result, span.hours)
-			if (span.minutes)
-				result = nextMinute(result, span.minutes)
-			if (span.seconds)
-				result = nextSecond(result, span.seconds)
-			if (span.milliseconds)
-				result = nextMillisecond(result, span.milliseconds)
+			if (span.years) result = nextYear(result, span.years)
+			if (span.months) result = nextMonth(result, span.months)
+			if (span.days) result = nextDay(result, span.days)
+			if (span.hours) result = nextHour(result, span.hours)
+			if (span.minutes) result = nextMinute(result, span.minutes)
+			if (span.seconds) result = nextSecond(result, span.seconds)
+			if (span.milliseconds) result = nextMillisecond(result, span.milliseconds)
 		}
 		return result
 	}
 	export function previous(time: DateTime, span: number | TimeSpan = 1): DateTime {
 		let result: DateTime
-		if (typeof span == "number")
-			result = previousSecond(time, span)
+		if (typeof span == "number") result = previousSecond(time, span)
 		else {
 			result = time
-			if (span.years)
-				result = previousYear(result, span.years)
-			if (span.months)
-				result = previousMonth(result, span.months)
-			if (span.days)
-				result = previousDay(result, span.days)
-			if (span.hours)
-				result = previousHour(result, span.hours)
-			if (span.minutes)
-				result = previousMinute(result, span.minutes)
-			if (span.seconds)
-				result = previousSecond(result, span.seconds)
-			if (span.milliseconds)
-				result = previousMillisecond(result, span.milliseconds)
+			if (span.years) result = previousYear(result, span.years)
+			if (span.months) result = previousMonth(result, span.months)
+			if (span.days) result = previousDay(result, span.days)
+			if (span.hours) result = previousHour(result, span.hours)
+			if (span.minutes) result = previousMinute(result, span.minutes)
+			if (span.seconds) result = previousSecond(result, span.seconds)
+			if (span.milliseconds) result = previousMillisecond(result, span.milliseconds)
 		}
 		return result
 	}
@@ -387,7 +365,7 @@ export namespace DateTime {
 				hours: getHour(time) - getHour(relative),
 				minutes: getMinute(time) - getMinute(relative),
 				seconds: getSecond(time) - getSecond(relative),
-				milliseconds: getMillisecond(time) - getMillisecond(relative),
+				milliseconds: getMillisecond(time) - getMillisecond(relative)
 			}
 		} else {
 			let milliseconds = epoch(time, "milliseconds") - epoch(relative, "milliseconds")

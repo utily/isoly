@@ -251,6 +251,6 @@ export namespace et {
 		VE: "Venezuela",
 		VN: "Vietnam",
 		UM: "Ühendriikide hajasaared",
-		XK: "Kosov",
+		XK: "Kosov"
 	}
 }

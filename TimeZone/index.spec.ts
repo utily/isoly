@@ -7,6 +7,5 @@ describe("TimeZone", () => {
 	})
 	it.each(isoly.TimeZone.values)("is %s", timeZone => expect(isoly.TimeZone.is(timeZone)).toBe(true))
 	it.each(["GMT", "Europe/Göteborg", "+01:00", undefined, "timezone", "TZ", "Z", ""])("is not %s", timeZone =>
-		expect(isoly.TimeZone.is(timeZone)).toBe(false)
-	)
+		expect(isoly.TimeZone.is(timeZone)).toBe(false))
 })

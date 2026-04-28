@@ -1,6 +1,6 @@
 import { isly } from "isly"
 
-export type Second = typeof Second.values[number]
+export type Second = (typeof Second.values)[number]
 
 export namespace Second {
 	export const values = [
@@ -64,13 +64,13 @@ export namespace Second {
 		"57",
 		"58",
 		"59",
-		"60", // Added leap second
+		"60" // Added leap second
 	] as const
 	export const { type, is, flawed } = isly
 		.string<Second>("value", ...values)
 		.rename("isoly.Time.Second")
 		.bind()
-	export type Numeric = typeof Numeric.values[number]
+	export type Numeric = (typeof Numeric.values)[number]
 	export namespace Numeric {
 		export const values = [
 			0,
@@ -133,7 +133,7 @@ export namespace Second {
 			57,
 			58,
 			59,
-			60, // Added leap second
+			60 // Added leap second
 		] as const
 		export const { type, is, flawed } = isly
 			.number<Numeric>("value", ...values)

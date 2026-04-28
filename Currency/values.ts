@@ -177,5 +177,5 @@ export const values = [
 	"YER",
 	"ZAR",
 	"ZMW",
-	"ZWL",
+	"ZWL"
 ] as const

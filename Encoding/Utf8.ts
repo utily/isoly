@@ -13,6 +13,6 @@ export class Utf8 extends Transcoder {
 							""
 						)
 					)
-			  )
+				)
 	}
 }

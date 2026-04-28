@@ -251,6 +251,6 @@ export namespace pt {
 		WF: "Wallis e Futuna",
 		ZM: "Zâmbia",
 		ZW: "Zimbábue",
-		XK: "Kosov",
+		XK: "Kosov"
 	}
 }

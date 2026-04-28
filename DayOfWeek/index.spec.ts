@@ -8,7 +8,7 @@ describe("isoly.DayOfWeek", () => {
 		["2025-01-02", "thursday"],
 		["2025-01-03", "friday"],
 		["2025-01-04", "saturday"],
-		["2025-01-05", "sunday"],
+		["2025-01-05", "sunday"]
 	] as const)("from(%s) == %s", (date, expected) => expect(isoly.DayOfWeek.from(date)).toEqual(expected))
 
 	it.each([
@@ -21,7 +21,7 @@ describe("isoly.DayOfWeek", () => {
 		["thursday", true],
 		["friday", true],
 		["saturday", true],
-		["Sunday", false],
+		["Sunday", false]
 	] as const)("is(%s) == %s", (day, expected) => expect(isoly.DayOfWeek.is(day)).toEqual(expected))
 
 	it.each([
@@ -31,6 +31,6 @@ describe("isoly.DayOfWeek", () => {
 		["wednesday", 3],
 		["thursday", 4],
 		["friday", 5],
-		["saturday", 6],
+		["saturday", 6]
 	] as const)("toNumeric(%s) == %s", (day, expected) => expect(isoly.DayOfWeek.toNumeric(day)).toEqual(expected))
 })

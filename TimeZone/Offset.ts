@@ -1,6 +1,6 @@
 import { isly } from "isly"
 
-export type Offset = typeof Offset.values[number]
+export type Offset = (typeof Offset.values)[number]
 
 export namespace Offset {
 	export const values = [
@@ -43,7 +43,7 @@ export namespace Offset {
 		"+12:00",
 		"+12:45",
 		"+13:00",
-		"+14:00",
+		"+14:00"
 	] as const
 	export const { type, is, flawed } = isly
 		.string("value", ...values)

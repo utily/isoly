@@ -1,7 +1,7 @@
 import { isly } from "isly"
 import { Numeric as NumberNumeric } from "./Numeric"
 
-export type Number = typeof Number.values[number]
+export type Number = (typeof Number.values)[number]
 
 export namespace Number {
 	export import Numeric = NumberNumeric
@@ -58,7 +58,7 @@ export namespace Number {
 		"50",
 		"51",
 		"52",
-		"53",
+		"53"
 	] as const
 	export const { type, is, flawed } = isly
 		.string<Number>("value", ...values)

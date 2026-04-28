@@ -2,7 +2,7 @@ import { Transcoder } from "./Transcoder"
 
 export class Iso88591 extends Transcoder {
 	encode(data: string): Uint8Array {
-		return Uint8Array.from(data.split(""), c => utf8ToIso88591[c])
+		return Uint8Array.from(data.split(""), c => utf8ToIso88591[c]!)
 	}
 	decode(data: ArrayBufferView | undefined): string {
 		return !data
@@ -266,7 +266,7 @@ const iso88591ToUtf8: string[] = [
 	"ü",
 	"ý",
 	"þ",
-	"ÿ",
+	"ÿ"
 ]
 const utf8ToIso88591: { [character: string]: number } = {
 	"\u0000": 0,
@@ -524,5 +524,5 @@ const utf8ToIso88591: { [character: string]: number } = {
 	ü: 252,
 	ý: 253,
 	þ: 254,
-	ÿ: 255,
+	ÿ: 255
 }

@@ -10,7 +10,11 @@ export interface Parts {
 }
 
 export namespace Parts {
-	export const { type, is, flawed } = isly
+	export const {
+		type,
+		is,
+		flawed
+	}: isly.BindResult<Parts, isly.Object<Parts>> = isly
 		.object<Parts>({ year: isly.number(), week: Number.Numeric.type }, "isoly.Week.Parts")
 		.bind()
 	export function from(date: Date): Parts {

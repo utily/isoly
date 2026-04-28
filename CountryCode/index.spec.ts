@@ -42,7 +42,7 @@ describe("CountryCode", () => {
 		expect(isoly.CountryCode.Numeric.is(n)).toBe(true)
 		if (
 			![
-				280, // West Germany with fallback
+				280 // West Germany with fallback
 			].includes(n)
 		) {
 			expect(isoly.CountryCode.Numeric.from(isoly.CountryCode.Alpha3.from(isoly.CountryCode.Alpha2.from(n)))).toBe(n)
@@ -78,9 +78,8 @@ describe("CountryCode", () => {
 		"SK", // Slovakia
 		"SI", // Slovenia
 		"ES", // Spain
-		"SE", // Sweden
+		"SE" // Sweden
 	] as const)("isEea(%s)", country => expect(isoly.CountryCode.Alpha2.isEea(country)).toBe(true))
 	it.each(["US", "CN", "IN", "BR", "RU"] as const)("isEea(%s) == false", country =>
-		expect(isoly.CountryCode.Alpha2.isEea(country)).toBe(false)
-	)
+		expect(isoly.CountryCode.Alpha2.isEea(country)).toBe(false))
 })

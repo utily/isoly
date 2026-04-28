@@ -251,6 +251,6 @@ export namespace bs {
 		YT: "Majote",
 		ZA: "Južnoafrička Republika",
 		ZM: "Zambija",
-		ZW: "Zimbabv",
+		ZW: "Zimbabv"
 	}
 }

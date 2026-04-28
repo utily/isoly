@@ -251,6 +251,6 @@ export namespace cs {
 		ZM: "Zambie",
 		EH: "Západní Sahara",
 		ZW: "Zimbabwe",
-		XK: "Kosov",
+		XK: "Kosov"
 	}
 }

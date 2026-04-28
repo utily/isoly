@@ -2,7 +2,7 @@ import { isly } from "isly"
 import { Year } from "../Year"
 import { Numeric as MonthNumeric } from "./Numeric"
 
-export type Month = typeof Month.values[number]
+export type Month = (typeof Month.values)[number]
 
 export namespace Month {
 	export import Numeric = MonthNumeric
@@ -30,7 +30,7 @@ export namespace Month {
 				"09": 30,
 				"10": 31,
 				"11": 30,
-				"12": 31,
+				"12": 31
 			} as const
 		)[month]
 	}

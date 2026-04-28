@@ -7,17 +7,14 @@ describe("Encoding", () => {
 		["UTF-16", true],
 		["US-ASCII", false],
 		["ISO-8859-1", true],
-		["ISO 8859-1", false],
+		["ISO 8859-1", false]
 	])("is %s", (encoding, expected) => expect(isoly.Encoding.is(encoding)).toEqual(expected))
 	it.each(["UTF-8", "ISO-8859-1"] as const)("encode %s ", encoding =>
-		expect(isoly.Encoding.encode(encoding, sample)).toMatchSnapshot()
-	)
+		expect(isoly.Encoding.encode(encoding, sample)).toMatchSnapshot())
 	it.each(["UTF-8", "ISO-8859-1"] as const)("decode %s", encoding =>
-		expect(isoly.Encoding.decode(encoding, isoly.Encoding.encode(encoding, sample))).toEqual(sample)
-	)
+		expect(isoly.Encoding.decode(encoding, isoly.Encoding.encode(encoding, sample))).toEqual(sample))
 	it.each(["UTF-8", "ISO-8859-1"] as const)("decode(%s, undefined)", encoding =>
-		expect(isoly.Encoding.decode(encoding, undefined)).toEqual("")
-	)
+		expect(isoly.Encoding.decode(encoding, undefined)).toEqual(""))
 	it.each([
 		["US-ASCII", "ASCII"],
 		["ISO-IR-100", "ISO-8859-1"],
@@ -34,7 +31,7 @@ describe("Encoding", () => {
 		["WE8ISO8859P1", "ISO-8859-1"],
 		["ISO 8859-1", "ISO-8859-1"],
 		["US-ASCll", undefined],
-		...isoly.Encoding.values.map(v => [v, v]),
+		...isoly.Encoding.values.map(v => [v, v])
 	])("parse(%s)", (input, expected) => expect(isoly.Encoding.parse(input)).toEqual(expected))
 })
 it.each([
@@ -49,5 +46,5 @@ it.each([
 	["", [undefined, ""] as const],
 	["+123", ["+1", "23"] as const],
 	["+1", ["+1", ""] as const],
-	["+35850999", ["+358", "50999"] as const],
+	["+35850999", ["+358", "50999"] as const]
 ])("separate(%s)", (input, expected) => expect(isoly.CallingCode.separate(input)).toEqual(expected))

@@ -11,7 +11,11 @@ export namespace CountryCode {
 	export import Alpha3 = CountryCodeAlpha3
 	export import Name = CountryCodeName
 	export import Numeric = CountryCodeNumeric
-	export const { type, is, flawed } = isly
+	export const {
+		type,
+		is,
+		flawed
+	}: isly.BindResult<CountryCode, isly.Union<CountryCode>> = isly
 		.union<CountryCode>(Alpha2.type, Alpha3.type, Numeric.type)
 		.rename("isoly.CountryCode")
 		.bind()

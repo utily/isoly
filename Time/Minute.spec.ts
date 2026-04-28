@@ -9,20 +9,20 @@ describe("isoly.Time.Minute", () => {
 		["00", 0],
 		["59", 59],
 		["5", undefined],
-		["abc", undefined],
+		["abc", undefined]
 	])("parse %s", (input, expected) => expect(isoly.Time.Minute.parse(input)).toBe(expected))
 	it.each([
 		[0, "00"],
 		[59, "59"],
 		[60, undefined],
-		[-1, undefined],
+		[-1, undefined]
 	])("create %d", (input, expected) => expect(isoly.Time.Minute.create(input)).toBe(expected))
 	it.each([
 		[9, "09"],
-		[10, "10"],
+		[10, "10"]
 	])("create %d", (input, expected) => expect(isoly.Time.Minute.create(input)).toBe(expected))
 	it.each([
 		["09", 9],
-		["10", 10],
+		["10", 10]
 	])("parse %s", (input, expected) => expect(isoly.Time.Minute.parse(input)).toBe(expected))
 })

@@ -7,11 +7,15 @@ export interface DateSpan {
 }
 
 export namespace DateSpan {
-	export const { type, is, flawed } = isly
+	export const {
+		type,
+		is,
+		flawed
+	}: isly.BindResult<DateSpan, isly.Object<DateSpan>> = isly
 		.object<DateSpan>({
 			years: isly.number().optional(),
 			months: isly.number().optional(),
-			days: isly.number().optional(),
+			days: isly.number().optional()
 		})
 		.bind()
 }

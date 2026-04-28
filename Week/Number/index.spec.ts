@@ -12,6 +12,6 @@ describe("isoly.Week.Number", () => {
 		["53", 53],
 		["00", undefined],
 		["54", undefined],
-		["aa", undefined],
+		["aa", undefined]
 	])('Numeric.parse("%s") == %s', (value, expected) => expect(isoly.Week.Number.Numeric.parse(value)).toBe(expected))
 })
