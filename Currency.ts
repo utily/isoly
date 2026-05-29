@@ -478,7 +478,7 @@ export namespace Currency {
 			HNL: 2,
 			HRK: 2,
 			HTG: 2,
-			HUF: 2,
+			HUF: 0,
 			IDR: 2,
 			ILS: 2,
 			INR: 2,
